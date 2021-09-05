@@ -45,7 +45,6 @@ class CreateOrdersTable extends Migration
             $table->text('cancelled_cancel')->nullable();
             $table->string('service_status')->default('pending');
             $table->string('status')->default('pending');
-            $table->softDeletes();
             $table->timestamps();
             $table->softDeletes();
         });

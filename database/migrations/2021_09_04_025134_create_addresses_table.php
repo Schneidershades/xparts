@@ -20,9 +20,6 @@ class CreateAddressesTable extends Migration
             $table->string('address')->nullable();
             $table->string('state')->nullable();
             $table->string('postal_code')->nullable();
-            $table->foreignId('city_id')->nullable()->constrained();
-            $table->foreignId('state_id')->nullable()->constrained();
-            $table->foreignId('country_id')->nullable()->constrained();
             $table->boolean('default')->default(false);
             $table->softDeletes();
             $table->timestamps();
