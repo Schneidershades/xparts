@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\CategoryOne;
+use App\Models\CategoryThree;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Category\CategoryTwoResource;
 use App\Http\Resources\Category\CategoryTwoCollection;
@@ -18,5 +19,10 @@ class CategoryTwo extends Model
     public function categoryOne()
     {
         return $this->belongsTo(CategoryOne::class);
+    }
+
+    public function categoryThrees()
+    {
+        return $this->hasMany(CategoryThree::class);
     }
 }

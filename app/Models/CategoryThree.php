@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\CategoryTwo;
+use App\Models\CategoryThreePart;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Category\CategoryThreeResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,5 +18,10 @@ class CategoryThree extends Model
     public function categoryTwo()
     {
         return $this->belongsTo(CategoryTwo::class);
+    }
+
+    public function categoryThreeParts()
+    {
+        return $this->hasMany(CategoryThreePart::class);
     }
 }

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Part;
 use App\Models\User;
+use App\Models\OrderItem;
+use App\Models\XpartRequestVendorWatch;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Xpart\XpartRequestResource;
 use App\Http\Resources\Xpart\XpartRequestCollection;
@@ -24,5 +26,20 @@ class XpartRequest extends Model
     public function part()
     {
         return $this->belongsTo(Part::class);
+    }
+
+    public function categoryThree()
+    {
+        return $this->belongsTo(CategoryThreePart::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function xpartWatchRequests()
+    {
+        return $this->hasMany(XpartRequestVendorWatch::class);
     }
 }

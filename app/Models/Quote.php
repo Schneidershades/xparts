@@ -13,4 +13,5 @@ class Quote extends Model
     
     public $oneItem = QuoteResource::class;
     public $allItems = QuoteCollection::class;
+
 }

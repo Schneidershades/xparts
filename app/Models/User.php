@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Address;
+use App\Models\UserCart;
+use App\Models\XpartRequest;
+use Spatie\Permission\Traits\HasRoles;
+use App\Models\XpartRequestVendorWatch;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserCollection;
-use Spatie\Permission\Traits\HasRoles;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\Auth\PasswordResetNotification;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 {
@@ -75,5 +79,20 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     public function cart()
     {
         return $this->hasMany(UserCart::class);
+    }
+
+    public function xpartWatchRequests()
+    {
+        return $this->hasMany(XpartRequestVendorWatch::class, 'vendor_id');
+    }
+    
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public function xpartRequests()
+    {
+        return $this->hasMany(XpartRequest::class);
     }
 }

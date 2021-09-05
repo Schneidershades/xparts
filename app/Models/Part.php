@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\XpartRequest;
+use App\Models\CategoryThreePart;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Part\PartResource;
 use App\Http\Resources\Part\PartCollection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Part extends Model
 {
@@ -13,4 +15,14 @@ class Part extends Model
 
     public $oneItem = PartResource::class;
     public $allItems = PartCollection::class;
+
+    public function categoryThreeParts()
+    {
+        return $this->hasMany(CategoryThreePart::class);
+    }
+
+    public function xpartRequests()
+    {
+        return $this->hasMany(XpartRequest::class);
+    }
 }

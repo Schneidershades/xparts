@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Part;
+use App\Models\XpartRequest;
 use App\Models\CategoryThree;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,5 +25,10 @@ class CategoryThreePart extends Model
     public function categoryThree()
     {
         return $this->belongsTo(CategoryThree::class);
+    }
+
+    public function xpartRequests()
+    {
+        return $this->hasMany(XpartRequest::class);
     }
 }
