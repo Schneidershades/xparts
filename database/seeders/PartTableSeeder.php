@@ -18,11 +18,11 @@ class PartTableSeeder extends Seeder
     {
         Part::truncate();
   
-        $json1 = File::get("database/parts/json/part-1.json");
-        $json2 = File::get("database/parts/json/part-2.json");
-        $json3 = File::get("database/parts/json/part-3.json");
-        $json4 = File::get("database/parts/json/part-4.json");
-        $json5 = File::get("database/parts/json/part-5.json");
+        $json1 = File::get("database/json/parts/json/part-1.json");
+        $json2 = File::get("database/json/parts/json/part-2.json");
+        $json3 = File::get("database/json/parts/json/part-3.json");
+        $json4 = File::get("database/json/parts/json/part-4.json");
+        $json5 = File::get("database/json/parts/json/part-5.json");
         $countries1 = json_decode($json1);
         $countries2 = json_decode($json2);
         $countries3 = json_decode($json3);

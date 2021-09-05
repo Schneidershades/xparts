@@ -18,7 +18,7 @@ class CategoryThreePartTableSeeder extends Seeder
     {
         CategoryThreePart::truncate();
   
-        $json = File::get("database/category_3_x_part.json");
+        $json = File::get("database/json/category_3_x_part.json");
         $countries = json_decode($json);
   
         foreach ($countries as $key => $value) {

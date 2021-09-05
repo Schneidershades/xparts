@@ -17,7 +17,7 @@ class CategoryOneTableSeeder extends Seeder
     {
         CategoryOne::truncate();
   
-        $json = File::get("database/category_one.json");
+        $json = File::get("database/json/category_one.json");
         $countries = json_decode($json);
   
         foreach ($countries as $key => $value) {

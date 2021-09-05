@@ -18,7 +18,7 @@ class CategoryTwoTableSeeder extends Seeder
     {
         CategoryTwo::truncate();
   
-        $json = File::get("database/category_2.json");
+        $json = File::get("database/json/category_2.json");
         $countries = json_decode($json);
   
         foreach ($countries as $key => $value) {

@@ -16,9 +16,8 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('receipt_number')->nullable();
-            $table->integer('customer_id')->nullable()->unsigned()->index();
-            $table->integer('user_operator_id')->nullable()->unsigned()->index();            
-            $table->integer('address_id')->index()->unsigned()->nullable();
+            $table->foreignId('vendor_id')->nullable()->constrained('users');  
+            $table->foreignId('address_id')->nullable()->constrained();       
             $table->integer('vat_id')->index()->unsigned()->nullable();
             $table->integer('discount_id')->index()->unsigned()->nullable();
             $table->float('subtotal')->nullable();
