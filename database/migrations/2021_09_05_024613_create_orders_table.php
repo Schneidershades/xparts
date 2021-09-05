@@ -16,14 +16,16 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('receipt_number')->nullable();
-            $table->foreignId('vendor_id')->nullable()->constrained('users');  
+            $table->foreignId('user_id')->nullable()->constrained();  
             $table->foreignId('address_id')->nullable()->constrained();       
             $table->integer('vat_id')->index()->unsigned()->nullable();
             $table->integer('discount_id')->index()->unsigned()->nullable();
             $table->float('subtotal')->nullable();
+            $table->string('orderable_type')->nullable();
+            $table->integer('orderable_id')->nullable();
             $table->float('total')->nullable();
             $table->float('amount_paid')->nullable();
-            $table->float('discounted_amount')->nullable();
+            $table->float('discount_amount')->nullable();
             $table->string('action')->nullable();
             $table->integer('currency_id')->nullable();
             $table->string('payment_method')->nullable();

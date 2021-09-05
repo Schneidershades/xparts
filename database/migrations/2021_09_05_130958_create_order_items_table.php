@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuoteOrdersTable extends Migration
+class CreateOrderItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateQuoteOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('quote_orders', function (Blueprint $table) {
+        Schema::create('order_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->nullable()->constrained();
-            $table->foreignId('quote_id')->nullable()->constrained();
+            $table->string('itemable_type')->nullable();
+            $table->integer('itemable_id')->nullable();
+            $table->integer('quantity')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +31,6 @@ class CreateQuoteOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quote_orders');
+        Schema::dropIfExists('order_items');
     }
 }
