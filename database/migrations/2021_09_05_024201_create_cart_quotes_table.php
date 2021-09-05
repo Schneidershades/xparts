@@ -19,6 +19,7 @@ class CreateCartQuotesTable extends Migration
             $table->foreignId('quote_id')->nullable()->constrained();
             $table->integer('quantity')->unsigned()->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

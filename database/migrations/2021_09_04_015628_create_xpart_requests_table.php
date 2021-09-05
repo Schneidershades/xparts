@@ -22,6 +22,7 @@ class CreateXpartRequestsTable extends Migration
             $table->string('model')->nullable();
             $table->string('year')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

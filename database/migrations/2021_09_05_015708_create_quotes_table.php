@@ -28,6 +28,7 @@ class CreateQuotesTable extends Migration
             $table->float('price')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

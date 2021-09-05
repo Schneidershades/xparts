@@ -47,6 +47,7 @@ class CreateOrdersTable extends Migration
             $table->string('status')->default('pending');
             $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

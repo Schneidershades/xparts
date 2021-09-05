@@ -18,6 +18,7 @@ class CreatePartSubcategoriesTable extends Migration
             $table->string('name');
             $table->foreignId('part_category_id')->nullable()->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

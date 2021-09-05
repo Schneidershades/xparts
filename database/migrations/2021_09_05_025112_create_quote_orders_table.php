@@ -18,6 +18,7 @@ class CreateQuoteOrdersTable extends Migration
             $table->foreignId('order_id')->nullable()->constrained();
             $table->foreignId('quote_id')->nullable()->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
