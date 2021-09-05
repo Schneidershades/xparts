@@ -23,7 +23,7 @@ class CreateQuotesTable extends Migration
             $table->foreignId('part_condition_id')->nullable()->constrained();
             $table->string('brand')->nullable();
             $table->integer('quantity')->nullable();
-            $table->integer('part_number')->nullable();
+            $table->string('part_number')->nullable();
             $table->integer('part_warranty')->nullable();
             $table->float('price')->nullable();
             $table->text('description')->nullable();

@@ -15,7 +15,7 @@ class CreateXpartRequestsTable extends Migration
     {
         Schema::create('xpart_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('part_id')->nullable()->constrained();
             $table->string('vin');
             $table->string('make')->nullable();
