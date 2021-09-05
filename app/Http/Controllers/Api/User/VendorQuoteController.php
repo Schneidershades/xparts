@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class VendorQuoteController extends Controller
 {
-    //
+    public function show($id)
+    {
+        return $this->showOne(auth()->user()->xpartRequests->where('id', $id)->first());
+    }
 }
