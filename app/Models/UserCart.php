@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\User\UserCartResource;
 use App\Http\Resources\User\UserCartCollection;
@@ -13,4 +14,14 @@ class UserCart extends Model
     
     public $oneItem = UserCartResource::class;
     public $allItems = UserCartCollection::class;
+
+    public function cartable()
+    {
+        return $this->morphTo();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

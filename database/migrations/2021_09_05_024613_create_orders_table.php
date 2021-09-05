@@ -28,6 +28,7 @@ class CreateOrdersTable extends Migration
             $table->float('discount_amount')->nullable();
             $table->string('action')->nullable();
             $table->integer('currency_id')->nullable();
+            $table->string('currency')->nullable();
             $table->string('payment_method')->nullable();
             $table->string('payment_gateway')->nullable();
             $table->float('payment_gateway_charged_percentage')->nullable();

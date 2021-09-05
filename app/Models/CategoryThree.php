@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\CategoryTwo;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Category\CategoryThreeResource;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Http\Resources\Category\CategoryThreeCollection;
 
 class CategoryThree extends Model
@@ -12,4 +13,9 @@ class CategoryThree extends Model
     use HasFactory;
     public $oneItem = CategoryThreeResource::class;
     public $allItems = CategoryThreeCollection::class;
+
+    public function categoryTwo()
+    {
+        return $this->belongsTo(CategoryTwo::class);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\PartCategory;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Part\PartSubcategoryResource;
 use App\Http\Resources\Part\PartSubcategoryCollection;
@@ -13,4 +14,9 @@ class PartSubcategory extends Model
     
     public $oneItem = PartSubcategoryResource::class;
     public $allItems = PartSubcategoryCollection::class;
+
+    public function partCategory()
+    {
+        return $this->belongsTo(PartCategory::class);
+    }
 }

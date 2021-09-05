@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Address\AddressResource;
 use App\Http\Resources\Address\AddressCollection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Address extends Model
 {
@@ -13,4 +14,9 @@ class Address extends Model
     
     public $oneItem = AddressResource::class;
     public $allItems = AddressCollection::class;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

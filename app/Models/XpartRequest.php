@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Part;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Xpart\XpartRequestResource;
 use App\Http\Resources\Xpart\XpartRequestCollection;
@@ -13,5 +15,14 @@ class XpartRequest extends Model
     
     public $oneItem = XpartRequestResource::class;
     public $allItems = XpartRequestCollection::class;
-}
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function part()
+    {
+        return $this->belongsTo(Part::class);
+    }
 }
