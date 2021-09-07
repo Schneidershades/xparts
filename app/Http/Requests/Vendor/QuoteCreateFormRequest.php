@@ -5,7 +5,6 @@ namespace App\Http\Requests\Vendor;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
-/**
  * @OA\Schema(
  *      title="Quote Create Form Request Fields",
  *      descriptioQuote Create Form request body data",
@@ -139,7 +138,7 @@ class QuoteCreateFormRequest extends FormRequest
      * @var string
      */
     public $description;
-    
+
 
     /**
      * Determine if the user is authorized to make this request.

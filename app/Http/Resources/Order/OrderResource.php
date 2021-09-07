@@ -14,6 +14,40 @@ class OrderResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'receipt_number' => $this->receipt_number,
+            'user_id' => $this->user_id,
+            'address_id' => $this->address_id,
+            'vat_id' => $this->vat_id,
+            'discount_id' => $this->discount_id,
+            'subtotal' => $this->subtotal,
+            'orderable_type' => $this->orderable_type,
+            'orderable_id' => $this->orderable_id,
+            'total' => $this->total,
+            'amount_paid' => $this->amount_paid,
+            'discount_amount' => $this->discount_amount,
+            'action' => $this->action,
+            'currency_id' => $this->currency_id,
+            'currency' => $this->currency,
+            'payment_method' => $this->payment_method,
+            'payment_gateway' => $this->payment_gateway,
+            'payment_gateway_charged_percentage' => $this->payment_gateway_charged_percentage,
+            'payment_gateway_expected_charged_percentage' => $this->payment_gateway_expected_charged_percentage,
+            'payment_reference' => $this->payment_reference,
+            'payment_gateway_charge' => $this->payment_gateway_charge,
+            'payment_gateway_remittance' => $this->payment_gateway_remittance,
+            'payment_code' => $this->payment_code,
+            'payment_message' => $this->payment_message,
+            'payment_status' => $this->payment_status,
+            'platform_initiated' => $this->platform_initiated,
+            'transaction_initiated_date' => $this->transaction_initiated_date,
+            'transaction_initiated_time' => $this->transaction_initiated_time,
+            'date_time_paid' => $this->date_time_paid,
+            'date_cancelled' => $this->date_cancelled,
+            'cancelled_cancel' => $this->cancelled_cancel,
+            'service_status' => $this->service_status,
+            'status' => $this->status,
+        ];
     }
 }

@@ -14,6 +14,8 @@ class UserCartCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => UserCartResource::collection($this->collection),
+        ];
     }
 }

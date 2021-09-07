@@ -14,6 +14,8 @@ class QuoteCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => QuoteResource::collection($this->collection),
+        ];
     }
 }

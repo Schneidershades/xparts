@@ -14,6 +14,12 @@ class UserCartResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'user_id' => $this->user_id,
+            'cartable_type' => $this->cartable_type,
+            'cartable_id' => $this->cartable_id,
+            'quantity' => $this->quantity,
+        ];
     }
 }

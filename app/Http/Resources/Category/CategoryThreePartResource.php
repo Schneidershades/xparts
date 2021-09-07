@@ -14,6 +14,10 @@ class CategoryThreePartResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'part_id' => $this->part_id,
+            'category_three_id' => $this->category_three_id,
+        ];;
     }
 }

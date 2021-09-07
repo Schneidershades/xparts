@@ -12,11 +12,6 @@ class UserXpartRequestController extends Controller
         return $this->showAll(auth()->user()->userXpartRequest);
     }
 
-    public function show($id)
-    {
-        return $this->showOne(auth()->user()->userXpartRequest->where('id', $id)->first());
-    }
-
     public function destroy(Request $request, $id)
     {
         auth()->user()->quotes->where('id', $id)->first()->delete();

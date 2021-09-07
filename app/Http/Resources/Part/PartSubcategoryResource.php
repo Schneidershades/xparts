@@ -14,6 +14,10 @@ class PartSubcategoryResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'part_category_id' => $this->part_category_id,
+        ];
     }
 }

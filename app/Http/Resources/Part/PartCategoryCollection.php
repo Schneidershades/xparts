@@ -14,6 +14,8 @@ class PartCategoryCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => PartCategoryResource::collection($this->collection),
+        ];
     }
 }

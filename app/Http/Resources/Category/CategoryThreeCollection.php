@@ -14,6 +14,8 @@ class CategoryThreeCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => CategoryThreeResource::collection($this->collection),
+        ];
     }
 }

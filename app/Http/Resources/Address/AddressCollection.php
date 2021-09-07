@@ -14,6 +14,8 @@ class AddressCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => AddressResource::collection($this->collection),
+        ];
     }
 }

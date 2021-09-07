@@ -14,6 +14,8 @@ class PartConditionCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => PartConditionResource::collection($this->collection),
+        ];
     }
 }

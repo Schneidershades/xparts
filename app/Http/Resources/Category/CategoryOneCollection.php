@@ -14,6 +14,14 @@ class CategoryOneCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'user' => $this->user,
+            'name' => $this->name,
+            'address' => $this->address,
+            'state' => $this->state,
+            'postal_code' => $this->postal_code,
+            'default' => $this->default,
+        ];
     }
 }
