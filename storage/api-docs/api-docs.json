@@ -936,6 +936,81 @@
                     }
                 ]
             }
+        },
+        "/api/v1/vendor/assigned/xpart-requests": {
+            "get": {
+                "tags": [
+                    "Vendor"
+                ],
+                "summary": "allAssignedXpartRequest",
+                "description": "allAssignedXpartRequest",
+                "operationId": "allAssignedXpartRequest",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/vendor/assigned/xpart-requests/{id}": {
+            "delete": {
+                "tags": [
+                    "Vendor"
+                ],
+                "summary": "deleteAssignedXpartRequest",
+                "description": "deleteAssignedXpartRequest",
+                "operationId": "deleteAssignedXpartRequest",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Assigned ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -1147,7 +1222,7 @@
                                 },
                                 "price": {
                                     "type": "int",
-                                    "example": "1"
+                                    "example": "500000"
                                 },
                                 "description": {
                                     "type": "string",
