@@ -781,6 +781,437 @@
                 ]
             }
         },
+        "/api/v1/share/addresses": {
+            "get": {
+                "tags": [
+                    "Share"
+                ],
+                "summary": "allAddresses",
+                "description": "allAddresses",
+                "operationId": "allAddresses",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/addresses": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "postAddresses",
+                "description": "postAddresses",
+                "operationId": "postAddresses",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddressCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/addresses/{id}": {
+            "get": {
+                "tags": [
+                    "Share"
+                ],
+                "summary": "showAddresses",
+                "description": "showAddresses",
+                "operationId": "showAddresses",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Addresses ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "postAddresses",
+                "description": "postAddresses",
+                "operationId": "postAddresses",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddressUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Share"
+                ],
+                "summary": "deleteAddresses",
+                "description": "deleteAddresses",
+                "operationId": "deleteAddresses",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Addresses ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/orders": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "allOrders",
+                "description": "allOrders",
+                "operationId": "allOrders",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/orders/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "showOrders",
+                "description": "showOrders",
+                "operationId": "showOrders",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Order ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/vendor/quote/{xpart_requests_id}": {
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "showQuotesUnderXpartRequest",
+                "description": "showQuotesUnderXpartRequest",
+                "operationId": "showQuotesUnderXpartRequest",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Xpart Request ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/xpart-requests": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "allXpartRequest",
+                "description": "allXpartRequest",
+                "operationId": "allXpartRequest",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "postXpartRequests",
+                "description": "postXpartRequests",
+                "operationId": "postXpartRequests",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/XpartCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/xpart-requests/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "showXpartRequests",
+                "description": "showXpartRequests",
+                "operationId": "showXpartRequests",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Xpart Request ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/vendor/quotes": {
             "get": {
                 "tags": [
@@ -1015,6 +1446,22 @@
     },
     "components": {
         "schemas": {
+            "AddressCreateFormRequest": {
+                "title": "Address Create Form Request Fields",
+                "description": "Address Create Form request body data",
+                "required": [
+                    "email"
+                ],
+                "type": "object"
+            },
+            "AddressUpdateFormRequest": {
+                "title": "Address Update Form Request Fields",
+                "description": "Address Update Form request body data",
+                "required": [
+                    "email"
+                ],
+                "type": "object"
+            },
             "RoleCreateFormRequest": {
                 "title": "Role Create Form Request Fields",
                 "description": "Role Create request body data",
@@ -1169,6 +1616,82 @@
                         "description": "User/Vendor",
                         "type": "string",
                         "example": "User"
+                    }
+                },
+                "type": "object"
+            },
+            "XpartCreateFormRequest": {
+                "title": "Xpart Request Create Form Request Fields",
+                "description": "Xpart Request Create Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "xpart_request_id": {
+                        "title": "Xpart Request ID",
+                        "description": "Xpart Request ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "part_grade_id": {
+                        "title": "Part Grade ID",
+                        "description": "Part Grade ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "part_category_id": {
+                        "title": "Part Category ID",
+                        "description": "Part Category ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "part_subcategory_id": {
+                        "title": "Part SubcPart Category ID",
+                        "description": "Part SubcPart Category ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "part_condition_id": {
+                        "title": "Part Condition ID",
+                        "description": "Part Condition ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "brand": {
+                        "title": "Brand of the part",
+                        "description": "Brand of the parts",
+                        "type": "string",
+                        "example": "motorola"
+                    },
+                    "quantity": {
+                        "title": "Quantity",
+                        "description": "Quantity",
+                        "type": "integer",
+                        "example": "234"
+                    },
+                    "part_number": {
+                        "title": "Part Number",
+                        "description": "Part number",
+                        "type": "string",
+                        "example": "NCEI3043NEWIWW"
+                    },
+                    "part_warranty": {
+                        "title": "Part Warranty",
+                        "description": "Part Warranty",
+                        "type": "integer",
+                        "example": "3"
+                    },
+                    "price": {
+                        "title": "Part Price",
+                        "description": "Part Price",
+                        "type": "integer",
+                        "example": "3"
+                    },
+                    "description": {
+                        "title": "Description",
+                        "description": "Description",
+                        "type": "string",
+                        "example": "This is ......................."
                     }
                 },
                 "type": "object"
