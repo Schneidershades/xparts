@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * @OA\Schema(
  *      title="Quote Create Form Request Fields",
- *      descriptioQuote Create Form request body data",
+ *      description="Quote Create Form request body data",
  *      type="object",
  *      required={"email"}
  * )
@@ -15,130 +15,26 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class QuoteCreateFormRequest extends FormRequest
 {
-    /**
-     * @OA\Property(
-     *      title="Xpart Request ID",
-     *      description="Xpart Request ID",
-     *      example="1"
-     * )
-     *
-     * @var int
-     */
-    public $xpart_request_id;
 
     /**
-     * @OA\Property(
-     *      title="Part Grade ID",
-     *      description="Part Grade ID",
-     *      example="1"
-     * )
-     *
-     * @var int
-     */
-    public $part_grade_id;
-
-
-    /**
-     * @OA\Property(
-     *      title="Part Category ID",
-     *      description="Part Category ID",
-     *      example="1"
-     * )
-     *
-     * @var int
-     */
-    public $part_category_id;
-
-
-    /**
-     * @OA\Property(
-     *      title="Part SubcPart Category ID",
-     *      description="Part SubcPart Category ID",
-     *      example="1"
-     * )
-     *
-     * @var int
-     */
-    public $part_subcategory_id;
-
-
-    /**
-     * @OA\Property(
-     *      title="Part Condition ID",
-     *      description="Part Condition ID",
-     *      example="1"
-     * )
-     *
-     * @var int
-     */
-    public $part_condition_id;
-
-    /**
-     * @OA\Property(
-     *      title="Brand of the part",
-     *      description="Brand of the parts",
-     *      example="motorola"
-     * )
-     *
-     * @var string
-     */
-    public $brand;
-
-    /**
-     * @OA\Property(
-     *      title="Quantity",
-     *      description="Quantity",
-     *      example="234"
-     * )
-     *
-     * @var int
-     */
-    public $quantity;
-
-    /**
-     * @OA\Property(
-     *      title="Part Number",
-     *      description="Part number",
-     *      example="NCEI3043NEWIWW"
-     * )
-     *
-     * @var string
-     */
-    public $part_number;
-
-    /**
-     * @OA\Property(
-     *      title="Part Warranty",
-     *      description="Part Warranty",
-     *      example="3"
-     * )
-     *
-     * @var int
-     */
-    public $part_warranty;
-
-    /**
-     * @OA\Property(
-     *      title="Part Price",
-     *      description="Part Price",
-     *      example="3"
-     * )
-     *
-     * @var int
-     */
-    public $price;
-
-    /**
-     * @OA\Property(
-     *      title="Description",
-     *      description="Description",
-     *      example="This is ......................."
-     * )
-     *
-     * @var string
-     */
-    public $description;
-
+   *        @OA\Property(property="quotes", type="object", type="array",
+    *            @OA\Items(
+    *                @OA\Property(property="xpart_request_id", type="int", example="1"),
+    *                @OA\Property(property="part_grade_id", type="int", example="1"),
+    *                @OA\Property(property="part_category_id", type="int", example="1"),
+    *                @OA\Property(property="part_subcategory_id", type="int", example="1"),
+    *                @OA\Property(property="part_condition_id", type="int", example="1"),
+    *                @OA\Property(property="brand", type="string", example="Motorola"),
+    *                @OA\Property(property="quantity", type="int", example="1"),
+    *                @OA\Property(property="part_number", type="string", example="No5JesusStreet"),
+    *                @OA\Property(property="part_warranty", type="string", example="2"),
+    *                @OA\Property(property="price", type="int", example="500000"),
+    *                @OA\Property(property="description", type="string", example="description"),
+    *            ),
+    *        ),
+    *    ),
+    */
+    public $quotes;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -158,17 +54,18 @@ class QuoteCreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'xpart_request_id' => 'required|int',
-            'part_grade_id' => 'required|int',
-            'part_category_id' => 'required|int',
-            'part_subcategory_id' => 'required|int',
-            'part_condition_id' => 'required|int',
-            'brand' => 'required|string',
-            'quantity' => 'required|int',
-            'part_number' => 'required|string',
-            'part_warranty' => 'required|int',
-            'price' => 'required|int',
-            'description' => 'required|string',
+            'quotes' => 'array', 
+            'quotes.*.xpart_request_id' => 'required|int|exists:xpart_requests,id',
+            'quotes.*.part_grade_id' => 'required|int|exists:part_grades,id',
+            'quotes.*.part_category_id' => 'required|int|exists:part_categories,id',
+            'quotes.*.part_subcategory_id' => 'required|int|exists:part_subcategories,id',
+            'quotes.*.part_condition_id' => 'required|int|exists:part_conditions,id',
+            'quotes.*.brand' => 'required|string',
+            'quotes.*.quantity' => 'required|int',
+            'quotes.*.part_number' => 'required|string',
+            'quotes.*.part_warranty' => 'required|int',
+            'quotes.*.price' => 'required|int',
+            'quotes.*.description' => 'required|string',
         ];
     }
 }

@@ -780,6 +780,162 @@
                     }
                 ]
             }
+        },
+        "/api/v1/vendor/quotes": {
+            "get": {
+                "tags": [
+                    "Vendor"
+                ],
+                "summary": "allQuotes",
+                "description": "allQuotes",
+                "operationId": "allUsers",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Vendor"
+                ],
+                "summary": "postQuotes",
+                "description": "postQuotes",
+                "operationId": "postQuotes",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/QuoteCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/vendor/quotes/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "showQuotes",
+                "description": "showQuotes",
+                "operationId": "showQuotes",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Quote ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Vendor"
+                ],
+                "summary": "deleteQuotes",
+                "description": "deleteQuotes",
+                "operationId": "deleteQuotes",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Quote ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -938,6 +1094,68 @@
                         "description": "User/Vendor",
                         "type": "string",
                         "example": "User"
+                    }
+                },
+                "type": "object"
+            },
+            "QuoteCreateFormRequest": {
+                "title": "Quote Create Form Request Fields",
+                "description": "Quote Create Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "quotes": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "xpart_request_id": {
+                                    "type": "int",
+                                    "example": "1"
+                                },
+                                "part_grade_id": {
+                                    "type": "int",
+                                    "example": "1"
+                                },
+                                "part_category_id": {
+                                    "type": "int",
+                                    "example": "1"
+                                },
+                                "part_subcategory_id": {
+                                    "type": "int",
+                                    "example": "1"
+                                },
+                                "part_condition_id": {
+                                    "type": "int",
+                                    "example": "1"
+                                },
+                                "brand": {
+                                    "type": "string",
+                                    "example": "Motorola"
+                                },
+                                "quantity": {
+                                    "type": "int",
+                                    "example": "1"
+                                },
+                                "part_number": {
+                                    "type": "string",
+                                    "example": "No5JesusStreet"
+                                },
+                                "part_warranty": {
+                                    "type": "string",
+                                    "example": "2"
+                                },
+                                "price": {
+                                    "type": "int",
+                                    "example": "1"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "example": "description"
+                                }
+                            },
+                            "type": "object"
+                        }
                     }
                 },
                 "type": "object"
