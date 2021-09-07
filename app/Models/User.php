@@ -95,4 +95,9 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return $this->hasMany(XpartRequest::class);
     }
+
+    public function quotes()
+    {
+        return $this->hasMany(XpartRequest::class, 'vendor_id');
+    }
 }
