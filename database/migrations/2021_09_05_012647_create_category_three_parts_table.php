@@ -16,7 +16,7 @@ class CreateCategoryThreePartsTable extends Migration
         Schema::create('category_three_parts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('part_id')->nullable()->constrained();
-            $table->foreignId('category_three_id')->nullable()->constrained();
+            $table->foreignId('category_three_id')->nullable()->constrained('category_threes');
             $table->timestamps();
         });
     }
