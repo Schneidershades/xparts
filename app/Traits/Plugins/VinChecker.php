@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits\ApiProvider\SMS;
+namespace App\Traits\Plugins;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;

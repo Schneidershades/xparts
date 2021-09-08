@@ -45,7 +45,7 @@ class AddressController extends Controller
     * @OA\Post(
     *      path="/api/v1/user/addresses",
     *      operationId="postAddresses",
-    *      tags={"User"},
+    *      tags={"Share"},
     *      summary="postAddresses",
     *      description="postAddresses",
     *      @OA\RequestBody(
@@ -128,7 +128,7 @@ class AddressController extends Controller
     * @OA\Put(
     *      path="/api/v1/user/addresses/{id}",
     *      operationId="postAddresses",
-    *      tags={"User"},
+    *      tags={"Share"},
     *      summary="postAddresses",
     *      description="postAddresses",
     *      @OA\RequestBody(
