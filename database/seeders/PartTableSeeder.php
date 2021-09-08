@@ -43,7 +43,7 @@ class PartTableSeeder extends Seeder
             Part::create([
                 "id" => $value->id,
                 "title" => $value->title,
-                "image" => $value->image,
+                "image" => $value->_image,
                 "part_number" => $value->part_number,
                 "slug" => Str::slug($value->title .' '. $value->part_number, '-'),
             ]);
@@ -53,7 +53,7 @@ class PartTableSeeder extends Seeder
             Part::create([
                 "id" => $value->id,
                 "title" => $value->title,
-                "image" => $value->image,
+                "image" => $value->_image,
                 "part_number" => $value->part_number,
                 "slug" => Str::slug($value->title .' '. $value->part_number, '-'),
             ]);
@@ -63,7 +63,7 @@ class PartTableSeeder extends Seeder
             Part::create([
                 "id" => $value->id,
                 "title" => $value->title,
-                "image" => $value->image,
+                "image" => $value->_image,
                 "part_number" => $value->part_number,
                 "slug" => Str::slug($value->title .' '. $value->part_number, '-'),
             ]);
@@ -73,7 +73,7 @@ class PartTableSeeder extends Seeder
             Part::create([
                 "id" => $value->id,
                 "title" => $value->title,
-                "image" => $value->image,
+                "image" => $value->_image,
                 "part_number" => $value->part_number,
                 "slug" => Str::slug($value->title .' '. $value->part_number, '-'),
             ]);
