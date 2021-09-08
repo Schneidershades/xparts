@@ -15,8 +15,8 @@ class CreateCategoryOnesTable extends Migration
     {
         Schema::create('category_ones', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->index()->nullable();
-            $table->text('slug')->index()->nullable();
+            $table->string('title')->nullable();
+            $table->text('slug')->nullable();
             $table->timestamps();
         });
     }
