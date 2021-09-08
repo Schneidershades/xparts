@@ -15,11 +15,11 @@ class CreatePartsTable extends Migration
     {
         Schema::create('parts', function (Blueprint $table) {
             $table->id();
-            $table->text('title')->nullable();
-            $table->text('image')->nullable();
-            $table->text('part_number')->nullable();
+            $table->text('title')->index()->nullable();
+            $table->text('image')->index()->nullable();
+            $table->text('part_number')->index()->nullable();
             $table->text('overview')->nullable();
-            $table->text('slug')->nullable();
+            $table->text('slug')->index()->nullable();
             $table->timestamps();
         });
     }

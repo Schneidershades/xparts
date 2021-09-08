@@ -17,7 +17,7 @@ class CreateXpartRequestsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('part_id')->nullable()->constrained();
-            $table->string('vin');
+            $table->string('vin')->index();
             $table->string('make')->nullable();
             $table->string('model')->nullable();
             $table->string('year')->nullable();

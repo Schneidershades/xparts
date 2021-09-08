@@ -15,9 +15,9 @@ class CreateCategoryTwosTable extends Migration
     {
         Schema::create('category_twos', function (Blueprint $table) {
             $table->id();
-            $table->text('title')->nullable();
+            $table->text('title')->index()->nullable();
             $table->foreignId('category_one_id')->nullable()->constrained();
-            $table->text('slug')->nullable();
+            $table->text('slug')->index()->nullable();
             $table->timestamps();
         });
     }

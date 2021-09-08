@@ -15,11 +15,11 @@ class CreateCategoryThreesTable extends Migration
     {
         Schema::create('category_threes', function (Blueprint $table) {
             $table->id();
-            $table->text('title')->nullable();
+            $table->text('title')->index()->nullable();
             $table->text('image')->nullable();
-            $table->foreignId('category_two_id')->nullable()->constrained();
+            $table->foreignId('category_two_id')->index()->nullable()->constrained();
             $table->text('category_two_name')->nullable();
-            $table->text('slug')->nullable();
+            $table->text('slug')->index()->nullable();
             $table->timestamps();
         });
     }
