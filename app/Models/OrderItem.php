@@ -8,7 +8,7 @@ use App\Http\Resources\Order\OrderItemResource;
 use App\Http\Resources\Order\OrderItemCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class OrderItems extends Model
+class OrderItem extends Model
 {
     use HasFactory;
 
