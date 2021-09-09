@@ -17,5 +17,11 @@ Route::prefix('v1')->group(function () {
 		Route::get('/email/resend', 'VerificationController@resend')->name('verification.resend');
 		Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
 	});
+
+	Route::group(['namespace' => 'Api\Share'], function(){
+		Route::post('/check/vin', 'VinCheckerController');
+		Route::Resource('/addresses', 'AddressController');
+	});
+
 });
 
