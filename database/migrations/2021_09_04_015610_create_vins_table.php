@@ -36,6 +36,7 @@ class CreateVinsTable extends Migration
             $table->string('fuel_type')->nullable();
             $table->string('doors')->nullable();
             $table->string('driver_type')->nullable();
+            $table->integer('search_count')->default(0);
             $table->timestamps();
         });
     }

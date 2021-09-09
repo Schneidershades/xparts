@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Share;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\Plugins\VinChecker;
+use App\Models\Vin;
 
 class VinCheckerController extends Controller
 {
@@ -44,9 +45,23 @@ class VinCheckerController extends Controller
     */
     public function __invoke(Request $request)
     {
+        $vin = Vin::where('vin_number', $request->vin_number)->first();
+
+        if(!empty($vin)){
+            $vin->search_count += 1;
+            $vin->save();
+            return $this->showOne($vin);
+        }
+
         $checkerApi = new VinChecker();
-        // check if the API is already in our database;
+        $vinResponse =  $checkerApi->sendVin($request->vin_number);
         
-        return $checkerApi->sendVin($request->vin_number);
+        $model = new Vin;
+        $model = $this->contentAndDbIntersection($vinResponse, $model);
+        $model->save();
+
+        $vin = Vin::where('vin_number', $request->vin_number)->first();
+        $this->showOne($vin);
+
     }
 }
