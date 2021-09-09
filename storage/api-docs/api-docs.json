@@ -979,6 +979,48 @@
                 ]
             }
         },
+        "/api/v1/check/vin": {
+            "post": {
+                "tags": [
+                    "Share"
+                ],
+                "summary": "checkVin",
+                "description": "checkVin",
+                "operationId": "checkVin",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VinCheckerFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/user/orders": {
             "get": {
                 "tags": [
@@ -1680,6 +1722,22 @@
                         "description": "User/Vendor",
                         "type": "string",
                         "example": "User"
+                    }
+                },
+                "type": "object"
+            },
+            "VinCheckerFormRequest": {
+                "title": "VIN Checker Form Request Fields",
+                "description": "VIN Checker Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "vin_number": {
+                        "title": "VIN Number",
+                        "description": "VIN number",
+                        "type": "string",
+                        "example": "5TDZA22C14S086770"
                     }
                 },
                 "type": "object"

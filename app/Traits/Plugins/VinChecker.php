@@ -2,31 +2,53 @@
 
 namespace App\Traits\Plugins;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Exception\ClientException;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 
 class VinChecker
 {
-	public static function sendOtp($vin)
+	public static function sendVin($vin)
 	{
-		$rand = rand(1000, 9999);
+		$id = 'azfixit45com';
+		$key = 'k2c7jap3bq8cv2xjqz5c9s1zl5vm';
 
 		$response = Http::withOptions([
             'verify' => false,
-        ])->get('https://vindecodervehicle.com/api/', [
-		    'id' => 'YOURUSER',
-		    'key' => 'XXXXXXXXXXXXXXX',
+        ])->get('https://vindecodervehicle.com/api/v1/?/', [
+		    'id' => $id,
+		    'key' => $key,
 		    'vin' => $vin,
 		]);
+		
+		$res = json_decode($response->body(), true );
 
-		$otp = json_decode($response->body(), true);
+		if($res == null){
+			return [];
+		}
+
+		$vinResponse = $res['Results'][0];
 
         return [
+            'vin_number' => $vin,
+            'make' => $vinResponse['Make'],
+            'manufacturer' => $vinResponse['Manufacturer'],
+            'model' => $vinResponse['Model'],
+            'model_year' => $vinResponse['ModelYear'],
+            'plant_company_name' => $vinResponse['PlantCompanyName'],
+            'plant_country' => $vinResponse['PlantCountry'],
+            'plant_state' => $vinResponse['PlantState'],
+            'series' => $vinResponse['Series'],
+            'series_description' => $vinResponse['Series2'],
+            'vehicle_type' => $vinResponse['VehicleType'],
+            'trim' => $vinResponse['Trim'],
+            'body_class' => $vinResponse['BodyClass'],
+            'engine_configuration' => $vinResponse['EngineConfiguration'],
+            'engine_cylinders' => $vinResponse['EngineCylinders'],
+            'engine_hp' => $vinResponse['EngineHP'],
+            'engine_kw' => $vinResponse['EngineKW'],
+            'engine_model' => $vinResponse['EngineModel'],
+            'fuel_type' => $vinResponse['FuelTypePrimary'],
+            'doors' => $vinResponse['Doors'],
+            'driver_type' => $vinResponse['DriveType'],
         ];
 	}
 }
