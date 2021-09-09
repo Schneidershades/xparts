@@ -28,71 +28,15 @@ class XpartCreateFormRequest extends FormRequest
 
     /**
      * @OA\Property(
-     *      title="Category Three Part ID",
-     *      description="Category Three Part ID",
+     *      title="Vin Number",
+     *      description="Vin Number ID",
      *      example="1"
      * )
      *
      * @var int
      */
-    public $category_three_part_id;
-
-
-   
-    /**
-     * @OA\Property(
-     *      title="Part Number",
-     *      description="Part number",
-     *      example="NCEI3043NEWIWW"
-     * )
-     *
-     * @var string
-     */
-    public $part_number;
-
-    /**
-     * @OA\Property(
-     *      title="Car VIN",
-     *      description="Car VIN",
-     *      example="CNCIEI30330DN3993"
-     * )
-     *
-     * @var string
-     */
-    public $vin;
-
-    /**
-     * @OA\Property(
-     *      title="Car Make",
-     *      description="Car Make",
-     *      example="3"
-     * )
-     *
-     * @var int
-     */
-    public $make;
-
-    /**
-     * @OA\Property(
-     *      title="Car Model",
-     *      description="Car Model",
-     *      example="3"
-     * )
-     *
-     * @var int
-     */
-    public $model;
-
-    /**
-     * @OA\Property(
-     *      title="Car Year",
-     *      description="Car Year",
-     *      example="3"
-     * )
-     *
-     * @var int
-     */
-    public $year;
+    public $vin_id;
+    
 
     /**
      * Determine if the user is authorized to make this request.
@@ -113,11 +57,7 @@ class XpartCreateFormRequest extends FormRequest
     {
         return [
             'part_id' => 'required|int|exists:parts,id',
-            'category_three_part_id' => 'int|exists:category_three_parts,id',
-            'vin' => 'required|string',
-            'make' => 'required|string',
-            'model' => 'required|string',
-            'year' => 'required|string',        
+            'vin_id' => 'int|exists:vins,id',     
         ];
     }
 }
