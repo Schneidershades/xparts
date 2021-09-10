@@ -48,6 +48,6 @@ class PartsController extends Controller
     */
     public function index()
     {
-        return $this->showAll(Part::filter()->get());
+        return $this->showAll(Part::select(['id', 'name'])->filter()->get());
     }
 }
