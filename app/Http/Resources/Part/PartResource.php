@@ -17,10 +17,10 @@ class PartResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'image' => $this->image,
-            'part_number' => $this->part_number,
-            'overview' => $this->overview,
-            'slug' => $this->slug,
+            // 'image' => $this->image,
+            // 'part_number' => $this->part_number,
+            // 'overview' => $this->overview,
+            // 'slug' => $this->slug,
         ];
     }
 }
