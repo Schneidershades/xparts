@@ -843,9 +843,7 @@
                         "bearerAuth": []
                     }
                 ]
-            }
-        },
-        "/api/v1/user/addresses": {
+            },
             "post": {
                 "tags": [
                     "Share"
@@ -887,7 +885,7 @@
                 ]
             }
         },
-        "/api/v1/user/addresses/{id}": {
+        "/api/v1/share/addresses/{id}": {
             "get": {
                 "tags": [
                     "Share"
@@ -1011,7 +1009,7 @@
                 ]
             }
         },
-        "/api/v1/check/vin": {
+        "/api/v1/share/check-vin": {
             "post": {
                 "tags": [
                     "Share"
@@ -1741,7 +1739,7 @@
                         "title": "User username",
                         "description": "username of the user",
                         "type": "string",
-                        "example": "info@xpart.com"
+                        "example": "user10339222"
                     },
                     "password": {
                         "title": "User password",
