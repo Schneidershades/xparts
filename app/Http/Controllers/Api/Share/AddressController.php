@@ -76,7 +76,7 @@ class AddressController extends Controller
     */
     public function store(AddressCreateFormRequest $request)
     {
-        return $this->showMessage(auth()->user()->addresses->create($request->validated()));
+        return $this->showOne(auth()->user()->addresses()->create($request->validated()));
     }
 
     /**

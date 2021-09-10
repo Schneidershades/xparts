@@ -15,6 +15,14 @@ class Address extends Model
     public $oneItem = AddressResource::class;
     public $allItems = AddressCollection::class;
 
+    protected $fillable = [
+        'name',
+        'address',
+        'state',
+        'postal_code',
+        'primary_address',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
