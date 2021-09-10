@@ -18,4 +18,32 @@ class PartCollection extends ResourceCollection
             'data' => PartResource::collection($this->collection),
         ];
     }
+
+    public static function originalAttribute($index)
+    {
+        $attribute = [
+            'id' => 'id',
+            'title' => 'title',
+            'image' => 'image',
+            'part_number' => 'part_number',
+            'overview' => 'overview',
+            'slug' => 'slug',
+        ];
+
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
+
+     public static function transformedAttribute($index)
+    {
+        $attribute = [
+            'id' => 'id',
+            'title' => 'title',
+            'image' => 'image',
+            'part_number' => 'part_number',
+            'overview' => 'overview',
+            'slug' => 'slug',
+        ];
+
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
 }

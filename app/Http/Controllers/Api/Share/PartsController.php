@@ -9,13 +9,13 @@ class PartsController extends Controller
 {
     /**
     * @OA\Get(
-    *      path="/api/v1/share/parts?search={search}",
+    *      path="/api/v1/share/parts?title={search}",
     *      operationId="searchParts",
     *      tags={"Share"},
     *      summary="searchParts",
     *      description="searchParts",
     *      @OA\Parameter(
-    *          name="search",
+    *          name="title",
     *          description="Search Items",
     *          required=true,
     *          in="path",
@@ -47,6 +47,6 @@ class PartsController extends Controller
     */
     public function index()
     {
-        return Part::filter()->get();
+        return Part::all();
     }
 }
