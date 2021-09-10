@@ -53,7 +53,7 @@ class UserRegistrationFormRequest extends FormRequest
      * @OA\Property(
      *      title="User username",
      *      description="username of the user",
-     *      example="info@xpart.com"
+     *      example="user10339222"
      * )
      *
      * @var string
@@ -104,7 +104,7 @@ class UserRegistrationFormRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
             'username' => 'required|string|max:255|unique:users,username',
-            'phone' => 'required|int|unique:users',
+            'phone' => 'required|int|unique:users,phone',
             'password' => 'required|string|min:8',
             'role' => 'required|string|max:255|in:user,vendor',
         ];
