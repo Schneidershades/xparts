@@ -102,9 +102,9 @@ class UserRegistrationFormRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'username' => 'required|string|max:255|unique:users,username',
-            'phone' => 'required|int|unique:users,phone',
+            'email' => 'required|string|email|max:255|unique:users',
+            'username' => 'required|string|max:255|unique:users',
+            'phone' => 'required|int|unique:users',
             'password' => 'required|string|min:8',
             'role' => 'required|string|max:255|in:user,vendor',
         ];
