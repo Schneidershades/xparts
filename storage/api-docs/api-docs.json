@@ -1701,7 +1701,7 @@
                         "title": "User email",
                         "description": "Email of the user",
                         "type": "string",
-                        "example": "info@convertscript.com"
+                        "example": "user@xparts.com"
                     },
                     "password": {
                         "title": "User password",
@@ -1729,7 +1729,7 @@
                         "title": "User email",
                         "description": "Email of the user",
                         "type": "string",
-                        "example": "info@convertscript.com"
+                        "example": "user@xparts.com"
                     },
                     "phone": {
                         "title": "User phone",
