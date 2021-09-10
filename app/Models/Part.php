@@ -28,8 +28,6 @@ class Part extends Model
 
     public function scopeFilter($query)
     {
-        if(request('search') && strlen(request('search')) > 3){
-            $query->where('title', 'like', '%' . request('search') . '%');
-        }
+        $query->where('title', 'like', '%' . request('search') . '%');
     }
 }

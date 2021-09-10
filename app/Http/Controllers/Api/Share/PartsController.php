@@ -48,6 +48,10 @@ class PartsController extends Controller
     */
     public function index()
     {
+
+        if(request('search') && strlen(request('search')) < 3){
+            return $this->errorResponse('Cannot search less than 3 characters', 409);
+        }
         return $this->showAll(Part::select(['id', 'title'])->filter()->get());
     }
 }
