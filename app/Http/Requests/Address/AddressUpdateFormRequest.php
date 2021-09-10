@@ -52,7 +52,7 @@ class AddressUpdateFormRequest extends FormRequest
      * @OA\Property(
      *      title="User postal_code",
      *      description="postal_code of the user",
-     *      example="No 4 Gang street"
+     *      example="900233"
      * )
      *
      * @var string
@@ -88,11 +88,11 @@ class AddressUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'string|max:255',
             'address' => 'required|string',
-            'state' => 'required|string|max:15',
-            'postal_code' => 'required|boolean',
-            'primary_address' => 'required|boolean',
+            'state' => 'required|string',
+            'postal_code' => 'integer',
+            'primary_address' => 'boolean',
         ];
     }
 }

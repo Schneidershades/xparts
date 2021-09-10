@@ -120,21 +120,30 @@ class AddressController extends Controller
     */
     public function show($id)
     {
-        return $this->showMessage(auth()->user()->addresses->where('id', $id)->first());
+        return $this->showOne(auth()->user()->addresses->where('id', $id)->first());
     }
 
 
     /**
     * @OA\Put(
     *      path="/api/v1/share/addresses/{id}",
-    *      operationId="postAddresses",
+    *      operationId="updateAddresses",
     *      tags={"Share"},
-    *      summary="postAddresses",
-    *      description="postAddresses",
+    *      summary="updateAddresses",
+    *      description="updateAddresses",
     *      @OA\RequestBody(
     *          required=true,
     *          @OA\JsonContent(ref="#/components/schemas/AddressUpdateFormRequest")
     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Addresses ID",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -159,7 +168,8 @@ class AddressController extends Controller
     */
     public function update(AddressUpdateFormRequest $request, $id)
     {
-        return $this->showMessage(auth()->user()->addresses->update($request->validated()));
+        auth()->user()->addresses->where('id', $id)->first()->update($request->validated());
+        return $this->showOne(auth()->user()->addresses->where('id', $id)->first());
     }
 
     /**

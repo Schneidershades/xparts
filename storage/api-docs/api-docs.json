@@ -931,9 +931,20 @@
                 "tags": [
                     "Share"
                 ],
-                "summary": "postAddresses",
-                "description": "postAddresses",
-                "operationId": "postAddresses",
+                "summary": "updateAddresses",
+                "description": "updateAddresses",
+                "operationId": "updateAddresses",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Addresses ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1547,7 +1558,7 @@
                         "title": "User postal_code",
                         "description": "postal_code of the user",
                         "type": "string",
-                        "example": "No 4 Gang street"
+                        "example": "900233"
                     },
                     "primary_address": {
                         "title": "User primary address",
@@ -1587,7 +1598,7 @@
                         "title": "User postal_code",
                         "description": "postal_code of the user",
                         "type": "string",
-                        "example": "No 4 Gang street"
+                        "example": "900233"
                     },
                     "primary_address": {
                         "title": "User primary address",
