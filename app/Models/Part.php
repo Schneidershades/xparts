@@ -25,4 +25,11 @@ class Part extends Model
     {
         return $this->hasMany(XpartRequest::class);
     }
+
+    public function scopeFilter($query)
+    {
+        if(request('search') && strlen(request('search')) > 3){
+            $query->where('title', 'like', '%' . request('search') . '%');
+        }
+    }
 }

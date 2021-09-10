@@ -22,6 +22,7 @@ Route::prefix('v1')->group(function () {
 	Route::group(['prefix' => 'share', 'namespace' => 'Api\Share'], function(){
 		Route::post('check-vin', 'VinCheckerController');
 		Route::Resource('addresses', 'AddressController')->middleware('auth:api');
+		Route::Resource('parts', 'PartsController');
 	});
 
 });

@@ -1020,6 +1020,49 @@
                 ]
             }
         },
+        "/api/v1/share/parts?search={search}": {
+            "get": {
+                "tags": [
+                    "Share"
+                ],
+                "summary": "searchParts",
+                "description": "searchParts",
+                "operationId": "searchParts",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "path",
+                        "description": "Search Items",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/share/check-vin": {
             "post": {
                 "tags": [
