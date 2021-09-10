@@ -68,7 +68,7 @@ class PermissionSeeder extends Seeder
                 'name'                          => 'Admin Bsine',
                 'username'                      => 'admin-smoe',
                 'phone'                         => '2347030003324',
-                'email'                         => 'admin@xpart.com',
+                'email'                         => 'admin@xparts.com',
                 'password'                      => 'password',
                 'role'                          => $role->name,
             ]);
@@ -83,7 +83,7 @@ class PermissionSeeder extends Seeder
                 'name'                          => 'Vendor Bsine',
                 'username'                      => 'vendor-smoe',
                 'phone'                         => '2347030003334',
-                'email'                         => 'vendor@xpart.com',
+                'email'                         => 'vendor@xparts.com',
                 'password'                      => 'password',
                 'role'                          => $role->name,
             ]);
@@ -98,7 +98,7 @@ class PermissionSeeder extends Seeder
                 'name'                          => 'User Bsine',
                 'username'                      => 'user-smoe',
                 'phone'                         => '2347030003333',
-                'email'                         => 'user@xpart.com',
+                'email'                         => 'user@xparts.com',
                 'password'                      => 'password',
                 'role'                          => $role->name,
             ]);
