@@ -52,7 +52,7 @@ class AddressCreateFormRequest extends FormRequest
      * @OA\Property(
      *      title="User postal_code",
      *      description="postal_code of the user",
-     *      example="No 4 Gang street"
+     *      example="900233"
      * )
      *
      * @var string
@@ -88,9 +88,9 @@ class AddressCreateFormRequest extends FormRequest
     {
         return [
             'name' => 'string|max:255',
-            'address' => 'string',
-            'state' => 'string|max:15',
-            'postal_code' => 'boolean',
+            'address' => 'required|string',
+            'state' => 'required|string',
+            'postal_code' => 'integer',
             'primary_address' => 'boolean',
         ];
     }
