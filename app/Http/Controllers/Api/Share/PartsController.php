@@ -47,6 +47,6 @@ class PartsController extends Controller
     */
     public function index()
     {
-        return $this->showCollection(Part::filter()->get());
+        return Part::filter()->get();
     }
 }
