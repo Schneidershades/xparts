@@ -427,6 +427,38 @@
                 ]
             }
         },
+        "/api/v1/admin/vins": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "getVins",
+                "description": "getVins",
+                "operationId": "allVins",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/user/password/email": {
             "post": {
                 "tags": [
@@ -1755,41 +1787,11 @@
                         "type": "integer",
                         "example": "1"
                     },
-                    "category_three_part_id": {
-                        "title": "Category Three Part ID",
-                        "description": "Category Three Part ID",
+                    "vin_id": {
+                        "title": "Vin Number",
+                        "description": "Vin Number ID",
                         "type": "integer",
                         "example": "1"
-                    },
-                    "part_number": {
-                        "title": "Part Number",
-                        "description": "Part number",
-                        "type": "string",
-                        "example": "NCEI3043NEWIWW"
-                    },
-                    "vin": {
-                        "title": "Car VIN",
-                        "description": "Car VIN",
-                        "type": "string",
-                        "example": "CNCIEI30330DN3993"
-                    },
-                    "make": {
-                        "title": "Car Make",
-                        "description": "Car Make",
-                        "type": "integer",
-                        "example": "3"
-                    },
-                    "model": {
-                        "title": "Car Model",
-                        "description": "Car Model",
-                        "type": "integer",
-                        "example": "3"
-                    },
-                    "year": {
-                        "title": "Car Year",
-                        "description": "Car Year",
-                        "type": "integer",
-                        "example": "3"
                     }
                 },
                 "type": "object"
