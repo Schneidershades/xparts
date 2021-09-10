@@ -19,7 +19,7 @@ trait ApiResponder
         return response()->json(['data' => ['error' => $message, 'code' => $code]], $code);
     }
 
-    private function showCollection($data, $code)
+    private function showCollection($data, $code = 200)
     {
         return response()->json($data, $code);
     }
