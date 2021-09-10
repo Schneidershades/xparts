@@ -9,10 +9,9 @@ use App\Models\Vin;
 
 class VinCheckerController extends Controller
 {
-
     /**
     * @OA\Post(
-    *      path="/api/v1/check/vin",
+    *      path="/api/v1/share/check-vin",
     *      operationId="checkVin",
     *      tags={"Share"},
     *      summary="checkVin",

@@ -43,7 +43,7 @@ class AddressController extends Controller
     }
     /**
     * @OA\Post(
-    *      path="/api/v1/user/addresses",
+    *      path="/api/v1/share/addresses",
     *      operationId="postAddresses",
     *      tags={"Share"},
     *      summary="postAddresses",
@@ -81,7 +81,7 @@ class AddressController extends Controller
 
     /**
     * @OA\Get(
-    *      path="/api/v1/user/addresses/{id}",
+    *      path="/api/v1/share/addresses/{id}",
     *      operationId="showAddresses",
     *      tags={"Share"},
     *      summary="showAddresses",
@@ -126,7 +126,7 @@ class AddressController extends Controller
 
     /**
     * @OA\Put(
-    *      path="/api/v1/user/addresses/{id}",
+    *      path="/api/v1/share/addresses/{id}",
     *      operationId="postAddresses",
     *      tags={"Share"},
     *      summary="postAddresses",
@@ -164,7 +164,7 @@ class AddressController extends Controller
 
     /**
     * @OA\Delete(
-    *      path="/api/v1/user/addresses/{id}",
+    *      path="/api/v1/share/addresses/{id}",
     *      operationId="deleteAddresses",
     *      tags={"Share"},
     *      summary="deleteAddresses",
