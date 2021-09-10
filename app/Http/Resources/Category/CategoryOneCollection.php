@@ -15,13 +15,29 @@ class CategoryOneCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'user' => $this->user,
-            'name' => $this->name,
-            'address' => $this->address,
-            'state' => $this->state,
-            'postal_code' => $this->postal_code,
-            'default' => $this->default,
+            'data' => CategoryOneResource::collection($this->collection),
         ];
+    }
+
+    public static function originalAttribute($index)
+    {
+        $attribute = [
+            'id' => 'id',
+            'title' => 'title',
+            'slug' => 'slug',
+        ];
+
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
+
+    public static function transformedAttribute($index)
+    {
+        $attribute = [
+            'id' => 'id',
+            'title' => 'title',
+            'slug' => 'slug',
+        ];
+
+        return isset($attribute[$index]) ? $attribute[$index] : null;
     }
 }

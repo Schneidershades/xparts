@@ -1020,7 +1020,7 @@
                 ]
             }
         },
-        "/api/v1/share/parts?title={search}": {
+        "/api/v1/share/parts?title={title}": {
             "get": {
                 "tags": [
                     "Share"
@@ -1033,7 +1033,7 @@
                         "name": "title",
                         "in": "path",
                         "description": "Search Items",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }

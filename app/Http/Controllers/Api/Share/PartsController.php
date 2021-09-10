@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api\Share;
 
-use App\Http\Controllers\Controller;
 use App\Models\Part;
+use App\Models\CategoryOne;
+use App\Http\Controllers\Controller;
 
 class PartsController extends Controller
 {
@@ -15,7 +16,7 @@ class PartsController extends Controller
     *      summary="searchParts",
     *      description="searchParts",
     *      @OA\Parameter(
-    *          name="title",
+    *          name="search",
     *          description="Search Items",
     *          required=true,
     *          in="path",
@@ -47,6 +48,6 @@ class PartsController extends Controller
     */
     public function index()
     {
-        return Part::filter()->get();
+        return $this->showAll(Part::filter()->get());
     }
 }
