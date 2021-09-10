@@ -1020,7 +1020,7 @@
                 ]
             }
         },
-        "/api/v1/share/parts?search={search}": {
+        "/api/v1/share/parts?title={search}": {
             "get": {
                 "tags": [
                     "Share"
@@ -1030,7 +1030,7 @@
                 "operationId": "searchParts",
                 "parameters": [
                     {
-                        "name": "search",
+                        "name": "title",
                         "in": "path",
                         "description": "Search Items",
                         "required": true,
