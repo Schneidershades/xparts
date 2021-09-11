@@ -79,27 +79,16 @@ class QuoteController extends Controller
 
     public function store(QuoteCreateFormRequest $request)
     {
-        return $request->quotes;
-        
         $auth = auth()->user()->id;
-        collect($request->quotes)->each(function ($quote) use ($auth){
-            Quote::create([
-                "xpart_request_id" => $quote['xpart_request_id'],
-                "part_grade_id" => $quote['part_grade_id'],
-                "part_category_id" => $quote['part_category_id'],
-                "part_subcategory_id" => $quote['part_subcategory_id'],
-                "part_condition_id" => $quote['part_condition_id'],
-                "brand" => $quote['brand'],
-                "quantity" => $quote['quantity'],
-                "part_number" => $quote['part_number'],
-                "part_warranty" => $quote['part_warranty'],
-                "price" => $quote['price'],
-                "description" => $quote['description'],
-                "vendor_id" => $auth,
+         collect($request['quotes'])->each(function ($quote) use ($auth){
+            $model = new Quote;
+            $model = $this->contentAndDbIntersection($quote, $model, [], [
+                'vendor_id' => $auth
             ]);
+            $model->save();
         });
 
-        // return $this->showOne(auth()->user()->quotes()->create($request->validated()));
+        return $this->showAll(auth()->user()->quotes);
     }
 
     /**

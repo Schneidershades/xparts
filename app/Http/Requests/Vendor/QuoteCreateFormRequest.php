@@ -53,7 +53,7 @@ class QuoteCreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'quotes' => 'array', 
+            'quotes' => 'required|array', 
             'quotes.*.xpart_request_id' => 'required|int|exists:xpart_requests,id',
             'quotes.*.part_grade_id' => 'required|int|exists:part_grades,id',
             'quotes.*.part_category_id' => 'required|int|exists:part_categories,id',
