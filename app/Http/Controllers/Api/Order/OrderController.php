@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\Order;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
@@ -12,10 +11,10 @@ class OrderController extends Controller
     /**
     * @OA\Get(
     *      path="/api/v1/orders",
-    *      operationId="orders",
+    *      operationId="allOrders",
     *      tags={"User"},
-    *      summary="orders",
-    *      description="orders",
+    *      summary="allOrders",
+    *      description="allOrders",
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -45,11 +44,11 @@ class OrderController extends Controller
 
      /**
     * @OA\Post(
-    *      path="/api/v1/cart",
-    *      operationId="postCart",
+    *      path="/api/v1/orders",
+    *      operationId="postOrders",
     *      tags={"User"},
-    *      summary="postCart",
-    *      description="postCart",
+    *      summary="postOrders",
+    *      description="postOrders",
     *      @OA\RequestBody(
     *          required=true,
     *          @OA\JsonContent(ref="#/components/schemas/CartCreateFormRequest")
