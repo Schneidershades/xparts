@@ -76,7 +76,7 @@ class XpartRequestController extends Controller
     */
     public function store(XpartCreateFormRequest $request)
     {
-        return $this->showOne(auth()->user()->xpartRequests->create($request->validated()));
+        return $this->showOne(auth()->user()->xpartRequests()->create($request->validated()));
     }
 
     /**
