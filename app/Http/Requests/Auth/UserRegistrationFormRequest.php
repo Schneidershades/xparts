@@ -106,7 +106,7 @@ class UserRegistrationFormRequest extends FormRequest
             'username' => 'required|string|max:255|unique:users,username',
             'phone' => 'required|int|unique:users,phone',
             'password' => 'required|string|min:8',
-            'role' => 'required|string|max:255|in:user,vendor',
+            'role' => 'required|string|max:255|in:User,Vendor',
         ];
     }
 }
