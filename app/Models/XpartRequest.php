@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Vin;
 use App\Models\Part;
 use App\Models\User;
+use App\Models\Quote;
 use App\Models\OrderItem;
 use App\Models\CategoryThreePart;
 use App\Models\XpartRequestVendorWatch;
@@ -53,5 +54,10 @@ class XpartRequest extends Model
     public function xpartWatchRequests()
     {
         return $this->hasMany(XpartRequestVendorWatch::class);
+    }
+
+    public function vendorQuotes()
+    {
+        return $this->hasMany(Quote::class);
     }
 }

@@ -82,6 +82,6 @@ class OrderController extends Controller
     */
     public function show($id)
     {
-        return $this->showOne(auth()->user()->orders->where('id', $id)->with('quoteOrders')->first());
+        return $this->showOne(auth()->user()->orders->where('id', $id)->first());
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Resources\Xpart;
 
 use App\Http\Resources\Vin\VinResource;
 use App\Http\Resources\Part\PartResource;
+use App\Http\Resources\Vin\VinCollection;
+use App\Http\Resources\Quote\QuoteResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class XpartRequestResource extends JsonResource
@@ -20,6 +22,7 @@ class XpartRequestResource extends JsonResource
             'id' => $this->id,
             'part' => new PartResource($this->part),
             'vin' => new VinResource($this->vin),
+            'quotes' => QuoteResource::collection($this->vendorQuotes),
         ];
     }
 }
