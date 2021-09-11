@@ -9,7 +9,7 @@ class XpartRequestController extends Controller
 {
     /**
     * @OA\Get(
-    *      path="/api/v1/user/xpart-requests",
+    *      path="/api/v1/xpart-requests",
     *      operationId="allXpartRequest",
     *      tags={"User"},
     *      summary="allXpartRequest",
@@ -43,7 +43,7 @@ class XpartRequestController extends Controller
 
     /**
     * @OA\Post(
-    *      path="/api/v1/user/xpart-requests",
+    *      path="/api/v1/xpart-requests",
     *      operationId="postXpartRequests",
     *      tags={"User"},
     *      summary="postXpartRequests",
@@ -81,7 +81,7 @@ class XpartRequestController extends Controller
 
     /**
     * @OA\Get(
-    *      path="/api/v1/user/xpart-requests/{id}",
+    *      path="/api/v1/xpart-requests/{id}",
     *      operationId="showXpartRequests",
     *      tags={"User"},
     *      summary="showXpartRequests",

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Cart;
 
 use App\Http\Controllers\Controller;
 
-class EmptyController extends Controller
+class EmptyCartController extends Controller
 {
     /**
     * @OA\Get(

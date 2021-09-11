@@ -18,8 +18,6 @@ Route::prefix('v1')->group(function () {
 		Route::get('/email/resend', 'VerificationController@resend')->name('verification.resend');
 		Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
 
-		Route::Resource('xpart-requests', 'XpartRequestController');
-		Route::Resource('vendor-quote', 'VendorQuoteController');
 		
 	});
 
@@ -27,6 +25,8 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('cart', 'Cart\CartController');
 		Route::Resource('empty-cart', 'Cart\EmptyCartController');
 		Route::Resource('orders', 'Order\OrderController');
+		Route::Resource('vendor-quote', 'User\VendorQuoteController');
+		Route::Resource('xpart-requests', 'User\XpartRequestController');
 	});
 
 	Route::group(['prefix' => 'share', 'namespace' => 'Api\Share'], function(){

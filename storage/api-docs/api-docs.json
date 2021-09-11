@@ -1587,7 +1587,7 @@
                 ]
             }
         },
-        "/api/v1/user/xpart-requests": {
+        "/api/v1/xpart-requests": {
             "get": {
                 "tags": [
                     "User"
@@ -1659,7 +1659,7 @@
                 ]
             }
         },
-        "/api/v1/user/xpart-requests/{id}": {
+        "/api/v1/xpart-requests/{id}": {
             "get": {
                 "tags": [
                     "User"
