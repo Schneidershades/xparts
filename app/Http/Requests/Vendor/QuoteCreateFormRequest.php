@@ -15,9 +15,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class QuoteCreateFormRequest extends FormRequest
 {
-
     /**
-   *        @OA\Property(property="quotes", type="object", type="array",
+    *       @OA\Property(property="quotes", type="object", type="array",
     *            @OA\Items(
     *                @OA\Property(property="xpart_request_id", type="int", example="1"),
     *                @OA\Property(property="part_grade_id", type="int", example="1"),

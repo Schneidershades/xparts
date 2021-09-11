@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Quote;
 use App\Models\Address;
 use App\Models\UserCart;
 use App\Models\XpartRequest;
@@ -98,6 +99,6 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 
     public function quotes()
     {
-        return $this->hasMany(XpartRequest::class, 'vendor_id');
+        return $this->hasMany(Quote::class, 'vendor_id');
     }
 }

@@ -3,6 +3,12 @@
 namespace App\Models;
 
 use App\Cart\Cart;
+use App\Models\User;
+use App\Models\PartGrade;
+use App\Models\PartCategory;
+use App\Models\XpartRequest;
+use App\Models\PartCondition;
+use App\Models\PartSubcategory;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Quote\QuoteResource;
 use App\Http\Resources\Quote\QuoteCollection;
@@ -11,6 +17,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Quote extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "xpart_request_id",
+        "part_grade_id",
+        "part_category_id",
+        "part_subcategory_id",
+        "part_condition_id",
+        "brand",
+        "quantity",
+        "part_number",
+        "part_warranty",
+        "price",
+        "description"
+    ];
     
     public $oneItem = QuoteResource::class;
     public $allItems = QuoteCollection::class;
@@ -44,5 +64,11 @@ class Quote extends Model
     {
         return $this->belongsTo(PartCondition::class);
     }
+
+    public function vendors()
+    {
+        return $this->belongsTo(User::class, 'vendor_id');
+    }
+
 
 }
