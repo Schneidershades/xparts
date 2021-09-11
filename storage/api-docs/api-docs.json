@@ -813,7 +813,7 @@
                 ]
             }
         },
-        "/api/v1/user/cart": {
+        "/api/v1/cart": {
             "get": {
                 "tags": [
                     "User"
@@ -885,7 +885,7 @@
                 ]
             }
         },
-        "/api/v1/user/cart/{id}": {
+        "/api/v1/cart/{id}": {
             "put": {
                 "tags": [
                     "User"
@@ -979,7 +979,7 @@
                 ]
             }
         },
-        "/api/v1/user/empty-cart": {
+        "/api/v1/empty-cart": {
             "get": {
                 "tags": [
                     "User"
@@ -987,6 +987,172 @@
                 "summary": "emptyCart",
                 "description": "emptyCart",
                 "operationId": "emptyCart",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/orders": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "orders",
+                "description": "orders",
+                "operationId": "orders",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "postOrders",
+                "description": "postOrders",
+                "operationId": "postOrders",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OrderCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/orders/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "showOrders",
+                "description": "showOrders",
+                "operationId": "showOrders",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Order ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "updateOrders",
+                "description": "updateOrders",
+                "operationId": "updateOrders",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Addresses ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OrderUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -2044,6 +2210,22 @@
                         "example": "1"
                     }
                 },
+                "type": "object"
+            },
+            "OrderCreateFormRequest": {
+                "title": "Order Create Form Request Fields",
+                "description": "Order Create Form request body data",
+                "required": [
+                    "email"
+                ],
+                "type": "object"
+            },
+            "OrderUpdateFormRequest": {
+                "title": "Order Update Form Request Fields",
+                "description": "Order Update Form request body data",
+                "required": [
+                    "email"
+                ],
                 "type": "object"
             },
             "VinCheckerFormRequest": {
