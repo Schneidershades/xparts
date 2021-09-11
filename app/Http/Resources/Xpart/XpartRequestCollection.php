@@ -14,6 +14,8 @@ class XpartRequestCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => XpartRequestResource::collection($this->collection),
+        ];
     }
 }

@@ -16,16 +16,16 @@ class DatabaseSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $this->call(PermissionSeeder::class);
-        $this->call(CategoryOneTableSeeder::class);
-        $this->call(CategoryTwoTableSeeder::class);
-        $this->call(CategoryThreePartTableSeeder::class);
-        $this->call(CategoryThreeTableSeeder::class);
-        $this->call(CategoryThreePartTableSeeder::class);
+        // $this->call(CategoryOneTableSeeder::class);
+        // $this->call(CategoryTwoTableSeeder::class);
+        // $this->call(CategoryThreePartTableSeeder::class);
+        // $this->call(CategoryThreeTableSeeder::class);
+        // $this->call(CategoryThreePartTableSeeder::class);
         $this->call(PartCategoryTableSeeder::class);
         $this->call(PartConditionTableSeeder::class);
         $this->call(PartGradeTableSeeder::class);
         $this->call(PartSubcategoryTableSeeder::class);
-        $this->call(PartTableSeeder::class);
+        // $this->call(PartTableSeeder::class);
         // $this->call(RoleTableSeeder::class);
         // $this->call(UsersTableSeeder::class);
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');

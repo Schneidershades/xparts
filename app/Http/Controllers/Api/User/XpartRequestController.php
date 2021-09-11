@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\XpartRequestVendorWatch;
 use App\Http\Requests\User\XpartCreateFormRequest;
 
 class XpartRequestController extends Controller
@@ -76,9 +78,18 @@ class XpartRequestController extends Controller
     */
     public function store(XpartCreateFormRequest $request)
     {
-        return $request->validated();
-        
-        return $this->showOne(auth()->user()->xpartRequests()->create($request->validated()));
+        $users = User::select('id')->where('role', 'vendor')->get();
+
+        $xpartRequest = auth()->user()->xpartRequests()->create($request->validated());
+
+        collect($users)->each(function ($user) use ($xpartRequest){
+            XpartRequestVendorWatch::insert([
+                'xpart_request_id'=> $xpartRequest->id,
+                'vendor_id'=> $user['id'],
+            ]);
+        });
+
+        return $this->showOne($xpartRequest);
     }
 
     /**
@@ -123,6 +134,6 @@ class XpartRequestController extends Controller
     */
     public function show($id)
     {
-        return $this->showOne(auth()->user()->xpartRequests->where('id', $id)->with('vendorQuotes')->first());
+        return $this->showOne(auth()->user()->xpartRequests->where('id', $id)->first());
     }
 }

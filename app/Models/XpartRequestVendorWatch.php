@@ -12,6 +12,10 @@ use App\Http\Resources\Xpart\XpartRequestVendorWatchCollection;
 class XpartRequestVendorWatch extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'xpart_request_id'
+    ];
     
     public $oneItem = XpartRequestVendorWatchResource::class;
     public $allItems = XpartRequestVendorWatchCollection::class;

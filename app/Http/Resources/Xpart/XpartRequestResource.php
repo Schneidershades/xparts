@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Xpart;
 
+use App\Http\Resources\Vin\VinResource;
+use App\Http\Resources\Part\PartResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class XpartRequestResource extends JsonResource
@@ -14,6 +16,10 @@ class XpartRequestResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'part' => new PartResource($this->part),
+            'vin' => new VinResource($this->vin),
+        ];
     }
 }

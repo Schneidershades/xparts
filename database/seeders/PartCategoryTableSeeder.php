@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\PartCategory;
-use Illuminate\Support\Facades\File;
+use App\Models\Part;
 
 class PartCategoryTableSeeder extends Seeder
 {
@@ -15,6 +15,16 @@ class PartCategoryTableSeeder extends Seeder
      */
     public function run()
     {
+        Part::Create([
+            'title'             => 'electrical-303',
+            'part_number'             => 'electrical-evniw',
+        ]);
+
+        Part::Create([
+            'title'             => 'electrical-belt',
+            'part_number'             => 'electrical-39302',
+        ]);
+
         PartCategory::Create([
             'name'             => 'electrical',
         ]);
