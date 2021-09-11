@@ -11,10 +11,10 @@ class OrderController extends Controller
     /**
     * @OA\Get(
     *      path="/api/v1/orders",
-    *      operationId="allOrders",
+    *      operationId="orders",
     *      tags={"User"},
-    *      summary="allOrders",
-    *      description="allOrders",
+    *      summary="orders",
+    *      description="orders",
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -44,14 +44,14 @@ class OrderController extends Controller
 
      /**
     * @OA\Post(
-    *      path="/api/v1/orders",
-    *      operationId="postOrders",
+    *      path="/api/v1/cart",
+    *      operationId="postCart",
     *      tags={"User"},
-    *      summary="postOrders",
-    *      description="postOrders",
+    *      summary="postCart",
+    *      description="postCart",
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/CartCreateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/OrderCreateFormRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -99,7 +99,6 @@ class OrderController extends Controller
     *      tags={"User"},
     *      summary="showOrders",
     *      description="showOrders",
-    *      
      *      @OA\Parameter(
      *          name="id",
      *          description="Order ID",
@@ -145,7 +144,7 @@ class OrderController extends Controller
     *      description="updateOrders",
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/CartUpdateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/OrderUpdateFormRequest")
     *      ),
      *      @OA\Parameter(
      *          name="id",
