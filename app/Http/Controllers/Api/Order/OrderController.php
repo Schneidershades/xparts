@@ -44,11 +44,11 @@ class OrderController extends Controller
 
      /**
     * @OA\Post(
-    *      path="/api/v1/cart",
-    *      operationId="postCart",
+    *      path="/api/v1/orders",
+    *      operationId="postOrders",
     *      tags={"User"},
-    *      summary="postCart",
-    *      description="postCart",
+    *      summary="postOrders",
+    *      description="postOrders",
     *      @OA\RequestBody(
     *          required=true,
     *          @OA\JsonContent(ref="#/components/schemas/OrderCreateFormRequest")
@@ -140,7 +140,7 @@ class OrderController extends Controller
     *      path="/api/v1/orders/{id}",
     *      operationId="updateOrders",
     *      tags={"User"},
-    *      summary="updateOrders,
+    *      summary="updateOrders",
     *      description="updateOrders",
     *      @OA\RequestBody(
     *          required=true,
