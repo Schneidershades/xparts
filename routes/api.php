@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::group(['prefix' => 'user', 'namespace' => 'Api\Auth'], function(){
+
 		Route::post('register', 'UserController@register');
     	Route::post('login', 'UserController@login');
     	Route::post('logout', 'UserController@logout');
@@ -17,12 +18,27 @@ Route::prefix('v1')->group(function () {
 		Route::get('/email/resend', 'VerificationController@resend')->name('verification.resend');
 		Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
 
+		Route::Resource('xpart-requests', 'XpartRequestController');
+		Route::Resource('vendor-quote', 'VendorQuoteController');
+		Route::Resource('orders', 'OrderController');
+		
+	});
+
+	Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function(){
+		Route::Resource('cart', 'Cart\CartController');
+		Route::Resource('empty-cart', 'Cart\EmptyCartController');
+		Route::Resource('orders', 'Order\OrderController');
 	});
 
 	Route::group(['prefix' => 'share', 'namespace' => 'Api\Share'], function(){
 		Route::post('check-vin', 'VinCheckerController');
 		Route::Resource('addresses', 'AddressController')->middleware('auth:api');
 		Route::Resource('parts', 'PartsController');
+	});
+
+	Route::group(['prefix' => 'vendor', 'middleware' => 'auth:api', 'namespace' => 'Api\Vendor'], function(){
+		Route::Resource('assigned-xpart-requests', 'UserXpartRequestController');
+		Route::Resource('quotes', 'QuoteController');
 	});
 
 });

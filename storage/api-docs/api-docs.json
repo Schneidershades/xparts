@@ -813,6 +813,204 @@
                 ]
             }
         },
+        "/api/v1/user/cart": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "cart",
+                "description": "cart",
+                "operationId": "cart",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "postCart",
+                "description": "postCart",
+                "operationId": "postCart",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CartCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/cart/{id}": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "updateCart",
+                "description": "updateCart",
+                "operationId": "updateCart",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Addresses ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CartUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "deleteCart",
+                "description": "deleteCart",
+                "operationId": "deleteCart",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Cart ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/empty-cart": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "emptyCart",
+                "description": "emptyCart",
+                "operationId": "emptyCart",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/share/addresses": {
             "get": {
                 "tags": [
@@ -1020,7 +1218,7 @@
                 ]
             }
         },
-        "/api/v1/share/parts?title={title}": {
+        "/api/v1/share/parts?search={title}": {
             "get": {
                 "tags": [
                     "Share"
@@ -1033,7 +1231,7 @@
                         "name": "title",
                         "in": "path",
                         "description": "Search Items",
-                        "required": false,
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -1180,8 +1378,8 @@
                 ]
             }
         },
-        "/api/v1/user/vendor/quote/{xpart_requests_id}": {
-            "delete": {
+        "/api/v1/user/vendor-quote/{xpart_requests_id}": {
+            "get": {
                 "tags": [
                     "User"
                 ],
@@ -1494,7 +1692,7 @@
                 ]
             }
         },
-        "/api/v1/vendor/assigned/xpart-requests": {
+        "/api/v1/vendor/assigned-xpart-requests": {
             "get": {
                 "tags": [
                     "Vendor"
@@ -1526,7 +1724,7 @@
                 ]
             }
         },
-        "/api/v1/vendor/assigned/xpart-requests/{id}": {
+        "/api/v1/vendor/assigned-xpart-requests/{id}": {
             "delete": {
                 "tags": [
                     "Vendor"
@@ -1806,6 +2004,44 @@
                         "description": "User/Vendor",
                         "type": "string",
                         "example": "User"
+                    }
+                },
+                "type": "object"
+            },
+            "CartCreateFormRequest": {
+                "title": "Cart Create Form Request Fields",
+                "description": "Cart Create Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "cartable_id": {
+                        "title": "Model ID",
+                        "description": "Model ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "cartable_type": {
+                        "title": "Model Type",
+                        "description": "Model Type",
+                        "type": "string",
+                        "example": "quote"
+                    }
+                },
+                "type": "object"
+            },
+            "CartUpdateFormRequest": {
+                "title": "Cart Update Form Request Fields",
+                "description": "Cart Update Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "quantity": {
+                        "title": "Quantity",
+                        "description": "Quantity",
+                        "type": "integer",
+                        "example": "1"
                     }
                 },
                 "type": "object"

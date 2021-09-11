@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class VendorQuoteController extends Controller
 {
     /**
-    * @OA\Delete(
-    *      path="/api/v1/user/vendor/quote/{xpart_requests_id}",
+    * @OA\Get(
+    *      path="/api/v1/user/vendor-quote/{xpart_requests_id}",
     *      operationId="showQuotesUnderXpartRequest",
     *      tags={"User"},
     *      summary="showQuotesUnderXpartRequest",

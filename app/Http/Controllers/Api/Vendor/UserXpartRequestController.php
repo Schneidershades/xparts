@@ -9,7 +9,7 @@ class UserXpartRequestController extends Controller
 {
     /**
     * @OA\Get(
-    *      path="/api/v1/vendor/assigned/xpart-requests",
+    *      path="/api/v1/vendor/assigned-xpart-requests",
     *      operationId="allAssignedXpartRequest",
     *      tags={"Vendor"},
     *      summary="allAssignedXpartRequest",
@@ -43,7 +43,7 @@ class UserXpartRequestController extends Controller
 
     /**
     * @OA\Delete(
-    *      path="/api/v1/vendor/assigned/xpart-requests/{id}",
+    *      path="/api/v1/vendor/assigned-xpart-requests/{id}",
     *      operationId="deleteAssignedXpartRequest",
     *      tags={"Vendor"},
     *      summary="deleteAssignedXpartRequest",
