@@ -20,4 +20,29 @@ class Quote extends Model
         return $this->morphMany(Cart::class, 'cartable');
     }
 
+    public function xpartRequest()
+    {
+        return $this->belongsTo(XpartRequest::class);
+    }
+
+    public function partGrade()
+    {
+        return $this->belongsTo(PartGrade::class);
+    }
+
+    public function partCategory()
+    {
+        return $this->belongsTo(PartCategory::class);
+    }
+
+    public function partSubcategory()
+    {
+        return $this->belongsTo(PartSubcategory::class);
+    }
+
+    public function partCondition()
+    {
+        return $this->belongsTo(PartCondition::class);
+    }
+
 }

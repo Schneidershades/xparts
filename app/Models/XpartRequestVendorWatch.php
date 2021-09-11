@@ -20,7 +20,7 @@ class XpartRequestVendorWatch extends Model
     public $oneItem = XpartRequestVendorWatchResource::class;
     public $allItems = XpartRequestVendorWatchCollection::class;
 
-    public function xpartRequestVendorWatch()
+    public function xpartRequest()
     {
         return $this->belongsTo(XpartRequest::class);
     }

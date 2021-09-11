@@ -38,7 +38,7 @@ class UserXpartRequestController extends Controller
     */
     public function index()
     {
-        return $this->showAll(auth()->user()->userXpartRequest);
+        return $this->showAll(auth()->user()->xpartRequestVendorWatch);
     }
 
     /**

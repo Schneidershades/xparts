@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Xpart;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Xpart\XpartRequestResource;
 
 class XpartRequestVendorWatchResource extends JsonResource
 {
@@ -16,9 +17,7 @@ class XpartRequestVendorWatchResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'role' => $this->role,
+            'xpartRequest' => new XpartRequestResource($this->xpartRequest),
         ];
     }
 }

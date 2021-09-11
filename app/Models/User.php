@@ -81,7 +81,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         return $this->hasMany(UserCart::class);
     }
 
-    public function xpartWatchRequests()
+    public function xpartRequestVendorWatch()
     {
         return $this->hasMany(XpartRequestVendorWatch::class, 'vendor_id');
     }
