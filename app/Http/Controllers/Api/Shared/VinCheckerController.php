@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Share;
+namespace App\Http\Controllers\Api\Shared;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,9 +11,9 @@ class VinCheckerController extends Controller
 {
     /**
     * @OA\Post(
-    *      path="/api/v1/share/check-vin",
+    *      path="/api/v1/shared/check-vin",
     *      operationId="checkVin",
-    *      tags={"Share"},
+    *      tags={"Shared"},
     *      summary="checkVin",
     *      description="checkVin",
     *      @OA\RequestBody(

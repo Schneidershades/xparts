@@ -29,16 +29,11 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('xpart-requests', 'User\XpartRequestController');
 	});
 
-	Route::group(['prefix' => 'share', 'namespace' => 'Api\Share'], function(){
+	Route::group(['prefix' => 'shared', 'namespace' => 'Api\shared'], function(){
 		Route::post('check-vin', 'VinCheckerController');
+		Route::post('parts', 'VinCheckerController');
 		Route::Resource('addresses', 'AddressController')->middleware('auth:api');
 	});
-
-	Route::group(['prefix' => 'share', 'namespace' => 'Api\Categor'], function(){
-		Route::post('check-vin', 'VinCheckerController');
-		Route::Resource('addresses', 'AddressController')->middleware('auth:api');
-	});
-
 
 	Route::group(['prefix' => 'vendor', 'middleware' => 'auth:api', 'namespace' => 'Api\Vendor'], function(){
 		Route::Resource('assigned-xpart-requests', 'UserXpartRequestController');

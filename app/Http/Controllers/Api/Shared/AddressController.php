@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Share;
+namespace App\Http\Controllers\Api\Shared;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Address\AddressCreateFormRequest;
@@ -10,9 +10,9 @@ class AddressController extends Controller
 {
     /**
     * @OA\Get(
-    *      path="/api/v1/share/addresses",
+    *      path="/api/v1/shared/addresses",
     *      operationId="allAddresses",
-    *      tags={"Share"},
+    *      tags={"Shared"},
     *      summary="allAddresses",
     *      description="allAddresses",
     *      @OA\Response(

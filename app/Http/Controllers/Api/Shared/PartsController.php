@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Share;
+namespace App\Http\Controllers\Api\Shared;
 
 use App\Models\Part;
 use App\Models\CategoryOne;
@@ -10,9 +10,9 @@ class PartsController extends Controller
 {
     /**
     * @OA\Get(
-    *      path="/api/v1/share/parts?search={title}",
+    *      path="/api/v1/shared/parts?search={title}",
     *      operationId="searchParts",
-    *      tags={"Share"},
+    *      tags={"Shared"},
     *      summary="searchParts",
     *      description="searchParts",
     *      @OA\Parameter(
