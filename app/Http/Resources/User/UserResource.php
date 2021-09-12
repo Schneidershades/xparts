@@ -23,6 +23,8 @@ class UserResource extends JsonResource
             'permissions' => $this->getPermissionsViaRoles()->pluck('name')->map(function($permission){
                 return explode('_', $permission);
             })->toArray(),
+            
+            'wallet' => new WalletResource($this->wallet),
         ];
     }
 }

@@ -1011,6 +1011,134 @@
                 ]
             }
         },
+        "/api/v1/part-catrgories": {
+            "get": {
+                "tags": [
+                    "Share"
+                ],
+                "summary": "allPartCategories",
+                "description": "allPartCategories",
+                "operationId": "allPartCategories",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/part-condition": {
+            "get": {
+                "tags": [
+                    "Share"
+                ],
+                "summary": "allPartCondition",
+                "description": "allPartCondition",
+                "operationId": "allPartCondition",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/part-grade": {
+            "get": {
+                "tags": [
+                    "Share"
+                ],
+                "summary": "allPartGrade",
+                "description": "allPartGrade",
+                "operationId": "allPartGrade",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/part-subcategories": {
+            "get": {
+                "tags": [
+                    "Share"
+                ],
+                "summary": "allPartSubcategories",
+                "description": "allPartSubcategories",
+                "operationId": "allPartSubcategories",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/orders": {
             "get": {
                 "tags": [
@@ -1544,7 +1672,7 @@
                 ]
             }
         },
-        "/api/v1/user/vendor-quote/{xpart_requests_id}": {
+        "/api/v1/vendor-quote/{xpart_requests_id}": {
             "get": {
                 "tags": [
                     "User"

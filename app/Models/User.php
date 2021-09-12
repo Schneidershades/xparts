@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Quote;
 use App\Models\Address;
 use App\Models\UserCart;
+use App\Models\Wallet;
 use App\Models\XpartRequest;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\XpartRequestVendorWatch;
@@ -100,5 +101,10 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     public function quotes()
     {
         return $this->hasMany(Quote::class, 'vendor_id');
+    }
+
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
     }
 }
