@@ -1305,10 +1305,10 @@
                 ]
             }
         },
-        "/api/v1/share/addresses": {
+        "/api/v1/shared/addresses": {
             "get": {
                 "tags": [
-                    "Share"
+                    "Shared"
                 ],
                 "summary": "allAddresses",
                 "description": "allAddresses",
@@ -1338,7 +1338,7 @@
             },
             "post": {
                 "tags": [
-                    "Share"
+                    "Shared"
                 ],
                 "summary": "postAddresses",
                 "description": "postAddresses",
@@ -1377,10 +1377,10 @@
                 ]
             }
         },
-        "/api/v1/share/addresses/{id}": {
+        "/api/v1/shared/addresses/{id}": {
             "get": {
                 "tags": [
-                    "Share"
+                    "Shared"
                 ],
                 "summary": "showAddresses",
                 "description": "showAddresses",
@@ -1421,7 +1421,7 @@
             },
             "put": {
                 "tags": [
-                    "Share"
+                    "Shared"
                 ],
                 "summary": "updateAddresses",
                 "description": "updateAddresses",
@@ -1472,7 +1472,7 @@
             },
             "delete": {
                 "tags": [
-                    "Share"
+                    "Shared"
                 ],
                 "summary": "deleteAddresses",
                 "description": "deleteAddresses",
@@ -1512,10 +1512,10 @@
                 ]
             }
         },
-        "/api/v1/share/parts?search={title}": {
+        "/api/v1/shared/parts?search={title}": {
             "get": {
                 "tags": [
-                    "Share"
+                    "Shared"
                 ],
                 "summary": "searchParts",
                 "description": "searchParts",
@@ -1555,10 +1555,10 @@
                 ]
             }
         },
-        "/api/v1/share/check-vin": {
+        "/api/v1/shared/check-vin": {
             "post": {
                 "tags": [
-                    "Share"
+                    "Shared"
                 ],
                 "summary": "checkVin",
                 "description": "checkVin",

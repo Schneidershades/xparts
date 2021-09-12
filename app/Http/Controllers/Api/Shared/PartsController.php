@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\Shared;
 
 use App\Models\Part;
-use App\Models\CategoryOne;
 use App\Http\Controllers\Controller;
 
 class PartsController extends Controller

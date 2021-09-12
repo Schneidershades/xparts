@@ -17,8 +17,6 @@ Route::prefix('v1')->group(function () {
 		
 		Route::get('/email/resend', 'VerificationController@resend')->name('verification.resend');
 		Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
-
-		
 	});
 
 	Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function(){
@@ -31,7 +29,7 @@ Route::prefix('v1')->group(function () {
 
 	Route::group(['prefix' => 'shared', 'namespace' => 'Api\Shared'], function(){
 		Route::post('check-vin', 'VinCheckerController');
-		Route::get('parts', 'PartsController');
+		Route::Resource('parts', 'PartsController');
 		Route::Resource('addresses', 'AddressController')->middleware('auth:api');
 	});
 
