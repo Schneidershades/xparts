@@ -15,6 +15,7 @@ class Cart extends Model
     protected $fillable = [
         'cartable_type',
         'cartable_id',
+        'quantity',
     ];
     
     public $oneItem = CartResource::class;

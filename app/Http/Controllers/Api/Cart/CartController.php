@@ -124,7 +124,8 @@ class CartController extends Controller
     */
     public function update(CartUpdateFormRequest $request, $id)
     {
-        return $this->showOne(auth()->user()->cart->where('id', $id)->first()->update($request->validated()));
+        auth()->user()->cart->where('id', $id)->first()->update($request->validated());
+        return $this->showOne(auth()->user()->cart->where('id', $id)->first());
     }
 
     /**
