@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Cart;
 
+use App\Http\Resources\Quote\QuoteResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CartResource extends JsonResource
@@ -16,10 +17,15 @@ class CartResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'cartable_type' => $this->cartable_type,
-            'cartable_id' => $this->cartable_id,
+            $this->mergeWhen($this->cartable_type == 'quotes', [
+                'title' => $this->cartable->xpartRequest->part->title,
+                'description' => $this->cartable->xpartRequest->vin->vin_number.' '.$this->cartable->partCategory->name.' '.$this->cartable->partGrade->name.' '.$this->cartable->partSubcategory->name .' '.$this->cartable->partCondition->name .' '.$this->cartable->brand .' '.$this->cartable->part_number,
+            ]),
+
+            'category' => $this->cartable_type,
+            'price' => $this->cartable->price,
             'quantity' => $this->quantity,
+            'total' => $this->cartable->price * $this->quantity,
         ];
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\Cart\CartResource;
+use App\Http\Resources\User\WalletResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -26,6 +28,7 @@ class UserResource extends JsonResource
                     return explode('_', $permission);
                 })->toArray(),
                 'wallet' => new WalletResource($this->wallet),
+                'cart' => CartResource::collection($this->cart),
             ]),
             
         ];

@@ -57,7 +57,7 @@ class CartCreateFormRequest extends FormRequest
     {
         return [
             'cartable_type' => 'required|string',
-            'cartable_id' => 'integer',
+            'cartable_id' => 'required|integer',
         ];
     }
 }

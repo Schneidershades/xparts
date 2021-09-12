@@ -11,6 +11,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Cart extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'cartable_type',
+        'cartable_id',
+    ];
     
     public $oneItem = CartResource::class;
     public $allItems = CartCollection::class;
