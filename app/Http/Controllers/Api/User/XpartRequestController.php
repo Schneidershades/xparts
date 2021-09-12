@@ -134,6 +134,6 @@ class XpartRequestController extends Controller
     */
     public function show($id)
     {
-        return $this->showOne(auth()->user()->xpartRequests->where('id', $id)->first());
+        return $this->showOne(auth()->user()->xpartRequests->where('id', $id)->load('vendorQuotes')->first());
     }
 }

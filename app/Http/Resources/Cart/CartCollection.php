@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\User;
+namespace App\Http\Resources\Cart;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class UserCartCollection extends ResourceCollection
+class CartCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -15,7 +15,7 @@ class UserCartCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => UserCartResource::collection($this->collection),
+            'data' => CartResource::collection($this->collection),
         ];
     }
 }

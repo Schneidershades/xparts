@@ -18,13 +18,16 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'role' => $this->role,
-            'verified' => $this->email_verified_at ? true : false,
-            'permissions' => $this->getPermissionsViaRoles()->pluck('name')->map(function($permission){
-                return explode('_', $permission);
-            })->toArray(),
             
-            'wallet' => new WalletResource($this->wallet),
+            $this->mergeWhen(auth()->user()->id == $this->id, [
+                'verified' => $this->email_verified_at ? true : false,
+                'role' => $this->role,
+                'permissions' => $this->getPermissionsViaRoles()->pluck('name')->map(function($permission){
+                    return explode('_', $permission);
+                })->toArray(),
+                'wallet' => new WalletResource($this->wallet),
+            ]),
+            
         ];
     }
 }

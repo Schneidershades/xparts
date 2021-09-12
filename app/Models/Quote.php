@@ -65,9 +65,9 @@ class Quote extends Model
         return $this->belongsTo(PartCondition::class);
     }
 
-    public function vendors()
+    public function vendor()
     {
-        return $this->belongsTo(User::class, 'vendor_id');
+        return $this->belongsTo(User::class, 'vendor_id', 'id');
     }
 
 

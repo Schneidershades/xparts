@@ -4,16 +4,16 @@ namespace App\Models;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Resources\User\UserCartResource;
-use App\Http\Resources\User\UserCartCollection;
+use App\Http\Resources\Cart\CartResource;
+use App\Http\Resources\Cart\CartCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class UserCart extends Model
+class Cart extends Model
 {
     use HasFactory;
     
-    public $oneItem = UserCartResource::class;
-    public $allItems = UserCartCollection::class;
+    public $oneItem = CartResource::class;
+    public $allItems = CartCollection::class;
 
     public function cartable()
     {
