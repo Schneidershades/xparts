@@ -11,7 +11,7 @@ class PartSubcategoryController extends Controller
     * @OA\Get(
     *      path="/api/v1/part-subcategories",
     *      operationId="allPartSubcategories",
-    *      tags={"Share"},
+    *      tags={"Shared"},
     *      summary="allPartSubcategories",
     *      description="allPartSubcategories",
     *      @OA\Response(

@@ -11,7 +11,7 @@ class PartConditionController extends Controller
     * @OA\Get(
     *      path="/api/v1/part-condition",
     *      operationId="allPartCondition",
-    *      tags={"Share"},
+    *      tags={"Shared"},
     *      summary="allPartCondition",
     *      description="allPartCondition",
     *      @OA\Response(

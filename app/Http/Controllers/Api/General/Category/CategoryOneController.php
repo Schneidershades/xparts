@@ -11,7 +11,7 @@ class CategoryOneController extends Controller
     * @OA\Get(
     *      path="/api/v1/category-one",
     *      operationId="allCategoryOne",
-    *      tags={"Share"},
+    *      tags={"Shared"},
     *      summary="allCategoryOne",
     *      description="allCategoryOne",
     *      @OA\Response(

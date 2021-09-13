@@ -11,7 +11,7 @@ class PartGradeController extends Controller
     * @OA\Get(
     *      path="/api/v1/part-grade",
     *      operationId="allPartGrade",
-    *      tags={"Share"},
+    *      tags={"Shared"},
     *      summary="allPartGrade",
     *      description="allPartGrade",
     *      @OA\Response(

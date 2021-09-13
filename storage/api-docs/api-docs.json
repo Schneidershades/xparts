@@ -1011,7 +1011,39 @@
                 ]
             }
         },
-        "/api/v1/part-catrgories": {
+        "/api/v1/category-one": {
+            "get": {
+                "tags": [
+                    "Share"
+                ],
+                "summary": "allCategoryOne",
+                "description": "allCategoryOne",
+                "operationId": "allCategoryOne",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/part-categories": {
             "get": {
                 "tags": [
                     "Share"
