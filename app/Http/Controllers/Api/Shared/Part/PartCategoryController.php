@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Api\General\Part;
+namespace App\Http\Controllers\Api\Shared\Part;
 
-use App\Models\PartSubcategory;
 use App\Http\Controllers\Controller;
+use App\Models\PartCategory;
 
-class PartSubcategoryController extends Controller
+class PartCategoryController extends Controller
 {
      /**
     * @OA\Get(
-    *      path="/api/v1/part-subcategories",
-    *      operationId="allPartSubcategories",
+    *      path="/api/v1/shared/part-categories",
+    *      operationId="allPartCategories",
     *      tags={"Shared"},
-    *      summary="allPartSubcategories",
-    *      description="allPartSubcategories",
+    *      summary="allPartCategories",
+    *      description="allPartCategories",
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -38,6 +38,6 @@ class PartSubcategoryController extends Controller
     */
     public function index()
     {
-        return $this->showAll(PartSubcategory::all());
+        return $this->showAll(PartCategory::all());
     }
 }

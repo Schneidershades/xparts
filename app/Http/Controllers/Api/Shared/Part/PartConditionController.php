@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Api\General\Category;
+namespace App\Http\Controllers\Api\Shared\Part;
 
 use App\Http\Controllers\Controller;
-use App\Models\CategoryOne;
+use App\Models\PartCondition;
 
-class CategoryOneController extends Controller
+class PartConditionController extends Controller
 {
      /**
     * @OA\Get(
-    *      path="/api/v1/category-one",
-    *      operationId="allCategoryOne",
+    *      path="/api/v1/shared/part-condition",
+    *      operationId="allPartCondition",
     *      tags={"Shared"},
-    *      summary="allCategoryOne",
-    *      description="allCategoryOne",
+    *      summary="allPartCondition",
+    *      description="allPartCondition",
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -36,9 +36,8 @@ class CategoryOneController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-
     public function index()
     {
-        return $this->showAll(CategoryOne::all());
+        return $this->showAll(PartCondition::all());
     }
 }

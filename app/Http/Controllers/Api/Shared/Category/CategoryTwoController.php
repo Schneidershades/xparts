@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\General\Category;
+namespace App\Http\Controllers\Api\Shared\Category;
 
 use App\Http\Controllers\Controller;
 use App\Models\CategoryTwo;

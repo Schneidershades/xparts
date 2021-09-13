@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Api\General\Part;
+namespace App\Http\Controllers\Api\Shared\Part;
 
 use App\Http\Controllers\Controller;
-use App\Models\PartCategory;
+use App\Models\PartGrade;
 
-class PartCategoryController extends Controller
+class PartGradeController extends Controller
 {
      /**
     * @OA\Get(
-    *      path="/api/v1/part-categories",
-    *      operationId="allPartCategories",
+    *      path="/api/v1/shared/part-grade",
+    *      operationId="allPartGrade",
     *      tags={"Shared"},
-    *      summary="allPartCategories",
-    *      description="allPartCategories",
+    *      summary="allPartGrade",
+    *      description="allPartGrade",
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -38,6 +38,6 @@ class PartCategoryController extends Controller
     */
     public function index()
     {
-        return $this->showAll(PartCategory::all());
+        return $this->showAll(PartGrade::all());
     }
 }

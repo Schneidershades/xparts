@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Api\General\Part;
+namespace App\Http\Controllers\Api\Shared\Part;
 
+use App\Models\PartSubcategory;
 use App\Http\Controllers\Controller;
-use App\Models\PartCondition;
 
-class PartConditionController extends Controller
+class PartSubcategoryController extends Controller
 {
      /**
     * @OA\Get(
-    *      path="/api/v1/part-condition",
-    *      operationId="allPartCondition",
+    *      path="/api/v1/shared/part-subcategories",
+    *      operationId="allPartSubcategories",
     *      tags={"Shared"},
-    *      summary="allPartCondition",
-    *      description="allPartCondition",
+    *      summary="allPartSubcategories",
+    *      description="allPartSubcategories",
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -38,6 +38,6 @@ class PartConditionController extends Controller
     */
     public function index()
     {
-        return $this->showAll(PartCondition::all());
+        return $this->showAll(PartSubcategory::all());
     }
 }

@@ -1014,7 +1014,7 @@
         "/api/v1/category-one": {
             "get": {
                 "tags": [
-                    "Share"
+                    "Shared"
                 ],
                 "summary": "allCategoryOne",
                 "description": "allCategoryOne",
@@ -1046,7 +1046,7 @@
         "/api/v1/part-categories": {
             "get": {
                 "tags": [
-                    "Share"
+                    "Shared"
                 ],
                 "summary": "allPartCategories",
                 "description": "allPartCategories",
@@ -1078,7 +1078,7 @@
         "/api/v1/part-condition": {
             "get": {
                 "tags": [
-                    "Share"
+                    "Shared"
                 ],
                 "summary": "allPartCondition",
                 "description": "allPartCondition",
@@ -1110,7 +1110,7 @@
         "/api/v1/part-grade": {
             "get": {
                 "tags": [
-                    "Share"
+                    "Shared"
                 ],
                 "summary": "allPartGrade",
                 "description": "allPartGrade",
@@ -1142,7 +1142,7 @@
         "/api/v1/part-subcategories": {
             "get": {
                 "tags": [
-                    "Share"
+                    "Shared"
                 ],
                 "summary": "allPartSubcategories",
                 "description": "allPartSubcategories",

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Api\General\Part;
+namespace App\Http\Controllers\Api\Shared\Category;
 
 use App\Http\Controllers\Controller;
-use App\Models\PartGrade;
+use App\Models\CategoryOne;
 
-class PartGradeController extends Controller
+class CategoryOneController extends Controller
 {
      /**
     * @OA\Get(
-    *      path="/api/v1/part-grade",
-    *      operationId="allPartGrade",
+    *      path="/api/v1/shared/category-one",
+    *      operationId="allCategoryOne",
     *      tags={"Shared"},
-    *      summary="allPartGrade",
-    *      description="allPartGrade",
+    *      summary="allCategoryOne",
+    *      description="allCategoryOne",
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -36,8 +36,9 @@ class PartGradeController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
+
     public function index()
     {
-        return $this->showAll(PartGrade::all());
+        return $this->showAll(CategoryOne::all());
     }
 }

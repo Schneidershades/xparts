@@ -31,8 +31,17 @@ Route::prefix('v1')->group(function () {
 		Route::post('check-vin', 'VinCheckerController');
 		Route::Resource('parts', 'PartsController');
 		Route::Resource('banks', 'BankController');
-		Route::Resource('banks-detals', 'BankDetailController');
+		Route::Resource('banks-details', 'BankDetailController');
 		Route::Resource('addresses', 'AddressController')->middleware('auth:api');
+
+		Route::Resource('part-category', 'Part\PartCategoryController');
+		Route::Resource('part-condition', 'Part\PartConditionController');
+		Route::Resource('part-grade', 'Part\PartGradeController');
+		Route::Resource('part-subcategories', 'Part\PartSubcategoryController');
+
+		Route::Resource('category-one', 'Category\CategoryOneController');
+
+
 	});
 
 	Route::group(['prefix' => 'vendor', 'middleware' => 'auth:api', 'namespace' => 'Api\Vendor'], function(){
