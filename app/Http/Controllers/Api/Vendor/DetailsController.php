@@ -45,12 +45,13 @@ class DetailsController extends Controller
     
     public function store(DetailCreateFormRequest $request)
     {
+        $array = ['user_id' => auth()->user()->id];
         $address = new Address;
-        $address = $this->requestAndDbIntersection($request, $address);
+        $address = $this->requestAndDbIntersection($request, $address, [], $array);
         $address->save();
 
         $bankDetail = new BankDetail;
-        $bankDetail = $this->requestAndDbIntersection($request, $bankDetail);
+        $bankDetail = $this->requestAndDbIntersection($request, $bankDetail, [], $array);
         $bankDetail->save();
 
         return $this->showMessage('Details saved');
