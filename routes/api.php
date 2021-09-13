@@ -34,7 +34,7 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('banks-details', 'BankDetailController');
 		Route::Resource('addresses', 'AddressController')->middleware('auth:api');
 
-		Route::Resource('part-category', 'Part\PartCategoryController');
+		Route::Resource('part-categories', 'Part\PartCategoryController');
 		Route::Resource('part-condition', 'Part\PartConditionController');
 		Route::Resource('part-grade', 'Part\PartGradeController');
 		Route::Resource('part-subcategories', 'Part\PartSubcategoryController');
