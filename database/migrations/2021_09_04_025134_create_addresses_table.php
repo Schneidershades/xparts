@@ -18,6 +18,7 @@ class CreateAddressesTable extends Migration
             $table->integer('user_id')->index()->unsigned()->nullable();
             $table->string('name')->nullable();
             $table->string('address')->nullable();
+            $table->string('type')->nullable();
             $table->string('state')->nullable();
             $table->string('postal_code')->nullable();
             $table->boolean('primary_address')->default(false);

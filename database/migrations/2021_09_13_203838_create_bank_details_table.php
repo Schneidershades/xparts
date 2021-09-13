@@ -17,6 +17,7 @@ class CreateBankDetailsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('bank_id')->nullable()->constrained();
+            $table->string('type')->nullable();
             $table->string('bank_account_name')->nullable();
             $table->string('bank_account_number')->nullable();
             $table->timestamps();
