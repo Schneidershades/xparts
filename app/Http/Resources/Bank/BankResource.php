@@ -16,7 +16,7 @@ class BankResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->bank->name,
+            'name' => $this->name,
         ];
     }
 }
