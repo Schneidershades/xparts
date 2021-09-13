@@ -9,7 +9,7 @@ class PartCategoryController extends Controller
 {
      /**
     * @OA\Get(
-    *      path="/api/v1/part-catrgories",
+    *      path="/api/v1/part-categories",
     *      operationId="allPartCategories",
     *      tags={"Share"},
     *      summary="allPartCategories",
