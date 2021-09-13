@@ -6,8 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @OA\Schema(
- *      title="Quote Create Form Request Fields",
- *      description="Quote Create Form request body data",
+ *      title="Details Create Form Request Fields",
+ *      description="Details Create Form request body data",
  *      type="object",
  *      required={"email"}
  * )
@@ -48,7 +48,6 @@ class DetailCreateFormRequest extends FormRequest
      * @var int
      */
     public $category_one_id;
-
 
 
     /**

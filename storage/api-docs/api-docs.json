@@ -1512,6 +1512,245 @@
                 ]
             }
         },
+        "/api/v1/shared/banks": {
+            "get": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "allBanks",
+                "description": "allBanks",
+                "operationId": "allBanks",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/shared/bank-details": {
+            "get": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "allBankDetails",
+                "description": "allBankDetails",
+                "operationId": "allBankDetails",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "postBankDetails",
+                "description": "postBankDetails",
+                "operationId": "postBankDetails",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BankDetailCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/shared/bank-details/{id}": {
+            "get": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "showBankDetails",
+                "description": "showBankDetails",
+                "operationId": "showBankDetails",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "BankDetails ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "updateBankDetails",
+                "description": "updateBankDetails",
+                "operationId": "updateBankDetails",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "BankDetails ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddressUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "deleteBankDetails",
+                "description": "deleteBankDetails",
+                "operationId": "deleteBankDetails",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "BankDetails ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/shared/parts?search={title}": {
             "get": {
                 "tags": [
@@ -1806,6 +2045,48 @@
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/vendor/vendor-business-details": {
+            "post": {
+                "tags": [
+                    "Vendor"
+                ],
+                "summary": "postVendorBusinessDetails",
+                "description": "postVendorBusinessDetails",
+                "operationId": "postVendorBusinessDetails",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DetailCreateFormRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -2302,6 +2583,56 @@
                 },
                 "type": "object"
             },
+            "BankDetailCreateFormRequest": {
+                "title": "Bank Details Create Form Request Fields",
+                "description": "Bank Details Create Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "bank_id": {
+                        "title": "Bank ID",
+                        "description": "Bank ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "bank_account_name": {
+                        "title": "Bank Account Name",
+                        "description": "Bank Account Name",
+                        "type": "string",
+                        "example": "quote"
+                    },
+                    "bank_account_number": {
+                        "title": "Bank Account Number",
+                        "description": "Bank Account Number",
+                        "type": "string",
+                        "example": "quote"
+                    }
+                },
+                "type": "object"
+            },
+            "BankDetailUpdateFormRequest": {
+                "title": "Bank Details Update Form Request Fields",
+                "description": "Bank Details Update Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "bank_account_name": {
+                        "title": "Bank Account Name",
+                        "description": "Bank Account Name",
+                        "type": "string",
+                        "example": "quote"
+                    },
+                    "bank_account_number": {
+                        "title": "Bank Account Number",
+                        "description": "Bank Account Number",
+                        "type": "string",
+                        "example": "quote"
+                    }
+                },
+                "type": "object"
+            },
             "CartCreateFormRequest": {
                 "title": "Cart Create Form Request Fields",
                 "description": "Cart Create Form request body data",
@@ -2390,6 +2721,64 @@
                         "description": "Vin Number ID",
                         "type": "integer",
                         "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "DetailCreateFormRequest": {
+                "title": "Details Create Form Request Fields",
+                "description": "Details Create Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "part_id": {
+                        "title": "Part ID",
+                        "description": "Part ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "bank_id": {
+                        "title": "Bank ID",
+                        "description": "Bank ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "category_one_id": {
+                        "title": "Category One ID",
+                        "description": "Category One ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "title": "Business Name",
+                        "description": "Business Name",
+                        "type": "string",
+                        "example": "quote"
+                    },
+                    "address": {
+                        "title": "Business Address",
+                        "description": "Business Address",
+                        "type": "string",
+                        "example": "quote"
+                    },
+                    "type": {
+                        "title": "Business Type",
+                        "description": "Business Type",
+                        "type": "string",
+                        "example": "quote"
+                    },
+                    "bank_account_name": {
+                        "title": "Bank Account Name",
+                        "description": "Bank Account Name",
+                        "type": "string",
+                        "example": "quote"
+                    },
+                    "bank_account_number": {
+                        "title": "Bank Account Number",
+                        "description": "Bank Account Number",
+                        "type": "string",
+                        "example": "quote"
                     }
                 },
                 "type": "object"

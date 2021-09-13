@@ -4,6 +4,15 @@ namespace App\Http\Requests\Bank;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *      title="Bank Details Create Form Request Fields",
+ *      description="Bank Details Create Form request body data",
+ *      type="object",
+ *      required={"email"}
+ * )
+ */
+
 class BankDetailCreateFormRequest extends FormRequest
 {
     /**

@@ -11,14 +11,14 @@ class DetailsController extends Controller
 {
     /**
     * @OA\Post(
-    *      path="/api/v1/vendor/details",
-    *      operationId="postQuotes",
+    *      path="/api/v1/vendor/vendor-business-details",
+    *      operationId="postVendorBusinessDetails",
     *      tags={"Vendor"},
-    *      summary="postQuotes",
-    *      description="postQuotes",
+    *      summary="postVendorBusinessDetails",
+    *      description="postVendorBusinessDetails",
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/DetailsCreateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/DetailCreateFormRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -42,7 +42,7 @@ class DetailsController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-
+    
     public function store(DetailCreateFormRequest $request)
     {
         $address = new Address;
