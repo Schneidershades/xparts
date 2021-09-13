@@ -84,6 +84,28 @@ class DetailCreateFormRequest extends FormRequest
      */
     public $type;
 
+    /**
+     * @OA\Property(
+     *      title="Bank Account Name",
+     *      description="Bank Account Name",
+     *      example="quote"
+     * )
+     *
+     * @var string
+     */
+    public $bank_account_name;
+
+    /**
+     * @OA\Property(
+     *      title="Bank Account Number",
+     *      description="Bank Account Number",
+     *      example="quote"
+     * )
+     *
+     * @var string
+     */
+    public $bank_account_number;
+
 
     /**
      * Determine if the user is authorized to make this request.
@@ -92,7 +114,7 @@ class DetailCreateFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -104,6 +126,8 @@ class DetailCreateFormRequest extends FormRequest
     {
         return [
             'bank_id' => 'required|int|exists:banks,id',
+            'bank_account_name' => 'required|string',
+            'bank_account_number' => 'required|string',
             'category_one_id' => 'sometimes|int|exists:category_ones,id',
             'part_id' => 'sometimes|int|exists:parts,id',
             'name' => 'required|string',
