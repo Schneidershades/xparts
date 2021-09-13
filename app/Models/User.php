@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Quote;
 use App\Models\Wallet;
 use App\Models\Address;
+use App\Models\BankDetail;
 use App\Models\XpartRequest;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\XpartRequestVendorWatch;
@@ -106,5 +107,10 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     public function wallet()
     {
         return $this->hasOne(Wallet::class);
+    }
+
+    public function bankDetails()
+    {
+        return $this->hasMany(BankDetail::class);
     }
 }

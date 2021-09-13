@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PartConditionTableSeeder::class);
         $this->call(PartGradeTableSeeder::class);
         $this->call(PartSubcategoryTableSeeder::class);
+        $this->call(BankTableSeeder::class);
         // $this->call(PartTableSeeder::class);
         // $this->call(RoleTableSeeder::class);
         // $this->call(UsersTableSeeder::class);
