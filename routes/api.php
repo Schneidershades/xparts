@@ -47,7 +47,7 @@ Route::prefix('v1')->group(function () {
 	Route::group(['prefix' => 'vendor', 'middleware' => 'auth:api', 'namespace' => 'Api\Vendor'], function(){
 		Route::Resource('assigned-xpart-requests', 'UserXpartRequestController');
 		Route::Resource('quotes', 'QuoteController');
-		Route::Resource('vendor-business-details', 'DetailController');
+		Route::Resource('business-details', 'DetailController');
 	});
 
 });

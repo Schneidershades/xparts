@@ -11,7 +11,7 @@ class DetailsController extends Controller
 {
     /**
     * @OA\Post(
-    *      path="/api/v1/vendor/vendor-business-details",
+    *      path="/api/v1/vendor/business-details",
     *      operationId="postVendorBusinessDetails",
     *      tags={"Vendor"},
     *      summary="postVendorBusinessDetails",
