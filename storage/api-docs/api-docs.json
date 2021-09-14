@@ -2786,7 +2786,7 @@
                         "title": "Business Name",
                         "description": "Business Name",
                         "type": "string",
-                        "example": "quote"
+                        "example": "Okonjo and sons limited"
                     },
                     "address": {
                         "title": "Business Address",
@@ -2798,19 +2798,19 @@
                         "title": "Business Type",
                         "description": "Business Type",
                         "type": "string",
-                        "example": "quote"
+                        "example": "Business"
                     },
                     "bank_account_name": {
                         "title": "Bank Account Name",
                         "description": "Bank Account Name",
                         "type": "string",
-                        "example": "quote"
+                        "example": "Michael Ogbuma"
                     },
                     "bank_account_number": {
                         "title": "Bank Account Number",
                         "description": "Bank Account Number",
                         "type": "string",
-                        "example": "quote"
+                        "example": "02933311112"
                     }
                 },
                 "type": "object"

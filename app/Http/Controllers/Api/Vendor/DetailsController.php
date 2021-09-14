@@ -48,6 +48,7 @@ class DetailsController extends Controller
         if(auth()->user()->addresses || auth()->user()->bankDetails ){
             return $this->errorResponse('details of the vendor has already been saved', 409);
         }
+        
         $array = ['user_id' => auth()->user()->id];
         $address = new Address;
         $address = $this->requestAndDbIntersection($request, $address, [], $array);
