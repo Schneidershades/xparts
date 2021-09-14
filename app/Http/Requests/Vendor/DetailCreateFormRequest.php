@@ -54,7 +54,7 @@ class DetailCreateFormRequest extends FormRequest
      * @OA\Property(
      *      title="Business Name",
      *      description="Business Name",
-     *      example="quote"
+     *      example="Okonjo and sons limited"
      * )
      *
      * @var string
@@ -76,7 +76,7 @@ class DetailCreateFormRequest extends FormRequest
      * @OA\Property(
      *      title="Business Type",
      *      description="Business Type",
-     *      example="quote"
+     *      example="Business"
      * )
      *
      * @var string
@@ -87,7 +87,7 @@ class DetailCreateFormRequest extends FormRequest
      * @OA\Property(
      *      title="Bank Account Name",
      *      description="Bank Account Name",
-     *      example="quote"
+     *      example="Michael Ogbuma"
      * )
      *
      * @var string
@@ -98,7 +98,7 @@ class DetailCreateFormRequest extends FormRequest
      * @OA\Property(
      *      title="Bank Account Number",
      *      description="Bank Account Number",
-     *      example="quote"
+     *      example="02933311112"
      * )
      *
      * @var string
