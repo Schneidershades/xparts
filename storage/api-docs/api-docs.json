@@ -459,7 +459,7 @@
                 ]
             }
         },
-        "/api/v1/user/password/email": {
+        "/api/v1/auth/password/email": {
             "post": {
                 "tags": [
                     "authentication"
@@ -496,7 +496,7 @@
                 }
             }
         },
-        "/api/v1/user/password/reset": {
+        "/api/v1/auth/password/reset": {
             "post": {
                 "tags": [
                     "authentication"
@@ -533,7 +533,7 @@
                 }
             }
         },
-        "/api/v1/user/register": {
+        "/api/v1/auth/register": {
             "post": {
                 "tags": [
                     "authentication"
@@ -570,7 +570,7 @@
                 }
             }
         },
-        "/api/v1/user/login": {
+        "/api/v1/auth/login": {
             "post": {
                 "tags": [
                     "authentication"
@@ -607,7 +607,7 @@
                 }
             }
         },
-        "/api/v1/user/profile": {
+        "/api/v1/auth/profile": {
             "get": {
                 "tags": [
                     "authentication"
@@ -679,7 +679,7 @@
                 ]
             }
         },
-        "/api/v1/user/logout": {
+        "/api/v1/auth/logout": {
             "post": {
                 "tags": [
                     "authentication"
@@ -711,7 +711,7 @@
                 ]
             }
         },
-        "/api/v1/user/email/resend": {
+        "/api/v1/auth/email/resend": {
             "get": {
                 "tags": [
                     "authentication"
@@ -743,7 +743,7 @@
                 ]
             }
         },
-        "/api/v1/user/email/verify/{id}/{hash}?expires={expires}&signature={signature}": {
+        "/api/v1/auth/email/verify/{id}/{hash}?expires={expires}&signature={signature}": {
             "get": {
                 "tags": [
                     "authentication"
