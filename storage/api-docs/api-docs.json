@@ -1011,166 +1011,6 @@
                 ]
             }
         },
-        "/api/v1/category-one": {
-            "get": {
-                "tags": [
-                    "Shared"
-                ],
-                "summary": "allCategoryOne",
-                "description": "allCategoryOne",
-                "operationId": "allCategoryOne",
-                "responses": {
-                    "200": {
-                        "description": "Successful signin",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/part-categories": {
-            "get": {
-                "tags": [
-                    "Shared"
-                ],
-                "summary": "allPartCategories",
-                "description": "allPartCategories",
-                "operationId": "allPartCategories",
-                "responses": {
-                    "200": {
-                        "description": "Successful signin",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/part-condition": {
-            "get": {
-                "tags": [
-                    "Shared"
-                ],
-                "summary": "allPartCondition",
-                "description": "allPartCondition",
-                "operationId": "allPartCondition",
-                "responses": {
-                    "200": {
-                        "description": "Successful signin",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/part-grade": {
-            "get": {
-                "tags": [
-                    "Shared"
-                ],
-                "summary": "allPartGrade",
-                "description": "allPartGrade",
-                "operationId": "allPartGrade",
-                "responses": {
-                    "200": {
-                        "description": "Successful signin",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/part-subcategories": {
-            "get": {
-                "tags": [
-                    "Shared"
-                ],
-                "summary": "allPartSubcategories",
-                "description": "allPartSubcategories",
-                "operationId": "allPartSubcategories",
-                "responses": {
-                    "200": {
-                        "description": "Successful signin",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
         "/api/v1/orders": {
             "get": {
                 "tags": [
@@ -1759,6 +1599,166 @@
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/shared/category-one": {
+            "get": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "allCategoryOne",
+                "description": "allCategoryOne",
+                "operationId": "allCategoryOne",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/shared/part-categories": {
+            "get": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "allPartCategories",
+                "description": "allPartCategories",
+                "operationId": "allPartCategories",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/shared/part-condition": {
+            "get": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "allPartCondition",
+                "description": "allPartCondition",
+                "operationId": "allPartCondition",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/shared/part-grade": {
+            "get": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "allPartGrade",
+                "description": "allPartGrade",
+                "operationId": "allPartGrade",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/shared/part-subcategories": {
+            "get": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "allPartSubcategories",
+                "description": "allPartSubcategories",
+                "operationId": "allPartSubcategories",
                 "responses": {
                     "200": {
                         "description": "Successful signin",

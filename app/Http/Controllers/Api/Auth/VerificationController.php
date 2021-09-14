@@ -40,7 +40,7 @@ class VerificationController extends Controller
 
     /**
     * @OA\Get(
-    *      path="/api/v1/user/email/resend",
+    *      path="/api/v1/auth/email/resend",
     *      operationId="userResendVerifyEmail",
     *      tags={"authentication"},
     *      summary="Verify email of a registered user",
@@ -95,7 +95,7 @@ class VerificationController extends Controller
 
     /**
     * @OA\Get(
-    *      path="/api/v1/user/email/verify/{id}/{hash}?expires={expires}&signature={signature}",
+    *      path="/api/v1/auth/email/verify/{id}/{hash}?expires={expires}&signature={signature}",
     *      operationId="userVerify",
     *      tags={"authentication"},
     *      summary="Profile of a registered user",

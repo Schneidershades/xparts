@@ -13,7 +13,7 @@ class UserController extends Controller
 {
      /**
      * @OA\Post(
-     *      path="/api/v1/user/register",
+     *      path="/api/v1/auth/register",
      *      operationId="register",
      *      tags={"authentication"},
      *      summary="Sign Up a new user",
@@ -58,7 +58,7 @@ class UserController extends Controller
 
      /**
     * @OA\Post(
-    *      path="/api/v1/user/login",
+    *      path="/api/v1/auth/login",
     *      operationId="signIn",
     *      tags={"authentication"},
     *      summary="Sign In a registered user",
@@ -99,7 +99,7 @@ class UserController extends Controller
 
     /**
     * @OA\Post(
-    *      path="/api/v1/user/profile",
+    *      path="/api/v1/auth/profile",
     *      operationId="updateUserProfile",
     *      tags={"authentication"},
     *      summary="Profile of a registered user",
@@ -144,7 +144,7 @@ class UserController extends Controller
 
     /**
     * @OA\Post(
-    *      path="/api/v1/user/logout",
+    *      path="/api/v1/auth/logout",
     *      operationId="userLogout",
     *      tags={"authentication"},
     *      summary="Logout a registered user",
@@ -179,7 +179,7 @@ class UserController extends Controller
 
     /**
     * @OA\Get(
-    *      path="/api/v1/user/profile",
+    *      path="/api/v1/auth/profile",
     *      operationId="userProfile",
     *      tags={"authentication"},
     *      summary="Profile of a registered user",

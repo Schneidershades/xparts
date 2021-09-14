@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
-    Route::group(['prefix' => 'user', 'namespace' => 'Api\Auth'], function(){
+    Route::group(['prefix' => 'auth', 'namespace' => 'Api\Auth'], function(){
 
 		Route::post('register', 'UserController@register');
     	Route::post('login', 'UserController@login');
