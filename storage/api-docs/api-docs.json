@@ -2101,7 +2101,7 @@
                 ]
             }
         },
-        "/api/v1/vendor/vendor-business-details": {
+        "/api/v1/vendor/business-details": {
             "post": {
                 "tags": [
                     "Vendor"
