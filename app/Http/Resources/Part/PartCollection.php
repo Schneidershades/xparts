@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Part;
 
+use App\Http\Resources\Part\PartResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PartCollection extends ResourceCollection

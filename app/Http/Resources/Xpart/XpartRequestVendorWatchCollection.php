@@ -18,4 +18,28 @@ class XpartRequestVendorWatchCollection extends ResourceCollection
             'data' => XpartRequestVendorWatchResource::collection($this->collection),
         ];
     }
+
+    public static function originalAttribute($index)
+    {
+        $attribute = [
+            'id' => 'id',
+            'xpart_request_id' => 'xpart_request_id',
+            'vendor_id' => 'vendor_id',
+            'views' => 'views',
+        ];
+
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
+
+    public static function transformedAttribute($index)
+    {
+        $attribute = [
+            'id' => 'id',
+            'xpart_request_id' => 'xpart_request_id',
+            'vendor_id' => 'vendor_id',
+            'views' => 'views',
+        ];
+
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
 }

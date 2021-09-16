@@ -18,4 +18,5 @@ class VinCollection extends ResourceCollection
             'data' => VinResource::collection($this->collection),
         ];
     }
+    
 }

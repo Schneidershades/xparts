@@ -18,4 +18,34 @@ class XpartRequestCollection extends ResourceCollection
             'data' => XpartRequestResource::collection($this->collection),
         ];
     }
+
+    public static function originalAttribute($index)
+    {
+        $attribute = [
+            'id' => 'id',
+            'user_id' => 'user_id',
+            'part_id' => 'part_id',
+            'vin_id' => 'vin_id',
+            'status' => 'status',
+            'created_at' => 'created_at',
+            'updated_at' => 'updated_at',
+        ];
+
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
+
+    public static function transformedAttribute($index)
+    {
+        $attribute = [
+            'id' => 'id',
+            'user_id' => 'user_id',
+            'part_id' => 'part_id',
+            'vin_id' => 'vin_id',
+            'status' => 'status',
+            'created_at' => 'created_at',
+            'updated_at' => 'updated_at',
+        ];
+
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
 }
