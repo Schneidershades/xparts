@@ -9,7 +9,7 @@ class PartsController extends Controller
 {
     /**
     * @OA\Get(
-    *      path="/api/v1/shared/parts?search={title}",
+    *      path="/api/v1/shared/parts?search={title}&per_page={per_page}",
     *      operationId="searchParts",
     *      tags={"Shared"},
     *      summary="searchParts",
@@ -17,6 +17,15 @@ class PartsController extends Controller
     *      @OA\Parameter(
     *          name="title",
     *          description="Search Items",
+    *          required=false,
+    *          in="path",
+    *          @OA\Schema(
+    *              type="string"
+    *          )
+    *      ),
+    *      @OA\Parameter(
+    *          name="per_page",
+    *          description="Number per page",
     *          required=true,
     *          in="path",
     *          @OA\Schema(
@@ -47,9 +56,6 @@ class PartsController extends Controller
     */
     public function index()
     {
-        if(!request('search') || strlen(request('search')) < 3){
-            return $this->errorResponse('Cannot search less than 3 characters', 409);
-        }
         return $this->showAll(Part::filter()->get());
     }
 }

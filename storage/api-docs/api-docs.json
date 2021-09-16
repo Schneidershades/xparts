@@ -1783,7 +1783,7 @@
                 ]
             }
         },
-        "/api/v1/shared/parts?search={title}": {
+        "/api/v1/shared/parts?search={title}&per_page={per_page}": {
             "get": {
                 "tags": [
                     "Shared"
@@ -1796,6 +1796,15 @@
                         "name": "title",
                         "in": "path",
                         "description": "Search Items",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "path",
+                        "description": "Number per page",
                         "required": true,
                         "schema": {
                             "type": "string"

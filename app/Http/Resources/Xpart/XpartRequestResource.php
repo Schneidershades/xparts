@@ -26,6 +26,8 @@ class XpartRequestResource extends JsonResource
             $this->mergeWhen(auth()->user()->role == 'User', [
                 'quotes' => QuoteResource::collection($this->whenLoaded('vendorQuotes')),
             ]),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
             
         ];
     }
