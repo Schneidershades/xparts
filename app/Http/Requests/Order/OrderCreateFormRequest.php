@@ -31,7 +31,7 @@ class OrderCreateFormRequest extends FormRequest
      * @OA\Property(
      *      title="Order Type",
      *      description="Order Type",
-     *      example="quote"
+     *      example="xpartRequest"
      * )
      *
      * @var string
