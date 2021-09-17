@@ -15,6 +15,18 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class OrderUpdateFormRequest extends FormRequest
 {
+
+    /**
+     * @OA\Property(
+     *      title="Order payment reference",
+     *      description="Order payment reference",
+     *      example="quote"
+     * )
+     *
+     * @var string
+     */
+    public $payment_reference;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -33,7 +45,7 @@ class OrderUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'payment_reference' => 'required|string',
         ];
     }
 }
