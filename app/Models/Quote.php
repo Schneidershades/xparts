@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Cart\Cart;
+use App\Models\Cart;
 use App\Models\User;
 use App\Models\PartGrade;
 use App\Models\PartCategory;
