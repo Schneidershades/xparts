@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Api\Order;
 
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
 
@@ -78,18 +81,27 @@ class OrderController extends Controller
 
     public function store(OrderCreateFormRequest $request)
     {
-        // return collect($products)->keyBy('id')->map(function(){
-    	// 	return [
-    	// 		'quantity' => $product['quantity'] + $this->getCurrentQuantity($product['id']),
-    	// 	];
-    	// })->toArray();
+        $cartSum = CartResource::collection(auth()->user()->cart)->sum('total');
         
-        // return $this->showOne(auth()->user()->orders()->create([
-        //     'address_id' => $request-> ,
-        //     'subtotal' => auth()->user()->cart()->sum(),
-        //     'orderable_type' => $request->orderable_type,
-        //     'orderable_id' => $request->orderable_type,
-        // ]));
+        $order = auth()->user()->orders()->create([
+            'address_id' => $request->address_id,
+            'subtotal' => $cartSum,
+            'total' => $cartSum,
+            'orderable_type' => $request->orderable_type,
+            'orderable_id' => $request->orderable_type,
+        ]);
+        
+        collect($request->cart)->each(function ($cart) use ($order){
+            OrderItem::create([
+                'itemable_id'=> $cart['itemable_id'],
+                'itemable_type'=> $cart['itemable_id'],
+                'quantity'=> $cart['quantity'],
+                'order_id'=> $order->id,
+            ]);
+        });
+        
+        return $this->showOne(Order::findOrfail($order->id));
+        
     }
 
     /**

@@ -40,8 +40,6 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('part-subcategories', 'Part\PartSubcategoryController');
 
 		Route::Resource('category-one', 'Category\CategoryOneController');
-
-
 	});
 
 	Route::group(['prefix' => 'vendor', 'middleware' => 'auth:api', 'namespace' => 'Api\Vendor'], function(){
@@ -49,6 +47,5 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('quotes', 'QuoteController');
 		Route::Resource('business-details', 'DetailsController');
 	});
-
 });
 

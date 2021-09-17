@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Cart;
 
-use App\Http\Resources\Quote\QuoteResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CartResource extends JsonResource

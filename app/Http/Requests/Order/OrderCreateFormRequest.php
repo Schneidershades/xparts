@@ -50,11 +50,11 @@ class OrderCreateFormRequest extends FormRequest
     public $orderable_id;
     
     /**
-    *       @OA\Property(property="quotes", type="object", type="array",
+    *       @OA\Property(property="cart", type="object", type="array",
     *            @OA\Items(
     *                @OA\Property(property="itemable_id", type="int", example="1"),
-    *                @OA\Property(property="quantity", type="int", example="1"),
     *                @OA\Property(property="itemable_type", type="string", example="quote"),
+    *                @OA\Property(property="quantity", type="int", example="1"),
     *            ),
     *        ),
     *    ),
@@ -83,6 +83,10 @@ class OrderCreateFormRequest extends FormRequest
             'address_id' => 'required|int|exists:addresses,id',
             'orderable_type' => 'required|string',
             'orderable_id' => 'required|id',
+            'cart' => 'required|array', 
+            'cart.*.quantity' => 'required|int',
+            'cart.*.itemable_id' => 'required|int',
+            'cart.*.itemable_type' => 'required|string',
         ];
     }
 }
