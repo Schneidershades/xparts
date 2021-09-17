@@ -37,7 +37,7 @@ class UserResource extends JsonResource
 
             $this->mergeWhen(auth()->user()->id == $this->id && auth()->user()->role == 'vendor', [
                 'wallet' => new WalletResource($this->wallet),
-                'bankDetails' => BankDetailResource::collection($this->bankDetails),
+                // 'bankDetails' => BankDetailResource::collection($this->bankDetails),
             ]),
 
             'created_at' => $this->created_at,
