@@ -20,7 +20,6 @@ class AppServiceProvider extends ServiceProvider
         
         Relation::morphMap([
             'quotes' => Quote::class,
-            'quote' => Quote::class,
         ]);
     }
 
