@@ -22,7 +22,9 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'role' => $this->role,
+
+            'role' => $this->getRoleNames(),
+            
             'verified' => $this->email_verified_at ? true : false,
             'addresses' => AddressResource::collection($this->addresses),
             

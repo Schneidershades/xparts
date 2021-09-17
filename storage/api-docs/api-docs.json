@@ -2718,6 +2718,46 @@
                 "required": [
                     "email"
                 ],
+                "properties": {
+                    "address_id": {
+                        "title": "User Address id",
+                        "description": "Address ID of the user",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "orderable_type": {
+                        "title": "Order Type",
+                        "description": "Order Type",
+                        "type": "string",
+                        "example": "xpartRequest"
+                    },
+                    "orderable_id": {
+                        "title": "Orderable id",
+                        "description": "Orderable type",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "quotes": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "itemable_id": {
+                                    "type": "int",
+                                    "example": "1"
+                                },
+                                "quantity": {
+                                    "type": "int",
+                                    "example": "1"
+                                },
+                                "itemable_type": {
+                                    "type": "string",
+                                    "example": "quote"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
                 "type": "object"
             },
             "OrderUpdateFormRequest": {
@@ -2726,6 +2766,14 @@
                 "required": [
                     "email"
                 ],
+                "properties": {
+                    "payment_reference": {
+                        "title": "Order payment reference",
+                        "description": "Order payment reference",
+                        "type": "string",
+                        "example": "quote"
+                    }
+                },
                 "type": "object"
             },
             "VinCheckerFormRequest": {

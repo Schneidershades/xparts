@@ -7,7 +7,7 @@ use App\Models\BankDetail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vendor\DetailCreateFormRequest;
 
-class DetailsController extends Controller
+class DetailController extends Controller
 {
     /**
     * @OA\Post(
