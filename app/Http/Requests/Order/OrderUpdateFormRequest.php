@@ -28,6 +28,18 @@ class OrderUpdateFormRequest extends FormRequest
     public $payment_reference;
 
     /**
+     * @OA\Property(
+     *      title="Order payment gateway",
+     *      description="Order payment gateway",
+     *      example="quote"
+     * )
+     *
+     * @var string
+     */
+    public $payment_gateway;
+
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -46,6 +58,7 @@ class OrderUpdateFormRequest extends FormRequest
     {
         return [
             'payment_reference' => 'required|string',
+            'payment_gateway' => 'required|string',
         ];
     }
 }
