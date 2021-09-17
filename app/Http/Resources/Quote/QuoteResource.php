@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Quote;
 
-use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\VendorResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Xpart\XpartRequestResource;
 
@@ -19,7 +19,7 @@ class QuoteResource extends JsonResource
         return [
             'id' => $this->id,
             'xpartRequest' => new XpartRequestResource($this->xpartRequest),
-            'vendor' => new UserResource($this->vendor),
+            'vendor' => new VendorResource($this->vendor),
             'grade' => $this->partGrade->name,
             'category' => $this->partCategory->name,
             'subCategory' => $this->partSubcategory->name,
