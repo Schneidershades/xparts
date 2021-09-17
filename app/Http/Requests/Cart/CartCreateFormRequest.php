@@ -31,7 +31,7 @@ class CartCreateFormRequest extends FormRequest
      * @OA\Property(
      *      title="Model Type",
      *      description="Model Type",
-     *      example="quote"
+     *      example="quotes"
      * )
      *
      * @var string
@@ -56,7 +56,7 @@ class CartCreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'cartable_type' => 'required|string',
+            'cartable_type' => 'required|string|in:quotes',
             'cartable_id' => 'required|integer',
         ];
     }
