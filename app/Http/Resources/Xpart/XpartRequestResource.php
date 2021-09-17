@@ -23,9 +23,6 @@ class XpartRequestResource extends JsonResource
             'part' => new PartResource($this->part),
             'vin' => new VinResource($this->vin),
             'vendorQuotes' => $this->vendorQuotes->count(),
-            // $this->mergeWhen(auth()->user()->role == 'User', [
-            //     'quotes' => QuoteResource::collection($this->whenLoaded('vendorQuotes')),
-            // ]),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             
