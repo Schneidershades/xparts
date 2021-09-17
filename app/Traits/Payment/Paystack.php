@@ -4,7 +4,7 @@ namespace App\Traits\Payment;
 
 class Paystack {
     
-    public function verify()
+    public function verify($reference)
     {
 
     }

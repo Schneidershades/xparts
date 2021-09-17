@@ -191,6 +191,10 @@ class OrderController extends Controller
     */
     public function update(OrderUpdateFormRequest $request, $id)
     {
-        return $this->showOne(auth()->user()->cart->where('id', $id)->first()->update($request->validated()));
+        $payment_status = match($request->payment_gateway){
+            'paystack' => 1,
+            'flutterwave' => 2,
+        };
+        // return $this->showOne(auth()->user()->cart->where('id', $id)->first()->update($request->validated()));
     }
 }

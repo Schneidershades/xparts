@@ -2737,7 +2737,7 @@
                         "type": "integer",
                         "example": "1"
                     },
-                    "quotes": {
+                    "cart": {
                         "type": "array",
                         "items": {
                             "properties": {
@@ -2745,13 +2745,13 @@
                                     "type": "int",
                                     "example": "1"
                                 },
-                                "quantity": {
-                                    "type": "int",
-                                    "example": "1"
-                                },
                                 "itemable_type": {
                                     "type": "string",
                                     "example": "quote"
+                                },
+                                "quantity": {
+                                    "type": "int",
+                                    "example": "1"
                                 }
                             },
                             "type": "object"
@@ -2770,6 +2770,12 @@
                     "payment_reference": {
                         "title": "Order payment reference",
                         "description": "Order payment reference",
+                        "type": "string",
+                        "example": "quote"
+                    },
+                    "payment_gateway": {
+                        "title": "Order payment gateway",
+                        "description": "Order payment gateway",
                         "type": "string",
                         "example": "quote"
                     }
