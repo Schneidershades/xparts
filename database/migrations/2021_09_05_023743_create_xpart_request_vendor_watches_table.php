@@ -18,6 +18,7 @@ class CreateXpartRequestVendorWatchesTable extends Migration
             $table->foreignId('xpart_request_id')->nullable()->constrained();
             $table->foreignId('vendor_id')->nullable()->constrained('users');
             $table->unsignedBigInteger('views')->default(0);
+            $table->string('status')->default('pending');
             $table->timestamps();
             $table->softDeletes();
         });
