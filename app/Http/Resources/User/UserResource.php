@@ -30,15 +30,15 @@ class UserResource extends JsonResource
                 return explode('_', $permission);
             })->toArray(),
 
-            // $this->mergeWhen(auth()->user()->id == $this->id && auth()->user()->role == 'user', [
-            //     'wallet' => new WalletResource($this->wallet),
-            //     // 'cart' => CartResource::collection($this->cart),
-            // ]),
+            $this->mergeWhen(auth()->user()->id == $this->id && auth()->user()->role == 'user', [
+                'wallet' => new WalletResource($this->wallet),
+                'cart' => CartResource::collection($this->cart),
+            ]),
 
-            // $this->mergeWhen(auth()->user()->id == $this->id && auth()->user()->role == 'vendor', [
-            //     // 'wallet' => new WalletResource($this->wallet),
-            //     // 'bankDetails' => BankDetailResource::collection($this->bankDetails),
-            // ]),
+            $this->mergeWhen(auth()->user()->id == $this->id && auth()->user()->role == 'vendor', [
+                'wallet' => new WalletResource($this->wallet),
+                'bankDetails' => BankDetailResource::collection($this->bankDetails),
+            ]),
 
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
