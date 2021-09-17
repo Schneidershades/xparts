@@ -32,7 +32,7 @@ class UserResource extends JsonResource
 
             $this->mergeWhen(auth()->user()->id == $this->id && auth()->user()->role == 'user', [
                 'wallet' => new WalletResource($this->wallet),
-                'cart' => CartResource::collection($this->cart),
+                // 'cart' => CartResource::collection($this->cart),
             ]),
 
             $this->mergeWhen(auth()->user()->id == $this->id && auth()->user()->role == 'vendor', [
