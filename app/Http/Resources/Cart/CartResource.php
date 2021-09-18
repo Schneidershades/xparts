@@ -26,7 +26,8 @@ class CartResource extends JsonResource
             'quantity' => $this->quantity,
             'total' => $this->cartable->price * $this->quantity,
             'subtotal' => $this->cartable->price * $this->quantity,
-            'discount' => 0,
+            'discount' => 0,$this->cartable,
+            'itemCount' => $this->cartable->count()
         ];
     }
 }
