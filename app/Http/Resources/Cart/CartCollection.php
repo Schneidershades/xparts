@@ -16,6 +16,12 @@ class CartCollection extends ResourceCollection
     {
         return [
             'data' => CartResource::collection($this->collection),
+            
+            'cart' => [
+                'subtotal' => CartResource::collection(auth()->user()->cart)->sum('total'),
+                'discount' => 0,
+                'cartCount' => CartResource::collection(auth()->user()->cart)->count(),
+            ],
         ];
     }
 }

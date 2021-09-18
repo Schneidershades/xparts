@@ -15,6 +15,7 @@ class CartResource extends JsonResource
     public function toArray($request)
     {
         return [
+            
             'id' => $this->id,
             $this->mergeWhen($this->cartable_type == 'quotes', [
                 'title' => $this->cartable->xpartRequest->part->title .' '. $this->cartable->xpartRequest->vin->vin_number,
@@ -25,9 +26,6 @@ class CartResource extends JsonResource
             'price' => $this->cartable->price,
             'quantity' => $this->quantity,
             'total' => $this->cartable->price * $this->quantity,
-            'subtotal' => $this->cartable->price * $this->quantity,
-            'discount' => 0,$this->cartable,
-            'cartCount' => $this->cartable->count()
         ];
     }
 }
