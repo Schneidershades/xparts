@@ -77,10 +77,8 @@ class CartController extends Controller
     */
     public function store(CartCreateFormRequest $request)
     {
-        if(!auth()->user()->cart
-            ->where('cartable_id', $request->cartable_id)
-            ->where('cartable_type', $request->cartable_type)->first()
-        ){
+        $cart = auth()->user()->cart->where('cartable_id', $request->cartable_id)->where('cartable_type', $request->cartable_type)->first();
+        if($cart->isEmpty()){
             return $this->showOne(auth()->user()->cart()->create($request->validated()));
         }
     }
