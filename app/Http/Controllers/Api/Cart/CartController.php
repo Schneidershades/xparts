@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Cart;
 
+use App\Models\Cart;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cart\CartCreateFormRequest;
 use App\Http\Requests\Cart\CartUpdateFormRequest;
@@ -77,7 +78,10 @@ class CartController extends Controller
     */
     public function store(CartCreateFormRequest $request)
     {
-        $cart = auth()->user()->cart->where('cartable_id', $request->cartable_id)->where('cartable_type', $request->cartable_type)->first();
+        $cart = Cart::where('cartable_id', $request->cartable_id)
+                ->where('user_id', auth()->user()->id)
+                ->where('cartable_type', $request->cartable_type)
+                ->first();
         if($cart == null){
             return $this->showOne(auth()->user()->cart()->create($request->validated()));
         }
