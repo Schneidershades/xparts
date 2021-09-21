@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Part;
+use App\Models\User;
 use App\Models\Quote;
+use App\Models\Address;
+use App\Models\XpartRequest;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -20,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
         
         Relation::morphMap([
             'quotes' => Quote::class,
+            'addresses' => Address::class,
+            'users' => User::class,
+            'parts' => Part::class,
+            'xpartRequests' => XpartRequest::class,
         ]);
     }
 
