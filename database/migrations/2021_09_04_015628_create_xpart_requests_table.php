@@ -18,7 +18,7 @@ class CreateXpartRequestsTable extends Migration
             $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('part_id')->nullable()->constrained();
             $table->foreignId('vin_id')->nullable()->constrained();
-            $table->string('status')->default('pending');
+            $table->string('status')->default('active');
             $table->timestamps();
             $table->softDeletes();
         });
