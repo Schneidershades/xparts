@@ -61,6 +61,39 @@ class AddressUpdateFormRequest extends FormRequest
 
     /**
      * @OA\Property(
+     *      title="User Country",
+     *      description="country of the user",
+     *      example="1"
+     * )
+     *
+     * @var string
+     */
+    public $country_id;
+
+    /**
+     * @OA\Property(
+     *      title="User State",
+     *      description="state of the user",
+     *      example="1"
+     * )
+     *
+     * @var string
+     */
+    public $state_id;
+
+    /**
+     * @OA\Property(
+     *      title="User City",
+     *      description="City of the user",
+     *      example="1"
+     * )
+     *
+     * @var string
+     */
+    public $city_id;
+
+    /**
+     * @OA\Property(
      *      title="User primary address",
      *      description="primary address of the user",
      *      example="false"
@@ -91,6 +124,9 @@ class AddressUpdateFormRequest extends FormRequest
             'name' => 'string|max:255',
             'address' => 'required|string',
             'state' => 'required|string',
+            'state_id' => 'required|integer',
+            'city_id' => 'required|integer',
+            'country_id' => 'required|integer',
             'postal_code' => 'integer',
             'primary_address' => 'boolean',
         ];

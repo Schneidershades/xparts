@@ -19,9 +19,11 @@ class CreateAddressesTable extends Migration
             $table->string('name')->nullable();
             $table->string('address')->nullable();
             $table->string('type')->nullable();
-            $table->string('state')->nullable();
             $table->string('postal_code')->nullable();
             $table->boolean('primary_address')->default(false);
+            $table->integer('city_id')->index()->unsigned()->nullable();
+            $table->integer('state_id')->index()->unsigned()->nullable();
+            $table->integer('country_id')->index()->unsigned()->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
