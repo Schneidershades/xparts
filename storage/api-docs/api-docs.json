@@ -1786,7 +1786,7 @@
                 ]
             }
         },
-        "/api/v1/shared/state/{id}": {
+        "/api/v1/shared/states/{id}": {
             "get": {
                 "tags": [
                     "location"
