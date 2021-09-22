@@ -1623,100 +1623,51 @@
                 ]
             }
         },
-        "/api/v1/shared/category-one": {
+        "/api/v1/shared/countries": {
             "get": {
                 "tags": [
-                    "Shared"
+                    "location"
                 ],
-                "summary": "allCategoryOne",
-                "description": "allCategoryOne",
-                "operationId": "allCategoryOne",
+                "summary": "Get all countries",
+                "description": "Get all countries",
+                "operationId": "allCountries",
                 "responses": {
                     "200": {
-                        "description": "Successful signin",
+                        "description": "Successful operation",
                         "content": {
                             "application/json": {}
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                }
             }
         },
-        "/api/v1/shared/part-categories": {
+        "/api/v1/shared/countries/{id}": {
             "get": {
                 "tags": [
-                    "Shared"
+                    "location"
                 ],
-                "summary": "allPartCategories",
-                "description": "allPartCategories",
-                "operationId": "allPartCategories",
+                "summary": "Get details of country by id with attached states",
+                "description": "Get country with states in a country",
+                "operationId": "countryID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Country ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Successful signin",
+                        "description": "Successful operation",
                         "content": {
                             "application/json": {}
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
                     }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/shared/part-condition": {
-            "get": {
-                "tags": [
-                    "Shared"
-                ],
-                "summary": "allPartCondition",
-                "description": "allPartCondition",
-                "operationId": "allPartCondition",
-                "responses": {
-                    "200": {
-                        "description": "Successful signin",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                }
             }
         },
         "/api/v1/shared/part-grade": {
@@ -1727,38 +1678,6 @@
                 "summary": "allPartGrade",
                 "description": "allPartGrade",
                 "operationId": "allPartGrade",
-                "responses": {
-                    "200": {
-                        "description": "Successful signin",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/shared/part-subcategories": {
-            "get": {
-                "tags": [
-                    "Shared"
-                ],
-                "summary": "allPartSubcategories",
-                "description": "allPartSubcategories",
-                "operationId": "allPartSubcategories",
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -1833,6 +1752,35 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        },
+        "/api/v1/shared/state/{id}": {
+            "get": {
+                "tags": [
+                    "location"
+                ],
+                "summary": "Get all cities in a state",
+                "description": "Get all cities in a state",
+                "operationId": "state_by_id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "State ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
             }
         },
         "/api/v1/shared/check-vin": {
@@ -2417,6 +2365,24 @@
                         "type": "string",
                         "example": "900233"
                     },
+                    "country_id": {
+                        "title": "User Country",
+                        "description": "country of the user",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "state_id": {
+                        "title": "User State",
+                        "description": "state of the user",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "city_id": {
+                        "title": "User City",
+                        "description": "City of the user",
+                        "type": "string",
+                        "example": "1"
+                    },
                     "primary_address": {
                         "title": "User primary address",
                         "description": "primary address of the user",
@@ -2456,6 +2422,24 @@
                         "description": "postal_code of the user",
                         "type": "string",
                         "example": "900233"
+                    },
+                    "country_id": {
+                        "title": "User Country",
+                        "description": "country of the user",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "state_id": {
+                        "title": "User State",
+                        "description": "state of the user",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "city_id": {
+                        "title": "User City",
+                        "description": "City of the user",
+                        "type": "string",
+                        "example": "1"
                     },
                     "primary_address": {
                         "title": "User primary address",
@@ -2691,7 +2675,7 @@
                         "title": "Model Type",
                         "description": "Model Type",
                         "type": "string",
-                        "example": "quote"
+                        "example": "quotes"
                     }
                 },
                 "type": "object"
@@ -2747,7 +2731,7 @@
                                 },
                                 "itemable_type": {
                                     "type": "string",
-                                    "example": "quote"
+                                    "example": "quotes"
                                 },
                                 "quantity": {
                                     "type": "int",
@@ -2897,15 +2881,11 @@
                                     "type": "int",
                                     "example": "1"
                                 },
-                                "part_category_id": {
+                                "state_id": {
                                     "type": "int",
                                     "example": "1"
                                 },
-                                "part_subcategory_id": {
-                                    "type": "int",
-                                    "example": "1"
-                                },
-                                "part_condition_id": {
+                                "city_id": {
                                     "type": "int",
                                     "example": "1"
                                 },

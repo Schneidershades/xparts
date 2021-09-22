@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\PartGrade;
-use Illuminate\Support\Facades\File;
+use Illuminate\Database\Seeder;
 
 class PartGradeTableSeeder extends Seeder
 {
@@ -16,7 +15,23 @@ class PartGradeTableSeeder extends Seeder
     public function run()
     {
         PartGrade::Create([
-            'name'             => 'tokunbo',
+            'name'             => 'Tokunbo',
+        ]);
+
+        PartGrade::Create([
+            'name'             => 'OEM',
+        ]);
+
+        PartGrade::Create([
+            'name'             => 'Aftermarket',
+        ]);
+
+        PartGrade::Create([
+            'name'             => 'China',
+        ]);
+
+        PartGrade::Create([
+            'name'             => 'New',
         ]);
     }
 }

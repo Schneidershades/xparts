@@ -29,23 +29,21 @@ Route::prefix('v1')->group(function () {
 
 	Route::group(['prefix' => 'shared', 'namespace' => 'Api\Shared'], function(){
 		Route::post('check-vin', 'VinCheckerController');
-		Route::Resource('parts', 'PartsController');
 		Route::Resource('banks', 'BankController');
-		Route::Resource('banks-details', 'BankDetailController');
+		Route::Resource('banks-details', 'BankDetailController')->middleware('auth:api');
 		Route::Resource('addresses', 'AddressController')->middleware('auth:api');
 
-		Route::Resource('part-categories', 'Part\PartCategoryController');
-		Route::Resource('part-condition', 'Part\PartConditionController');
-		Route::Resource('part-grade', 'Part\PartGradeController');
-		Route::Resource('part-subcategories', 'Part\PartSubcategoryController');
+		Route::Resource('states', 'StateController');
+		Route::Resource('countries', 'CountryController');
 
-		Route::Resource('category-one', 'Category\CategoryOneController');
+		Route::Resource('parts', 'Parts\PartsController');
+		Route::Resource('part-grade', 'Parts\PartGradeController');
 	});
 
 	Route::group(['prefix' => 'vendor', 'middleware' => 'auth:api', 'namespace' => 'Api\Vendor'], function(){
-		Route::Resource('assigned-xpart-requests', 'UserXpartRequestController');
-		Route::Resource('quotes', 'QuoteController');
-		Route::Resource('business-details', 'DetailController');
+		Route::Resource('assigned-xpart-requests', 'UserXpartRequestController')->middleware('auth:api');
+		Route::Resource('quotes', 'QuoteController')->middleware('auth:api');
+		Route::Resource('business-details', 'DetailController')->middleware('auth:api');
 	});
 });
 

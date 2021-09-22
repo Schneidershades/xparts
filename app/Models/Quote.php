@@ -5,10 +5,7 @@ namespace App\Models;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\PartGrade;
-use App\Models\PartCategory;
 use App\Models\XpartRequest;
-use App\Models\PartCondition;
-use App\Models\PartSubcategory;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Quote\QuoteResource;
 use App\Http\Resources\Quote\QuoteCollection;
@@ -48,21 +45,6 @@ class Quote extends Model
     public function partGrade()
     {
         return $this->belongsTo(PartGrade::class);
-    }
-
-    public function partCategory()
-    {
-        return $this->belongsTo(PartCategory::class);
-    }
-
-    public function partSubcategory()
-    {
-        return $this->belongsTo(PartSubcategory::class);
-    }
-
-    public function partCondition()
-    {
-        return $this->belongsTo(PartCondition::class);
     }
 
     public function vendor()

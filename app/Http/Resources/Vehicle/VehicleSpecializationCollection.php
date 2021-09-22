@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Bank;
+namespace App\Http\Resources\Vehicle;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class BankDetailCollection extends ResourceCollection
+class VehicleSpecializationCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -15,7 +15,7 @@ class BankDetailCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => BankDetailResource::collection($this->collection),
+            'data' => VehicleSpecializationResource::collection($this->collection),
         ];
     }
 }

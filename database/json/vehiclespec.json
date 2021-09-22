@@ -1,0 +1,767 @@
+[
+    {
+        "VEHICLE_SPEC": "ACURA"
+    },
+    {
+        "VEHICLE_SPEC": "AUDI"
+    },
+    {
+        "VEHICLE_SPEC": "BMW"
+    },
+    {
+        "VEHICLE_SPEC": "BUICK"
+    },
+    {
+        "VEHICLE_SPEC": "CADILLAC"
+    },
+    {
+        "VEHICLE_SPEC": "CHEVROLET"
+    },
+    {
+        "VEHICLE_SPEC": "CHRYSLER"
+    },
+    {
+        "VEHICLE_SPEC": "DAEWOO"
+    },
+    {
+        "VEHICLE_SPEC": "DAIHATSU"
+    },
+    {
+        "VEHICLE_SPEC": "DODGE"
+    },
+    {
+        "VEHICLE_SPEC": "FIAT"
+    },
+    {
+        "VEHICLE_SPEC": "FORD"
+    },
+    {
+        "VEHICLE_SPEC": "GMC"
+    },
+    {
+        "VEHICLE_SPEC": "HONDA"
+    },
+    {
+        "VEHICLE_SPEC": "HYUNDAI"
+    },
+    {
+        "VEHICLE_SPEC": "INFINITI"
+    },
+    {
+        "VEHICLE_SPEC": "ISUZU"
+    },
+    {
+        "VEHICLE_SPEC": "JAGUAR"
+    },
+    {
+        "VEHICLE_SPEC": "JEEP"
+    },
+    {
+        "VEHICLE_SPEC": "KIA"
+    },
+    {
+        "VEHICLE_SPEC": "LAND ROVER"
+    },
+    {
+        "VEHICLE_SPEC": "LEXUS"
+    },
+    {
+        "VEHICLE_SPEC": "LINCOLN"
+    },
+    {
+        "VEHICLE_SPEC": "MAZDA"
+    },
+    {
+        "VEHICLE_SPEC": "MERCEDES BENZ"
+    },
+    {
+        "VEHICLE_SPEC": "MITSUBISHI"
+    },
+    {
+        "VEHICLE_SPEC": "NISSAN"
+    },
+    {
+        "VEHICLE_SPEC": "PEUGEOT"
+    },
+    {
+        "VEHICLE_SPEC": "SCION"
+    },
+    {
+        "VEHICLE_SPEC": "SKODA"
+    },
+    {
+        "VEHICLE_SPEC": "SUBARU"
+    },
+    {
+        "VEHICLE_SPEC": "SUZUKI"
+    },
+    {
+        "VEHICLE_SPEC": "TOYOTA"
+    },
+    {
+        "VEHICLE_SPEC": "VOLKSWAGEN"
+    },
+    {
+        "VEHICLE_SPEC": "VOLVO"
+    },
+    {
+        "VEHICLE_SPEC": "ABARTH"
+    },
+    {
+        "VEHICLE_SPEC": "AC"
+    },
+    {
+        "VEHICLE_SPEC": "ALFA ROMEO"
+    },
+    {
+        "VEHICLE_SPEC": "ALLARD"
+    },
+    {
+        "VEHICLE_SPEC": "ALLSTATE"
+    },
+    {
+        "VEHICLE_SPEC": "ALPINE"
+    },
+    {
+        "VEHICLE_SPEC": "ALVIS"
+    },
+    {
+        "VEHICLE_SPEC": "AM GENERAL"
+    },
+    {
+        "VEHICLE_SPEC": "AMERICAN AUSTIN"
+    },
+    {
+        "VEHICLE_SPEC": "AMERICAN BANTAM"
+    },
+    {
+        "VEHICLE_SPEC": "AMERICAN MOTORS"
+    },
+    {
+        "VEHICLE_SPEC": "AMPHICAR"
+    },
+    {
+        "VEHICLE_SPEC": "APOLLO"
+    },
+    {
+        "VEHICLE_SPEC": "ARMSTRONG-SIDDELEY"
+    },
+    {
+        "VEHICLE_SPEC": "ARNOLT-BRISTOL"
+    },
+    {
+        "VEHICLE_SPEC": "ARNOLT-MG"
+    },
+    {
+        "VEHICLE_SPEC": "ASTON MARTIN"
+    },
+    {
+        "VEHICLE_SPEC": "ASUNA"
+    },
+    {
+        "VEHICLE_SPEC": "AUBURN"
+    },
+    {
+        "VEHICLE_SPEC": "AUSTIN"
+    },
+    {
+        "VEHICLE_SPEC": "AUSTIN-HEALEY"
+    },
+    {
+        "VEHICLE_SPEC": "AVANTI"
+    },
+    {
+        "VEHICLE_SPEC": "BAIC"
+    },
+    {
+        "VEHICLE_SPEC": "BENTLEY"
+    },
+    {
+        "VEHICLE_SPEC": "BERKELEY"
+    },
+    {
+        "VEHICLE_SPEC": "BIZZARRINI"
+    },
+    {
+        "VEHICLE_SPEC": "BOND"
+    },
+    {
+        "VEHICLE_SPEC": "BORGWARD"
+    },
+    {
+        "VEHICLE_SPEC": "BRICKLIN"
+    },
+    {
+        "VEHICLE_SPEC": "BRISTOL"
+    },
+    {
+        "VEHICLE_SPEC": "BUGATTI"
+    },
+    {
+        "VEHICLE_SPEC": "CASE"
+    },
+    {
+        "VEHICLE_SPEC": "CHECKER"
+    },
+    {
+        "VEHICLE_SPEC": "CISITALIA"
+    },
+    {
+        "VEHICLE_SPEC": "CITROEN"
+    },
+    {
+        "VEHICLE_SPEC": "CLEVELAND"
+    },
+    {
+        "VEHICLE_SPEC": "COLE"
+    },
+    {
+        "VEHICLE_SPEC": "CONTINENTAL"
+    },
+    {
+        "VEHICLE_SPEC": "CORD"
+    },
+    {
+        "VEHICLE_SPEC": "CROSLEY"
+    },
+    {
+        "VEHICLE_SPEC": "CUNNINGHAM"
+    },
+    {
+        "VEHICLE_SPEC": "DAF"
+    },
+    {
+        "VEHICLE_SPEC": "DAIMLER"
+    },
+    {
+        "VEHICLE_SPEC": "DATSUN"
+    },
+    {
+        "VEHICLE_SPEC": "DELAGE"
+    },
+    {
+        "VEHICLE_SPEC": "DELAHAYE"
+    },
+    {
+        "VEHICLE_SPEC": "DELLOW"
+    },
+    {
+        "VEHICLE_SPEC": "DELOREAN"
+    },
+    {
+        "VEHICLE_SPEC": "DESOTO"
+    },
+    {
+        "VEHICLE_SPEC": "DETOMASO"
+    },
+    {
+        "VEHICLE_SPEC": "DEUTSCH-BONNET"
+    },
+    {
+        "VEHICLE_SPEC": "DIANA"
+    },
+    {
+        "VEHICLE_SPEC": "DKW"
+    },
+    {
+        "VEHICLE_SPEC": "DU PONT"
+    },
+    {
+        "VEHICLE_SPEC": "DUAL-GHIA"
+    },
+    {
+        "VEHICLE_SPEC": "DUESENBERG"
+    },
+    {
+        "VEHICLE_SPEC": "DURANT"
+    },
+    {
+        "VEHICLE_SPEC": "EAGLE"
+    },
+    {
+        "VEHICLE_SPEC": "EDSEL"
+    },
+    {
+        "VEHICLE_SPEC": "ELCAR"
+    },
+    {
+        "VEHICLE_SPEC": "ELVA"
+    },
+    {
+        "VEHICLE_SPEC": "ERSKINE"
+    },
+    {
+        "VEHICLE_SPEC": "ESSEX"
+    },
+    {
+        "VEHICLE_SPEC": "EXCALIBUR"
+    },
+    {
+        "VEHICLE_SPEC": "FACEL VEGA"
+    },
+    {
+        "VEHICLE_SPEC": "FAIRTHORPE"
+    },
+    {
+        "VEHICLE_SPEC": "FALCON KNIGHT"
+    },
+    {
+        "VEHICLE_SPEC": "FARGO"
+    },
+    {
+        "VEHICLE_SPEC": "FAW"
+    },
+    {
+        "VEHICLE_SPEC": "FERRARI"
+    },
+    {
+        "VEHICLE_SPEC": "FISKER"
+    },
+    {
+        "VEHICLE_SPEC": "FLINT"
+    },
+    {
+        "VEHICLE_SPEC": "FOTON"
+    },
+    {
+        "VEHICLE_SPEC": "FRANKLIN"
+    },
+    {
+        "VEHICLE_SPEC": "FRAZER NASH"
+    },
+    {
+        "VEHICLE_SPEC": "FREIGHTLINER"
+    },
+    {
+        "VEHICLE_SPEC": "GARDNER"
+    },
+    {
+        "VEHICLE_SPEC": "GENESIS"
+    },
+    {
+        "VEHICLE_SPEC": "GEO"
+    },
+    {
+        "VEHICLE_SPEC": "GIANT MOTORS"
+    },
+    {
+        "VEHICLE_SPEC": "GLAS"
+    },
+    {
+        "VEHICLE_SPEC": "GOLIATH"
+    },
+    {
+        "VEHICLE_SPEC": "GORDON-KEEBLE"
+    },
+    {
+        "VEHICLE_SPEC": "GRAHAM"
+    },
+    {
+        "VEHICLE_SPEC": "GRAHAM-PAIGE"
+    },
+    {
+        "VEHICLE_SPEC": "GRIFFITH"
+    },
+    {
+        "VEHICLE_SPEC": "HEALEY"
+    },
+    {
+        "VEHICLE_SPEC": "HENRY J"
+    },
+    {
+        "VEHICLE_SPEC": "HILLMAN"
+    },
+    {
+        "VEHICLE_SPEC": "HINO"
+    },
+    {
+        "VEHICLE_SPEC": "HOTCHKISS"
+    },
+    {
+        "VEHICLE_SPEC": "HRG"
+    },
+    {
+        "VEHICLE_SPEC": "HUDSON"
+    },
+    {
+        "VEHICLE_SPEC": "HUMBER"
+    },
+    {
+        "VEHICLE_SPEC": "HUMMER"
+    },
+    {
+        "VEHICLE_SPEC": "HUPMOBILE"
+    },
+    {
+        "VEHICLE_SPEC": "INTERNATIONAL"
+    },
+    {
+        "VEHICLE_SPEC": "ISO"
+    },
+    {
+        "VEHICLE_SPEC": "IVECO"
+    },
+    {
+        "VEHICLE_SPEC": "JAC"
+    },
+    {
+        "VEHICLE_SPEC": "JENSEN"
+    },
+    {
+        "VEHICLE_SPEC": "JEWETT"
+    },
+    {
+        "VEHICLE_SPEC": "JORDAN"
+    },
+    {
+        "VEHICLE_SPEC": "JOWETT"
+    },
+    {
+        "VEHICLE_SPEC": "KAISER-FRAZER"
+    },
+    {
+        "VEHICLE_SPEC": "KARMA"
+    },
+    {
+        "VEHICLE_SPEC": "KENWORTH"
+    },
+    {
+        "VEHICLE_SPEC": "KISSEL"
+    },
+    {
+        "VEHICLE_SPEC": "KURTIS"
+    },
+    {
+        "VEHICLE_SPEC": "LADA"
+    },
+    {
+        "VEHICLE_SPEC": "LAFORZA"
+    },
+    {
+        "VEHICLE_SPEC": "LAMBORGHINI"
+    },
+    {
+        "VEHICLE_SPEC": "LANCHESTER"
+    },
+    {
+        "VEHICLE_SPEC": "LANCIA"
+    },
+    {
+        "VEHICLE_SPEC": "LASALLE"
+    },
+    {
+        "VEHICLE_SPEC": "LEA-FRANCIS"
+    },
+    {
+        "VEHICLE_SPEC": "LEXINGTON"
+    },
+    {
+        "VEHICLE_SPEC": "LOTUS"
+    },
+    {
+        "VEHICLE_SPEC": "MACK"
+    },
+    {
+        "VEHICLE_SPEC": "MARATHON"
+    },
+    {
+        "VEHICLE_SPEC": "MARAUDER"
+    },
+    {
+        "VEHICLE_SPEC": "MARCOS"
+    },
+    {
+        "VEHICLE_SPEC": "MARMON"
+    },
+    {
+        "VEHICLE_SPEC": "MASERATI"
+    },
+    {
+        "VEHICLE_SPEC": "MASTRETTA"
+    },
+    {
+        "VEHICLE_SPEC": "MATRA"
+    },
+    {
+        "VEHICLE_SPEC": "MAXWELL"
+    },
+    {
+        "VEHICLE_SPEC": "MAYBACH"
+    },
+    {
+        "VEHICLE_SPEC": "MCLAREN"
+    },
+    {
+        "VEHICLE_SPEC": "MERCEDES-BENZ"
+    },
+    {
+        "VEHICLE_SPEC": "MERCURY"
+    },
+    {
+        "VEHICLE_SPEC": "MERKUR"
+    },
+    {
+        "VEHICLE_SPEC": "MESSERSCHMITT"
+    },
+    {
+        "VEHICLE_SPEC": "MG"
+    },
+    {
+        "VEHICLE_SPEC": "MINI"
+    },
+    {
+        "VEHICLE_SPEC": "MITSUBISHI FUSO"
+    },
+    {
+        "VEHICLE_SPEC": "MOBILITY VENTURES"
+    },
+    {
+        "VEHICLE_SPEC": "MONTEVERDI"
+    },
+    {
+        "VEHICLE_SPEC": "MOON"
+    },
+    {
+        "VEHICLE_SPEC": "MORETTI"
+    },
+    {
+        "VEHICLE_SPEC": "MORGAN"
+    },
+    {
+        "VEHICLE_SPEC": "MORRIS"
+    },
+    {
+        "VEHICLE_SPEC": "MOSKVICH"
+    },
+    {
+        "VEHICLE_SPEC": "NARDI"
+    },
+    {
+        "VEHICLE_SPEC": "NASH"
+    },
+    {
+        "VEHICLE_SPEC": "NSU"
+    },
+    {
+        "VEHICLE_SPEC": "OAKLAND"
+    },
+    {
+        "VEHICLE_SPEC": "OLDSMOBILE"
+    },
+    {
+        "VEHICLE_SPEC": "OMEGA"
+    },
+    {
+        "VEHICLE_SPEC": "OPEL"
+    },
+    {
+        "VEHICLE_SPEC": "PACKARD"
+    },
+    {
+        "VEHICLE_SPEC": "PAIGE"
+    },
+    {
+        "VEHICLE_SPEC": "PANHARD"
+    },
+    {
+        "VEHICLE_SPEC": "PANOZ"
+    },
+    {
+        "VEHICLE_SPEC": "PANTHER"
+    },
+    {
+        "VEHICLE_SPEC": "PASSPORT"
+    },
+    {
+        "VEHICLE_SPEC": "PEERLESS"
+    },
+    {
+        "VEHICLE_SPEC": "PETERBILT"
+    },
+    {
+        "VEHICLE_SPEC": "PIERCE-ARROW"
+    },
+    {
+        "VEHICLE_SPEC": "PLYMOUTH"
+    },
+    {
+        "VEHICLE_SPEC": "POLESTAR"
+    },
+    {
+        "VEHICLE_SPEC": "PONTIAC"
+    },
+    {
+        "VEHICLE_SPEC": "PORSCHE"
+    },
+    {
+        "VEHICLE_SPEC": "QVALE"
+    },
+    {
+        "VEHICLE_SPEC": "RAM"
+    },
+    {
+        "VEHICLE_SPEC": "RELIANT"
+    },
+    {
+        "VEHICLE_SPEC": "RENAULT"
+    },
+    {
+        "VEHICLE_SPEC": "REO"
+    },
+    {
+        "VEHICLE_SPEC": "RICKENBACKER"
+    },
+    {
+        "VEHICLE_SPEC": "RILEY"
+    },
+    {
+        "VEHICLE_SPEC": "ROAMER"
+    },
+    {
+        "VEHICLE_SPEC": "ROCKNE"
+    },
+    {
+        "VEHICLE_SPEC": "ROLLS-ROYCE"
+    },
+    {
+        "VEHICLE_SPEC": "ROVER"
+    },
+    {
+        "VEHICLE_SPEC": "SAAB"
+    },
+    {
+        "VEHICLE_SPEC": "SABRA"
+    },
+    {
+        "VEHICLE_SPEC": "SALEEN"
+    },
+    {
+        "VEHICLE_SPEC": "SALMSON"
+    },
+    {
+        "VEHICLE_SPEC": "SATURN"
+    },
+    {
+        "VEHICLE_SPEC": "SEAT"
+    },
+    {
+        "VEHICLE_SPEC": "SHELBY"
+    },
+    {
+        "VEHICLE_SPEC": "SIATA"
+    },
+    {
+        "VEHICLE_SPEC": "SIMCA"
+    },
+    {
+        "VEHICLE_SPEC": "SINGER"
+    },
+    {
+        "VEHICLE_SPEC": "SMART"
+    },
+    {
+        "VEHICLE_SPEC": "SPYKER"
+    },
+    {
+        "VEHICLE_SPEC": "SRT"
+    },
+    {
+        "VEHICLE_SPEC": "STANDARD"
+    },
+    {
+        "VEHICLE_SPEC": "STAR"
+    },
+    {
+        "VEHICLE_SPEC": "STEARNS KNIGHT"
+    },
+    {
+        "VEHICLE_SPEC": "STERLING"
+    },
+    {
+        "VEHICLE_SPEC": "STEVENS-DURYEA"
+    },
+    {
+        "VEHICLE_SPEC": "STUDEBAKER"
+    },
+    {
+        "VEHICLE_SPEC": "STUTZ"
+    },
+    {
+        "VEHICLE_SPEC": "SUNBEAM"
+    },
+    {
+        "VEHICLE_SPEC": "SWALLOW"
+    },
+    {
+        "VEHICLE_SPEC": "TATRA"
+    },
+    {
+        "VEHICLE_SPEC": "TESLA"
+    },
+    {
+        "VEHICLE_SPEC": "THINK"
+    },
+    {
+        "VEHICLE_SPEC": "TRIUMPH"
+    },
+    {
+        "VEHICLE_SPEC": "TURNER"
+    },
+    {
+        "VEHICLE_SPEC": "TVR"
+    },
+    {
+        "VEHICLE_SPEC": "UAZ"
+    },
+    {
+        "VEHICLE_SPEC": "UD"
+    },
+    {
+        "VEHICLE_SPEC": "UTILIMASTER"
+    },
+    {
+        "VEHICLE_SPEC": "VAM"
+    },
+    {
+        "VEHICLE_SPEC": "VAUXHALL"
+    },
+    {
+        "VEHICLE_SPEC": "VESPA"
+    },
+    {
+        "VEHICLE_SPEC": "VPG"
+    },
+    {
+        "VEHICLE_SPEC": "WARTBURG"
+    },
+    {
+        "VEHICLE_SPEC": "WESTCOTT"
+    },
+    {
+        "VEHICLE_SPEC": "WHIPPET"
+    },
+    {
+        "VEHICLE_SPEC": "WILLYS"
+    },
+    {
+        "VEHICLE_SPEC": "WINDSOR"
+    },
+    {
+        "VEHICLE_SPEC": "WOLSELEY"
+    },
+    {
+        "VEHICLE_SPEC": "WORKHORSE"
+    },
+    {
+        "VEHICLE_SPEC": "YELLOW CAB"
+    },
+    {
+        "VEHICLE_SPEC": "YUGO"
+    },
+    {
+        "VEHICLE_SPEC": "ZACUA"
+    },
+    {
+        "VEHICLE_SPEC": "ZUNDAPP"
+    }
+]

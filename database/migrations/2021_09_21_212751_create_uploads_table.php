@@ -18,9 +18,10 @@ class CreateUploadsTable extends Migration
             $table->integer('uploadable_id')->nullable();
             $table->string('uploadable_type')->nullable();
             $table->string('driver')->nullable();
-            $table->text('link')->nullable();
+            $table->text('url')->nullable();
             $table->boolean('featured')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

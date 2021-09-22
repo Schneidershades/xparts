@@ -1,8 +1,0 @@
-part_image-1.csv
-part_image-2.csv
-part_image-3.csv
-part_image-4.csv
-part_image-5.csv
-part_image-6.csv
-part_image-7.csv
-part_image-8.csv

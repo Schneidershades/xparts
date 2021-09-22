@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Address;
+namespace App\Http\Resources\Vehicle;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AddressResource extends JsonResource
+class VehicleSpecializationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,12 +17,7 @@ class AddressResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'address' => $this->address,
-            'state' => $this->state->name,
-            'city' => $this->state->name,
-            'country' => $this->country->name,
-            'postal_code' => $this->postal_code,
-            'default' => $this->primary_address ? true : false,
+            'slug' => $this->slug,
         ];
     }
 }

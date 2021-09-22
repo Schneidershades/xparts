@@ -45,18 +45,21 @@ class DetailController extends Controller
     
     public function store(DetailCreateFormRequest $request)
     {
-        if(auth()->user()->addresses || auth()->user()->bankDetails ){
-            return $this->errorResponse('details of the vendor has already been saved', 409);
-        }
-        
+        $address = Address::where('user_id', auth()->user()->id)->first();
+        $bankDetail = BankDetail::where('user_id', auth()->user()->id)->first();
         $array = ['user_id' => auth()->user()->id];
-        $address = new Address;
-        $address = $this->requestAndDbIntersection($request, $address, [], $array);
-        $address->save();
-
-        $bankDetail = new BankDetail;
-        $bankDetail = $this->requestAndDbIntersection($request, $bankDetail, [], $array);
-        $bankDetail->save();
+        
+        if($address == null){
+            $address = new Address;
+            $address = $this->requestAndDbIntersection($request, $address, [], $array);
+            $address->save();
+        }    
+        
+        if($address == null){
+            $bankDetail = new BankDetail;
+            $bankDetail = $this->requestAndDbIntersection($request, $bankDetail, [], $array);
+            $bankDetail->save();
+        }
 
         return $this->showMessage('Details saved');
     }

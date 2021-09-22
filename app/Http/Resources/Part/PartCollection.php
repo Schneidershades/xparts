@@ -24,10 +24,7 @@ class PartCollection extends ResourceCollection
     {
         $attribute = [
             'id' => 'id',
-            'title' => 'title',
-            'image' => 'image',
-            'part_number' => 'part_number',
-            'overview' => 'overview',
+            'name' => 'name',
             'slug' => 'slug',
         ];
 
@@ -38,10 +35,7 @@ class PartCollection extends ResourceCollection
     {
         $attribute = [
             'id' => 'id',
-            'title' => 'title',
-            'image' => 'image',
-            'part_number' => 'part_number',
-            'overview' => 'overview',
+            'name' => 'name',
             'slug' => 'slug',
         ];
 

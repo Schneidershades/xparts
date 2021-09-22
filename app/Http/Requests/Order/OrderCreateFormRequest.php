@@ -53,7 +53,7 @@ class OrderCreateFormRequest extends FormRequest
     *       @OA\Property(property="cart", type="object", type="array",
     *            @OA\Items(
     *                @OA\Property(property="itemable_id", type="int", example="1"),
-    *                @OA\Property(property="itemable_type", type="string", example="quote"),
+    *                @OA\Property(property="itemable_type", type="string", example="quotes"),
     *                @OA\Property(property="quantity", type="int", example="1"),
     *            ),
     *        ),

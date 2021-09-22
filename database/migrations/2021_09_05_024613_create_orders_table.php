@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('address_id')->nullable()->constrained();       
             $table->integer('vat_id')->index()->unsigned()->nullable();
             $table->integer('discount_id')->index()->unsigned()->nullable();
+            $table->integer('payment_charge_id')->index()->unsigned()->nullable();
             $table->float('subtotal')->nullable();
             $table->string('orderable_type')->nullable();
             $table->integer('orderable_id')->nullable();

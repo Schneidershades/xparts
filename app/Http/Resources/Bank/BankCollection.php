@@ -14,6 +14,8 @@ class BankCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => BankResource::collection($this->collection),
+        ];
     }
 }
