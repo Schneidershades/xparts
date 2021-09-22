@@ -47,6 +47,16 @@ class Quote extends Model
         return $this->belongsTo(PartGrade::class);
     }
 
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
     public function vendor()
     {
         return $this->belongsTo(User::class, 'vendor_id', 'id');
