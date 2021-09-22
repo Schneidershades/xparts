@@ -17,6 +17,6 @@ class Vin extends Model
 
     public function getVehicleNameAttribute()
     {
-        return "{$this->manufacturer} {$this->make} {$this->model}";
+        return "{$this->make} {$this->model} {$this->model_year}";
     }
 }
