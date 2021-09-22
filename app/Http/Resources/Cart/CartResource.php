@@ -20,7 +20,7 @@ class CartResource extends JsonResource
             $this->mergeWhen($this->cartable_type == 'quotes', [
                 'title' => $this->cartable->xpartRequest->part->name,
 
-                'business' => $this->cartable->xpartRequest->vendor->addresses->first()->name,
+                'business' => $this->cartable->xpartRequest->vendor->addresses,
 
                 'description' => $this->cartable->partGrade->name.' '.$this->cartable->brand .' '.$this->cartable->part_number,
             ]),
