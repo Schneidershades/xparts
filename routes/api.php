@@ -38,6 +38,8 @@ Route::prefix('v1')->group(function () {
 
 		Route::Resource('parts', 'Parts\PartsController');
 		Route::Resource('part-grade', 'Parts\PartGradeController');
+		Route::Resource('part-specialization', 'Parts\PartSpecializationController');
+		Route::Resource('vehicle-specialization', 'Vehicle\VehicleSpecializationController');
 	});
 
 	Route::group(['prefix' => 'vendor', 'middleware' => 'auth:api', 'namespace' => 'Api\Vendor'], function(){
