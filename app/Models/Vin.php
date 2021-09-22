@@ -12,4 +12,11 @@ class Vin extends Model
     use HasFactory;
     public $oneItem = VinResource::class;
     public $allItems = VinCollection::class;
+
+    protected $appends = ['vehicle_name'];
+
+    public function getVehicleNameAttribute()
+    {
+        return "{$this->manufacturer} {$this->make} {$this->model}";
+    }
 }
