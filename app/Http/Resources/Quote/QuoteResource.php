@@ -29,8 +29,9 @@ class QuoteResource extends JsonResource
             'price' => $this->price,
             'description' => $this->description,
             'status' => $this->status,
-            'state' => $this->state->name,
-            'city' => $this->state->name,
+            'state' => $this->state ? $this->state->name : 'N/A',
+            'city' => $this->city ? $this->city->name : 'N/A',
+            'country' => $this->country ? $this->country->name : 'N/A',
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
