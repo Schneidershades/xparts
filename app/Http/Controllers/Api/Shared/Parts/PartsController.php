@@ -9,13 +9,13 @@ class PartsController extends Controller
 {
     /**
     * @OA\Get(
-    *      path="/api/v1/shared/parts?search={title}&per_page={per_page}",
+    *      path="/api/v1/shared/parts?search={name}&per_page={per_page}",
     *      operationId="searchParts",
     *      tags={"Shared"},
     *      summary="searchParts",
     *      description="searchParts",
     *      @OA\Parameter(
-    *          name="title",
+    *          name="name",
     *          description="Search Items",
     *          required=false,
     *          in="path",
