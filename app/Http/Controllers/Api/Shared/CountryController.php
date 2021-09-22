@@ -26,7 +26,7 @@ class CountryController extends Controller
 
     public function index()
     {
-        return $this->showAll($this->countryRepository->all());
+        return $this->showAll(Country::all());
     }
 
     /**
