@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\User;
 
 use App\Models\User;
 use App\Models\XpartRequest;
@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserXpartRequestMail extends Mailable
+class XpartRequestMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -37,7 +37,6 @@ class UserXpartRequestMail extends Mailable
         return $this->markdown('emails.users.xpart.request')
             ->with('xp', $this->xpartRequest)
             ->with('user', $this->user)
-            ->subject("New xparts request")
-            ->from("hello@fixit45.com");
+            ->subject("New xparts request");
     }
 }
