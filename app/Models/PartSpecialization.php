@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PartSpecialization extends Model
 {
     use HasFactory;
+    
+    public $oneItem = PartSpecializationResource::class;
+    public $allItems = PartSpecializationCollection::class;
 }

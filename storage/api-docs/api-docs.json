@@ -1702,6 +1702,38 @@
                 ]
             }
         },
+        "/api/v1/shared/part-specialization": {
+            "get": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "partSpecialization",
+                "description": "partSpecialization",
+                "operationId": "partSpecialization",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/shared/parts?search={title}&per_page={per_page}": {
             "get": {
                 "tags": [
@@ -1781,6 +1813,38 @@
                         }
                     }
                 }
+            }
+        },
+        "/api/v1/shared/vehicle-specialization": {
+            "get": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "vehicleSpecialization",
+                "description": "vehicleSpecialization",
+                "operationId": "vehicleSpecialization",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/shared/check-vin": {
