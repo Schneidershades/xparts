@@ -22,6 +22,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+
             'phone' => $this->phone,
 
             'role' => $this->getRoleNames(),
@@ -29,17 +30,17 @@ class UserResource extends JsonResource
             'verified' => $this->email_verified_at ? true : false,
             'addresses' => AddressResource::collection($this->addresses),
             
+            'wallet' => new WalletResource($this->wallet),
+            
             'permissions' => $this->getPermissionsViaRoles()->pluck('name')->map(function($permission){
                 return explode('_', $permission);
             })->toArray(),
 
             $this->mergeWhen(auth()->user()->id == $this->id && auth()->user()->role == 'user', [
-                'wallet' => new WalletResource($this->wallet),
                 'cart' => CartResource::collection($this->cart),
             ]),
 
             $this->mergeWhen(auth()->user()->id == $this->id && auth()->user()->role == 'vendor', [
-                'wallet' => new WalletResource($this->wallet),
                 'bankDetails' => BankDetailResource::collection($this->bankDetails),
             ]),
 
