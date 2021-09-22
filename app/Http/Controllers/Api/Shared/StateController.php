@@ -9,7 +9,7 @@ class StateController extends Controller
 {
     /**
     * @OA\Get(
-    *      path="/api/v1/shared/state/{id}",
+    *      path="/api/v1/shared/states/{id}",
     *      operationId="state_by_id",
     *      tags={"location"},
     *      summary="Get all cities in a state",
