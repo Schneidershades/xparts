@@ -28,6 +28,6 @@ class Part extends Model
 
     public function scopeFilter($query)
     {
-        $query->where('title', 'like', '%' . request('search') . '%');
+        $query->where('name', 'like', '%' . request('search') . '%');
     }
 }

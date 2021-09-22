@@ -1734,7 +1734,7 @@
                 ]
             }
         },
-        "/api/v1/shared/parts?search={title}&per_page={per_page}": {
+        "/api/v1/shared/parts?search={name}&per_page={per_page}": {
             "get": {
                 "tags": [
                     "Shared"
@@ -1744,7 +1744,7 @@
                 "operationId": "searchParts",
                 "parameters": [
                     {
-                        "name": "title",
+                        "name": "name",
                         "in": "path",
                         "description": "Search Items",
                         "required": false,
