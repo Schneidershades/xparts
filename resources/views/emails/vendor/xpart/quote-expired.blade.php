@@ -1,11 +1,7 @@
 @component('mail::message')
-# Introduction
+# Hello {{ $user['name'] }}
 
-The body of your message.
-
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
+Your quote for xpart request **{{ $xp->id }}** has been **expired**.
 
 Thanks,<br>
 {{ config('app.name') }}

@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello {{ $user['name'] }}
 
-Your xpart request **{{ $xp->id }}** has been **expired**. Please try again later
+Your quote for xpart request **{{ $xp->id }}** has been **accepted**.
 
 Thanks,<br>
 {{ config('app.name') }}
