@@ -19,7 +19,7 @@ class XpartCreateFormRequest extends FormRequest
      * @OA\Property(
      *      title="Xpart Part name",
      *      description="Xpart Part name",
-     *      example="1"
+     *      example="seatbelt holder"
      * )
      *
      * @var int
