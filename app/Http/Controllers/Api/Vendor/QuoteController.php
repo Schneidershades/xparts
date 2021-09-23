@@ -40,7 +40,7 @@ class QuoteController extends Controller
     */
     public function index()
     {
-        return $this->showAll(auth()->user()->quotes);
+        return $this->showAll(auth()->user()->quotes->latest()->get());
     }
     
     /**
