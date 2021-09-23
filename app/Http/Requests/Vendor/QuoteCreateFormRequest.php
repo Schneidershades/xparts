@@ -59,10 +59,10 @@ class QuoteCreateFormRequest extends FormRequest
             'quotes.*.city_id' => 'required|int|exists:cities,id',
             'quotes.*.brand' => 'required|string',
             'quotes.*.quantity' => 'required|int',
-            'quotes.*.part_number' => 'required|string',
-            'quotes.*.part_warranty' => 'required|int',
+            'quotes.*.part_number' => 'string',
+            'quotes.*.part_warranty' => 'int',
             'quotes.*.price' => 'required|int',
-            'quotes.*.description' => 'required|string',
+            'quotes.*.description' => 'string',
         ];
     }
 }
