@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Models\Part;
 use App\Models\User;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Models\XpartRequestVendorWatch;
 use App\Http\Requests\User\XpartCreateFormRequest;
+use App\Models\XpartRequest;
 
 class XpartRequestController extends Controller
 {
@@ -78,9 +81,24 @@ class XpartRequestController extends Controller
     */
     public function store(XpartCreateFormRequest $request)
     {
-        $users = User::select('id')->where('role', 'vendor')->get();
+        $part = Part::where('name', $request->name)->first();
 
-        $xpartRequest = auth()->user()->xpartRequests()->create($request->validated());
+        if($part == null){
+            $part = new Part;
+            $part->name = $request->name;
+            $part->slug = Str::slug($request->slug, '-');
+            $part->save();
+        }
+
+        $auth = auth()->user()->id;
+
+        $xpartRequest = new XpartRequest;
+
+        $model = $this->requestAndDbIntersection($request, $xpartRequest, [], [
+            'part_id' => $part->id
+        ]);
+
+        $users = User::select('id')->where('role', 'vendor')->get();
 
         collect($users)->each(function ($user) use ($xpartRequest){
             XpartRequestVendorWatch::insert([

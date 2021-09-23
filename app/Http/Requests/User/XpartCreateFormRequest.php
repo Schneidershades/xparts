@@ -17,14 +17,14 @@ class XpartCreateFormRequest extends FormRequest
 {
     /**
      * @OA\Property(
-     *      title="Xpart Part ID",
-     *      description="Xpart Part ID",
+     *      title="Xpart Part name",
+     *      description="Xpart Part name",
      *      example="1"
      * )
      *
      * @var int
      */
-    public $part_id;
+    public $part_name;
 
     /**
      * @OA\Property(
@@ -56,7 +56,7 @@ class XpartCreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'part_id' => 'required|int|exists:parts,id',
+            'part_name' => 'required|string',
             'vin_id' => 'int|exists:vins,id',     
         ];
     }
