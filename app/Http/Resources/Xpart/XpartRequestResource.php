@@ -24,6 +24,7 @@ class XpartRequestResource extends JsonResource
             'vin' => new VinResource($this->vin),
             'vendorQuotesCount' => $this->vendorQuotes->count(),
             'quotes' => QuoteResource::collection($this->vendorQuotes),
+            'images' => $this->images != null ? $this->images->pluck('file_url') : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             
