@@ -112,7 +112,6 @@ class AddressUpdateFormRequest extends FormRequest
         return [
             'name' => 'string|max:255',
             'address' => 'required|string',
-            'state' => 'required|string',
             'state_id' => 'required|integer',
             'city_id' => 'required|integer',
             'country_id' => 'required|integer',
