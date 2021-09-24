@@ -26,28 +26,6 @@ class OrderCreateFormRequest extends FormRequest
      * @var int
      */
     public $address_id;
-
-    /**
-     * @OA\Property(
-     *      title="Order Type",
-     *      description="Order Type",
-     *      example="xpartRequest"
-     * )
-     *
-     * @var string
-     */
-    public $orderable_type;
-
-    /**
-     * @OA\Property(
-     *      title="Orderable id",
-     *      description="Orderable type",
-     *      example="1"
-     * )
-     *
-     * @var int
-     */
-    public $orderable_id;
     
     /**
     *       @OA\Property(property="cart", type="object", type="array",
@@ -81,8 +59,6 @@ class OrderCreateFormRequest extends FormRequest
     {
         return [
             'address_id' => 'required|int|exists:addresses,id',
-            'orderable_type' => 'required|string',
-            'orderable_id' => 'required|id',
             'cart' => 'required|array', 
             'cart.*.quantity' => 'required|int',
             'cart.*.itemable_id' => 'required|int',

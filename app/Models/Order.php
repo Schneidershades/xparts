@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Order\OrderResource;
 use App\Http\Resources\Order\OrderCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 class Order extends Model
 {
@@ -35,5 +36,14 @@ class Order extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class)
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($order) {
+            $order->id = Str::orderedUuid();
+        });
     }
 }

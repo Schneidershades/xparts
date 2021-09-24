@@ -87,8 +87,6 @@ class OrderController extends Controller
             'address_id' => $request->address_id,
             'subtotal' => $cartSum,
             'total' => $cartSum,
-            'orderable_type' => $request->orderable_type,
-            'orderable_id' => $request->orderable_type,
         ]);
         
         collect($request->cart)->each(function ($cart) use ($order){
