@@ -39,17 +39,6 @@ class AddressUpdateFormRequest extends FormRequest
 
     /**
      * @OA\Property(
-     *      title="User state",
-     *      description="state of the user",
-     *      example="No 4 Gang street"
-     * )
-     *
-     * @var string
-     */
-    public $state;
-
-    /**
-     * @OA\Property(
      *      title="User postal_code",
      *      description="postal_code of the user",
      *      example="900233"
