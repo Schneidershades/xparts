@@ -43,7 +43,7 @@ class Order extends Model
         parent::boot();
 
         static::creating(function ($order) {
-            $order->id = Str::orderedUuid();
+            $order->receipt_number = Str::orderedUuid();
         });
     }
 }
