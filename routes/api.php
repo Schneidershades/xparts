@@ -10,7 +10,7 @@ Route::prefix('v1')->group(function () {
     	Route::post('logout', 'UserController@logout');
         Route::get('profile', 'UserController@profile')->middleware('auth:api');
         Route::post('update', 'UserController@updateUser')->middleware('auth:api');
-        Route::post('update', 'ForgotPasswordController@updateUser')->middleware('auth:api');
+        // Route::post('update', 'ForgotPasswordController@updateUser')->middleware('auth:api');
 
 		Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
 		Route::post('/password/reset', 'ResetPasswordController@reset');

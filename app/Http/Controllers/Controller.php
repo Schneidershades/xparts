@@ -7,12 +7,13 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Schema;
 use App\Traits\Api\ApiResponder;
+use App\Traits\Image\AwsS3;
 
 use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, ApiResponder;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, ApiResponder, AwsS3;
     
     public function getColumns($table)
     {       

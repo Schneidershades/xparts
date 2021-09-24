@@ -113,4 +113,9 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return $this->hasMany(BankDetail::class);
     }
+
+    public function avatar()
+    {
+        return $this->morphOne(Media::class, 'fileable');
+    }
 }
