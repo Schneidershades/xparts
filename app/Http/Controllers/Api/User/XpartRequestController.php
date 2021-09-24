@@ -106,6 +106,7 @@ class XpartRequestController extends Controller
         $model = $this->requestAndDbIntersection($request, $xpartRequest, [], [
             'part_id' => $part->id,
             'vin_id' => $vin->id,
+            'user_id' => $auth,
         ]);
 
         $users = User::select('id')->where('role', 'vendor')->get();
