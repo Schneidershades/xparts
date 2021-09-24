@@ -23,6 +23,9 @@ class CartResource extends JsonResource
                 'brand' => $this->cartable->brand,
                 'part_number' => $this->cartable->part_number,
             ]),
+            
+            'cartable_type' => $this->cartable_type,
+            'cartable_id' => $this->cartable_id,
 
             'category' => $this->cartable_type,
             'price' => $this->cartable->price,

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Models\Vin;
+use App\Models\Part;
 use App\Models\User;
+use Illuminate\Support\Str;
+use App\Models\XpartRequest;
 use App\Http\Controllers\Controller;
 use App\Models\XpartRequestVendorWatch;
 use App\Http\Requests\User\XpartCreateFormRequest;
@@ -78,9 +82,31 @@ class XpartRequestController extends Controller
      */
     public function store(XpartCreateFormRequest $request)
     {
-        $users = User::select('id')->where('role', 'vendor')->get();
+        $part = Part::where('name', $request->part)->first();
 
-        $xpartRequest = auth()->user()->xpartRequests()->create($request->validated());
+        if($part == null){
+            $part = new Part;
+            $part->name = $request->part;
+            $part->slug = Str::slug($request->part, '-');
+            $part->save();
+        }
+
+        $vin = Vin::where('vin_number', $request->vin_number)->first();
+
+        if($vin == null){
+            $vin = new Vin;
+            $vin->vin_number = $request->vin_number;
+            $vin->save();
+        }
+      
+        $auth = auth()->user()->id;
+
+        $xpartRequest = new XpartRequest;
+        $xpartRequest->part_id = $part->id;
+        $xpartRequest->vin_id = $vin->id;
+        $xpartRequest->user_id = $auth;
+        $xpartRequest->save();
+
         if ($request->has('images')) {
             foreach ($request->images as $image) {
                 $path = $this->uploadImage($image, "xpart_requests");
@@ -89,6 +115,8 @@ class XpartRequestController extends Controller
                 ]);
             }
         }
+      
+        $users = User::select('id')->where('role', 'vendor')->get();
 
         collect($users)->each(function ($user) use ($xpartRequest) {
             XpartRequestVendorWatch::insert([

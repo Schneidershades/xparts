@@ -86,7 +86,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 
     public function xpartRequestVendorWatch()
     {
-        return $this->hasMany(XpartRequestVendorWatch::class, 'vendor_id');
+        return $this->hasMany(XpartRequestVendorWatch::class, 'vendor_id')->latest();
     }
     
     public function addresses()
@@ -96,12 +96,12 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 
     public function xpartRequests()
     {
-        return $this->hasMany(XpartRequest::class);
+        return $this->hasMany(XpartRequest::class)->latest();
     }
 
     public function quotes()
     {
-        return $this->hasMany(Quote::class, 'vendor_id');
+        return $this->hasMany(Quote::class, 'vendor_id')->latest();
     }
 
     public function wallet()
