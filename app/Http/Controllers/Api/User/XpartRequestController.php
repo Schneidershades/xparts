@@ -85,8 +85,8 @@ class XpartRequestController extends Controller
 
         if($part == null){
             $part = new Part;
-            $part->name = $request->name;
-            $part->slug = Str::slug($request->slug, '-');
+            $part->name = $request->part_name;
+            $part->slug = Str::slug($request->part_name, '-');
             $part->save();
         }
 
