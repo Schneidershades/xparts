@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\PartSpecialization;
+use App\Http\Controllers\Controller;
 
 class PartSpecializationController extends Controller
 {
-    //
+    public function index()
+    {
+        $this->showAll(PartSpecialization::all());
+    }
 }

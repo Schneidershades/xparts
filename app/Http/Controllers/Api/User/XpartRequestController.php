@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Models\Vin;
 use App\Models\Part;
 use App\Models\User;
 use Illuminate\Support\Str;
+use App\Models\XpartRequest;
 use App\Http\Controllers\Controller;
 use App\Models\XpartRequestVendorWatch;
 use App\Http\Requests\User\XpartCreateFormRequest;
-use App\Models\XpartRequest;
 
 class XpartRequestController extends Controller
 {
@@ -81,13 +82,22 @@ class XpartRequestController extends Controller
     */
     public function store(XpartCreateFormRequest $request)
     {
-        $part = Part::where('name', $request->name)->first();
+        $part = Part::where('name', $request->part)->first();
 
         if($part == null){
             $part = new Part;
-            $part->name = $request->part_name;
-            $part->slug = Str::slug($request->part_name, '-');
+            $part->name = $request->part;
+            $part->slug = Str::slug($request->part, '-');
             $part->save();
+        }
+
+        $vin = Vin::where('name', $request->vin)->first();
+
+        if($vin == null){
+            $vin = new Part;
+            $vin->name = $request->vin;
+            $vin->slug = Str::slug($request->vin, '-');
+            $vin->save();
         }
 
         $auth = auth()->user()->id;
@@ -95,7 +105,8 @@ class XpartRequestController extends Controller
         $xpartRequest = new XpartRequest;
 
         $model = $this->requestAndDbIntersection($request, $xpartRequest, [], [
-            'part_id' => $part->id
+            'part_id' => $part->id,
+            'vin_id' => $vin->id,
         ]);
 
         $users = User::select('id')->where('role', 'vendor')->get();

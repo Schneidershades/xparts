@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class PaymentChargeContoller extends Controller
 {
-    //
+    public function index()
+    {
+        $this->showAll(PaymentCharge::all());
+    }
 }
