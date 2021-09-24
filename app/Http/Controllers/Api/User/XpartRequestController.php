@@ -102,12 +102,10 @@ class XpartRequestController extends Controller
         $auth = auth()->user()->id;
 
         $xpartRequest = new XpartRequest;
-
-        $model = $this->requestAndDbIntersection($request, $xpartRequest, [], [
-            'part_id' => $part->id,
-            'vin_id' => $vin->id,
-            'user_id' => $auth,
-        ]);
+        $xpartRequest->part_id = $part->id;
+        $xpartRequest->vin_id = $vin->id;
+        $xpartRequest->user_id = $auth;
+        $xpartRequest->save();
 
         $users = User::select('id')->where('role', 'vendor')->get();
 
