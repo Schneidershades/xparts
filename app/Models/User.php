@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Cart;
+use App\Models\Media;
+use App\Models\Order;
 use App\Models\Quote;
 use App\Models\Wallet;
 use App\Models\Address;
