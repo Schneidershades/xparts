@@ -57,7 +57,7 @@ class XpartCreateFormRequest extends FormRequest
     {
         return [
             'part' => 'required|string',
-            'vin' => 'required|string',     
+            'vin_number' => 'required|string',     
         ];
     }
 }

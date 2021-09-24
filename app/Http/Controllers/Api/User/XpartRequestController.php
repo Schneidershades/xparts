@@ -91,12 +91,11 @@ class XpartRequestController extends Controller
             $part->save();
         }
 
-        $vin = Vin::where('name', $request->vin)->first();
+        $vin = Vin::where('vin_number', $request->vin_number)->first();
 
         if($vin == null){
-            $vin = new Part;
-            $vin->name = $request->vin;
-            $vin->slug = Str::slug($request->vin, '-');
+            $vin = new Vin;
+            $vin->vin_number = $request->vin_number;
             $vin->save();
         }
 
