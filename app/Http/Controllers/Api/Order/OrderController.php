@@ -83,7 +83,8 @@ class OrderController extends Controller
     {
         $cartSum = CartResource::collection(auth()->user()->cart)->sum('total');
 
-        dd($cartSum);
+        return($cartSum);
+
         
         // $order = auth()->user()->orders()->create([
         //     'address_id' => $request->address_id,
