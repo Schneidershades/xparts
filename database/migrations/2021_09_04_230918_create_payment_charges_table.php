@@ -17,8 +17,10 @@ class CreatePaymentChargesTable extends Migration
             $table->id();
             $table->integer('gateway')->nullable();
             $table->string('type')->defaule('percentage');
-            $table->integer('percentage_value')->nullable();
-            $table->integer('amount_value')->nullable();
+            $table->integer('percentage_gateway_charge')->nullable();
+            $table->integer('percentage_company_charge')->nullable();
+            $table->integer('amount_gateway_charge')->nullable();
+            $table->integer('amount_company_charge')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });
