@@ -82,21 +82,23 @@ class OrderController extends Controller
     public function store(OrderCreateFormRequest $request)
     {
         $cartSum = CartResource::collection(auth()->user()->cart)->sum('total');
+
+        dd($cartSum);
         
-        $order = auth()->user()->orders()->create([
-            'address_id' => $request->address_id,
-            'subtotal' => $cartSum,
-            'total' => $cartSum,
-        ]);
+        // $order = auth()->user()->orders()->create([
+        //     'address_id' => $request->address_id,
+        //     'subtotal' => $cartSum,
+        //     'total' => $cartSum,
+        // ]);
         
-        collect($request->cart)->each(function ($cart) use ($order){
-            OrderItem::create([
-                'itemable_id'=> $cart['itemable_id'],
-                'itemable_type'=> $cart['itemable_id'],
-                'quantity'=> $cart['quantity'],
-                'order_id'=> $order->id,
-            ]);
-        });
+        // collect($request->cart)->each(function ($cart) use ($order){
+        //     OrderItem::create([
+        //         'itemable_id'=> $cart['itemable_id'],
+        //         'itemable_type'=> $cart['itemable_id'],
+        //         'quantity'=> $cart['quantity'],
+        //         'order_id'=> $order->id,
+        //     ]);
+        // });
 
         // auth()->user()->cart()->delete();
         
