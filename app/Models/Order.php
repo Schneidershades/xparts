@@ -35,7 +35,7 @@ class Order extends Model
 
     public function orderItems()
     {
-        return $this->hasMany(OrderItem::class)
+        return $this->hasMany(OrderItem::class);
     }
 
     protected static function boot()
