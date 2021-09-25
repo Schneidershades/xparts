@@ -85,31 +85,28 @@ class OrderController extends Controller
 
         $userCart = CartResource::collection(auth()->user()->cart);
 
-        return $nin = $userCart->sum(function ($cart) {
+        $total = $userCart->sum(function ($cart) {
             return $cart->cartable->price * $cart->quantity;
         });
-
-        // return($cartSum);
-
         
-        // $order = auth()->user()->orders()->create([
-        //     'address_id' => $request->address_id,
-        //     'subtotal' => $cartSum,
-        //     'total' => $cartSum,
-        // ]);
+        $order = auth()->user()->orders()->create([
+            'address_id' => $request->address_id,
+            'subtotal' => $total,
+            'total' => $$total,
+        ]);
         
-        // collect($request->cart)->each(function ($cart) use ($order){
-        //     OrderItem::create([
-        //         'itemable_id'=> $cart['itemable_id'],
-        //         'itemable_type'=> $cart['itemable_id'],
-        //         'quantity'=> $cart['quantity'],
-        //         'order_id'=> $order->id,
-        //     ]);
-        // });
+        collect($request->cart)->each(function ($cart) use ($order){
+            OrderItem::create([
+                'itemable_id'=> $cart['itemable_id'],
+                'itemable_type'=> $cart['itemable_id'],
+                'quantity'=> $cart['quantity'],
+                'order_id'=> $order->id,
+            ]);
+        });
 
         // auth()->user()->cart()->delete();
         
-        // return $this->showOne(Order::findOrfail($order->id));
+        return $this->showOne(Order::findOrfail($order->id));
         
     }
 
