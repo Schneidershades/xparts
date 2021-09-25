@@ -47,5 +47,17 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('quotes', 'QuoteController')->middleware('auth:api');
 		Route::Resource('business-details', 'DetailController')->middleware('auth:api');
 	});
+
+	Route::group(['prefix' => 'admin', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function(){
+		Route::Resource('orders', 'UOrderController');
+		Route::Resource('quotes', 'QuoteController');
+		Route::Resource('part-specialization', 'PartSpecializationController');
+		Route::Resource('part-grades', 'PartGradeController');
+		Route::Resource('roles', 'RoleController');
+		Route::Resource('users', 'UserController');
+		Route::Resource('vehicle-specialization', 'VehicleSpecializationController');
+		Route::Resource('vins', 'VinController');
+		Route::Resource('xpart-request', 'XpartRequestController');
+	});
 });
 
