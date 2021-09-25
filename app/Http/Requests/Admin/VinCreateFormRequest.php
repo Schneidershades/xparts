@@ -4,18 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
-/**
- * @OA\Schema(
- *      title="User Create Form Request Fields",
- *      description="User Create request body data",
- *      type="object",
- *      required={"name"}
- * )
- */
-
-
-class UserCreateFormRequest extends FormRequest
+class VinCreateFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
