@@ -4,6 +4,17 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+/**
+ * @OA\Schema(
+ *      title="Part Specialization Update Form Request Fields",
+ *      description="Part Specialization Update request body data",
+ *      type="object",
+ *      required={"name"}
+ * )
+ */
+
+
 class PartSpecializationUpdateFormRequest extends FormRequest
 {
     /**

@@ -4,6 +4,17 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+/**
+ * @OA\Schema(
+ *      title="Vehicle Specialization Create Form Request Fields",
+ *      description="Vehicle Specialization Create request body data",
+ *      type="object",
+ *      required={"name"}
+ * )
+ */
+
+
 class VehicleSpecializationCreateFormRequest extends FormRequest
 {
     /**
