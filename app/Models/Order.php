@@ -15,6 +15,11 @@ class Order extends Model
 {
     use HasFactory;
 
+
+    protected $fillable = [
+        'address_id',
+    ];
+
     public $oneItem = OrderResource::class;
     public $allItems = OrderCollection::class;
 
