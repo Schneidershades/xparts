@@ -81,7 +81,9 @@ class OrderController extends Controller
 
     public function store(OrderCreateFormRequest $request)
     {
-        // $cartSum = CartResource::collection(auth()->user()->cart)->sum('total');
+        $userCart = (auth()->user()->cart);
+
+        return CartResource::collection(auth()->user()->cart);
 
         return $nin = auth()->user()->cart->collection->sum(function ($cart) {
             return $cart->cartable->price * $cart->quantity;
