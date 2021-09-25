@@ -92,7 +92,7 @@ class OrderController extends Controller
         $order = auth()->user()->orders()->create([
             'address_id' => $request->address_id,
             'subtotal' => $total,
-            'total' => $$total,
+            'total' => $total,
         ]);
         
         collect($request->cart)->each(function ($cart) use ($order){
