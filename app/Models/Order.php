@@ -18,6 +18,8 @@ class Order extends Model
 
     protected $fillable = [
         'address_id',
+        'total',
+        'subtotal',
     ];
 
     public $oneItem = OrderResource::class;
