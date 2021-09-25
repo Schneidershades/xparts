@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Order;
 
+use App\Http\Resources\Address\AddressResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderResource extends JsonResource
@@ -18,7 +19,7 @@ class OrderResource extends JsonResource
             'id' => $this->id,
             'receipt_number' => $this->receipt_number,
             'user_id' => $this->user_id,
-            'address_id' => $this->address_id,
+            'address' => new AddressResource($this->address),
             'vat_id' => $this->vat_id,
             'discount_id' => $this->discount_id,
             'subtotal' => $this->subtotal,
