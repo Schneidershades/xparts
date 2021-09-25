@@ -20,6 +20,7 @@ class Order extends Model
         'address_id',
         'total',
         'subtotal',
+        'payment_method',
     ];
 
     public $oneItem = OrderResource::class;
