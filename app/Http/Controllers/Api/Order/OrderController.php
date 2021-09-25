@@ -83,9 +83,9 @@ class OrderController extends Controller
     {
         $userCart = (auth()->user()->cart);
 
-        return CartResource::collection(auth()->user()->cart);
+        $userCart = CartResource::collection(auth()->user()->cart);
 
-        return $nin = auth()->user()->cart->collection->sum(function ($cart) {
+        return $nin = $userCart->sum(function ($cart) {
             return $cart->cartable->price * $cart->quantity;
         });
 
