@@ -11,6 +11,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class OrderItem extends Model
 {
     use HasFactory;
+    
+    protected $fillable = [
+        'itemable_id',
+        'itemable_type',
+        'quantity',
+        'order_id',
+    ];
 
     public $oneItem = OrderItemResource::class;
     public $allItems = OrderItemCollection::class;
