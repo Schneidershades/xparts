@@ -97,6 +97,8 @@ class OrderController extends Controller
                 'order_id'=> $order->id,
             ]);
         });
+
+        auth()->user()->cart()->delete();
         
         return $this->showOne(Order::findOrfail($order->id));
         
