@@ -137,6 +137,12 @@ class UserController extends Controller
         $this->requestAndDbIntersection($request, $model, []);
 
         $model->save();
+        if($request->hasFile('image')){
+            $path = $this->uploadImage($request->image, "profile_photos");
+            $model->avatar()->create([
+                'file_path' => $path,
+            ]);
+        }
 
         return $this->showOne($model);
     }
@@ -208,6 +214,7 @@ class UserController extends Controller
     */
     public function profile()
     {
-        return $this->showOne(auth()->user(), 201);
+        $userId = auth()->user()->id; 
+        return $this->showOne(User::with('avatar')->find($userId), 201);
     }
 }

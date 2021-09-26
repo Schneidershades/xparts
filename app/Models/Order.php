@@ -9,10 +9,21 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Order\OrderResource;
 use App\Http\Resources\Order\OrderCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 class Order extends Model
 {
     use HasFactory;
+
+
+    protected $fillable = [
+        'address_id',
+        'total',
+        'subtotal',
+        'payment_method',
+        'orderable_type',
+        'orderable_id',
+    ];
 
     public $oneItem = OrderResource::class;
     public $allItems = OrderCollection::class;
@@ -35,5 +46,14 @@ class Order extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($order) {
+            $order->receipt_number = Str::orderedUuid();
+        });
     }
 }

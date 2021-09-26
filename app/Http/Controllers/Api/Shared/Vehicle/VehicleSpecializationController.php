@@ -11,10 +11,10 @@ class VehicleSpecializationController extends Controller
     /**
     * @OA\Get(
     *      path="/api/v1/shared/vehicle-specialization",
-    *      operationId="vehicleSpecialization",
+    *      operationId="allVehicleSpecialization",
     *      tags={"Shared"},
-    *      summary="vehicleSpecialization",
-    *      description="vehicleSpecialization",
+    *      summary="allVehicleSpecialization",
+    *      description="allVehicleSpecialization",
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",

@@ -13,6 +13,405 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/admin/funds": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allFunds",
+                "description": "allFunds",
+                "operationId": "allFunds",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/orders": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allOrders",
+                "description": "allOrders",
+                "operationId": "allOrders",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/part-grades": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allPartGrades",
+                "description": "allPartGrades",
+                "operationId": "allPartGrades",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/part-specialization": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allPartSpecialization",
+                "description": "allPartSpecialization",
+                "operationId": "allPartSpecialization",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "postPartSpecialization",
+                "description": "postPartSpecialization",
+                "operationId": "postPartSpecialization",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PartSpecializationCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/part-specialization/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "showVehicleSpecialization",
+                "description": "showVehicleSpecialization",
+                "operationId": "showVehicleSpecialization",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "showVehicleSpecialization ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "updateVehicleSpecialization",
+                "description": "updateVehicleSpecialization",
+                "operationId": "updateVehicleSpecialization",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "updateVehicleSpecialization ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PartSpecializationUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "deleteVehicleSpecialization",
+                "description": "deleteVehicleSpecialization",
+                "operationId": "deleteVehicleSpecialization",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "deleteVehicleSpecialization ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/payment-charges": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allPaymentCharge",
+                "description": "allPaymentCharge",
+                "operationId": "allPaymentCharge",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/payment-methods": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allPaymentMethods",
+                "description": "allPaymentMethods",
+                "operationId": "allPaymentMethods",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/quotes": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allQuotes",
+                "description": "allQuotes",
+                "operationId": "allQuotes",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/admin/roles": {
             "get": {
                 "tags": [
@@ -427,6 +826,213 @@
                 ]
             }
         },
+        "/api/v1/admin/vehicle-specialization": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allVehicleSpecialization",
+                "description": "allVehicleSpecialization",
+                "operationId": "allVehicleSpecialization",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "postVehicleSpecialization",
+                "description": "postVehicleSpecialization",
+                "operationId": "postVehicleSpecialization",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VehicleSpecializationCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/vehicle-specialization/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "showVehicleSpecialization",
+                "description": "showVehicleSpecialization",
+                "operationId": "showVehicleSpecialization",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "showVehicleSpecialization ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "updateVehicleSpecialization",
+                "description": "updateVehicleSpecialization",
+                "operationId": "updateVehicleSpecialization",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "updateVehicleSpecialization ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VehicleSpecializationUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "deleteVehicleSpecialization",
+                "description": "deleteVehicleSpecialization",
+                "operationId": "deleteVehicleSpecialization",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "deleteVehicleSpecialization ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/admin/vins": {
             "get": {
                 "tags": [
@@ -435,6 +1041,279 @@
                 "summary": "getVins",
                 "description": "getVins",
                 "operationId": "allVins",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/vin": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "postVin",
+                "description": "postVin",
+                "operationId": "postVin",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VinCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/vin/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "showVin",
+                "description": "showVin",
+                "operationId": "showVin",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "showVin ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "updateVin",
+                "description": "updateVin",
+                "operationId": "updateVin",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "updateVin ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VinUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "deleteVin",
+                "description": "deleteVin",
+                "operationId": "deleteVin",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "deleteVin ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/wallet-transactions": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allWalletTransactions",
+                "description": "allWalletTransactions",
+                "operationId": "allWalletTransactions",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/withdrawals": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allWithdrawals",
+                "description": "allWithdrawals",
+                "operationId": "allWithdrawals",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/xparts-requests": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allXpartRequest",
+                "description": "allXpartRequest",
+                "operationId": "allXpartRequest",
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -1786,7 +2665,7 @@
                 ]
             }
         },
-        "/api/v1/shared/state/{id}": {
+        "/api/v1/shared/states/{id}": {
             "get": {
                 "tags": [
                     "location"
@@ -1820,9 +2699,9 @@
                 "tags": [
                     "Shared"
                 ],
-                "summary": "vehicleSpecialization",
-                "description": "vehicleSpecialization",
-                "operationId": "vehicleSpecialization",
+                "summary": "allVehicleSpecialization",
+                "description": "allVehicleSpecialization",
+                "operationId": "allVehicleSpecialization",
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -2394,6 +3273,259 @@
                     }
                 ]
             }
+        },
+        "/api/v1/funds": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "postFunds",
+                "description": "postFunds",
+                "operationId": "postFunds",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FundCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/funds/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "showFunds",
+                "description": "showFunds",
+                "operationId": "showFunds",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Xpart Request ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "updateFunds",
+                "description": "updateFunds",
+                "operationId": "updateFunds",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Addresses ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FundUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/wallet-transactions": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "allWalletTransactions",
+                "description": "allWalletTransactions",
+                "operationId": "allWalletTransactions",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/wallet-transactions/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "showWalletTransactions",
+                "description": "showWalletTransactions",
+                "operationId": "showWalletTransactions",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Xpart Request ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/withdrawals": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "postWithdrawals",
+                "description": "postWithdrawals",
+                "operationId": "postWithdrawals",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WithdrawalCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -2414,12 +3546,6 @@
                     "address": {
                         "title": "User Address",
                         "description": "Address of the user",
-                        "type": "string",
-                        "example": "No 4 Gang street"
-                    },
-                    "state": {
-                        "title": "User state",
-                        "description": "state of the user",
                         "type": "string",
                         "example": "No 4 Gang street"
                     },
@@ -2475,12 +3601,6 @@
                         "type": "string",
                         "example": "No 4 Gang street"
                     },
-                    "state": {
-                        "title": "User state",
-                        "description": "state of the user",
-                        "type": "string",
-                        "example": "No 4 Gang street"
-                    },
                     "postal_code": {
                         "title": "User postal_code",
                         "description": "postal_code of the user",
@@ -2514,6 +3634,22 @@
                 },
                 "type": "object"
             },
+            "PartSpecializationCreateFormRequest": {
+                "title": "Part Specialization Create Form Request Fields",
+                "description": "Part Specialization Create request body data",
+                "required": [
+                    "name"
+                ],
+                "type": "object"
+            },
+            "PartSpecializationUpdateFormRequest": {
+                "title": "Part Specialization Update Form Request Fields",
+                "description": "Part Specialization Update request body data",
+                "required": [
+                    "name"
+                ],
+                "type": "object"
+            },
             "RoleCreateFormRequest": {
                 "title": "Role Create Form Request Fields",
                 "description": "Role Create request body data",
@@ -2541,6 +3677,38 @@
             "UserUpdateFormRequest": {
                 "title": "User Update Form Request Fields",
                 "description": "User Update request body data",
+                "required": [
+                    "name"
+                ],
+                "type": "object"
+            },
+            "VehicleSpecializationCreateFormRequest": {
+                "title": "Vehicle Specialization Create Form Request Fields",
+                "description": "Vehicle Specialization Create request body data",
+                "required": [
+                    "name"
+                ],
+                "type": "object"
+            },
+            "VehicleSpecializationUpdateFormRequest": {
+                "title": "Vehicle Specialization Update Form Request Fields",
+                "description": "Vehicle Specialization Update request body data",
+                "required": [
+                    "name"
+                ],
+                "type": "object"
+            },
+            "VinCreateFormRequest": {
+                "title": "Vin  Create Form Request Fields",
+                "description": "Vin Create request body data",
+                "required": [
+                    "name"
+                ],
+                "type": "object"
+            },
+            "VinUpdateFormRequest": {
+                "title": "Vin  Update Form Request Fields",
+                "description": "Vin Update request body data",
                 "required": [
                     "name"
                 ],
@@ -2773,18 +3941,6 @@
                         "type": "integer",
                         "example": "1"
                     },
-                    "orderable_type": {
-                        "title": "Order Type",
-                        "description": "Order Type",
-                        "type": "string",
-                        "example": "xpartRequest"
-                    },
-                    "orderable_id": {
-                        "title": "Orderable id",
-                        "description": "Orderable type",
-                        "type": "integer",
-                        "example": "1"
-                    },
                     "cart": {
                         "type": "array",
                         "items": {
@@ -2804,6 +3960,24 @@
                             },
                             "type": "object"
                         }
+                    },
+                    "orderable_id": {
+                        "title": "Orderable id",
+                        "description": "Address ID of this transaction",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "orderable_type": {
+                        "title": "Orderable type",
+                        "description": "Orderable type of this transaction",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "payment_method_id": {
+                        "title": "Payment Method id",
+                        "description": "Payment Method ID of this transaction",
+                        "type": "integer",
+                        "example": "1"
                     }
                 },
                 "type": "object"
@@ -2853,11 +4027,11 @@
                     "email"
                 ],
                 "properties": {
-                    "part_id": {
-                        "title": "Xpart Part ID",
-                        "description": "Xpart Part ID",
+                    "name": {
+                        "title": "Xpart Part name",
+                        "description": "Xpart Part name",
                         "type": "integer",
-                        "example": "1"
+                        "example": "seatbelt holder"
                     },
                     "vin_id": {
                         "title": "Vin Number",
@@ -2980,6 +4154,66 @@
                             },
                             "type": "object"
                         }
+                    }
+                },
+                "type": "object"
+            },
+            "FundCreateFormRequest": {
+                "title": "Fund Create Form Request Fields",
+                "description": "Fund Create Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "amount": {
+                        "title": "Fund amount",
+                        "description": "Fund amount ",
+                        "type": "integer",
+                        "example": "10000"
+                    }
+                },
+                "type": "object"
+            },
+            "FundUpdateFormRequest": {
+                "title": "Fund Update Form Request Fields",
+                "description": "Fund Update Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "payment_method_id": {
+                        "title": "payment method id",
+                        "description": "payment method",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "payment_reference": {
+                        "title": "Order payment reference",
+                        "description": "Order payment reference",
+                        "type": "string",
+                        "example": "quote"
+                    },
+                    "payment_gateway": {
+                        "title": "Order payment gateway",
+                        "description": "Order payment gateway",
+                        "type": "string",
+                        "example": "quote"
+                    }
+                },
+                "type": "object"
+            },
+            "WithdrawalCreateFormRequest": {
+                "title": "Withdrawal Create Form Request Fields",
+                "description": "Withdrawal Create Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "amount": {
+                        "title": "Withdrawal amount",
+                        "description": "Withdrawal amount ",
+                        "type": "integer",
+                        "example": "1000"
                     }
                 },
                 "type": "object"

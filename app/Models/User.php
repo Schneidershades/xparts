@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Models\Cart;
+use App\Models\Media;
+use App\Models\Order;
 use App\Models\Quote;
 use App\Models\Wallet;
 use App\Models\Address;
 use App\Models\BankDetail;
 use App\Models\XpartRequest;
+use App\Models\WalletTransaction;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\XpartRequestVendorWatch;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -79,6 +82,11 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         $this->notify(new PasswordResetNotification($token));
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function cart()
     {
         return $this->hasMany(Cart::class);
@@ -86,7 +94,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 
     public function xpartRequestVendorWatch()
     {
-        return $this->hasMany(XpartRequestVendorWatch::class, 'vendor_id');
+        return $this->hasMany(XpartRequestVendorWatch::class, 'vendor_id')->latest();
     }
     
     public function addresses()
@@ -96,12 +104,12 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 
     public function xpartRequests()
     {
-        return $this->hasMany(XpartRequest::class);
+        return $this->hasMany(XpartRequest::class)->latest();
     }
 
     public function quotes()
     {
-        return $this->hasMany(Quote::class, 'vendor_id');
+        return $this->hasMany(Quote::class, 'vendor_id')->latest();
     }
 
     public function wallet()
@@ -112,5 +120,15 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     public function bankDetails()
     {
         return $this->hasMany(BankDetail::class);
+    }
+
+    public function avatar()
+    {
+        return $this->morphOne(Media::class, 'fileable');
+    }
+
+    public function walletTransactions()
+    {
+        return $this->hasMany(WalletTransaction::class);
     }
 }

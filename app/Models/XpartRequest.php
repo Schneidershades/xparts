@@ -60,4 +60,9 @@ class XpartRequest extends Model
     {
         return $this->hasMany(Quote::class);
     }
+
+    public function images()
+    {
+        return $this->morphMany(Media::class, 'fileable');
+    }
 }

@@ -81,14 +81,18 @@ class OrderController extends Controller
 
     public function store(OrderCreateFormRequest $request)
     {
-        $cartSum = CartResource::collection(auth()->user()->cart)->sum('total');
+        $userCart = (auth()->user()->cart);
+
+        $userCart = CartResource::collection(auth()->user()->cart);
+
+        $total = $userCart->sum(function ($cart) {
+            return $cart->cartable->price * $cart->quantity;
+        });
         
         $order = auth()->user()->orders()->create([
             'address_id' => $request->address_id,
-            'subtotal' => $cartSum,
-            'total' => $cartSum,
-            'orderable_type' => $request->orderable_type,
-            'orderable_id' => $request->orderable_type,
+            'subtotal' => $total,
+            'total' => $total,
         ]);
         
         collect($request->cart)->each(function ($cart) use ($order){
@@ -99,6 +103,8 @@ class OrderController extends Controller
                 'order_id'=> $order->id,
             ]);
         });
+
+        // auth()->user()->cart()->delete();
         
         return $this->showOne(Order::findOrfail($order->id));
         

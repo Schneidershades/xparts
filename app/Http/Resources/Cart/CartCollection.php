@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Cart;
 
+use App\Http\Resources\Cart\CartResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CartCollection extends ResourceCollection
@@ -18,13 +19,17 @@ class CartCollection extends ResourceCollection
             'data' => CartResource::collection($this->collection),
             
             'cart' => [
+
                 'total' => $this->collection->sum(function ($cart) {
                     return $cart->cartable->price * $cart->quantity;
                 }),
+
                 'subtotal' => $this->collection->sum(function ($cart) {
                     return $cart->cartable->price * $cart->quantity;
                 }),
+
                 'discount' => 0,
+                
                 'cartCount' => CartResource::collection(auth()->user()->cart)->count(),
             ],
         ];

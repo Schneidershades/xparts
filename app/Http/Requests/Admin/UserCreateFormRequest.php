@@ -24,7 +24,7 @@ class UserCreateFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

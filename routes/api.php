@@ -18,7 +18,7 @@ Route::prefix('v1')->group(function () {
     	Route::post('logout', 'UserController@logout');
         Route::get('profile', 'UserController@profile')->middleware('auth:api');
         Route::post('update', 'UserController@updateUser')->middleware('auth:api');
-        Route::post('update', 'ForgotPasswordController@updateUser')->middleware('auth:api');
+        // Route::post('update', 'ForgotPasswordController@updateUser')->middleware('auth:api');
 
 		Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
 		Route::post('/password/reset', 'ResetPasswordController@reset');
@@ -33,6 +33,10 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('orders', 'Order\OrderController');
 		Route::Resource('vendor-quote', 'User\VendorQuoteController');
 		Route::Resource('xpart-requests', 'User\XpartRequestController');
+
+		Route::Resource('funds', 'Wallet\FundController');
+		Route::Resource('withdrawals', 'Wallet\WithdrawalController');
+		Route::Resource('wallet-transactions', 'Wallet\WalletTransactionController');
 	});
 
 	Route::group(['prefix' => 'shared', 'namespace' => 'Api\Shared'], function(){
@@ -55,6 +59,18 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('quotes', 'QuoteController')->middleware('auth:api');
 		Route::get('quotes/recent/others', 'QuoteController@othersRecentQuote')->middleware('auth:api');
 		Route::Resource('business-details', 'DetailController')->middleware('auth:api');
+	});
+
+	Route::group(['prefix' => 'admin', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function(){
+		Route::Resource('orders', 'OrderController', array("as"=>"userOrders"));
+		Route::Resource('quotes', 'QuoteController', array("as"=>"userQuotes"));
+		Route::Resource('part-specialization', 'PartSpecializationController', array("as"=>"partSpecItems"));
+		Route::Resource('part-grades', 'PartGradeController', array("as"=>"partGradesItems"));
+		Route::Resource('roles', 'RoleController', array("as"=>"userRoles"));
+		Route::Resource('users', 'UserController', array("as"=>"regUsers"));
+		Route::Resource('vehicle-specialization', 'VehicleSpecializationController', array("as"=>"vehicleSpecItems"));
+		Route::Resource('vins', 'VinController', array("as"=>"regVin"));
+		Route::Resource('xpart-request', 'XpartRequestController', array("as"=>"userXpartRequests"));
 	});
 });
 

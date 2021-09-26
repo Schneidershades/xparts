@@ -26,28 +26,6 @@ class OrderCreateFormRequest extends FormRequest
      * @var int
      */
     public $address_id;
-
-    /**
-     * @OA\Property(
-     *      title="Order Type",
-     *      description="Order Type",
-     *      example="xpartRequest"
-     * )
-     *
-     * @var string
-     */
-    public $orderable_type;
-
-    /**
-     * @OA\Property(
-     *      title="Orderable id",
-     *      description="Orderable type",
-     *      example="1"
-     * )
-     *
-     * @var int
-     */
-    public $orderable_id;
     
     /**
     *       @OA\Property(property="cart", type="object", type="array",
@@ -60,7 +38,43 @@ class OrderCreateFormRequest extends FormRequest
     *    ),
     */
 
-    public $quotes;
+    public $cart;
+
+
+    /**
+     * @OA\Property(
+     *      title="Orderable id",
+     *      description="Address ID of this transaction",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $orderable_id;
+
+
+    /**
+     * @OA\Property(
+     *      title="Orderable type",
+     *      description="Orderable type of this transaction",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $orderable_type;
+
+    /**
+     * @OA\Property(
+     *      title="Payment Method id",
+     *      description="Payment Method ID of this transaction",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $payment_method_id;
+    
 
     /**
      * Determine if the user is authorized to make this request.
@@ -81,12 +95,11 @@ class OrderCreateFormRequest extends FormRequest
     {
         return [
             'address_id' => 'required|int|exists:addresses,id',
-            'orderable_type' => 'required|string',
-            'orderable_id' => 'required|id',
             'cart' => 'required|array', 
             'cart.*.quantity' => 'required|int',
             'cart.*.itemable_id' => 'required|int',
             'cart.*.itemable_type' => 'required|string',
+            'payment_method_id' => 'required|int',
         ];
     }
 }

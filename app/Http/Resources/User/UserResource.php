@@ -44,6 +44,7 @@ class UserResource extends JsonResource
                 'bankDetails' => BankDetailResource::collection($this->bankDetails),
             ]),
 
+            'avatar' => $this->avatar != null ? $this->avatar->file_url : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 

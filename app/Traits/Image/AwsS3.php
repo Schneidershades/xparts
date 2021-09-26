@@ -5,7 +5,7 @@ namespace App\Traits\Image;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
-class AwsS3
+trait AwsS3
 {
     function storeImage($connection, $image)
     {
@@ -18,6 +18,12 @@ class AwsS3
         Storage::disk($connection)->put($path = "public/images/ride_request/$name", fopen($image, 'r+'));
 
         return config('services.s3.url').$path;
+    }
+
+    protected function uploadImage($image, $path, $connection = "s3")
+    {
+        $path = $image->store($path, $connection);
+        return $path;
     }
 }
 
