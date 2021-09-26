@@ -10,6 +10,8 @@ use App\Models\XpartRequest;
 use App\Http\Controllers\Controller;
 use App\Models\XpartRequestVendorWatch;
 use App\Http\Requests\User\XpartCreateFormRequest;
+use App\Jobs\SendEmail;
+use App\Mail\User\XpartRequestMail;
 
 class XpartRequestController extends Controller
 {
@@ -82,8 +84,8 @@ class XpartRequestController extends Controller
      */
     public function store(XpartCreateFormRequest $request)
     {
-        $part = Part::where('name', $request->part)->first();
-
+        $users = User::select('email', 'name', 'id')->where('role', 'vendor')->get();
+      
         if($part == null){
             $part = new Part;
             $part->name = $request->part;
@@ -123,6 +125,8 @@ class XpartRequestController extends Controller
                 'xpart_request_id' => $xpartRequest->id,
                 'vendor_id' => $user['id'],
             ]);
+
+            SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails');
         });
 
         return $this->showOne($xpartRequest);

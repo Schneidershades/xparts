@@ -10,77 +10,77 @@ use App\Http\Requests\Vendor\QuoteCreateFormRequest;
 class QuoteController extends Controller
 {
     /**
-    * @OA\Get(
-    *      path="/api/v1/vendor/quotes",
-    *      operationId="allUsers",
-    *      tags={"Vendor"},
-    *      summary="allQuotes",
-    *      description="allQuotes",
-    *      @OA\Response(
-    *          response=200,
-    *          description="Successful signin",
-    *          @OA\MediaType(
-    *             mediaType="application/json",
-    *         ),
-    *       ),
-    *      @OA\Response(
-    *          response=400,
-    *          description="Bad Request"
-    *      ),
-    *      @OA\Response(
-    *          response=401,
-    *          description="unauthenticated",
-    *      ),
-    *      @OA\Response(
-    *          response=403,
-    *          description="Forbidden"
-    *      ),
-    *      security={ {"bearerAuth": {}} },
-    * )
-    */
+     * @OA\Get(
+     *      path="/api/v1/vendor/quotes",
+     *      operationId="allUsers",
+     *      tags={"Vendor"},
+     *      summary="allQuotes",
+     *      description="allQuotes",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful signin",
+     *          @OA\MediaType(
+     *             mediaType="application/json",
+     *         ),
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      security={ {"bearerAuth": {}} },
+     * )
+     */
     public function index()
     {
         return $this->showAll(auth()->user()->quotes);
     }
-    
+
     /**
-    * @OA\Post(
-    *      path="/api/v1/vendor/quotes",
-    *      operationId="postQuotes",
-    *      tags={"Vendor"},
-    *      summary="postQuotes",
-    *      description="postQuotes",
-    *      @OA\RequestBody(
-    *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/QuoteCreateFormRequest")
-    *      ),
-    *      @OA\Response(
-    *          response=200,
-    *          description="Successful signin",
-    *          @OA\MediaType(
-    *             mediaType="application/json",
-    *         ),
-    *       ),
-    *      @OA\Response(
-    *          response=400,
-    *          description="Bad Request"
-    *      ),
-    *      @OA\Response(
-    *          response=401,
-    *          description="unauthenticated",
-    *      ),
-    *      @OA\Response(
-    *          response=403,
-    *          description="Forbidden"
-    *      ),
-    *      security={ {"bearerAuth": {}} },
-    * )
-    */
+     * @OA\Post(
+     *      path="/api/v1/vendor/quotes",
+     *      operationId="postQuotes",
+     *      tags={"Vendor"},
+     *      summary="postQuotes",
+     *      description="postQuotes",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/QuoteCreateFormRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful signin",
+     *          @OA\MediaType(
+     *             mediaType="application/json",
+     *         ),
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      security={ {"bearerAuth": {}} },
+     * )
+     */
 
     public function store(QuoteCreateFormRequest $request)
     {
         $auth = auth()->user()->id;
-         collect($request['quotes'])->each(function ($quote) use ($auth){
+        collect($request['quotes'])->each(function ($quote) use ($auth) {
             $model = new Quote;
             $model = $this->contentAndDbIntersection($quote, $model, [], [
                 'vendor_id' => $auth
@@ -92,13 +92,13 @@ class QuoteController extends Controller
     }
 
     /**
-    * @OA\Get(
-    *      path="/api/v1/vendor/quotes/{id}",
-    *      operationId="showQuotes",
-    *      tags={"Admin"},
-    *      summary="showQuotes",
-    *      description="showQuotes",
-    *      
+     * @OA\Get(
+     *      path="/api/v1/vendor/quotes/{id}",
+     *      operationId="showQuotes",
+     *      tags={"Admin"},
+     *      summary="showQuotes",
+     *      description="showQuotes",
+     *      
      *      @OA\Parameter(
      *          name="id",
      *          description="Quote ID",
@@ -109,41 +109,41 @@ class QuoteController extends Controller
      *          )
      *      ),
      *      
-    *      @OA\Response(
-    *          response=200,
-    *          description="Successful signin",
-    *          @OA\MediaType(
-    *             mediaType="application/json",
-    *         ),
-    *       ),
-    *      @OA\Response(
-    *          response=400,
-    *          description="Bad Request"
-    *      ),
-    *      @OA\Response(
-    *          response=401,
-    *          description="unauthenticated",
-    *      ),
-    *      @OA\Response(
-    *          response=403,
-    *          description="Forbidden"
-    *      ),
-    *      security={ {"bearerAuth": {}} },
-    * )
-    */
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful signin",
+     *          @OA\MediaType(
+     *             mediaType="application/json",
+     *         ),
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      security={ {"bearerAuth": {}} },
+     * )
+     */
     public function show($id)
     {
         return $this->showOne(auth()->user()->quotes->where('id', $id)->first());
     }
 
     /**
-    * @OA\Delete(
-    *      path="/api/v1/vendor/quotes/{id}",
-    *      operationId="deleteQuotes",
-    *      tags={"Vendor"},
-    *      summary="deleteQuotes",
-    *      description="deleteQuotes",
-    *      
+     * @OA\Delete(
+     *      path="/api/v1/vendor/quotes/{id}",
+     *      operationId="deleteQuotes",
+     *      tags={"Vendor"},
+     *      summary="deleteQuotes",
+     *      description="deleteQuotes",
+     *      
      *      @OA\Parameter(
      *          name="id",
      *          description="Quote ID",
@@ -153,31 +153,44 @@ class QuoteController extends Controller
      *              type="integer"
      *          )
      *      ),
-    *      @OA\Response(
-    *          response=200,
-    *          description="Successful signin",
-    *          @OA\MediaType(
-    *             mediaType="application/json",
-    *         ),
-    *       ),
-    *      @OA\Response(
-    *          response=400,
-    *          description="Bad Request"
-    *      ),
-    *      @OA\Response(
-    *          response=401,
-    *          description="unauthenticated",
-    *      ),
-    *      @OA\Response(
-    *          response=403,
-    *          description="Forbidden"
-    *      ),
-    *      security={ {"bearerAuth": {}} },
-    * )
-    */
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful signin",
+     *          @OA\MediaType(
+     *             mediaType="application/json",
+     *         ),
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      security={ {"bearerAuth": {}} },
+     * )
+     */
     public function destroy(Request $request, $id)
     {
         auth()->user()->quotes->where('id', $id)->first()->delete();
         return $this->showMessage('Model deleted');
+    }
+
+    public function othersRecentQuote()
+    {
+        $myLastQuote = auth()->user()->quotes()->latest()->first();
+        if ($myLastQuote) {
+            $quotes = Quote::with('vendor:name')
+                ->where('xpart_request_id', $myLastQuote->xpart_request_id)
+                ->where('id', '!=', $myLastQuote->id)->get();
+
+            return $this->showAll($quotes);
+        }
+        return $this->errorResponse("No recent quote", 400);
     }
 }

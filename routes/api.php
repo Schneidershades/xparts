@@ -2,6 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('', function(){
+	return [
+		'now'=> now(),
+		'now - 3'=> now()->subDays(3),
+		'now + 3'=> now()->addDays(3),
+	];
+});
+
 Route::prefix('v1')->group(function () {
     Route::group(['prefix' => 'auth', 'namespace' => 'Api\Auth'], function(){
 
@@ -49,6 +57,7 @@ Route::prefix('v1')->group(function () {
 	Route::group(['prefix' => 'vendor', 'middleware' => 'auth:api', 'namespace' => 'Api\Vendor'], function(){
 		Route::Resource('assigned-xpart-requests', 'UserXpartRequestController')->middleware('auth:api');
 		Route::Resource('quotes', 'QuoteController')->middleware('auth:api');
+		Route::get('quotes/recent/others', 'QuoteController@othersRecentQuote')->middleware('auth:api');
 		Route::Resource('business-details', 'DetailController')->middleware('auth:api');
 	});
 
