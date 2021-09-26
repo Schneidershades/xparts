@@ -21,6 +21,8 @@ class Order extends Model
         'total',
         'subtotal',
         'payment_method',
+        'orderable_type',
+        'orderable_id',
     ];
 
     public $oneItem = OrderResource::class;
