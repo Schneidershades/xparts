@@ -2,14 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('', function(){
-	return [
-		'now'=> now(),
-		'now - 3'=> now()->subDays(3),
-		'now + 3'=> now()->addDays(3),
-	];
-});
-
 Route::prefix('v1')->group(function () {
     Route::group(['prefix' => 'auth', 'namespace' => 'Api\Auth'], function(){
 

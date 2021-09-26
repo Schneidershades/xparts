@@ -84,8 +84,8 @@ class XpartRequestController extends Controller
      */
     public function store(XpartCreateFormRequest $request)
     {
-        $users = User::select('email', 'name', 'id')->where('role', 'vendor')->get();
-      
+        $part = Part::where('name', $request->part)->first();
+         
         if($part == null){
             $part = new Part;
             $part->name = $request->part;
@@ -118,7 +118,7 @@ class XpartRequestController extends Controller
             }
         }
       
-        $users = User::select('id')->where('role', 'vendor')->get();
+        $users = User::select('email', 'name', 'id')->where('role', 'vendor')->get();
 
         collect($users)->each(function ($user) use ($xpartRequest) {
             XpartRequestVendorWatch::insert([
