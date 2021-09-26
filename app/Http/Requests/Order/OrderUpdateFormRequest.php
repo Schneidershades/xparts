@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Order;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 /**
  * @OA\Schema(
@@ -15,6 +16,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class OrderUpdateFormRequest extends FormRequest
 {
+
+    public $order_id;
 
     /**
      * @OA\Property(
@@ -57,8 +60,9 @@ class OrderUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'payment_reference' => 'required|string',
-            'payment_gateway' => 'required|string',
+            'order_id' => 'required|exists:orders,id',
+            'payment_reference' => 'required|string|unique:orders,payment_reference',
+            'payment_gateway' => ['required', 'string', Rule::in(['paystack'])],
         ];
     }
 }
