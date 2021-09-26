@@ -17,7 +17,6 @@ class CreateWalletTransactionsTable extends Migration
             $table->id();
             $table->string('receipt_number')->nullable();
             $table->string('title')->nullable();
-            $table->string('identifier')->nullable();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->text('details')->nullable();
             $table->decimal('amount', 40, 2)->default(0);

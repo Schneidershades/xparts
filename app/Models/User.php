@@ -10,6 +10,7 @@ use App\Models\Wallet;
 use App\Models\Address;
 use App\Models\BankDetail;
 use App\Models\XpartRequest;
+use App\Models\WalletTransaction;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\XpartRequestVendorWatch;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -124,5 +125,10 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     public function avatar()
     {
         return $this->morphOne(Media::class, 'fileable');
+    }
+
+    public function walletTransactions()
+    {
+        return $this->hasMany(WalletTransaction::class);
     }
 }

@@ -4165,29 +4165,11 @@
                     "email"
                 ],
                 "properties": {
-                    "payment_method_id": {
-                        "title": "payment method id",
-                        "description": "payment method",
-                        "type": "integer",
-                        "example": "1"
-                    },
                     "amount": {
                         "title": "Fund amount",
                         "description": "Fund amount ",
                         "type": "integer",
                         "example": "10000"
-                    },
-                    "orderable_id": {
-                        "title": "Orderable id",
-                        "description": "Orderable id",
-                        "type": "integer",
-                        "example": "1"
-                    },
-                    "orderable_type": {
-                        "title": "Orderable type",
-                        "description": "Orderable type",
-                        "type": "integer",
-                        "example": "wallets"
                     }
                 },
                 "type": "object"
@@ -4199,6 +4181,12 @@
                     "email"
                 ],
                 "properties": {
+                    "payment_method_id": {
+                        "title": "payment method id",
+                        "description": "payment method",
+                        "type": "integer",
+                        "example": "1"
+                    },
                     "payment_reference": {
                         "title": "Order payment reference",
                         "description": "Order payment reference",

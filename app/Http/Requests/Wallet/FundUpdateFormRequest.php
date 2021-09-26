@@ -15,6 +15,18 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class FundUpdateFormRequest extends FormRequest
 {
+
+    /**
+     * @OA\Property(
+     *      title="payment method id",
+     *      description="payment method",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $payment_method_id;
+
     /**
      * @OA\Property(
      *      title="Order payment reference",
@@ -57,6 +69,7 @@ class FundUpdateFormRequest extends FormRequest
         return [
             'payment_reference' => 'required|string',
             'payment_gateway' => 'required|string',
+            'payment_method_id' => 'int',
         ];
     }
 }
