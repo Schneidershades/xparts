@@ -13,6 +13,38 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/admin/funds": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allFunds",
+                "description": "allFunds",
+                "operationId": "allFunds",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/admin/orders": {
             "get": {
                 "tags": [
@@ -292,6 +324,38 @@
                 "summary": "allPaymentCharge",
                 "description": "allPaymentCharge",
                 "operationId": "allPaymentCharge",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/payment-methods": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allPaymentMethods",
+                "description": "allPaymentMethods",
+                "operationId": "allPaymentMethods",
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -1154,6 +1218,70 @@
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/wallet-transactions": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allWalletTransactions",
+                "description": "allWalletTransactions",
+                "operationId": "allWalletTransactions",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/withdrawals": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "allWithdrawals",
+                "description": "allWithdrawals",
+                "operationId": "allWithdrawals",
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -3145,6 +3273,259 @@
                     }
                 ]
             }
+        },
+        "/api/v1/funds": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "postFunds",
+                "description": "postFunds",
+                "operationId": "postFunds",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FundCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/funds/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "showFunds",
+                "description": "showFunds",
+                "operationId": "showFunds",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Xpart Request ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "updateFunds",
+                "description": "updateFunds",
+                "operationId": "updateFunds",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Addresses ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FundUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/wallet-transactions": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "allWalletTransactions",
+                "description": "allWalletTransactions",
+                "operationId": "allWalletTransactions",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/wallet-transactions/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "showWalletTransactions",
+                "description": "showWalletTransactions",
+                "operationId": "showWalletTransactions",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Xpart Request ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/withdrawals": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "postWithdrawals",
+                "description": "postWithdrawals",
+                "operationId": "postWithdrawals",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/WithdrawalCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -3579,6 +3960,24 @@
                             },
                             "type": "object"
                         }
+                    },
+                    "orderable_id": {
+                        "title": "Orderable id",
+                        "description": "Address ID of this transaction",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "orderable_type": {
+                        "title": "Orderable type",
+                        "description": "Orderable type of this transaction",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "payment_method_id": {
+                        "title": "Payment Method id",
+                        "description": "Payment Method ID of this transaction",
+                        "type": "integer",
+                        "example": "1"
                     }
                 },
                 "type": "object"
@@ -3757,6 +4156,30 @@
                         }
                     }
                 },
+                "type": "object"
+            },
+            "FundCreateFormRequest": {
+                "title": "Fund Create Form Request Fields",
+                "description": "Fund Create Form request body data",
+                "required": [
+                    "email"
+                ],
+                "type": "object"
+            },
+            "FundUpdateFormRequest": {
+                "title": "Fund Update Form Request Fields",
+                "description": "Fund Update Form request body data",
+                "required": [
+                    "email"
+                ],
+                "type": "object"
+            },
+            "WithdrawalCreateFormRequest": {
+                "title": "Withdrawal Create Form Request Fields",
+                "description": "Withdrawal Create Form request body data",
+                "required": [
+                    "email"
+                ],
                 "type": "object"
             }
         },

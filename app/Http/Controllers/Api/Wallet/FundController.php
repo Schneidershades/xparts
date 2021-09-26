@@ -8,42 +8,6 @@ use App\Http\Requests\Wallet\FundCreateFormRequest;
 
 class FundController extends Controller
 {
-    public function index()
-    {
-        /**
-     * @OA\Get(
-     *      path="/api/v1/fund",
-     *      operationId="allFunds",
-     *      tags={"User"},
-     *      summary="allFunds",
-     *      description="allFunds",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful signin",
-     *          @OA\MediaType(
-     *             mediaType="application/json",
-     *         ),
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      security={ {"bearerAuth": {}} },
-     * )
-     */
-    public function index()
-    {
-        return $this->showAll(auth()->user()->fund);
-    }
-
     /**
      * @OA\Post(
      *      path="/api/v1/funds",
@@ -53,7 +17,7 @@ class FundController extends Controller
      *      description="postFunds",
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/WalletCreateFormRequest")
+     *          @OA\JsonContent(ref="#/components/schemas/FundCreateFormRequest")
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -190,7 +154,7 @@ class FundController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    public function update(OrderUpdateFormRequest $request, $id)
+    public function update(FundUpdateFormRequest $request, $id)
     {
         $payment_status = match($request->payment_gateway){
             'paystack' => 1,
