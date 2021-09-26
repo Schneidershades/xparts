@@ -19,7 +19,7 @@ class FundCreateFormRequest extends FormRequest
     /**
      * @OA\Property(
      *      title="payment method id",
-     *      description="payment method i,
+     *      description="payment method",
      *      example="1"
      * )
      *
@@ -31,7 +31,7 @@ class FundCreateFormRequest extends FormRequest
      * @OA\Property(
      *      title="Fund amount",
      *      description="Fund amount ",
-     *      example="quote"
+     *      example="10000"
      * )
      *
      * @var int
@@ -41,7 +41,7 @@ class FundCreateFormRequest extends FormRequest
     /**
      * @OA\Property(
      *      title="Orderable id",
-     *      description="Orderable id,
+     *      description="Orderable id",
      *      example="1"
      * )
      *
@@ -52,7 +52,7 @@ class FundCreateFormRequest extends FormRequest
     /**
      * @OA\Property(
      *      title="Orderable type",
-     *      description="Orderable type,
+     *      description="Orderable type",
      *      example="wallets"
      * )
      *

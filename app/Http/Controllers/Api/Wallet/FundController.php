@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api\Wallet;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Wallet\FundCreateFormRequest;
+use App\Http\Requests\Wallet\FundUpdateFormRequest;
 
 class FundController extends Controller
 {
@@ -43,25 +45,22 @@ class FundController extends Controller
      */
     public function store(FundCreateFormRequest $request)
     {
-        $order = auth()->user()->orders->create([
-            'address_id' => $request->address_id,
-            'subtotal' => $request->amount,
-            'total' => $request->amount,
-            'payment_method_id' => $request->payment_method_id,
-            'orderable_type' => $request->orderable_type,
-            'orderable_id' => $request->orderable_id,
-        ]);
-
         $transaction = auth()->user()->walletTransactions->create([
-            'receipt_number' => $order->receipt_number,
-            'title' => $order->receipt_number,
-            'identifier' => $order->receipt_number,
-            'details' => $order->receipt_number,
-            'amount' => $order->subtotal,
-            'amount_paid' => $order->total,
+            'receipt_number' => Str::orderedUuid(),
+            'title' => 'Fund',
+            'details' => 'Fund',
+            'amount' => $request->amount,
+            'amount_paid' => $request->amount + 0,
             'category' => 'Fund',
             'remarks' => 'pending',
             'transaction_type' => 'Credit',
+        ]);
+
+        $order = auth()->user()->orders->create([
+            'subtotal' => $transaction->amount,
+            'total' => $transaction->amount_paid,
+            'orderable_type' => $transaction->id,
+            'orderable_id' => 'wallets',
         ]);
 
         return $this->showOne($order);

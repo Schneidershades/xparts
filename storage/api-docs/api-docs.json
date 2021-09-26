@@ -4164,6 +4164,32 @@
                 "required": [
                     "email"
                 ],
+                "properties": {
+                    "payment_method_id": {
+                        "title": "payment method id",
+                        "description": "payment method",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "amount": {
+                        "title": "Fund amount",
+                        "description": "Fund amount ",
+                        "type": "integer",
+                        "example": "10000"
+                    },
+                    "orderable_id": {
+                        "title": "Orderable id",
+                        "description": "Orderable id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "orderable_type": {
+                        "title": "Orderable type",
+                        "description": "Orderable type",
+                        "type": "integer",
+                        "example": "wallets"
+                    }
+                },
                 "type": "object"
             },
             "FundUpdateFormRequest": {
@@ -4172,6 +4198,20 @@
                 "required": [
                     "email"
                 ],
+                "properties": {
+                    "payment_reference": {
+                        "title": "Order payment reference",
+                        "description": "Order payment reference",
+                        "type": "string",
+                        "example": "quote"
+                    },
+                    "payment_gateway": {
+                        "title": "Order payment gateway",
+                        "description": "Order payment gateway",
+                        "type": "string",
+                        "example": "quote"
+                    }
+                },
                 "type": "object"
             },
             "WithdrawalCreateFormRequest": {
@@ -4180,6 +4220,14 @@
                 "required": [
                     "email"
                 ],
+                "properties": {
+                    "amount": {
+                        "title": "Withdrawal amount",
+                        "description": "Withdrawal amount ",
+                        "type": "integer",
+                        "example": "1000"
+                    }
+                },
                 "type": "object"
             }
         },

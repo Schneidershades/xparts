@@ -19,9 +19,9 @@ class WithdrawalCreateFormRequest extends FormRequest
 {
     /**
      * @OA\Property(
-     *      title="Fund amount",
-     *      description="Fund amount ",
-     *      example="quote"
+     *      title="Withdrawal amount",
+     *      description="Withdrawal amount ",
+     *      example="1000"
      * )
      *
      * @var int
