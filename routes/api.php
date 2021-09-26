@@ -27,7 +27,7 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('xpart-requests', 'User\XpartRequestController');
 
 		Route::Resource('funds', 'Wallet\FundController');
-		Route::Resource('withdrawal', 'Wallet\WithdrawalController');
+		Route::Resource('withdrawals', 'Wallet\WithdrawalController');
 		Route::Resource('wallet-transactions', 'Wallet\WalletTransactionController');
 	});
 
