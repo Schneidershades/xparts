@@ -32,6 +32,8 @@ class Order extends Model
         'transaction_initiated_date',
         'transaction_initiated_time',
         'date_time_paid',
+        'orderable_type',
+        'orderable_id',
     ];
 
     public $oneItem = OrderResource::class;

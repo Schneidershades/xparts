@@ -25,6 +25,10 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('orders', 'Order\OrderController');
 		Route::Resource('vendor-quote', 'User\VendorQuoteController');
 		Route::Resource('xpart-requests', 'User\XpartRequestController');
+
+		Route::Resource('funds', 'Wallet\FundController');
+		Route::Resource('withdrawal', 'Wallet\WithdrawalController');
+		Route::Resource('wallet-transactions', 'Wallet\WalletTransactionController');
 	});
 
 	Route::group(['prefix' => 'shared', 'namespace' => 'Api\Shared'], function(){
@@ -49,15 +53,15 @@ Route::prefix('v1')->group(function () {
 	});
 
 	Route::group(['prefix' => 'admin', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function(){
-		Route::Resource('orders', 'UOrderController');
-		Route::Resource('quotes', 'QuoteController');
-		Route::Resource('part-specialization', 'PartSpecializationController');
-		Route::Resource('part-grades', 'PartGradeController');
-		Route::Resource('roles', 'RoleController');
-		Route::Resource('users', 'UserController');
-		Route::Resource('vehicle-specialization', 'VehicleSpecializationController');
-		Route::Resource('vins', 'VinController');
-		Route::Resource('xpart-request', 'XpartRequestController');
+		Route::Resource('orders', 'OrderController', array("as"=>"userOrders"));
+		Route::Resource('quotes', 'QuoteController', array("as"=>"userQuotes"));
+		Route::Resource('part-specialization', 'PartSpecializationController', array("as"=>"partSpecItems"));
+		Route::Resource('part-grades', 'PartGradeController', array("as"=>"partGradesItems"));
+		Route::Resource('roles', 'RoleController', array("as"=>"userRoles"));
+		Route::Resource('users', 'UserController', array("as"=>"regUsers"));
+		Route::Resource('vehicle-specialization', 'VehicleSpecializationController', array("as"=>"vehicleSpecItems"));
+		Route::Resource('vins', 'VinController', array("as"=>"regVin"));
+		Route::Resource('xpart-request', 'XpartRequestController', array("as"=>"userXpartRequests"));
 	});
 });
 

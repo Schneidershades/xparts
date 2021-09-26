@@ -38,7 +38,43 @@ class OrderCreateFormRequest extends FormRequest
     *    ),
     */
 
-    public $quotes;
+    public $cart;
+
+
+    /**
+     * @OA\Property(
+     *      title="Orderable id",
+     *      description="Address ID of this transaction",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $orderable_id;
+
+
+    /**
+     * @OA\Property(
+     *      title="Orderable type",
+     *      description="Orderable type of this transaction",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $orderable_type;
+
+    /**
+     * @OA\Property(
+     *      title="Payment Method id",
+     *      description="Payment Method ID of this transaction",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $payment_method_id;
+    
 
     /**
      * Determine if the user is authorized to make this request.
@@ -63,6 +99,7 @@ class OrderCreateFormRequest extends FormRequest
             'cart.*.quantity' => 'required|int',
             'cart.*.itemable_id' => 'required|int',
             'cart.*.itemable_type' => 'required|string',
+            'payment_method_id' => 'required|int',
         ];
     }
 }
