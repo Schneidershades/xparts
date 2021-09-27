@@ -9,6 +9,7 @@ use App\Models\WalletTransaction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Wallet\FundCreateFormRequest;
 use App\Http\Requests\Wallet\FundUpdateFormRequest;
+use App\Traits\Payment\Paystack;
 
 class FundController extends Controller
 {
@@ -155,29 +156,18 @@ class FundController extends Controller
     */
     public function update(FundUpdateFormRequest $request, $id)
     {
-        $payment_status = match($request->payment_gateway){
-            'paystack' => 1,
-            'flutterwave' => 2,
-        };
+        $order = Order::where('id', $request['order_id'])->first();
 
-        $order = Order::where('receipt_number', 'receipt_number')->first();
+        $paystack = new Paystack;
+        [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
-        if($order->orderable_type == 'wallets' || $order->status == 'fulfilled'){
+        if ($status == "success") {
+            $order->update($data);
 
-            $transaction = WalletTransaction::find('id', $order->orderable_id)->first();
-
-            $transaction->update([
-                'status' => 'fulfilled',
-                'balance' => auth()->user()->wallet->balance + $order->subtotal
-            ]);
-
-            auth()->user()->wallet->update([
-                'balance' => auth()->user()->wallet->balance + $order->subtotal
-            ]);
-
+            return $this->showOne($order);
+        } else {
+            return $this->errorResponse($data, 400);
         }
-
-        // return $this->showOne(auth()->user()->cart->where('id', $id)->first()->update($request->validated()));
     }
 
 }
