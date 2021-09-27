@@ -10,7 +10,7 @@ class WalletTransaction extends Controller
      * @OA\Get(
      *      path="/api/v1/shared/wallet-transactions",
      *      operationId="allWalletTransactions",
-     *      tags={"User"},
+     *      tags={"Shared"},
      *      summary="allWalletTransactions",
      *      description="allWalletTransactions",
      *      @OA\Response(

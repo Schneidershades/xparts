@@ -12,7 +12,7 @@ class WithdrawalController extends Controller
      * @OA\Post(
      *      path="/api/v1/shared/withdrawals",
      *      operationId="postWithdrawals",
-     *      tags={"User"},
+     *      tags={"Shared"},
      *      summary="postWithdrawals",
      *      description="postWithdrawals",
      *      @OA\RequestBody(
