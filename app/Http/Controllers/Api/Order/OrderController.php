@@ -197,7 +197,7 @@ class OrderController extends Controller
      */
     public function update(OrderUpdateFormRequest $request, $id)
     {
-        $order = Order::where('id', $id)->first();
+        $order = Order::where('id', $request['order_id'])->first();
 
         $paystack = new Paystack;
         [$status, $data] = $paystack->verify($request['payment_reference'], "order");
