@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Wallet\Shared;
+namespace App\Http\Controllers\Api\Shared\Wallet;
 
 use App\Http\Controllers\Controller;
 
