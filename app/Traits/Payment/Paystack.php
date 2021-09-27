@@ -27,22 +27,16 @@ class Paystack
     public function verify($reference, $type = "order")
     {
         // $data_string = json_encode($query);
-
-        $ch = curl_init();
-  
-        curl_setopt_array($ch, array(
-            CURLOPT_URL => $this->baseUrl . "/transaction/verify/$reference",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => array(
-            "Authorization: Bearer ". $this->secretKey,
+                
+        $ch = curl_init($this->baseUrl . "/transaction/verify/$reference");                                                                      
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+            "Authorization: Bearer SECRET_KEY",
             "Cache-Control: no-cache",
-            ),
-        ));
+          ));                                              
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
         $response = curl_exec($ch);
 
