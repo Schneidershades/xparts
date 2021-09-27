@@ -26,11 +26,40 @@ class Paystack
 
     public function verify($reference, $type = "order")
     {
-        $response = Http::withToken($this->secretKey)
-            ->asJson()
-            ->get($this->baseUrl . "/transaction/verify/$reference");
+        // $data_string = json_encode($query);
 
-        $tx = json_decode($response->body());
+        $ch = curl_init();
+  
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => $this->baseUrl . "/transaction/verify/$reference",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+            "Authorization: Bearer ". $this->secretKey,
+            "Cache-Control: no-cache",
+            ),
+        ));
+
+        $response = curl_exec($ch);
+
+        $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+        $header = substr($response, 0, $header_size);
+        $body = substr($response, $header_size);
+
+        curl_close($ch);
+
+        $tx = json_decode($response, true);
+        
+        // $response = Http::withToken($this->secretKey)
+        //     ->asJson()
+        //     ->get($this->baseUrl . "/transaction/verify/$reference");
+
+        // $tx = json_decode($response->body());
+
         if ($tx->status && $tx->data->status == "success") {
             $txData = $tx->data;
             switch ($type) {
