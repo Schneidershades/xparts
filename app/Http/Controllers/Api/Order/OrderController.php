@@ -202,12 +202,14 @@ class OrderController extends Controller
         $paystack = new Paystack;
         [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
-        if ($status == "success") {
-            $order->update($data);
+        return $status;
 
-            return $this->showOne($order);
-        } else {
-            return $this->errorResponse($data, 400);
-        }
+        // if ($status == "success") {
+        //     $order->update($data);
+
+        //     return $this->showOne($order);
+        // } else {
+        //     return $this->errorResponse($data, 400);
+        // }
     }
 }
