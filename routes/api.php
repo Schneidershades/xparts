@@ -33,10 +33,6 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('orders', 'Order\OrderController');
 		Route::Resource('vendor-quote', 'User\VendorQuoteController');
 		Route::Resource('xpart-requests', 'User\XpartRequestController');
-
-		Route::Resource('funds', 'Wallet\FundController');
-		Route::Resource('withdrawals', 'Wallet\WithdrawalController');
-		Route::Resource('wallet-transactions', 'Wallet\WalletTransactionController');
 	});
 
 	Route::group(['prefix' => 'shared', 'namespace' => 'Api\Shared'], function(){
@@ -52,6 +48,10 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('part-grade', 'Parts\PartGradeController');
 		Route::Resource('part-specialization', 'Parts\PartSpecializationController');
 		Route::Resource('vehicle-specialization', 'Vehicle\VehicleSpecializationController');
+
+		Route::Resource('funds', 'Wallet\FundController');
+		Route::Resource('withdrawals', 'Wallet\WithdrawalController');
+		Route::Resource('wallet-transactions', 'Wallet\WalletTransactionController');
 	});
 
 	Route::group(['prefix' => 'vendor', 'middleware' => 'auth:api', 'namespace' => 'Api\Vendor'], function(){

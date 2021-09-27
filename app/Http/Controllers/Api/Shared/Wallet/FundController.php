@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Wallet;
+namespace App\Http\Controllers\Api\Wallet\Shared;
 
 use App\Models\Order;
 use Illuminate\Support\Str;
@@ -14,9 +14,9 @@ class FundController extends Controller
 {
     /**
      * @OA\Post(
-     *      path="/api/v1/funds",
+     *      path="/api/v1/shared/funds",
      *      operationId="postFunds",
-     *      tags={"User"},
+     *      tags={"Shared"},
      *      summary="postFunds",
      *      description="postFunds",
      *      @OA\RequestBody(
@@ -68,9 +68,9 @@ class FundController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/api/v1/funds/{id}",
+     *      path="/api/v1/shared/funds/{id}",
      *      operationId="showFunds",
-     *      tags={"User"},
+     *      tags={"Shared"},
      *      summary="showFunds",
      *      description="showFunds",
      *      
@@ -113,9 +113,9 @@ class FundController extends Controller
 
     /**
     * @OA\Put(
-    *      path="/api/v1/funds/{id}",
+    *      path="/api/v1/shared/funds/{id}",
     *      operationId="updateFunds",
-    *      tags={"User"},
+    *      tags={"Shared"},
     *      summary="updateFunds",
     *      description="updateFunds",
     *      @OA\RequestBody(

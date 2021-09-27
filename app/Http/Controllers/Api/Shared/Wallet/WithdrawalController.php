@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Wallet;
+namespace App\Http\Controllers\Api\Wallet\Shared;
 
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
@@ -10,7 +10,7 @@ class WithdrawalController extends Controller
 {    
     /**
      * @OA\Post(
-     *      path="/api/v1/withdrawals",
+     *      path="/api/v1/shared/withdrawals",
      *      operationId="postWithdrawals",
      *      tags={"User"},
      *      summary="postWithdrawals",

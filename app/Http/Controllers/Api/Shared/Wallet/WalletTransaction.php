@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Wallet;
+namespace App\Http\Controllers\Api\Wallet\Shared;
 
 use App\Http\Controllers\Controller;
 
@@ -8,7 +8,7 @@ class WalletTransaction extends Controller
 {
        /**
      * @OA\Get(
-     *      path="/api/v1/wallet-transactions",
+     *      path="/api/v1/shared/wallet-transactions",
      *      operationId="allWalletTransactions",
      *      tags={"User"},
      *      summary="allWalletTransactions",
@@ -44,7 +44,7 @@ class WalletTransaction extends Controller
 
     /**
      * @OA\Get(
-     *      path="/api/v1/wallet-transactions/{id}",
+     *      path="/api/v1/shared/wallet-transactions/{id}",
      *      operationId="showWalletTransactions",
      *      tags={"User"},
      *      summary="showWalletTransactions",
