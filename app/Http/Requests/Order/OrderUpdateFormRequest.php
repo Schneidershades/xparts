@@ -16,9 +16,6 @@ use Illuminate\Validation\Rule;
 
 class OrderUpdateFormRequest extends FormRequest
 {
-
-    public $order_id;
-
     /**
      * @OA\Property(
      *      title="Order payment reference",
@@ -40,6 +37,17 @@ class OrderUpdateFormRequest extends FormRequest
      * @var string
      */
     public $payment_gateway;
+
+    /**
+     * @OA\Property(
+     *      title="Order ID ",
+     *      description="Order Id ",
+     *      example="quote"
+     * )
+     *
+     * @var int
+     */
+    public $order_id;
 
 
     /**
