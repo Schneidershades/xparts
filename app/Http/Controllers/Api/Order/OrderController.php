@@ -195,9 +195,9 @@ class OrderController extends Controller
      *      security={ {"bearerAuth": {}} },
      * )
      */
-    public function update(OrderUpdateFormRequest $request)
+    public function update(OrderUpdateFormRequest $request, $id)
     {
-        $order = Order::where('id', $request['order_id'])->first();
+        $order = Order::where('id', $id)->first();
 
         $paystack = new Paystack;
         [$status, $data] = $paystack->verify($request['payment_reference'], "order");
