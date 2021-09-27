@@ -204,12 +204,13 @@ class OrderController extends Controller
 
         return $data;
 
-        // if ($status == "success") {
-        //     $order->update($data);
+        if ($status == "success") {
+            return $data;
+            // $order->update($data);
 
-        //     return $this->showOne($order);
-        // } else {
-        //     return $this->errorResponse($data, 400);
-        // }
+            // return $this->showOne($order);
+        } else {
+            return $this->errorResponse($data, 400);
+        }
     }
 }
