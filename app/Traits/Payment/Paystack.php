@@ -31,7 +31,7 @@ class Paystack
         $ch = curl_init($this->baseUrl . "/transaction/verify/$reference");                                                                      
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-            "Authorization: Bearer SECRET_KEY",
+            "Authorization: Bearer ".$this->secretKey,
             "Cache-Control: no-cache",
           ));                                              
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
