@@ -6,10 +6,15 @@ use App\Models\User;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Resources\Wallet\WalletTransactionResource;
+use App\Http\Resources\Wallet\WalletTransactionCollection;
 
 class WalletTransaction extends Model
 {
     use HasFactory;
+
+    public $oneItem = WalletTransactionResource::class;
+    public $allItems = WalletTransactionCollection::class;
 
     protected $fillable = [
         'receipt_number',
