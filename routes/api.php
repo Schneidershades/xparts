@@ -41,9 +41,9 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('part-specialization', 'Parts\PartSpecializationController');
 		Route::Resource('vehicle-specialization', 'Vehicle\VehicleSpecializationController');
 
-		Route::Resource('funds', 'Wallet\FundController');
-		Route::Resource('withdrawals', 'Wallet\WithdrawalController');
-		Route::Resource('wallet-transactions', 'Wallet\WalletTransactionController');
+		Route::Resource('funds', 'Wallet\FundController')->middleware('auth:api');
+		Route::Resource('withdrawals', 'Wallet\WithdrawalController')->middleware('auth:api');
+		Route::Resource('wallet-transactions', 'Wallet\WalletTransactionController')->middleware('auth:api');
 	});
 
 	Route::group(['prefix' => 'vendor', 'middleware' => 'auth:api', 'namespace' => 'Api\Vendor'], function(){
