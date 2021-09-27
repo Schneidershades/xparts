@@ -29,6 +29,29 @@ class FundUpdateFormRequest extends FormRequest
 
     /**
      * @OA\Property(
+     *      title="Orderable id",
+     *      description="Orderable Id",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $orderable_id;
+
+    /**
+     * @OA\Property(
+     *      title="Orderable type",
+     *      description="Orderable type",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $orderable_type;
+
+
+    /**
+     * @OA\Property(
      *      title="Order payment reference",
      *      description="Order payment reference",
      *      example="quote"
@@ -69,6 +92,8 @@ class FundUpdateFormRequest extends FormRequest
         return [
             'payment_reference' => 'required|string',
             'payment_gateway' => 'required|string',
+            'orderable_id' => 'required|int',
+            'orderable_type' => 'required|string',
             'payment_method_id' => 'int',
         ];
     }
