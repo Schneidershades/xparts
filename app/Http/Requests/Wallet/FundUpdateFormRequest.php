@@ -42,7 +42,7 @@ class FundUpdateFormRequest extends FormRequest
      * @OA\Property(
      *      title="Orderable type",
      *      description="Orderable type",
-     *      example="1"
+     *      example="walletTransactions"
      * )
      *
      * @var int
@@ -93,7 +93,7 @@ class FundUpdateFormRequest extends FormRequest
             'payment_reference' => 'required|string',
             'payment_gateway' => 'required|string',
             'orderable_id' => 'required|int',
-            'orderable_type' => 'required|string',
+            'orderable_type' => 'required|string|in:walletTransactions',
             'payment_method_id' => 'int',
         ];
     }
