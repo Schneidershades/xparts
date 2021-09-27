@@ -43,7 +43,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return $this->showAll(auth()->user()->cart);
+        return $this->showAll(auth()->user()->orders);
     }
 
     /**
