@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Shared\Wallet;
 
 use App\Http\Controllers\Controller;
 
-class WalletTransaction extends Controller
+class WalletTransactionController extends Controller
 {
        /**
      * @OA\Get(
