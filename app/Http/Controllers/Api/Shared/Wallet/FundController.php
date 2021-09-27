@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Shared\Shared;
+namespace App\Http\Controllers\Api\Shared\Wallet;
 
 use App\Models\Order;
 use Illuminate\Support\Str;
