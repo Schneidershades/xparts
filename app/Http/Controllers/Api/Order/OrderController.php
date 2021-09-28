@@ -215,15 +215,15 @@ class OrderController extends Controller
         $order = Order::where('receipt_number', $request['payment_reference'])->first();
 
         $paystack = new Paystack;
-        [$status, $data] = $paystack->verify($request['payment_reference'], "order");
+        return $paystack->verify($request['payment_reference'], "order");
 
         // return $status;
 
-        if ($status == "success") {
-            $order->update($data);
-            return $this->showOne($order);
-        } else {
-            return $this->errorResponse($data, 400);
-        }
+        // if ($status == "success") {
+        //     $order->update($data);
+        //     return $this->showOne($order);
+        // } else {
+        //     return $this->errorResponse($data, 400);
+        // }
     }
 }
