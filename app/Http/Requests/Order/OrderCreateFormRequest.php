@@ -99,7 +99,7 @@ class OrderCreateFormRequest extends FormRequest
             'cart.*.quantity' => 'required|int',
             'cart.*.itemable_id' => 'required|int',
             'cart.*.itemable_type' => 'required|string',
-            'payment_method_id' => 'required|int',
+            'payment_method_id' => 'required|int|exists:payment_methods,id',
         ];
     }
 }

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Api\Order;
 
 use App\Models\Order;
+use App\Models\Wallet;
 use App\Models\OrderItem;
+use App\Models\PaymentCharge;
+use App\Traits\Payment\Paystack;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
-use App\Models\PaymentCharge;
-use App\Traits\Payment\Paystack;
 
 class OrderController extends Controller
 {
@@ -215,15 +216,20 @@ class OrderController extends Controller
         $order = Order::where('receipt_number', $request['payment_reference'])->first();
 
         $paystack = new Paystack;
-        return $paystack->verify($request['payment_reference'], "order");
+        [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
-        // return $status;
+        if ($status != "success") {
+            return $this->errorResponse($data, 400);
+        } 
 
-        // if ($status == "success") {
-        //     $order->update($data);
-        //     return $this->showOne($order);
-        // } else {
-        //     return $this->errorResponse($data, 400);
-        // }
+        $order->update($data);
+
+        if($order->payment_method_id == 2){
+            $wallet = Wallet::where('user_id', $order->user_id)->first();
+            $wallet->balance -= $order->total;
+            $wallet->save();
+        }
+
+        return $this->showOne($order);
     }
 }

@@ -44,7 +44,7 @@ class Paystack
         $err = curl_error($curl);
         curl_close($curl);
 
-        return $tx = json_decode($response, true);
+        $tx = json_decode($response, true);
 
         // $tx = json_decode($response->body());
         if ($tx->status && $tx->data->status == "success") {
