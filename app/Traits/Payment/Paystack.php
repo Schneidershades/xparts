@@ -30,7 +30,8 @@ class Paystack
         //     ->asJson()
         //     ->get($this->baseUrl . "/transaction/verify/$reference");
 
-
+        return $this->secretKey;
+        
         $curl = curl_init();
         
         curl_setopt_array($curl, array(
