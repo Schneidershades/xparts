@@ -94,16 +94,19 @@ class OrderController extends Controller
         $paymentCharge = PaymentCharge::where('payment_method_id', $request->payment_method_id)
                                 ->where('gateway', $request->payment_gateway)
                                 ->first();
+        $fee = 0;
         
-        $paymentChargeAmount = $paymentCharge->amount_gateway_charge +  $paymentCharge->amount_company_charge;
-        $paymentChargePercentage = $paymentCharge->percentage_gateway_charge +  $paymentCharge->percentage_company_charge;
-        $convertPercentage = $paymentChargePercentage/100;
-        $fee = $total * $convertPercentage;
+        if($paymentCharge){
+            $paymentChargeAmount = $paymentCharge->amount_gateway_charge +  $paymentCharge->amount_company_charge;
+            $paymentChargePercentage = $paymentCharge->percentage_gateway_charge +  $paymentCharge->percentage_company_charge;
+            $convertPercentage = $paymentChargePercentage/100;
+            $fee = $total * $convertPercentage;
+        }
 
         $order = auth()->user()->orders()->create([
             'address_id' => $request->address_id,
             'payment_method_id' => $request->payment_method_id,
-            'payment_charge_id' => $paymentCharge? $paymentCharge->id : null,
+            'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
             'subtotal' => $total,
             'total' => $total + $fee,
         ]);
