@@ -166,18 +166,16 @@ class FundController extends Controller
 
         [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
-        return $data;
-
-        // if ($status != "success") {
-        //     return $this->errorResponse($data, 400);
+        if ($status != "success") {
+            return $this->errorResponse($data, 400);
             
-        // } 
+        } 
 
-        // $order->update($data);
+        $order->update($data);
 
-        // $user = Wallet::where('user_id', $order->user_id)->first();
-        // $user->balance += $order->total;
-        // $user->save();
+        $user = Wallet::where('user_id', $order->user_id)->first();
+        $user->balance += $order->total;
+        $user->save();
 
         return $this->showOne($order);
     }
