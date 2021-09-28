@@ -24,7 +24,7 @@ class Paystack
         //     ->asJson()
         //     ->get($this->baseUrl . "/transaction/verify/$reference");
 
-        return config('paystack.url').' ce'. config('paystack.secret_key');
+        // return config('paystack.url').' ce'. config('paystack.secret_key');
 
         $curl = curl_init();
         
@@ -37,7 +37,7 @@ class Paystack
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
-            "Authorization: Bearer ".$this->secretKey,
+            "Authorization: Bearer ".config('paystack.secret_key'),
             "Cache-Control: no-cache",
             ),
         ));
