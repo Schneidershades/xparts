@@ -13,9 +13,9 @@ class Paystack
 
     public function __construct()
     {
-        $this->baseUrl = config('thirdpartyapi.url');
-        $this->secretKey = config('thirdpartyapi.secret_key');
-        $this->publicKey = config('thirdpartyapi.public_key');
+        $this->baseUrl = config('paystack.url');
+        $this->secretKey = config('paystack.secret_key');
+        $this->publicKey = config('paystack.public_key');
     }
 
     public function verify($reference, $type = "order")
