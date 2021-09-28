@@ -169,7 +169,6 @@ class FundController extends Controller
 
         if ($status != "success") {
             return $this->errorResponse($data, 400);
-            
         } 
 
         $order->update($data);
