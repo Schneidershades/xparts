@@ -171,13 +171,13 @@ class FundController extends Controller
             
         } 
 
-        $order->update($data);
+        // $order->update($data);
 
-        $wallet = Wallet::where('user_id', $order->user_id)->first();
-        $wallet->['balance'] += $order->total;
-        $wallet->save();
+        // $wallet = Wallet::where('user_id', $order->user_id)->first();
+        // $wallet['balance'] += $order->total;
+        // $wallet->save();
 
-        return $this->showOne($order);
+        // return $this->showOne($order);
     }
 
 }
