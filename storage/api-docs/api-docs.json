@@ -4061,6 +4061,12 @@
                         "description": "Order payment gateway",
                         "type": "string",
                         "example": "quote"
+                    },
+                    "order_id": {
+                        "title": "Order ID ",
+                        "description": "Order Id ",
+                        "type": "integer",
+                        "example": "quote"
                     }
                 },
                 "type": "object"
