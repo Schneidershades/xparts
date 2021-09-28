@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PartSpecializationSeeder::class);
         $this->call(VehicleSpecializationSeeder::class);
         $this->call(PartTableSeeder::class);
+        $this->call(PaymentMethodSeeder::class);
+        $this->call(PaymentChargeSeeder::class);
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
