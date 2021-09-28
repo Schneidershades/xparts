@@ -92,7 +92,7 @@ class OrderController extends Controller
         });
 
         $paymentCharge = PaymentCharge::where('payment_method_id', $request->payment_method_id)
-                                ->where('payment_gateway', $request->payment_gateway)
+                                ->where('gateway', $request->payment_gateway)
                                 ->first();
         
         $paymentChargeAmount = $paymentCharge->amount_gateway_charge +  $paymentCharge->amount_company_charge;
