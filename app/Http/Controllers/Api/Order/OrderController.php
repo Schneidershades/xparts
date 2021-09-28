@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
+use App\Models\PaymentCharge;
 use App\Traits\Payment\Paystack;
 
 class OrderController extends Controller
@@ -90,10 +91,21 @@ class OrderController extends Controller
             return $cart->cartable->price * $cart->quantity;
         });
 
+        $paymentCharge = PaymentCharge::where('payment_method_id', $request->payment_method_id)
+                                ->where('payment_gateway', $request->payment_gateway)
+                                ->first();
+        
+        $paymentChargeAmount = $paymentCharge->amount_gateway_charge +  $paymentCharge->amount_company_charge;
+        $paymentChargePercentage = $paymentCharge->percentage_gateway_charge +  $paymentCharge->percentage_company_charge;
+        $convertPercentage = $paymentChargePercentage/100;
+        $fee = $total * $convertPercentage;
+
         $order = auth()->user()->orders()->create([
             'address_id' => $request->address_id,
+            'payment_method_id' => $request->payment_method_id,
+            'payment_charge_id' => $paymentCharge? $paymentCharge->id : null,
             'subtotal' => $total,
-            'total' => $total,
+            'total' => $total + $fee,
         ]);
 
         collect($request->cart)->each(function ($cart) use ($order) {
@@ -104,6 +116,8 @@ class OrderController extends Controller
                 'order_id' => $order->id,
             ]);
         });
+
+
 
         // auth()->user()->cart()->delete();
 

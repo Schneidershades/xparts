@@ -15,12 +15,15 @@ class CreatePaymentChargesTable extends Migration
     {
         Schema::create('payment_charges', function (Blueprint $table) {
             $table->id();
+            $table->integer('payment_method_id')->nullable()->constrained();
             $table->integer('gateway')->nullable();
             $table->string('type')->defaule('percentage');
             $table->integer('percentage_gateway_charge')->nullable();
             $table->integer('percentage_company_charge')->nullable();
             $table->integer('amount_gateway_charge')->nullable();
             $table->integer('amount_company_charge')->nullable();
+            $table->string('currency')->nullable();
+            $table->string('currency_symbol')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

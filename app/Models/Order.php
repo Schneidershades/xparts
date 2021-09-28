@@ -54,6 +54,16 @@ class Order extends Model
         return $this->belongsTo(Address::class);
     }
 
+    public function paymentCharge()
+    {
+        return $this->belongsTo(PaymentCharge::class);
+    }
+
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
+
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);

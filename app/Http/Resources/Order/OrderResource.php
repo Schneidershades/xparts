@@ -4,6 +4,8 @@ namespace App\Http\Resources\Order;
 
 use App\Http\Resources\Address\AddressResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Payment\PaymentChargeResource;
+use App\Http\Resources\Payment\PaymentMethodResource;
 
 class OrderResource extends JsonResource
 {
@@ -22,6 +24,8 @@ class OrderResource extends JsonResource
             'address' => new AddressResource($this->address),
             'vat_id' => $this->vat_id,
             'discount_id' => $this->discount_id,
+            'payment_method' => new PaymentMethodResource($this->paymentMethod),
+            'charge' => new PaymentChargeResource($this->paymentCharge),
             'subtotal' => $this->subtotal,
             'orderable_type' => $this->orderable_type,
             'orderable_id' => $this->orderable_id,

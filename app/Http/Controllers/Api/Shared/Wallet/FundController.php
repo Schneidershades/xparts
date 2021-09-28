@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Api\Shared\Wallet;
 
+use App\Models\User;
 use App\Models\Order;
+use App\Models\Wallet;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Traits\Payment\Paystack;
 use App\Models\WalletTransaction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Wallet\FundCreateFormRequest;
 use App\Http\Requests\Wallet\FundUpdateFormRequest;
-use App\Traits\Payment\Paystack;
 
 class FundController extends Controller
 {
@@ -164,14 +166,18 @@ class FundController extends Controller
 
         [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
-        if ($status == "success") {
-            $order->update($data);
-
-            return $this->showOne($order);
-            
-        } else {
+        if ($status != "success") {
             return $this->errorResponse($data, 400);
-        }
+            
+        } 
+
+        $order->update($data);
+
+        $user = Wallet::where('user_id', $order->user_id)->first();
+        $user->balance += $order->total;
+        $user->save();
+
+        return $this->showOne($order);
     }
 
 }

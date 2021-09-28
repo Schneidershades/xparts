@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentCharge extends Model
 {
     use HasFactory;
+
+    public $oneItem = PaymentChargeResource::class;
+    public $allItems = PaymentChargeCollection::class;
 }
