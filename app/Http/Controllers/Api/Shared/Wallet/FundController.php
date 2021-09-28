@@ -158,7 +158,7 @@ class FundController extends Controller
     */
     public function update(FundUpdateFormRequest $request, $id)
     {
-        return $order = Order::where('orderable_id', $request['orderable_id'])
+        $order = Order::where('orderable_id', $request['orderable_id'])
                 ->where('orderable_type', $request['orderable_type'])
                 ->first();
 
@@ -171,13 +171,16 @@ class FundController extends Controller
             
         } 
 
-        // $order->update($data);
+        $order->update($data);
 
-        // $wallet = Wallet::where('user_id', $order->user_id)->first();
-        // $wallet['balance'] += $order->total;
-        // $wallet->save();
+        $wallet = Wallet::where('user_id', $order->user_id)->first();
 
-        // return $this->showOne($order);
+        if($wallet){
+            $wallet->balance += $order->total;
+            $wallet->save();
+        }
+        
+        return $this->showOne($order);
     }
 
 }
