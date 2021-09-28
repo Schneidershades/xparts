@@ -158,7 +158,7 @@ class FundController extends Controller
     */
     public function update(FundUpdateFormRequest $request, $id)
     {
-        $order = Order::where('orderable_id', $request['orderable_id'])
+        return $order = Order::where('orderable_id', $request['orderable_id'])
                 ->where('orderable_type', $request['orderable_type'])
                 ->first();
 
