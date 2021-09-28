@@ -63,8 +63,8 @@ class FundController extends Controller
 
         $order = $transaction->orders()->create([
             'subtotal' => $transaction->amount,
-            'total' => $transaction->amount_paid,
             'user_id' => auth()->user()->id,
+            'total' => $transaction->amount_paid,
         ]);
 
         return $this->showOne($order);
