@@ -24,8 +24,6 @@ class Paystack
         //     ->asJson()
         //     ->get($this->baseUrl . "/transaction/verify/$reference");
 
-        // return config('paystack.url').' ce'. config('paystack.secret_key');
-
         $curl = curl_init();
         
         curl_setopt_array($curl, array(
@@ -45,8 +43,6 @@ class Paystack
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
-
-        return ($response);
 
         return $tx = json_decode($response, true);
 
