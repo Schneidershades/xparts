@@ -16,7 +16,7 @@ class CreatePaymentChargesTable extends Migration
         Schema::create('payment_charges', function (Blueprint $table) {
             $table->id();
             $table->integer('payment_method_id')->nullable()->constrained();
-            $table->integer('gateway')->nullable();
+            $table->string('gateway')->nullable();
             $table->string('type')->defaule('percentage');
             $table->integer('percentage_gateway_charge')->nullable();
             $table->integer('percentage_company_charge')->nullable();
