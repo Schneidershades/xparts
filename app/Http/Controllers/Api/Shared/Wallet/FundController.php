@@ -158,13 +158,14 @@ class FundController extends Controller
     */
     public function update(FundUpdateFormRequest $request, $id)
     {
-        return $order = Order::where('orderable_id', $request['orderable_id'])
-                ->where('orderable_type', $request['orderable_type'])
-                ->first();
+        return '5';
+        //  $order = Order::where('orderable_id', $request['orderable_id'])
+        //         ->where('orderable_type', $request['orderable_type'])
+        //         ->first();
 
-        $paystack = new Paystack;
+        // $paystack = new Paystack;
 
-        return $paystack->verify($request['payment_reference'], "order");
+        // return $paystack->verify($request['payment_reference'], "order");
 
         // if ($status != "success") {
         //     return $this->errorResponse($data, 400);
