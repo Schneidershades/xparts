@@ -20,3 +20,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('test', function ($user) {
     return true;
 });
+
+Broadcast::channel('vendor-quote-sent.{quoteId}', function ($user, $quoteId) {
+    return true;
+});

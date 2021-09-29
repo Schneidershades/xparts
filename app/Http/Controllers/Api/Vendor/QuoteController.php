@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Api\Vendor;
 
+use App\Events\VendorQuoteSent;
 use App\Models\Quote;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vendor\QuoteCreateFormRequest;
+use App\Models\User;
+use App\Models\XpartRequest;
 
 class QuoteController extends Controller
 {
@@ -80,12 +83,19 @@ class QuoteController extends Controller
     public function store(QuoteCreateFormRequest $request)
     {
         $auth = auth()->user()->id;
-        collect($request['quotes'])->each(function ($quote) use ($auth) {
+        $vendor = User::where('id', $auth)->first();
+
+        collect($request['quotes'])->each(function ($quote) use ($auth, $vendor) {
             $model = new Quote;
             $model = $this->contentAndDbIntersection($quote, $model, [], [
                 'vendor_id' => $auth
             ]);
             $model->save();
+
+            $xpartRequest = XpartRequest::where('id', $quote['xpart_request_id'])->first();
+            $quote = $model;
+
+            broadcast(new VendorQuoteSent($vendor, $xpartRequest, $quote));
         });
 
         return $this->showAll(auth()->user()->quotes);
