@@ -52,17 +52,17 @@ class QuoteCreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'quotes' => 'required|array', 
+            'quotes' => 'array', 
             'quotes.*.xpart_request_id' => 'required|int|exists:xpart_requests,id',
             'quotes.*.part_grade_id' => 'required|int|exists:part_grades,id',
             'quotes.*.state_id' => 'required|int|exists:states,id',
             'quotes.*.city_id' => 'required|int|exists:cities,id',
-            'quotes.*.brand' => 'string',
             'quotes.*.quantity' => 'required|int',
             'quotes.*.part_number' => 'string',
             'quotes.*.part_warranty' => 'int',
             'quotes.*.price' => 'required|int',
             'quotes.*.description' => 'string',
+            'quotes.*.brand' => 'string',
         ];
     }
 }

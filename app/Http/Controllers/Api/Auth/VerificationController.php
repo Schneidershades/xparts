@@ -118,24 +118,6 @@ class VerificationController extends Controller
     *              type="string"
     *          )
     *      ),
-    *      @OA\Parameter(
-    *          name="expires",
-    *          description="Expiry time",
-    *          required=true,
-    *          in="path",
-    *          @OA\Schema(
-    *              type="string"
-    *          )
-    *      ),
-    *      @OA\Parameter(
-    *          name="signature",
-    *          description="signature", 
-    *          required=true,
-    *          in="path",
-    *          @OA\Schema(
-    *              type="string"
-    *          )
-    *      ),
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
