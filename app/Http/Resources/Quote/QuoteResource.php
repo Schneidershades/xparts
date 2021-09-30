@@ -32,6 +32,7 @@ class QuoteResource extends JsonResource
             'state' => $this->state ? $this->state->name : 'N/A',
             'city' => $this->city ? $this->city->name : 'N/A',
             'country' => $this->country ? $this->country->name : 'N/A',
+            'images' => $this->images != null ? $this->images->pluck('file_url') : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
