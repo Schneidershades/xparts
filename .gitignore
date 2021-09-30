@@ -11,5 +11,9 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+laravel-echo-server.json
+laravel-echo-server-old.json
+laravel-echo-server.lock
+horizon.log
 /.idea
 /.vscode
