@@ -86,6 +86,15 @@ class QuoteController extends Controller
                 'vendor_id' => $auth
             ]);
             $model->save();
+
+            if (isset($quote['images'])) {
+                foreach ($quote['images'] as $image) {
+                    $path = $this->uploadImage($image, "quote_images");
+                    $model->images()->create([
+                        'file_path' => $path,
+                    ]);
+                }
+            }
         });
 
         return $this->showAll(auth()->user()->quotes);
