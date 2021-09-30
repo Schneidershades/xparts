@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
+use App\Models\WalletTransaction;
 
 class OrderController extends Controller
 {
@@ -86,9 +87,9 @@ class OrderController extends Controller
     {
         $userCart = (auth()->user()->cart);
 
-        $userCart = CartResource::collection(auth()->user()->cart);
+        $cartList = CartResource::collection(auth()->user()->cart);
 
-        $total = $userCart->sum(function ($cart) {
+        $total = $cartList->sum(function ($cart) {
             return $cart->cartable->price * $cart->quantity;
         });
 
@@ -112,12 +113,13 @@ class OrderController extends Controller
             'total' => $total + $fee,
         ]);
 
-        collect($request->cart)->each(function ($cart) use ($order) {
+        collect($userCart)->each(function ($cart) use ($order) {
             OrderItem::create([
-                'itemable_id' => $cart['itemable_id'],
-                'itemable_type' => $cart['itemable_id'],
-                'quantity' => $cart['quantity'],
+                'itemable_id' => $cart->cartable_id,
+                'itemable_type' => $cart->cartable_type,
+                'quantity' => $cart->quantity,
                 'order_id' => $order->id,
+                'vendor_id' => $order->cartable->vendor_id,
             ]);
         });
 
@@ -229,6 +231,21 @@ class OrderController extends Controller
             $wallet->balance -= $order->total;
             $wallet->save();
         }
+
+        // collect($order->orderItems)->each(function ($items) use ($order) {
+        //     $items->walletTransactions()->create([
+        //         'receipt_number' => $order->receipt_number,
+        //         'title' => 'Purchase',
+        //         'user_id' => $user['id'],
+        //         'details' => $user['id'],
+        //         'amount' => $user['id'],
+        //         'amount_paid' => $user['id'],
+        //         'category' => $user['id'],
+        //         'remarks' => $user['id'],
+        //         'transaction_type' => $xpartRequest->id,
+        //         'balance' => $user['id'],
+        //     ]);
+        // });
 
         return $this->showOne($order);
     }

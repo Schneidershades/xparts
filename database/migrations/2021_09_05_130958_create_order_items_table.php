@@ -16,6 +16,7 @@ class CreateOrderItemsTable extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->nullable()->constrained();
+            $table->foreignId('vendor_id')->nullable()->constrained();
             $table->string('itemable_type')->nullable();
             $table->integer('itemable_id')->nullable();
             $table->integer('quantity')->unsigned()->default(1);

@@ -28,7 +28,7 @@ class Quote extends Model
         "price",
         "description"
     ];
-    
+
     public $oneItem = QuoteResource::class;
     public $allItems = QuoteCollection::class;
 
@@ -60,5 +60,10 @@ class Quote extends Model
     public function vendor()
     {
         return $this->belongsTo(User::class, 'vendor_id', 'id');
+    }
+
+    public function images()
+    {
+        return $this->morphMany(Media::class, 'fileable');
     }
 }

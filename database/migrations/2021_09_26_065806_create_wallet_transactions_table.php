@@ -19,6 +19,8 @@ class CreateWalletTransactionsTable extends Migration
             $table->string('title')->nullable();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->text('details')->nullable();
+            $table->string('walletable_type')->nullable();
+            $table->integer('walletable_id')->nullable();
             $table->decimal('amount', 40, 2)->default(0);
             $table->decimal('amount_paid', 40, 2)->default(0);
             $table->string('category')->nullable();

@@ -27,6 +27,8 @@ class WalletTransaction extends Model
         'remarks',
         'transaction_type',
         'balance',
+        'walletable_type',
+        'walletable_id'
     ];
 
     public function user()

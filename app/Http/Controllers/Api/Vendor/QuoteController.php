@@ -96,6 +96,15 @@ class QuoteController extends Controller
             $quote = $model;
 
             broadcast(new VendorQuoteSent($vendor, $xpartRequest, $quote));
+
+            if (isset($quote['images'])) {
+                foreach ($quote['images'] as $image) {
+                    $path = $this->uploadImage($image, "quote_images");
+                    $model->images()->create([
+                        'file_path' => $path,
+                    ]);
+                }
+            }
         });
 
         return $this->showAll(auth()->user()->quotes);

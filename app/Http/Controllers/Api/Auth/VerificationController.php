@@ -26,7 +26,7 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api');
+        // $this->middleware('auth:api');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
@@ -112,24 +112,6 @@ class VerificationController extends Controller
     *      @OA\Parameter(
     *          name="hash",
     *          description="hash", 
-    *          required=true,
-    *          in="path",
-    *          @OA\Schema(
-    *              type="string"
-    *          )
-    *      ),
-    *      @OA\Parameter(
-    *          name="expires",
-    *          description="Expiry time",
-    *          required=true,
-    *          in="path",
-    *          @OA\Schema(
-    *              type="string"
-    *          )
-    *      ),
-    *      @OA\Parameter(
-    *          name="signature",
-    *          description="signature", 
     *          required=true,
     *          in="path",
     *          @OA\Schema(
