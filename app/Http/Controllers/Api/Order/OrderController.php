@@ -120,7 +120,7 @@ class OrderController extends Controller
                 'itemable_type' => $cart->cartable_type,
                 'quantity' => $cart->quantity,
                 'order_id' => $order->id,
-                'vendor_id' => $order->cartable->vendor_id,
+                'vendor_id' => $cart->cartable->vendor_id,
             ]);
         });
 
