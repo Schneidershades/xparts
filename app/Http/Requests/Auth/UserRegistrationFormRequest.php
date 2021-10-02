@@ -5,7 +5,6 @@ namespace App\Http\Requests\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
-/**
  * @OA\Schema(
  *      title="Sign Up Form Request Fields",
  *      description="sign up request body data",

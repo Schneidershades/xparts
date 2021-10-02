@@ -35,8 +35,11 @@ class AuthServiceProvider extends ServiceProvider
             VerifyEmail::toMailUsing(function ($notifiable, $url) {
 
                 $parts = parse_url($url);
-    
-                $spaUrl = "https://www.xparts.ng/verify?".$parts['query'];
+
+                $spaUrl = "https://www.xparts.ng/verify?id=".
+                    $notifiable->getKey() ."&hash=" .
+                    sha1($notifiable->getEmailForVerification())."&".
+                    $parts['query'];
     
                 return (new MailMessage)
                     ->subject('Verify Email Address')
