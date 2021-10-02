@@ -94,9 +94,9 @@ class QuoteController extends Controller
         
         $quote = $model;
 
-        dd($vendor, $xpartRequest, $quote);
+        // dd($vendor, $xpartRequest, $quote);
 
-        // broadcast(new VendorQuoteSent($vendor, $xpartRequest, $quote));
+        broadcast(new VendorQuoteSent($vendor, $xpartRequest, $quote));
 
         if ($request->has('images')) {
             foreach ($request['images'] as $image) {
