@@ -82,9 +82,6 @@ class QuoteController extends Controller
 
     public function store(QuoteCreateFormRequest $request)
     {
-
-        return ($request->all());
-
         $auth = auth()->user()->id;
         $vendor = User::where('id', $auth)->first();
 
@@ -99,7 +96,7 @@ class QuoteController extends Controller
 
         broadcast(new VendorQuoteSent($vendor, $xpartRequest, $quote));
 
-        if (isset($request->images)) {
+        if ($request->has('images')) {
             foreach ($request->images as $image) {
                 $path = $this->uploadImage($image, "quote_images");
                 $model->images()->create([
