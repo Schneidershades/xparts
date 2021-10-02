@@ -83,8 +83,8 @@ class QuoteController extends Controller
     public function store(QuoteCreateFormRequest $request)
     {
 
-        dd($request->all());
-        
+        return ($request->all());
+
         $auth = auth()->user()->id;
         $vendor = User::where('id', $auth)->first();
 
