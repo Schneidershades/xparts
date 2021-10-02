@@ -70,7 +70,7 @@ class OrderUpdateFormRequest extends FormRequest
         return [
             'order_id' => 'required|exists:orders,id',
             'payment_reference' => 'required|string|unique:orders,payment_reference',
-            'payment_gateway' => ['required', 'string', Rule::in(['paystack'])],
+            'payment_gateway' => 'required|string|max:255|in:paystack,wallet',
         ];
     }
 }

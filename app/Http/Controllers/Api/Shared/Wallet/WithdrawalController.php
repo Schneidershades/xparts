@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Shared\Wallet;
 
 use Illuminate\Support\Str;
+use App\Models\PaymentCharge;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Wallet\WithdrawalCreateFormRequest;
 
@@ -47,17 +48,27 @@ class WithdrawalController extends Controller
             return $this->errorResponse('Insufficient funds', 409);
         }
 
-        $transaction = auth()->user()->walletTransactions->create([
-            'receipt_number' => Str::orderedUuid(),
-            'title' => 'Withdrawal',
-            'details' => 'Withdrawal',
-            'amount' => $request->amount,
-            'amount_paid' => $request->amount,
-            'category' => 'Withdrawal',
-            'remarks' => 'pending',
-            'transaction_type' => 'Debit',
+        $paymentCharge = PaymentCharge::where('payment_method_id', $request->payment_method_id)
+                                ->where('gateway', $request->payment_gateway)
+                                ->first();
+        $fee = 0;
+        
+        if($paymentCharge){
+            $paymentChargeAmount = $paymentCharge->amount_gateway_charge + $paymentCharge->amount_company_charge;
+            $paymentChargePercentage = $paymentCharge->percentage_gateway_charge + $paymentCharge->percentage_company_charge;
+            $convertPercentage = $paymentChargePercentage/100;
+            $fee = $request->amount * $convertPercentage;
+        }
+
+        $order = auth()->user()->orders()->create([
+            'payment_method_id' => 1,
+            'user_id' => auth()->user()->id,
+            'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
+            'subtotal' => $request->amount,
+            'total' => $request->amount + $fee,
+            'transaction_type' => 'debit',
         ]);
 
-        return $this->showOne($transaction);
+        return $this->showOne($order);
     }
 }

@@ -112,6 +112,7 @@ class OrderController extends Controller
             'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
             'subtotal' => $total,
             'total' => $total + $fee,
+            'transaction_type' => 'debit',
         ]);
 
         collect($userCart)->each(function ($cart) use ($order) {
@@ -235,16 +236,16 @@ class OrderController extends Controller
 
         collect($order->orderItems)->each(function ($item) use ($order) {
 
-            $vendor = User::where('id', $item['vendor_id'])->first();
+            $user = User::where('id', $item['vendor_id'])->first();
 
-            $balance = $vendor->wallet ? $vendor->wallet->balance + $order->amount_paid : 0;
+            $balance = $user->wallet ? $user->wallet->balance + $order->amount_paid : 0;
 
-            $vendor->wallet->update(['balance' => $balance]);
+            $user->wallet->update(['balance' => $balance]);
 
             WalletTransaction::create([
                 'receipt_number' => $order->receipt_number,
                 'title' => 'Quote order purchase',
-                'user_id' => $vendor->id,
+                'user_id' => $user->id,
                 'details' => 'Quote order purchase',
                 'amount' => $order->total,
                 'amount_paid' => $order->amount_paid,

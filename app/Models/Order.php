@@ -35,6 +35,7 @@ class Order extends Model
         'date_time_paid',
         'orderable_type',
         'orderable_id',
+        'transaction_type',
     ];
 
     public $oneItem = OrderResource::class;

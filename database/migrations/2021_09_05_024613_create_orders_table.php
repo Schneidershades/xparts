@@ -44,6 +44,7 @@ class CreateOrdersTable extends Migration
             $table->string('platform_initiated')->nullable();
             $table->string('transaction_initiated_date')->nullable();
             $table->string('transaction_initiated_time')->nullable();
+            $table->string('transaction_type')->nullable();
             $table->date('date_time_paid')->nullable();
             $table->date('date_cancelled')->nullable();
             $table->text('cancelled_cancel')->nullable();

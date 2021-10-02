@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Wallet;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\PaymentCharge;
 use App\Traits\Payment\Paystack;
 use App\Models\WalletTransaction;
 use App\Http\Controllers\Controller;
@@ -50,23 +51,27 @@ class FundController extends Controller
      */
     public function store(FundCreateFormRequest $request)
     {        
-        $transaction = auth()->user()->walletTransactions()->create([
-            'title' => 'Fund',
-            'details' => 'Fund',
-            'amount' => $request['amount'],
-            'amount_paid' => $request['amount'] + 0,
-            'category' => 'Fund',
-            'remarks' => 'pending',
-            'transaction_type' => 'Credit',
+        $paymentCharge = PaymentCharge::where('payment_method_id', $request->payment_method_id)
+                                ->where('gateway', $request->payment_gateway)
+                                ->first();
+        $fee = 0;
+        
+        if($paymentCharge){
+            $paymentChargeAmount = $paymentCharge->amount_gateway_charge + $paymentCharge->amount_company_charge;
+            $paymentChargePercentage = $paymentCharge->percentage_gateway_charge + $paymentCharge->percentage_company_charge;
+            $convertPercentage = $paymentChargePercentage/100;
+            $fee = $request['amount'] * $convertPercentage;
+        }
+
+        $order = auth()->user()->orders()->create([
+            'payment_method_id' => 1,
+            'user_id' => auth()->user()->id,
+            'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
+            'subtotal' => $request['amount'],
+            'total' => $request['amount'] + $fee,
+            'transaction_type' => 'credit',
         ]);
         
-
-        $order = $transaction->orders()->create([
-            'subtotal' => $transaction->amount,
-            'user_id' => auth()->user()->id,
-            'total' => $transaction->amount_paid,
-        ]);
-
         return $this->showOne($order);
     }
 
@@ -159,9 +164,7 @@ class FundController extends Controller
     */
     public function update(FundUpdateFormRequest $request, $id)
     {
-        $order = Order::where('orderable_id', $request['orderable_id'])
-                ->where('orderable_type', $request['orderable_type'])
-                ->first();
+        $order = Order::findOrFail($id);
 
         $paystack = new Paystack;
 
@@ -173,12 +176,27 @@ class FundController extends Controller
 
         $order->update($data);
 
-        $wallet = Wallet::where('user_id', $order->user_id)->first();
+        $user = User::where('id', $order->user_id)->first();
 
-        if($wallet){
-            $wallet->balance += $order->total;
-            $wallet->save();
-        }
+        $balance = $user->wallet ? $user->wallet->balance + $order->amount_paid : 0;
+
+        $user->wallet->update(['balance' => $balance]);
+
+        WalletTransaction::create([
+            'receipt_number' => $order->receipt_number,
+            'title' => 'Fund',
+            'user_id' => $user->id,
+            'details' => 'Fund',
+            'amount' => $order->total,
+            'amount_paid' => $order->amount_paid,
+            'category' => 'Fund',
+            'transaction_type' => $order->transaction_type,
+            'status' => 'fulfilled',
+            'remarks' => 'fulfilled',
+            'balance' => $balance,
+            'walletable_id' => $order->id,
+            'walletable_type' => 'orders',
+        ]);
         
         return $this->showOne($order);
     }
