@@ -17,6 +17,7 @@ class OrderItem extends Model
         'itemable_type',
         'quantity',
         'order_id',
+        'vendor_id',
     ];
 
     public $oneItem = OrderItemResource::class;
