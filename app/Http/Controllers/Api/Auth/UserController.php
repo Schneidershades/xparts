@@ -147,6 +147,40 @@ class UserController extends Controller
         return $this->showOne($model);
     }
 
+    /**
+    * @OA\Post(
+    *      path="/api/v1/auth/refresh/token",
+    *      operationId="userLogout",
+    *      tags={"authentication"},
+    *      summary="Refresh a registered user token",
+    *      description="Refresh a registered user token",
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successful signin",
+    *          @OA\MediaType(
+    *             mediaType="application/json",
+    *         ),
+    *       ),
+    *      @OA\Response(
+    *          response=400,
+    *          description="Bad Request"
+    *      ),
+    *      @OA\Response(
+    *          response=401,
+    *          description="Unauthenticated",
+    *      ),
+    *      @OA\Response(
+    *          response=403,
+    *          description="Forbidden"
+    *      ),
+    *      security={ {"bearerAuth": {}} },
+    * )
+    */
+
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
 
     /**
     * @OA\Post(
