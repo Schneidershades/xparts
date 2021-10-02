@@ -164,8 +164,8 @@ class QuoteCreateFormRequest extends FormRequest
             'price' => 'required|int',
             'description' => 'string',
             'brand' => 'string',
-            'images' => 'nullable|array',
-            'images.*' => 'image|max:2048',
+            // 'images' => 'nullable|array',
+            // 'images.*' => 'image|max:2048',
         ];
     }
 }
