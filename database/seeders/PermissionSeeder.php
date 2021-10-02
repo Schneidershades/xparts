@@ -66,7 +66,6 @@ class PermissionSeeder extends Seeder
         if( $role->name == 'Admin') {
             $user = User::Create([
                 'name'                          => 'Admin Bsine',
-                'username'                      => 'admin-smoe',
                 'phone'                         => '2347030003324',
                 'email'                         => 'admin@xparts.com',
                 'password'                      => 'password',
@@ -81,7 +80,6 @@ class PermissionSeeder extends Seeder
         if( $role->name == 'Vendor') {
             $user = User::Create([
                 'name'                          => 'Vendor Bsine',
-                'username'                      => 'vendor-smoe',
                 'phone'                         => '2347030003334',
                 'email'                         => 'vendor@xparts.com',
                 'password'                      => 'password',
@@ -96,7 +94,6 @@ class PermissionSeeder extends Seeder
         if( $role->name == 'User') {
             $user = User::Create([
                 'name'                          => 'User Bsine',
-                'username'                      => 'user-smoe',
                 'phone'                         => '2347030003333',
                 'email'                         => 'user@xparts.com',
                 'password'                      => 'password',
