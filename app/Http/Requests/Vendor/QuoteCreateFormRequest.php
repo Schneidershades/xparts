@@ -126,15 +126,15 @@ class QuoteCreateFormRequest extends FormRequest
      */
     public $brand;
 
-    // /**
-    //  *       @OA\Property(property="images", type="object", type="array",
-    //  *            @OA\Items(
-    //  *                @OA\Property(property="images", type="string", example="https://"),
-    //  *            ),
-    //  *        ),
-    //  *    ),
-    //  */
-    // public $images;
+    /**
+     *       @OA\Property(property="images", type="object", type="array",
+     *            @OA\Items(
+     *                @OA\Property(property="images", type="string", example="https://"),
+     *            ),
+     *        ),
+     *    ),
+     */
+    public $images;
 
     /**
      * Determine if the user is authorized to make this request.
