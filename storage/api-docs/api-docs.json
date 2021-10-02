@@ -1733,6 +1733,24 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "signature",
+                        "in": "path",
+                        "description": "signature",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "expires",
+                        "in": "path",
+                        "description": "expires",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {

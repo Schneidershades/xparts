@@ -237,6 +237,10 @@ class OrderController extends Controller
 
             $vendor = User::where('id', $item->vendor_id)->first();
 
+            $balance = $vendor->wallet ? $vendor->wallet->balance + $order->amount_paid : 0;
+
+            $vendor->wallet->update(['balance' => $balance]);
+
             $item->walletTransactions()->create([
                 'receipt_number' => $order->receipt_number,
                 'title' => 'Quote order purchase',
@@ -248,7 +252,7 @@ class OrderController extends Controller
                 'transaction_type' => 'credit',
                 'status' => 'fulfilled',
                 'remarks' => 'fulfilled',
-                'balance' => $vendor->wallet ? $vendor->wallet->balance + $order->amount_paid : 0,
+                'balance' => $balance,
             ]);
         });
 
