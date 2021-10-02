@@ -235,7 +235,7 @@ class OrderController extends Controller
 
         collect($order->orderItems)->each(function ($item) use ($order) {
 
-            $vendor = User::where('id', $item['vendor_id'])->first();
+            $vendor = User::where('id', $item->vendor_id)->first();
 
             $balance = $vendor->wallet ? $vendor->wallet->balance + $order->amount_paid : 0;
 
