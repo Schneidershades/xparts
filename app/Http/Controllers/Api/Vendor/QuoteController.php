@@ -82,6 +82,8 @@ class QuoteController extends Controller
 
     public function store(QuoteCreateFormRequest $request)
     {
+        return $request->images;
+        
         $auth = auth()->user()->id;
         $vendor = User::where('id', $auth)->first();
 
@@ -91,7 +93,7 @@ class QuoteController extends Controller
         ]);
         $model->save();
 
-        $xpartRequest = XpartRequest::where('id', $request->xpart_request_id)->first();
+        $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
         $quote = $model;
 
         // broadcast(new VendorQuoteSent($vendor, $xpartRequest, $quote));
