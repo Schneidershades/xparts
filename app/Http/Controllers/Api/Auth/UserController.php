@@ -45,7 +45,7 @@ class UserController extends Controller
      */
     public function register(UserRegistrationFormRequest $request)
     {
-        $user = User::create($request->validated());
+        $user = User::create($request->all());
 
         $user->sendEmailVerificationNotification();
 
