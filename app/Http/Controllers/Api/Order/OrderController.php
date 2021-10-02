@@ -241,7 +241,7 @@ class OrderController extends Controller
 
             $vendor->wallet->update(['balance' => $balance]);
 
-            $item->walletTransactions()->create([
+            WalletTransaction::create([
                 'receipt_number' => $order->receipt_number,
                 'title' => 'Quote order purchase',
                 'user_id' => $vendor->id,
@@ -253,6 +253,8 @@ class OrderController extends Controller
                 'status' => 'fulfilled',
                 'remarks' => 'fulfilled',
                 'balance' => $balance,
+                'walletable_id' => $item['itemable_id'],
+                'walletable_type' => $item['itemable_type'],
             ]);
         });
 
