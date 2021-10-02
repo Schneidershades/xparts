@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -29,21 +31,19 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        VerifyEmail::createUrlUsing(function ($notifiable) {
-            $frontendUrl = 'https://www.xparts.ng/verify';
+        if (App::environment()) {
+            VerifyEmail::toMailUsing(function ($notifiable, $url) {
+
+                $parts = parse_url($url);
     
-            $verifyUrl = URL::temporarySignedRoute(
-                'verification.verify',
-                Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
-                [
-                    'id' => $notifiable->getKey(),
-                    'hash' => sha1($notifiable->getEmailForVerification()),
-                ]
-            );
+                $spaUrl = "https://www.xparts.ng/verify?".$parts['query'];
     
-            return $frontendUrl . '/?id=' . 
-                    $notifiable->getKey(). '&hash='. 
-                    sha1($notifiable->getEmailForVerification());
-        });
+                return (new MailMessage)
+                    ->subject('Verify Email Address')
+                    ->line('Click the button below to verify your email address.')
+                    ->action('Verify Email Address', $spaUrl);
+    
+            });
+        }
     }
 }

@@ -1611,6 +1611,38 @@
                 ]
             }
         },
+        "/api/v1/auth/refresh/token": {
+            "post": {
+                "tags": [
+                    "authentication"
+                ],
+                "summary": "Refresh a registered user token",
+                "description": "Refresh a registered user token",
+                "operationId": "userLogout",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/auth/logout": {
             "post": {
                 "tags": [
@@ -3505,6 +3537,38 @@
                 ]
             }
         },
+        "/api/v1/vendor/others/quotes": {
+            "get": {
+                "tags": [
+                    "Vendor"
+                ],
+                "summary": "othersQuotes",
+                "description": "othersQuotes",
+                "operationId": "othersQuotes",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/vendor/assigned-xpart-requests": {
             "get": {
                 "tags": [
@@ -3880,12 +3944,6 @@
                         "type": "string",
                         "example": "234"
                     },
-                    "username": {
-                        "title": "User username",
-                        "description": "username of the user",
-                        "type": "string",
-                        "example": "user10339222"
-                    },
                     "password": {
                         "title": "User password",
                         "description": "Password of the user",
@@ -4174,49 +4232,73 @@
                     "email"
                 ],
                 "properties": {
-                    "quotes": {
+                    "xpart_request_id": {
+                        "title": "Xpart Request Id",
+                        "description": "Xpart Request Id",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "part_grade_id": {
+                        "title": "Part Grade Id",
+                        "description": "Part Grade Id",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "state_id": {
+                        "title": "User State",
+                        "description": "state of the user",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "city_id": {
+                        "title": "User City",
+                        "description": "City of the user",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "quantity": {
+                        "title": "Quantity",
+                        "description": "Quantity of the part",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "part_number": {
+                        "title": "Part Number",
+                        "description": "Number of the Part",
+                        "type": "string",
+                        "example": "XXEREIR#11239"
+                    },
+                    "part_warranty": {
+                        "title": "Part Warranty",
+                        "description": "Warranty of the Part",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "price": {
+                        "title": "Price",
+                        "description": "Price of part",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "description": {
+                        "title": "Description",
+                        "description": "Description of the part",
+                        "type": "string",
+                        "example": "It is good"
+                    },
+                    "brand": {
+                        "title": "Brand",
+                        "description": "Brand of the part",
+                        "type": "string",
+                        "example": "LG"
+                    },
+                    "images": {
                         "type": "array",
                         "items": {
                             "properties": {
-                                "xpart_request_id": {
-                                    "type": "int",
-                                    "example": "1"
-                                },
-                                "part_grade_id": {
-                                    "type": "int",
-                                    "example": "1"
-                                },
-                                "state_id": {
-                                    "type": "int",
-                                    "example": "1"
-                                },
-                                "city_id": {
-                                    "type": "int",
-                                    "example": "1"
-                                },
-                                "brand": {
+                                "images": {
                                     "type": "string",
-                                    "example": "Motorola"
-                                },
-                                "quantity": {
-                                    "type": "int",
-                                    "example": "1"
-                                },
-                                "part_number": {
-                                    "type": "string",
-                                    "example": "No5JesusStreet"
-                                },
-                                "part_warranty": {
-                                    "type": "string",
-                                    "example": "2"
-                                },
-                                "price": {
-                                    "type": "int",
-                                    "example": "500000"
-                                },
-                                "description": {
-                                    "type": "string",
-                                    "example": "description"
+                                    "example": "https://"
                                 }
                             },
                             "type": "object"
