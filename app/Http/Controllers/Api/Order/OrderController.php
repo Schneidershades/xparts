@@ -235,7 +235,7 @@ class OrderController extends Controller
 
         collect($order->orderItems)->each(function ($item) use ($order) {
 
-            $vendor = User::where('id', $item->vendor_id)->first();
+            $vendor = User::where('id', $item['vendor_id'])->first();
 
             $balance = $vendor->wallet ? $vendor->wallet->balance + $order->amount_paid : 0;
 
@@ -244,7 +244,7 @@ class OrderController extends Controller
             $item->walletTransactions()->create([
                 'receipt_number' => $order->receipt_number,
                 'title' => 'Quote order purchase',
-                'user_id' => $item->vendor_id,
+                'user_id' => $vendor->id,
                 'details' => 'Quote order purchase',
                 'amount' => $order->amount,
                 'amount_paid' => $order->amount_paid,
