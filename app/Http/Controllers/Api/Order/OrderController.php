@@ -246,7 +246,7 @@ class OrderController extends Controller
                 'title' => 'Quote order purchase',
                 'user_id' => $vendor->id,
                 'details' => 'Quote order purchase',
-                'amount' => $order->amount,
+                'amount' => $order->total,
                 'amount_paid' => $order->amount_paid,
                 'category' => 'Quote order purchase',
                 'transaction_type' => 'credit',
