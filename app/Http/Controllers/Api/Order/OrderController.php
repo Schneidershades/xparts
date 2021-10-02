@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Api\Order;
 
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Wallet;
 use App\Models\OrderItem;
 use App\Models\PaymentCharge;
 use App\Traits\Payment\Paystack;
+use App\Models\WalletTransaction;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
-use App\Models\WalletTransaction;
 
 class OrderController extends Controller
 {
@@ -232,20 +233,24 @@ class OrderController extends Controller
             $wallet->save();
         }
 
-        // collect($order->orderItems)->each(function ($items) use ($order) {
-        //     $items->walletTransactions()->create([
-        //         'receipt_number' => $order->receipt_number,
-        //         'title' => 'Purchase',
-        //         'user_id' => $user['id'],
-        //         'details' => $user['id'],
-        //         'amount' => $user['id'],
-        //         'amount_paid' => $user['id'],
-        //         'category' => $user['id'],
-        //         'remarks' => $user['id'],
-        //         'transaction_type' => $xpartRequest->id,
-        //         'balance' => $user['id'],
-        //     ]);
-        // });
+        collect($order->orderItems)->each(function ($item) use ($order) {
+
+            $vendor = User::where('id', $item->vendor_id)->first();
+
+            $item->walletTransactions()->create([
+                'receipt_number' => $order->receipt_number,
+                'title' => 'Quote order purchase',
+                'user_id' => $item->vendor_id,
+                'details' => 'Quote order purchase',
+                'amount' => $order->amount,
+                'amount_paid' => $order->amount_paid,
+                'category' => 'Quote order purchase',
+                'transaction_type' => 'credit',
+                'status' => 'fulfilled',
+                'remarks' => 'fulfilled',
+                'balance' => $vendor->wallet ? $vendor->wallet->balance + $order->amount_paid : 0,
+            ]);
+        });
 
         return $this->showOne($order);
     }

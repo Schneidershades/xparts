@@ -18,7 +18,7 @@ Route::prefix('v1')->group(function () {
 		Route::post('/password/reset', 'ResetPasswordController@reset');
 		
 		Route::get('/email/resend', 'VerificationController@resend')->name('verification.resend');
-		Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
+		Route::get('/email/verify', 'VerificationController@verify')->name('verification.verify');
 	});
 
 	Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function(){
