@@ -53,6 +53,8 @@ class OrderResource extends JsonResource
             'cancelled_cancel' => $this->cancelled_cancel,
             'service_status' => $this->service_status,
             'status' => $this->status,
+
+            'items' => $this->orderItems,
         ];
     }
 }
