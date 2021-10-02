@@ -82,8 +82,7 @@ class QuoteController extends Controller
 
     public function store(QuoteCreateFormRequest $request)
     {
-        $auth = auth()->user()->id;
-        $vendor = User::where('id', $auth)->first();
+        $vendor = User::where('id', auth()->user()->id)->first();
 
         $model = new Quote;
         $model = $this->requestAndDbIntersection($request, $model, [], [
@@ -92,7 +91,10 @@ class QuoteController extends Controller
         $model->save();
 
         $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
+        
         $quote = $model;
+
+        dd($vendor, $xpartRequest, $quote);
 
         // broadcast(new VendorQuoteSent($vendor, $xpartRequest, $quote));
 
