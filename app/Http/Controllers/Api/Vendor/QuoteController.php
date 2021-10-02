@@ -91,12 +91,8 @@ class QuoteController extends Controller
         $model->save();
 
         $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
-        
-        $quote = $model;
 
-        // dd($vendor, $xpartRequest, $quote);
-
-        broadcast(new VendorQuoteSent($vendor, $xpartRequest, $quote));
+        broadcast(new VendorQuoteSent($vendor, $xpartRequest, $model));
 
         if ($request->has('images')) {
             foreach ($request['images'] as $image) {
