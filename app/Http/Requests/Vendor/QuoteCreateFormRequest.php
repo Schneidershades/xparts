@@ -16,23 +16,125 @@ use Illuminate\Foundation\Http\FormRequest;
 class QuoteCreateFormRequest extends FormRequest
 {
     /**
-     *       @OA\Property(property="quotes", type="object", type="array",
+     * @OA\Property(
+     *      title="Xpart Request Id",
+     *      description="Xpart Request Id",
+     *      example="1"
+     * )
+     *
+     * @var string
+     */
+    public $xpart_request_id;
+
+    /**
+     * @OA\Property(
+     *      title="Part Grade Id",
+     *      description="Part Grade Id",
+     *      example="1"
+     * )
+     *
+     * @var string
+     */
+    public $part_grade_id;
+
+    /**
+     * @OA\Property(
+     *      title="User State",
+     *      description="state of the user",
+     *      example="1"
+     * )
+     *
+     * @var string
+     */
+    public $state_id;
+
+    /**
+     * @OA\Property(
+     *      title="User City",
+     *      description="City of the user",
+     *      example="1"
+     * )
+     *
+     * @var string
+     */
+    public $city_id;
+
+
+
+    /**
+     * @OA\Property(
+     *      title="Quantity",
+     *      description="Quantity of the part",
+     *      example="1"
+     * )
+     *
+     * @var string
+     */
+    public $quantity;
+
+    /**
+     * @OA\Property(
+     *      title="Part Number",
+     *      description="Number of the Part",
+     *      example="XXEREIR#11239"
+     * )
+     *
+     * @var string
+     */
+    public $part_number;
+
+    /**
+     * @OA\Property(
+     *      title="Part Warranty",
+     *      description="Warranty of the Part",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $part_warranty;
+
+    /**
+     * @OA\Property(
+     *      title="Price",
+     *      description="Price of part",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $price;
+
+    /**
+     * @OA\Property(
+     *      title="Description",
+     *      description="Description of the part",
+     *      example="It is good"
+     * )
+     *
+     * @var string
+     */
+    public $description;
+    /**
+     * @OA\Property(
+     *      title="Brand",
+     *      description="Brand of the part",
+     *      example="LG"
+     * )
+     *
+     * @var string
+     */
+    public $brand;
+
+    /**
+     *       @OA\Property(property="images", type="object", type="array",
      *            @OA\Items(
-     *                @OA\Property(property="xpart_request_id", type="int", example="1"),
-     *                @OA\Property(property="part_grade_id", type="int", example="1"),
-     *                @OA\Property(property="state_id", type="int", example="1"),
-     *                @OA\Property(property="city_id", type="int", example="1"),
-     *                @OA\Property(property="brand", type="string", example="Motorola"),
-     *                @OA\Property(property="quantity", type="int", example="1"),
-     *                @OA\Property(property="part_number", type="string", example="No5JesusStreet"),
-     *                @OA\Property(property="part_warranty", type="string", example="2"),
-     *                @OA\Property(property="price", type="int", example="500000"),
-     *                @OA\Property(property="description", type="string", example="description"),
+     *                @OA\Property(property="images", type="string", example="https://"),
      *            ),
      *        ),
      *    ),
      */
-    public $quotes;
+    public $images;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -52,19 +154,18 @@ class QuoteCreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'quotes' => 'array',
-            'quotes.*.xpart_request_id' => 'required|int|exists:xpart_requests,id',
-            'quotes.*.part_grade_id' => 'required|int|exists:part_grades,id',
-            'quotes.*.state_id' => 'required|int|exists:states,id',
-            'quotes.*.city_id' => 'required|int|exists:cities,id',
-            'quotes.*.quantity' => 'required|int',
-            'quotes.*.part_number' => 'string',
-            'quotes.*.part_warranty' => 'int',
-            'quotes.*.price' => 'required|int',
-            'quotes.*.description' => 'string',
-            'quotes.*.brand' => 'string',
-            'quotes.*.images' => 'nullable|array',
-            'quotes.*.images.*' => 'image|max:2048',
+            'xpart_request_id' => 'required|int|exists:xpart_requests,id',
+            'part_grade_id' => 'required|int|exists:part_grades,id',
+            'state_id' => 'required|int|exists:states,id',
+            'city_id' => 'required|int|exists:cities,id',
+            'quantity' => 'required|int',
+            'part_number' => 'string',
+            'part_warranty' => 'int',
+            'price' => 'required|int',
+            'description' => 'string',
+            'brand' => 'string',
+            'images' => 'nullable|array',
+            'images.*' => 'image|max:2048',
         ];
     }
 }

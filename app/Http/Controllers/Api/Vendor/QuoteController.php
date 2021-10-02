@@ -85,27 +85,25 @@ class QuoteController extends Controller
         $auth = auth()->user()->id;
         $vendor = User::where('id', $auth)->first();
 
-        collect($request['quotes'])->each(function ($quote) use ($auth, $vendor) {
-            $model = new Quote;
-            $model = $this->contentAndDbIntersection($quote, $model, [], [
-                'vendor_id' => $auth
-            ]);
-            $model->save();
+        $model = new Quote;
+        $model = $this->requestAndDbIntersection($request, $model, [], [
+            'vendor_id' => $auth
+        ]);
+        $model->save();
 
-            $xpartRequest = XpartRequest::where('id', $quote['xpart_request_id'])->first();
-            $quote = $model;
+        $xpartRequest = XpartRequest::where('id', $request->xpart_request_id)->first();
+        $quote = $model;
 
-            broadcast(new VendorQuoteSent($vendor, $xpartRequest, $quote));
+        broadcast(new VendorQuoteSent($vendor, $xpartRequest, $quote));
 
-            if (isset($quote['images'])) {
-                foreach ($quote['images'] as $image) {
-                    $path = $this->uploadImage($image, "quote_images");
-                    $model->images()->create([
-                        'file_path' => $path,
-                    ]);
-                }
+        if (isset($request->images)) {
+            foreach ($request->images as $image) {
+                $path = $this->uploadImage($image, "quote_images");
+                $model->images()->create([
+                    'file_path' => $path,
+                ]);
             }
-        });
+        }
 
         return $this->showAll(auth()->user()->quotes);
     }
