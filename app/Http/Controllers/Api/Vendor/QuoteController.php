@@ -198,6 +198,37 @@ class QuoteController extends Controller
         return $this->showMessage('Model deleted');
     }
 
+
+    /**
+     * @OA\Get(
+     *      path="/api/v1/vendor/others/quotes",
+     *      operationId="othersQuotes",
+     *      tags={"Vendor"},
+     *      summary="othersQuotes",
+     *      description="othersQuotes",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful signin",
+     *          @OA\MediaType(
+     *             mediaType="application/json",
+     *         ),
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      security={ {"bearerAuth": {}} },
+     * )
+     */
+
     public function othersRecentQuote()
     {
         $myLastQuote = auth()->user()->quotes()->latest()->first();
