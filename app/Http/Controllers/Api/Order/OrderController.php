@@ -267,11 +267,9 @@ class OrderController extends Controller
 
             $order->update($data);
 
-            $user = User::where('id', auth()->user()->id)->first();
-    
-            $balance = $user->wallet ? $user->wallet->balance - $order->amount_paid : 0;
-
-            $user->wallet->update(['balance' => $balance]);
+            // $user = User::where('id', auth()->user()->id)->first();
+            // $balance = $user->wallet ? $user->wallet->balance - $order->amount_paid : 0;
+            // $user->wallet->update(['balance' => $balance]);
 
             WalletTransaction::create([
                 'receipt_number' => $order->receipt_number,
