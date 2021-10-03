@@ -166,7 +166,8 @@ class FundController extends Controller
     public function update(FundUpdateFormRequest $request, $id)
     {
         $order = Order::findOrFail($id);
-        $receipt = false;
+
+       return $request->payment_gateway;
 
         if($request->payment_gateway == 'paystack'){
             $paystack = new Paystack;
