@@ -65,6 +65,8 @@ class FundController extends Controller
         }
 
         $order = auth()->user()->orders()->create([
+            'title' => 'Fund Wallet Account',
+            'details' => 'Fund Wallet Account',
             'payment_method_id' => 1,
             'user_id' => auth()->user()->id,
             'payment_charge_id' => 2,

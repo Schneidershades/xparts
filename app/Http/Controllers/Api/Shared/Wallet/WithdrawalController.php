@@ -62,6 +62,8 @@ class WithdrawalController extends Controller
 
         $order = auth()->user()->orders()->create([
             'payment_method_id' => 1,
+            'title' => 'Fund Withdrawals',
+            'details' => 'Fund Withdrawals',
             'user_id' => auth()->user()->id,
             'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
             'subtotal' => $request->amount,
