@@ -222,7 +222,7 @@ class OrderController extends Controller
 
         $receipt = false;
 
-        if($request->payment_gateway == "paystack" || $order->payment_method_id == 1){
+        if($request->payment_gateway == "paystack" && $order->payment_method_id == 1){
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
