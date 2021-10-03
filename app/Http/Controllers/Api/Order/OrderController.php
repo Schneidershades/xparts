@@ -291,7 +291,7 @@ class OrderController extends Controller
         if($receipt == true) {
             collect($order->orderItems)->each(function ($item) use ($order) {
 
-                $vendor = Wallet::where('user_id', $item['user_id'])->first();
+                $vendor = Wallet::where('user_id', $item['vendor_id'])->first();
                 $vendor->balance += $order->amount_paid;
                 $vendor->save();
     
