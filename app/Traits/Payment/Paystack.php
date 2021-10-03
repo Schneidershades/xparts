@@ -69,6 +69,8 @@ class Paystack
                         'transaction_initiated_date' => $txData['transaction_date'],
                         'transaction_initiated_time' => $txData['transaction_date'],
                         'date_time_paid' => now(),
+                        'status' => 'approved',
+                        'service_status' => 'approved',
                     ];
                     break;
                 default:
