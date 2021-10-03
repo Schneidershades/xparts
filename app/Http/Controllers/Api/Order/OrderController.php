@@ -227,6 +227,9 @@ class OrderController extends Controller
             if ($status != "success") {
                 return $this->errorResponse($data, 400);
             } 
+
+
+            $order->update($data);
         }
 
         if($request->payment_gateway == "wallet" || $order->payment_method_id == 2){
@@ -255,9 +258,11 @@ class OrderController extends Controller
                 'transaction_initiated_time' => Carbon::now(),
                 'date_time_paid' => Carbon::now(),
             ];
+
+
+            $order->update($data);
         }
 
-        $order->update($data);
 
         $order = Order::where('receipt_number', $request['payment_reference'])->first();
 
