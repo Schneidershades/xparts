@@ -272,7 +272,7 @@ class OrderController extends Controller
             WalletTransaction::create([
                 'receipt_number' => $order->receipt_number,
                 'title' => $order->title,
-                'user_id' => $user->id,
+                'user_id' => $wallet->user->id,
                 'details' => $order->details,
                 'amount' => $order->subtotal,
                 'amount_paid' => $order->total,
@@ -280,7 +280,7 @@ class OrderController extends Controller
                 'transaction_type' => 'debit',
                 'status' => 'fulfilled',
                 'remarks' => 'fulfilled',
-                'balance' => $balance,
+                'balance' => $wallet->balance,
                 'walletable_id' => $order->id,
                 'walletable_type' => 'orders',
             ]);
@@ -291,16 +291,14 @@ class OrderController extends Controller
         if($receipt == true) {
             collect($order->orderItems)->each(function ($item) use ($order) {
 
-                $user = User::where('id', $item['vendor_id'])->first();
-    
-                $balance = $user->wallet ? $user->wallet->balance + $order->amount_paid : 0;
-    
-                $user->wallet->update(['balance' => $balance]);
+                $vendor = Wallet::where('user_id', $item['user_id'])->first();
+                $vendor->balance += $order->amount_paid;
+                $vendor->save();
     
                 WalletTransaction::create([
                     'receipt_number' => $order->receipt_number,
                     'title' => 'Quote order purchase',
-                    'user_id' => $user->id,
+                    'user_id' => $vendor->user->id,
                     'details' => 'Quote order purchase',
                     'amount' => $order->subtotal,
                     'amount_paid' => $order->total,
@@ -308,7 +306,7 @@ class OrderController extends Controller
                     'transaction_type' => 'credit',
                     'status' => 'fulfilled',
                     'remarks' => 'fulfilled',
-                    'balance' => $balance,
+                    'balance' => $vendor->balance,
                     'walletable_id' => $item['itemable_id'],
                     'walletable_type' => $item['itemable_type'],
                 ]);
