@@ -18,4 +18,46 @@ class WalletTransactionCollection extends ResourceCollection
             'data' => WalletTransactionResource::collection($this->collection),
         ];
     }
+
+    public static function originalAttribute($index)
+    {
+        $attribute = [
+            'id' => 'id',
+            'receipt_number' => 'receipt_number',
+            'title' => 'title',
+            'details' => 'details',
+            'amount' => 'amount',
+            'amount_paid' => 'amount_paid',
+            'category' => 'category',
+            'remarks' => 'remarks',
+            'transaction_type' => 'transaction_type',
+            'status' => 'status',
+            'balance' => 'balance',
+            'created_at' => 'created_at',
+            'updated_at' => 'updated_at',
+        ];
+
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
+
+    public static function transformedAttribute($index)
+    {
+        $attribute = [
+            'id' => 'id',
+            'receipt_number' => 'receipt_number',
+            'title' => 'title',
+            'details' => 'details',
+            'amount' => 'amount',
+            'amount_paid' => 'amount_paid',
+            'category' => 'category',
+            'remarks' => 'remarks',
+            'transaction_type' => 'transaction_type',
+            'status' => 'status',
+            'balance' => 'balance',
+            'created_at' => 'created_at',
+            'updated_at' => 'updated_at',
+        ];
+
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
 }
