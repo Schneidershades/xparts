@@ -239,14 +239,16 @@ class OrderController extends Controller
         }
 
         if($request['payment_gateway'] == "wallet"){
-            
-            if( $order->total < auth()->user()->wallet->balance ){
+                        
+            $wallet = Wallet::where('user_id', $order->user_id)->first();
+
+            if($wallet->balance < $order->total){
                 return $this->errorResponse('Insufficient funds', 409);
             }
-            
-            $wallet = Wallet::where('user_id', $order->user_id)->first();
+
             $wallet->balance -= $order->total;
             $wallet->save();
+            
 
             $data = [
                 'currency' => 'NGN',
@@ -266,10 +268,6 @@ class OrderController extends Controller
 
 
             $order->update($data);
-
-            // $user = User::where('id', auth()->user()->id)->first();
-            // $balance = $user->wallet ? $user->wallet->balance - $order->amount_paid : 0;
-            // $user->wallet->update(['balance' => $balance]);
 
             WalletTransaction::create([
                 'receipt_number' => $order->receipt_number,
