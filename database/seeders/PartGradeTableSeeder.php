@@ -15,23 +15,23 @@ class PartGradeTableSeeder extends Seeder
     public function run()
     {
         PartGrade::Create([
+            'name'             => 'Brand New (OEM)',
+        ]);
+
+        PartGrade::Create([
+            'name'             => 'Brand New (Aftermarket)',
+        ]);
+
+        PartGrade::Create([
+            'name'             => 'Brand New (China)',
+        ]);
+
+        PartGrade::Create([
             'name'             => 'Tokunbo',
         ]);
 
         PartGrade::Create([
-            'name'             => 'OEM',
-        ]);
-
-        PartGrade::Create([
-            'name'             => 'Aftermarket',
-        ]);
-
-        PartGrade::Create([
-            'name'             => 'China',
-        ]);
-
-        PartGrade::Create([
-            'name'             => 'New',
+            'name'             => 'Refurbished',
         ]);
     }
 }
