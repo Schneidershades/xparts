@@ -222,7 +222,7 @@ class OrderController extends Controller
 
         $receipt = false;
 
-        if($request->payment_gateway == "paystack" && $order->payment_method_id == 1){
+        if($request->payment_gateway == "paystack"){
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
@@ -230,13 +230,12 @@ class OrderController extends Controller
                 return $this->errorResponse($data, 400);
             } 
 
-
             $order->update($data);
 
             $receipt = true;
         }
 
-        if($request->payment_gateway == "wallet" || $order->payment_method_id == 2){
+        if($request->payment_gateway == "wallet"){
 
             if(auth()->user()->wallet->balance >= $request->amount ){
                 return $this->errorResponse('Insufficient funds', 409);
