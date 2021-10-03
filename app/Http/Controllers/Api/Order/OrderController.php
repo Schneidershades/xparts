@@ -220,6 +220,8 @@ class OrderController extends Controller
     {
         $order = Order::where('receipt_number', $request['payment_reference'])->first();
 
+        $receipt = false;
+
         if($request->payment_gateway == "paystack" || $order->payment_method_id == 1){
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
@@ -230,16 +232,15 @@ class OrderController extends Controller
 
 
             $order->update($data);
+
+            $receipt = true;
         }
 
         if($request->payment_gateway == "wallet" || $order->payment_method_id == 2){
 
-
             if(auth()->user()->wallet->balance >= $request->amount ){
                 return $this->errorResponse('Insufficient funds', 409);
             }
-
-
             
             $wallet = Wallet::where('user_id', $order->user_id)->first();
             $wallet->balance -= $order->total;
@@ -283,12 +284,11 @@ class OrderController extends Controller
                 'walletable_id' => $order->id,
                 'walletable_type' => 'orders',
             ]);
+
+            $receipt = true;
         }
 
-
-        $order = Order::where('receipt_number', $request['payment_reference'])->first();
-
-        if($order){
+        if($receipt == true) {
             collect($order->orderItems)->each(function ($item) use ($order) {
 
                 $user = User::where('id', $item['vendor_id'])->first();

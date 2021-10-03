@@ -92,8 +92,8 @@ class FundUpdateFormRequest extends FormRequest
         return [
             'payment_reference' => 'required|string',
             'payment_gateway' => 'required|string',
-            'orderable_id' => 'required|int',
-            'orderable_type' => 'required|string|in:walletTransactions',
+            'orderable_id' => 'int',
+            'orderable_type' => 'string|in:walletTransactions',
             'payment_method_id' => 'int',
         ];
     }
