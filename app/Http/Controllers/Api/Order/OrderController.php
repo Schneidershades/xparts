@@ -271,7 +271,7 @@ class OrderController extends Controller
 
                 $user = User::where('id', $item['vendor_id'])->first();
     
-                $balance = $user->wallet ? $user->wallet->balance + $order->amount_paid : 0;
+                $balance = $user->wallet ? $user->wallet->balance - $order->amount_paid : 0;
     
                 $user->wallet->update(['balance' => $balance]);
     
