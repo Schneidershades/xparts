@@ -108,12 +108,14 @@ class OrderController extends Controller
         }
 
         $order = auth()->user()->orders()->create([
+            'title' => 'Bid Transaction Payment',
+            'details' => 'Bid Transaction Payment',
             'address_id' => $request->address_id,
             'payment_method_id' => $request->payment_method_id,
             'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
             'subtotal' => $total,
             'total' => $total + $fee,
-            'transaction_type' => 'debit',
+            'transaction_type' => 'payments',
         ]);
 
         collect($userCart)->each(function ($cart) use ($order) {
@@ -273,12 +275,12 @@ class OrderController extends Controller
 
             WalletTransaction::create([
                 'receipt_number' => $order->receipt_number,
-                'title' => 'Quote order purchase',
+                'title' => $order->title,
                 'user_id' => $user->id,
-                'details' => 'Quote order purchase',
+                'details' => $order->details,
                 'amount' => $order->subtotal,
                 'amount_paid' => $order->total,
-                'category' => 'Quote order purchase',
+                'category' => 'payment',
                 'transaction_type' => 'debit',
                 'status' => 'fulfilled',
                 'remarks' => 'fulfilled',
@@ -306,7 +308,7 @@ class OrderController extends Controller
                     'details' => 'Quote order purchase',
                     'amount' => $order->subtotal,
                     'amount_paid' => $order->total,
-                    'category' => 'Quote order purchase',
+                    'category' => 'payment',
                     'transaction_type' => 'credit',
                     'status' => 'fulfilled',
                     'remarks' => 'fulfilled',
