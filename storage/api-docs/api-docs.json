@@ -4198,6 +4198,24 @@
                         "type": "integer",
                         "example": "1"
                     },
+                    "country_id": {
+                        "title": "Country ID",
+                        "description": "Country ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "state_id": {
+                        "title": "State ID",
+                        "description": "State ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "city_id": {
+                        "title": "City ID",
+                        "description": "City ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
                     "bank_id": {
                         "title": "Bank ID",
                         "description": "Bank ID",
