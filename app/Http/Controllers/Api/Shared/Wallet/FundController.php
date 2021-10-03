@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Shared\Wallet;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Wallet;
@@ -66,7 +67,7 @@ class FundController extends Controller
         $order = auth()->user()->orders()->create([
             'payment_method_id' => 1,
             'user_id' => auth()->user()->id,
-            'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
+            'payment_charge_id' => 2,
             'subtotal' => $request['amount'],
             'total' => $request['amount'] + $fee,
             'transaction_type' => 'credit',
@@ -165,39 +166,75 @@ class FundController extends Controller
     public function update(FundUpdateFormRequest $request, $id)
     {
         $order = Order::findOrFail($id);
+        $receipt = false;
 
-        $paystack = new Paystack;
+        if($order->payment_method_id == 1){
+            $paystack = new Paystack;
+            [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
-        [$status, $data] = $paystack->verify($request['payment_reference'], "order");
+            if ($status != "success") {
+                return $this->errorResponse($data, 400);
+            } 
 
-        if ($status != "success") {
-            return $this->errorResponse($data, 400);
-        } 
+            $receipt = true;
 
-        $order->update($data);
+            $order->update($data);
+        }
 
-        $user = User::where('id', $order->user_id)->first();
+        if($request->payment_gateway == "wallet" || $order->payment_method_id == 2){
 
-        $balance = $user->wallet ? $user->wallet->balance + $order->amount_paid : 0;
+            if(auth()->user()->wallet->balance >= $request->amount ){
+                return $this->errorResponse('Insufficient funds', 409);
+            }
 
-        $user->wallet->update(['balance' => $balance]);
+            $wallet = Wallet::where('user_id', $order->user_id)->first();
+            $wallet->balance -= $order->total;
+            $wallet->save();
 
-        WalletTransaction::create([
-            'receipt_number' => $order->receipt_number,
-            'title' => 'Fund',
-            'user_id' => $user->id,
-            'details' => 'Fund',
-            'amount' => $order->total,
-            'amount_paid' => $order->amount_paid,
-            'category' => 'Fund',
-            'transaction_type' => $order->transaction_type,
-            'status' => 'fulfilled',
-            'remarks' => 'fulfilled',
-            'balance' => $balance,
-            'walletable_id' => $order->id,
-            'walletable_type' => 'orders',
-        ]);
-        
+            $data = [
+                'currency' => 'NGN',
+                'payment_method' => 'wallet',
+                'payment_gateway' => "wallet",
+                'payment_reference' => $request['payment_reference'],
+                'payment_gateway_charge' => 0,
+                'payment_message' => 'payment successful',
+                'payment_status' => 'successful',
+                'platform_initiated' => 'inapp',
+                'transaction_initiated_date' => Carbon::now(),
+                'transaction_initiated_time' => Carbon::now(),
+                'date_time_paid' => Carbon::now(),
+            ];
+
+            $receipt = true;
+
+            $order->update($data);
+        }
+
+        if($receipt == true){
+
+            $user = User::where('id', auth()->user()->id)->first();
+    
+            $balance = $user->wallet ? $user->wallet->balance + $order->amount_paid : 0;
+
+            $user->wallet->update(['balance' => $balance]);
+
+            WalletTransaction::create([
+                'receipt_number' => $order->receipt_number,
+                'title' => 'Fund Wallet Account',
+                'user_id' => $user->id,
+                'details' => 'Fund Wallet Account',
+                'amount' => $order->total,
+                'amount_paid' => $order->amount_paid,
+                'category' => 'Fund',
+                'transaction_type' => $order->transaction_type,
+                'status' => 'fulfilled',
+                'remarks' => 'fulfilled',
+                'balance' => $balance,
+                'walletable_id' => $order->id,
+                'walletable_type' => 'orders',
+            ]);
+        }
+
         return $this->showOne($order);
     }
 
