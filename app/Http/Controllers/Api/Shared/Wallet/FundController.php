@@ -168,8 +168,6 @@ class FundController extends Controller
         $order = Order::findOrFail($id);
         $receipt = false;
 
-        return $request->all();
-
         if($order->payment_gateway == 'paystack'){
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
