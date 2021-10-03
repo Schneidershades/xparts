@@ -27,6 +27,43 @@ class DetailCreateFormRequest extends FormRequest
      */
     public $part_id;
 
+
+    /**
+     * @OA\Property(
+     *      title="Country ID",
+     *      description="Country ID",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $country_id;
+
+
+
+    /**
+     * @OA\Property(
+     *      title="State ID",
+     *      description="State ID",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $state_id;
+
+
+    /**
+     * @OA\Property(
+     *      title="City ID",
+     *      description="City ID",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $city_id;
+
     /**
      * @OA\Property(
      *      title="Bank ID",
@@ -132,6 +169,9 @@ class DetailCreateFormRequest extends FormRequest
             'name' => 'required|string',
             'address' => 'required|string',
             'type' => 'required|string|max:255|in:Business',
+            'state_id' => 'required|integer',
+            'city_id' => 'required|integer',
+            'country_id' => 'required|integer',
         ];
     }
 }
