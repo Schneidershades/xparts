@@ -261,6 +261,28 @@ class OrderController extends Controller
 
 
             $order->update($data);
+
+            $user = User::where('id', auth()->user()->id)->first();
+    
+            $balance = $user->wallet ? $user->wallet->balance - $order->amount_paid : 0;
+
+            $user->wallet->update(['balance' => $balance]);
+
+            WalletTransaction::create([
+                'receipt_number' => $order->receipt_number,
+                'title' => 'Quote order purchase',
+                'user_id' => $user->id,
+                'details' => 'Quote order purchase',
+                'amount' => $order->subtotal,
+                'amount_paid' => $order->total,
+                'category' => 'Quote order purchase',
+                'transaction_type' => 'debit',
+                'status' => 'fulfilled',
+                'remarks' => 'fulfilled',
+                'balance' => $balance,
+                'walletable_id' => $order->id,
+                'walletable_type' => 'orders',
+            ]);
         }
 
 
@@ -271,7 +293,7 @@ class OrderController extends Controller
 
                 $user = User::where('id', $item['vendor_id'])->first();
     
-                $balance = $user->wallet ? $user->wallet->balance - $order->amount_paid : 0;
+                $balance = $user->wallet ? $user->wallet->balance + $order->amount_paid : 0;
     
                 $user->wallet->update(['balance' => $balance]);
     
