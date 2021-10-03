@@ -24,7 +24,7 @@ class Order extends Model
         'payment_method',
         'amount_paid',
         'currency',
-        'payment_method',
+        'payment_method_id',
         'payment_gateway',
         'payment_reference',
         'payment_gateway_charge',

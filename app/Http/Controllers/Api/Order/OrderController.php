@@ -240,6 +240,8 @@ class OrderController extends Controller
 
         if($request->payment_gateway == "wallet"){
 
+            dd($request->payment_gateway);
+
             if(auth()->user()->wallet->balance >= $request->amount ){
                 return $this->errorResponse('Insufficient funds', 409);
             }
