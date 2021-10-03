@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Order;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Wallet;
@@ -219,46 +220,74 @@ class OrderController extends Controller
     {
         $order = Order::where('receipt_number', $request['payment_reference'])->first();
 
-        $paystack = new Paystack;
-        [$status, $data] = $paystack->verify($request['payment_reference'], "order");
+        if($request->payment_gateway == "paystack" || $order->payment_method_id == 1){
+            $paystack = new Paystack;
+            [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
-        if ($status != "success") {
-            return $this->errorResponse($data, 400);
-        } 
+            if ($status != "success") {
+                return $this->errorResponse($data, 400);
+            } 
+        }
 
-        $order->update($data);
+        if($request->payment_gateway == "wallet" || $order->payment_method_id == 2){
 
-        if($order->payment_method_id == 2){
+
+            if(auth()->user()->wallet->balance >= $request->amount ){
+                return $this->errorResponse('Insufficient funds', 409);
+            }
+
+
+            
             $wallet = Wallet::where('user_id', $order->user_id)->first();
             $wallet->balance -= $order->total;
             $wallet->save();
+
+            $data = [
+                'currency' => 'NGN',
+                'payment_method' => 'wallet',
+                'payment_gateway' => "wallet",
+                'payment_reference' => $request['payment_reference'],
+                'payment_gateway_charge' => 0,
+                'payment_message' => 'payment successful',
+                'payment_status' => 'successful',
+                'platform_initiated' => 'inapp',
+                'transaction_initiated_date' => Carbon::now(),
+                'transaction_initiated_time' => Carbon::now(),
+                'date_time_paid' => Carbon::now(),
+            ];
         }
 
-        collect($order->orderItems)->each(function ($item) use ($order) {
+        $order->update($data);
 
-            $user = User::where('id', $item['vendor_id'])->first();
+        $order = Order::where('receipt_number', $request['payment_reference'])->first();
 
-            $balance = $user->wallet ? $user->wallet->balance + $order->amount_paid : 0;
+        if($order){
+            collect($order->orderItems)->each(function ($item) use ($order) {
 
-            $user->wallet->update(['balance' => $balance]);
-
-            WalletTransaction::create([
-                'receipt_number' => $order->receipt_number,
-                'title' => 'Quote order purchase',
-                'user_id' => $user->id,
-                'details' => 'Quote order purchase',
-                'amount' => $order->total,
-                'amount_paid' => $order->amount_paid,
-                'category' => 'Quote order purchase',
-                'transaction_type' => 'credit',
-                'status' => 'fulfilled',
-                'remarks' => 'fulfilled',
-                'balance' => $balance,
-                'walletable_id' => $item['itemable_id'],
-                'walletable_type' => $item['itemable_type'],
-            ]);
-        });
-
-        return $this->showOne($order);
+                $user = User::where('id', $item['vendor_id'])->first();
+    
+                $balance = $user->wallet ? $user->wallet->balance + $order->amount_paid : 0;
+    
+                $user->wallet->update(['balance' => $balance]);
+    
+                WalletTransaction::create([
+                    'receipt_number' => $order->receipt_number,
+                    'title' => 'Quote order purchase',
+                    'user_id' => $user->id,
+                    'details' => 'Quote order purchase',
+                    'amount' => $order->total,
+                    'amount_paid' => $order->amount_paid,
+                    'category' => 'Quote order purchase',
+                    'transaction_type' => 'credit',
+                    'status' => 'fulfilled',
+                    'remarks' => 'fulfilled',
+                    'balance' => $balance,
+                    'walletable_id' => $item['itemable_id'],
+                    'walletable_type' => $item['itemable_type'],
+                ]);
+            });
+    
+            return $this->showOne($order);
+        }        
     }
 }
