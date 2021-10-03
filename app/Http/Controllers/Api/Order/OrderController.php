@@ -222,9 +222,12 @@ class OrderController extends Controller
 
         $receipt = false;
 
+        return $request->all();
+
         if($request->payment_gateway == "paystack"){
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
+            
 
             if ($status != "success") {
                 return $this->errorResponse($data, 400);
