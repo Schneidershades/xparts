@@ -171,8 +171,6 @@ class FundController extends Controller
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
-            return $status;
-
             if ($status != "success") {
                 return $this->errorResponse($data, 400);
             } 
