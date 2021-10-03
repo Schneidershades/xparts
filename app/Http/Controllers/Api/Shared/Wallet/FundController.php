@@ -181,38 +181,6 @@ class FundController extends Controller
             $receipt = true;
 
             $order->update($data);
-        }
-
-        if($request->payment_gateway == "wallet" || $order->payment_method_id == 2){
-
-            if(auth()->user()->wallet->balance >= $request->amount ){
-                return $this->errorResponse('Insufficient funds', 409);
-            }
-
-            $wallet = Wallet::where('user_id', $order->user_id)->first();
-            $wallet->balance -= $order->total;
-            $wallet->save();
-
-            $data = [
-                'currency' => 'NGN',
-                'payment_method' => 'wallet',
-                'payment_gateway' => "wallet",
-                'payment_reference' => $request['payment_reference'],
-                'payment_gateway_charge' => 0,
-                'payment_message' => 'payment successful',
-                'payment_status' => 'successful',
-                'platform_initiated' => 'inapp',
-                'transaction_initiated_date' => Carbon::now(),
-                'transaction_initiated_time' => Carbon::now(),
-                'date_time_paid' => Carbon::now(),
-            ];
-
-            $receipt = true;
-
-            $order->update($data);
-        }
-
-        if($receipt == true){
 
             $user = User::where('id', auth()->user()->id)->first();
     
