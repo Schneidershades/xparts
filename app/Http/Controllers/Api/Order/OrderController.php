@@ -238,7 +238,7 @@ class OrderController extends Controller
             $receipt = true;
         }
 
-        if($request->payment_gateway == "wallet"){
+        if($request['payment_gateway'] == "wallet"){
 
             dd($request->payment_gateway);
 
