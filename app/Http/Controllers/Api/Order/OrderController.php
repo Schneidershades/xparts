@@ -254,12 +254,11 @@ class OrderController extends Controller
                 return $this->errorResponse('Insufficient funds', 409);
             }
 
-            dd($wallet->balance - $order->total);
-
             $wallet->balance = $wallet->balance - $order->total;
             $wallet->save();
-            
 
+            dd($wallet);
+            
             $data = [
                 'currency' => 'NGN',
                 'payment_method' => 'wallet',
