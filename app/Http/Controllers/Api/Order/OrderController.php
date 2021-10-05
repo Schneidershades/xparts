@@ -275,8 +275,6 @@ class OrderController extends Controller
             $receipt = true;
         }
 
-        return $receipt;
-
         if($receipt == true){
 
             $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
@@ -291,6 +289,8 @@ class OrderController extends Controller
             }
 
             return $this->showMessage('Payment process successfully');
+        }else{
+            return $this->errorResponse('An error occurred. please contact support', 403);
         }
     }
 
