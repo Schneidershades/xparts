@@ -240,12 +240,14 @@ class OrderController extends Controller
 
             $order->update($data);
 
-            $receipt = true;
+            $this->creditVendors($order);
+
+            return $this->showMessage('Payment process successfully');
         }
 
-        if($request['payment_gateway'] == "wallet"){
-                        
-            $wallet = Wallet::where('user_id', $order->user_id)->first();
+        if($request['payment_gateway'] == "wallet){
+            
+            return $wallet = Wallet::where('user_id', $order->user_id)->first();
 
             if($wallet->balance < $order->total){
                 return $this->errorResponse('Insufficient funds', 409);
@@ -280,7 +282,7 @@ class OrderController extends Controller
                 'details' => $order->details,
                 'amount' => $order->subtotal,
                 'amount_paid' => $order->total,
-                'category' => 'payment',
+                'category' => $order->transaction_type,
                 'transaction_type' => 'debit',
                 'status' => 'fulfilled',
                 'remarks' => 'fulfilled',
@@ -289,36 +291,9 @@ class OrderController extends Controller
                 'walletable_type' => 'orders',
             ]);
 
-            $receipt = true;
-        }
+            $this->creditVendors($order);
 
-        if($receipt === true) {
-            collect($order->orderItems)->each(function ($item) use ($order) {
-
-                $vendor = Wallet::where('user_id', $item['vendor_id'])->first();
-                $vendor->balance = $vendor->balance + $order->amount_paid;
-                $vendor->save();
-    
-                WalletTransaction::create([
-                    'receipt_number' => $order->receipt_number,
-                    'title' => 'Quote order purchase',
-                    'user_id' => $vendor->user->id,
-                    'details' => 'Quote order purchase',
-                    'amount' => $order->subtotal,
-                    'amount_paid' => $order->total,
-                    'category' => 'payment',
-                    'transaction_type' => 'credit',
-                    'status' => 'fulfilled',
-                    'remarks' => 'fulfilled',
-                    'balance' => $vendor->balance,
-                    'walletable_id' => $item['itemable_id'],
-                    'walletable_type' => $item['itemable_type'],
-                ]);
-            });        
-            return $this->showOne($order);       
-    
-        }else{
-            return $this->errorResponse('An error occoured on this transaction. please contact support', 400);
+            return $this->showMessage('Payment process successfully');
         }
     }
 
@@ -344,5 +319,31 @@ class OrderController extends Controller
     public function userWallet($user_id)
     {
         return Wallet::where('user_id', $user_id)->first();
+    }
+
+    public function creditVendors($order)
+    {
+        collect($order->orderItems)->each(function ($item) use ($order) {
+
+            $vendor = Wallet::where('user_id', $item['vendor_id'])->first();
+            $vendor->balance = $vendor->balance + $order->amount_paid;
+            $vendor->save();
+
+            WalletTransaction::create([
+                'receipt_number' => $order->receipt_number,
+                'title' => $order->title,
+                'user_id' => $vendor->user->id,
+                'details' => $order->details,
+                'amount' => $order->subtotal,
+                'amount_paid' => $order->total,
+                'category' => $order->transaction_type,
+                'transaction_type' => 'credit',
+                'status' => 'fulfilled',
+                'remarks' => 'fulfilled',
+                'balance' => $vendor->balance,
+                'walletable_id' => $item['itemable_id'],
+                'walletable_type' => $item['itemable_type'],
+            ]);
+        });
     }
 }
