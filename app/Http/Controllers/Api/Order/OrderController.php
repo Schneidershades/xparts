@@ -241,9 +241,7 @@ class OrderController extends Controller
 
             $order->update($data);
 
-            $this->creditVendors($order);
-
-            return $this->showMessage('Payment process successfully');
+            $receipt = true;
         }
 
         if($request['payment_gateway'] == "wallet"){
@@ -274,25 +272,25 @@ class OrderController extends Controller
 
             $order->update($data);
 
+            $receipt = true;
+        }
+
+        return $receipt;
+
+        if($receipt == true){
+
             $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
             
             foreach($findQuotes as $quote){
                 $quote->status = 'fulfilled';
                 $quote->save();
+            }        
+            
+            foreach($order->orderItems as $item){
+                $this->creditVendors($order, $item, 'fullfilled', 'credit');
             }
 
-
-            
-            return $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
-            
-
-            // return $order->orderItems->pluck('vendor_id')->toArray(); // working 
-
-            // $this->debitUserWallet($order, $wallet); 
-            
-            // return $this->creditVendors($order);
-
-            // return $this->showMessage('Payment process successfully');
+            return $this->showMessage('Payment process successfully');
         }
     }
 
@@ -315,47 +313,27 @@ class OrderController extends Controller
         ]);
     }
 
-    public function userWallet($user_id)
+    public function creditVendors($order, $item, $status, $transaction_type)
     {
-        return Wallet::where('user_id', $user_id)->first();
-    }
+        $vendor = Wallet::where('user_id', $item->vendor_id)->first();
+        $vendor->balance += $item->price;
+        $vendor->save();
 
-    public function creditVendors($order)
-    {
-        dd($order);
-        // collect($order->orderItems)->each(function ($item) use ($order) {
-
-        //     $quote =  Quote::where('id', $item['itemable_id'])
-        //                     ->where('vendor_id', $item['vendor_id'])
-        //                     ->first();
-        //     $quote->status = 'purchased';
-        //     $quote->save();
-
-        //     $vendor = Wallet::where('user_id', $item['vendor_id'])->first();
-
-        //     return $vendor;
-
-        //     $vendor->balance = $vendor->balance + $order->amount_paid;
-        //     $vendor->save();
-
-           
-
-        //     WalletTransaction::create([
-        //         'receipt_number' => $order->receipt_number,
-        //         'title' => $order->title,
-        //         'user_id' => $vendor->user->id,
-        //         'details' => $order->details,
-        //         'amount' => $order->subtotal,
-        //         'amount_paid' => $order->total,
-        //         'category' => $order->transaction_type,
-        //         'transaction_type' => 'credit',
-        //         'status' => 'fulfilled',
-        //         'remarks' => 'fulfilled',
-        //         'balance' => $vendor->balance,
-        //         'walletable_id' => $item['itemable_id'],
-        //         'walletable_type' => $item['itemable_type'],
-        //     ]);
-        // });
+        WalletTransaction::create([
+            'receipt_number' => $order->receipt_number,
+            'title' => $order->title,
+            'user_id' => $vendor->user->id,
+            'details' => $order->details,
+            'amount' => $order->subtotal,
+            'amount_paid' => $order->total,
+            'category' => $order->transaction_type,
+            'transaction_type' => $transaction_type,
+            'status' => $status,
+            'remarks' => $status,
+            'balance' => $vendor->balance,
+            'walletable_id' => $item->itemable_id,
+            'walletable_type' => $item->itemable_type,
+        ]);
     }
 
     public function debitUserWallet($order, $wallet)
