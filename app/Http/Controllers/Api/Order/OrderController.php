@@ -319,7 +319,7 @@ class OrderController extends Controller
         $vendor->balance += $item->price;
         $vendor->save();
 
-        dd($vendor);
+        dd($vendor, $vendor->user);
 
         WalletTransaction::create([
             'receipt_number' => $order->receipt_number,
