@@ -255,9 +255,6 @@ class OrderController extends Controller
             }
 
             $wallet->balance = $wallet->balance - $order->total;
-            $wallet->save();
-
-            dd($wallet);
             
             $data = [
                 'currency' => 'NGN',
@@ -313,11 +310,11 @@ class OrderController extends Controller
     {
         collect($order->orderItems)->each(function ($item) use ($order) {
 
-            $quote =  Quote::where('id', $item['itemable_id'])
-                            ->where('vendor_id', $item['vendor_id'])
-                            ->first();
-            $quote->status = 'purchased';
-            $quote->save();
+            // $quote =  Quote::where('id', $item['itemable_id'])
+            //                 ->where('vendor_id', $item['vendor_id'])
+            //                 ->first();
+            // $quote->status = 'purchased';
+            // $quote->save();
 
             $vendor = Wallet::where('user_id', $item['vendor_id'])->first();
 
