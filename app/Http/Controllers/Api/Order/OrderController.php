@@ -225,12 +225,9 @@ class OrderController extends Controller
         
         $order = Order::where('receipt_number', $request['payment_reference'])->first();
 
-        dd($order);
-
         // if (!$order->paymentMethod) {
         //     return $this->errorResponse('Error with payment gateway at the moment please try again later', 400);
         // } 
-
 
         $receipt = false;
 
@@ -251,11 +248,13 @@ class OrderController extends Controller
 
         if($request['payment_gateway'] == "wallet"){
             
-            return $wallet = Wallet::where('user_id', $order->user_id)->first();
+            $wallet = Wallet::where('user_id', $order->user_id)->first();
 
             if($wallet->balance < $order->total){
                 return $this->errorResponse('Insufficient funds', 409);
             }
+
+            dd($wallet->balance - $order->total);
 
             $wallet->balance = $wallet->balance - $order->total;
             $wallet->save();
