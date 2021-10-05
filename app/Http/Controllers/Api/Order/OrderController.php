@@ -316,4 +316,28 @@ class OrderController extends Controller
         
         return $this->showOne($order);        
     }
+
+    public function walletTransaction($order, $user, $balance, $title, $category, $status, $type, $polyId, $polyType)
+    {
+        WalletTransaction::create([
+            'receipt_number' => $order->receipt_number,
+            'title' => $title,
+            'user_id' => $user,
+            'details' => $title,
+            'amount' => $order->subtotal,
+            'amount_paid' => $order->total,
+            'category' => $category,
+            'transaction_type' => $type,
+            'status' => $status,
+            'remarks' => $status,
+            'balance' => $balance,
+            'walletable_id' => $polyId,
+            'walletable_type' => $polyType,
+        ]);
+    }
+
+    public function userWallet($user_id)
+    {
+        return Wallet::where('user_id', $user_id)->first();
+    }
 }
