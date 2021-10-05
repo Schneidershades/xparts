@@ -288,7 +288,7 @@ class OrderController extends Controller
                 $this->creditVendors($order, $item, 'fullfilled', 'credit');
             }
 
-            return $this->showMessage('Payment process successfully');
+            return $this->showMessage('Payment processed successfully');
         }else{
             return $this->errorResponse('An error occurred. please contact support', 403);
         }
