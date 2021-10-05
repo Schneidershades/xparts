@@ -274,11 +274,11 @@ class OrderController extends Controller
 
             $order->update($data);
 
-            return $order->orderItems->pluck('vendor_id')->toArray();
+            // return $order->orderItems->pluck('vendor_id')->toArray(); // working 
 
-            return $this->debitUserWallet($order, $wallet);
+            // $this->debitUserWallet($order, $wallet);
             
-            $this->creditVendors($order);
+            return $this->creditVendors($order);
 
             // return $this->showMessage('Payment process successfully');
         }
