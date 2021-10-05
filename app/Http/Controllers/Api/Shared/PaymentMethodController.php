@@ -11,7 +11,7 @@ class PaymentMethodController extends Controller
     * @OA\Get(
     *      path="/api/v1/shared/payment-methods",
     *      operationId="paymentMethods",
-    *      tags={"location"},
+    *      tags={"Shared"},
     *      summary="paymentMethods",
     *      description="paymentMethods",
     *      @OA\Response(

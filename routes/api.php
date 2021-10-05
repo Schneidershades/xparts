@@ -34,6 +34,7 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('banks', 'BankController');
 		Route::Resource('banks-details', 'BankDetailController')->middleware('auth:api');
 		Route::Resource('addresses', 'AddressController')->middleware('auth:api');
+		Route::Resource('payment-methods', 'PaymentMethodController');
 
 		Route::Resource('states', 'StateController');
 		Route::Resource('countries', 'CountryController');
@@ -47,7 +48,7 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('withdrawals', 'Wallet\WithdrawalController')->middleware('auth:api');
 		Route::Resource('wallet-transactions', 'Wallet\WalletTransactionController')->middleware('auth:api');
 	});
-
+	
 	Route::group(['prefix' => 'vendor', 'middleware' => 'auth:api', 'namespace' => 'Api\Vendor'], function(){
 		Route::Resource('assigned-xpart-requests', 'UserXpartRequestController')->middleware('auth:api');
 		Route::Resource('quotes', 'QuoteController')->middleware('auth:api');
