@@ -2753,7 +2753,7 @@
         "/api/v1/shared/payment-methods": {
             "get": {
                 "tags": [
-                    "location"
+                    "Shared"
                 ],
                 "summary": "paymentMethods",
                 "description": "paymentMethods",

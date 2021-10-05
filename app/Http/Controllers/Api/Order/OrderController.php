@@ -230,7 +230,7 @@ class OrderController extends Controller
 
         $receipt = false;
 
-        if($order->paymentMethod->name == "paystack"){
+        if($request['payment_reference'] == "paystack"){
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
