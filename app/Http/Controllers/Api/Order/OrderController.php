@@ -230,7 +230,7 @@ class OrderController extends Controller
 
         $receipt = false;
 
-        if($request['payment_reference'] == "paystack"){
+        if($request['payment_gateway'] == "paystack"){
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
@@ -243,7 +243,7 @@ class OrderController extends Controller
             $receipt = true;
         }
 
-        if($order->paymentMethod->name == "wallet"){
+        if($request['payment_gateway'] == "wallet"){
                         
             $wallet = Wallet::where('user_id', $order->user_id)->first();
 
