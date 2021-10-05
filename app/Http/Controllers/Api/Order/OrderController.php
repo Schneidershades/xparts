@@ -222,6 +222,10 @@ class OrderController extends Controller
     {
         $order = Order::where('receipt_number', $request['payment_reference'])->first();
 
+        
+
+        $order->payment_method_id
+
         $receipt = false;
 
         if($request->payment_gateway == "paystack" || $order->payment_method_id == 1){
