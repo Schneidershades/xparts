@@ -54,7 +54,7 @@ class OrderResource extends JsonResource
             'service_status' => $this->service_status,
             'status' => $this->status,
             'transaction_type' => $this->transaction_type,
-            'items' => $this->orderItems,
+            'items' => OrderItemResource::collection($this->orderItems),
         ];
     }
 }
