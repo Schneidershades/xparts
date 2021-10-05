@@ -319,8 +319,6 @@ class OrderController extends Controller
         $vendor->balance += $item->price;
         $vendor->save();
 
-        dd($vendor, $vendor->user);
-
         WalletTransaction::create([
             'receipt_number' => $order->receipt_number,
             'title' => $order->title,
@@ -353,7 +351,7 @@ class OrderController extends Controller
             'remarks' => 'fulfilled',
             'balance' => $wallet->balance,
             'walletable_id' => $order->id,
-            'walletable_type' => 'orders',// });
+            'walletable_type' => 'orders',
         ]);
 
     }
@@ -370,7 +368,6 @@ class OrderController extends Controller
 
     public function quotesUnderABid($order)
     {
-
         $allVendorsUnderABid = $order->orderItems->where('')->pluck('vendor_id')->toArray();
         $xpartsVendorCatelog = XpartRequestVendorWatch::whereIn('vendor', $allVendorsUnderABid)->get();
 
