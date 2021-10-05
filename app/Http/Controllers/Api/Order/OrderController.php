@@ -310,39 +310,40 @@ class OrderController extends Controller
 
     public function creditVendors($order)
     {
-        collect($order->orderItems)->each(function ($item) use ($order) {
+        return $order;
+        // collect($order->orderItems)->each(function ($item) use ($order) {
 
-            // $quote =  Quote::where('id', $item['itemable_id'])
-            //                 ->where('vendor_id', $item['vendor_id'])
-            //                 ->first();
-            // $quote->status = 'purchased';
-            // $quote->save();
+        //     $quote =  Quote::where('id', $item['itemable_id'])
+        //                     ->where('vendor_id', $item['vendor_id'])
+        //                     ->first();
+        //     $quote->status = 'purchased';
+        //     $quote->save();
 
-            $vendor = Wallet::where('user_id', $item['vendor_id'])->first();
+        //     $vendor = Wallet::where('user_id', $item['vendor_id'])->first();
 
-            return $vendor;
+        //     return $vendor;
 
-            $vendor->balance = $vendor->balance + $order->amount_paid;
-            $vendor->save();
+        //     $vendor->balance = $vendor->balance + $order->amount_paid;
+        //     $vendor->save();
 
            
 
-            WalletTransaction::create([
-                'receipt_number' => $order->receipt_number,
-                'title' => $order->title,
-                'user_id' => $vendor->user->id,
-                'details' => $order->details,
-                'amount' => $order->subtotal,
-                'amount_paid' => $order->total,
-                'category' => $order->transaction_type,
-                'transaction_type' => 'credit',
-                'status' => 'fulfilled',
-                'remarks' => 'fulfilled',
-                'balance' => $vendor->balance,
-                'walletable_id' => $item['itemable_id'],
-                'walletable_type' => $item['itemable_type'],
-            ]);
-        });
+        //     WalletTransaction::create([
+        //         'receipt_number' => $order->receipt_number,
+        //         'title' => $order->title,
+        //         'user_id' => $vendor->user->id,
+        //         'details' => $order->details,
+        //         'amount' => $order->subtotal,
+        //         'amount_paid' => $order->total,
+        //         'category' => $order->transaction_type,
+        //         'transaction_type' => 'credit',
+        //         'status' => 'fulfilled',
+        //         'remarks' => 'fulfilled',
+        //         'balance' => $vendor->balance,
+        //         'walletable_id' => $item['itemable_id'],
+        //         'walletable_type' => $item['itemable_type'],
+        //     ]);
+        // });
     }
 
     public function debitUserWallet($order, $wallet)
