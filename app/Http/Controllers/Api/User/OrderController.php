@@ -95,6 +95,7 @@ class OrderController extends Controller
         return $this->showOne(auth()->user()->orders()->create($request->validated()));
     }
 }
+
 // orderitems
 // itemable_type
 // itemable_id

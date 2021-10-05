@@ -14,6 +14,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
+use App\Models\Quote;
+use App\Models\XpartRequestVendorWatch;
 
 class OrderController extends Controller
 {
@@ -311,9 +313,20 @@ class OrderController extends Controller
     {
         collect($order->orderItems)->each(function ($item) use ($order) {
 
+            $quote =  Quote::where('id', $item['itemable_id'])
+                            ->where('vendor_id', $item['vendor_id'])
+                            ->first();
+            $quote->status = 'purchased';
+            $quote->save();
+
             $vendor = Wallet::where('user_id', $item['vendor_id'])->first();
+
+            return $vendor;
+            
             $vendor->balance = $vendor->balance + $order->amount_paid;
             $vendor->save();
+
+           
 
             WalletTransaction::create([
                 'receipt_number' => $order->receipt_number,
@@ -351,5 +364,26 @@ class OrderController extends Controller
             'walletable_type' => 'orders',
         ]);
 
+    }
+
+    public function vendorsUnderABid($order)
+    {
+        $allVendorsUnderABid = $order->orderItems->where('')->pluck('vendor_id')->toArray();
+        $xpartsVendorCatelog = XpartRequestVendorWatch::whereIn('vendor', $allVendorsUnderABid)->get();
+
+        foreach($xpartsVendorCatelog as $cat){
+            $cat->status = 'expired';
+        }
+    }
+
+    public function quotesUnderABid($order)
+    {
+
+        $allVendorsUnderABid = $order->orderItems->where('')->pluck('vendor_id')->toArray();
+        $xpartsVendorCatelog = XpartRequestVendorWatch::whereIn('vendor', $allVendorsUnderABid)->get();
+
+        foreach($xpartsVendorCatelog as $cat){
+            $cat->status = 'expired';
+        }
     }
 }
