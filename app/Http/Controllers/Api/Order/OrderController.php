@@ -274,7 +274,7 @@ class OrderController extends Controller
 
             $order->update($data);
 
-            return $order->orderItems;
+            return $order->orderItems->pluck('vendor_id')->toArray();
 
             return $this->debitUserWallet($order, $wallet);
             
