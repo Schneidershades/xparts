@@ -274,11 +274,16 @@ class OrderController extends Controller
 
             $order->update($data);
 
+            return $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
+            
+
+            
+
             // return $order->orderItems->pluck('vendor_id')->toArray(); // working 
 
-            // $this->debitUserWallet($order, $wallet);
+            // $this->debitUserWallet($order, $wallet); 
             
-            return $this->creditVendors($order);
+            // return $this->creditVendors($order);
 
             // return $this->showMessage('Payment process successfully');
         }
@@ -310,7 +315,7 @@ class OrderController extends Controller
 
     public function creditVendors($order)
     {
-        return $order;
+        dd($order);
         // collect($order->orderItems)->each(function ($item) use ($order) {
 
         //     $quote =  Quote::where('id', $item['itemable_id'])
