@@ -225,6 +225,8 @@ class OrderController extends Controller
         
         $order = Order::where('receipt_number', $request['payment_reference'])->first();
 
+        dd($order);
+
         // if (!$order->paymentMethod) {
         //     return $this->errorResponse('Error with payment gateway at the moment please try again later', 400);
         // } 
@@ -322,7 +324,7 @@ class OrderController extends Controller
             $vendor = Wallet::where('user_id', $item['vendor_id'])->first();
 
             return $vendor;
-            
+
             $vendor->balance = $vendor->balance + $order->amount_paid;
             $vendor->save();
 
