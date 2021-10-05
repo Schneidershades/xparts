@@ -25,6 +25,7 @@ class WalletTransaction extends Model
         'amount_paid',
         'category',
         'remarks',
+        'status',
         'transaction_type',
         'balance',
         'walletable_type',

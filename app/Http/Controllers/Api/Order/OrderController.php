@@ -230,7 +230,7 @@ class OrderController extends Controller
 
         $receipt = false;
 
-        if($request->payment_gateway == "paystack" || $order->payment_method_id == 1){
+        if($order->paymentMethod->name == "paystack"){
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
@@ -238,13 +238,12 @@ class OrderController extends Controller
                 return $this->errorResponse($data, 400);
             } 
 
-
             $order->update($data);
 
             $receipt = true;
         }
 
-        if($request['payment_gateway'] == "wallet"){
+        if($order->paymentMethod->name == "wallet"){
                         
             $wallet = Wallet::where('user_id', $order->user_id)->first();
 
@@ -272,7 +271,6 @@ class OrderController extends Controller
                 'service_status' => 'approved',
             ];
 
-
             $order->update($data);
 
             WalletTransaction::create([
@@ -294,7 +292,7 @@ class OrderController extends Controller
             $receipt = true;
         }
 
-        if($receipt == true) {
+        if($receipt === true) {
             collect($order->orderItems)->each(function ($item) use ($order) {
 
                 $vendor = Wallet::where('user_id', $item['vendor_id'])->first();
@@ -316,11 +314,12 @@ class OrderController extends Controller
                     'walletable_id' => $item['itemable_id'],
                     'walletable_type' => $item['itemable_type'],
                 ]);
-            });
+            });        
+            return $this->showOne($order);       
     
+        }else{
+            return $this->errorResponse('An error occoured on this transaction. please contact support', 400);
         }
-        
-        return $this->showOne($order);        
     }
 
     public function walletTransaction($order, $user, $balance, $title, $category, $status, $type, $polyId, $polyType)

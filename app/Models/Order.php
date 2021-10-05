@@ -36,6 +36,8 @@ class Order extends Model
         'orderable_type',
         'orderable_id',
         'transaction_type',
+        'service_status',
+        'status',
     ];
 
     public $oneItem = OrderResource::class;
