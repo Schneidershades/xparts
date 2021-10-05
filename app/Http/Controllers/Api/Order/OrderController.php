@@ -285,7 +285,7 @@ class OrderController extends Controller
             }        
             
             foreach($order->orderItems as $item){
-                $this->creditVendors($order, $item, 'fullfilled', 'credit');
+                return $this->creditVendors($order, $item, 'fullfilled', 'credit');
             }
 
             return $this->showMessage('Payment process successfully');
