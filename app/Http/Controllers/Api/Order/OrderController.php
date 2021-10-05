@@ -274,11 +274,13 @@ class OrderController extends Controller
 
             $order->update($data);
 
-            $this->debitUserWallet($order, $wallet);
+            return $order->orderItems;
+
+            return $this->debitUserWallet($order, $wallet);
             
             $this->creditVendors($order);
 
-            return $this->showMessage('Payment process successfully');
+            // return $this->showMessage('Payment process successfully');
         }
     }
 
