@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Order;
+use Illuminate\Database\Eloquent\Model;
+use App\Http\Resources\Payment\PaymentMethodResource;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Resources\Payment\PaymentMethodCollection;
 
 class PaymentMethod extends Model
 {
