@@ -223,9 +223,9 @@ class OrderController extends Controller
         
         $order = Order::where('receipt_number', $request['payment_reference'])->first();
 
-        if (!$order->paymentMethod) {
-            return $this->errorResponse('Error with payment gateway at the moment please try again later', 400);
-        } 
+        // if (!$order->paymentMethod) {
+        //     return $this->errorResponse('Error with payment gateway at the moment please try again later', 400);
+        // } 
 
 
         $receipt = false;
