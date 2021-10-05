@@ -251,7 +251,7 @@ class OrderController extends Controller
                 return $this->errorResponse('Insufficient funds', 409);
             }
 
-            $wallet->balance -= $order->total;
+            $wallet->balance = $wallet->balance - $order->total;
             $wallet->save();
             
 
@@ -296,7 +296,7 @@ class OrderController extends Controller
             collect($order->orderItems)->each(function ($item) use ($order) {
 
                 $vendor = Wallet::where('user_id', $item['vendor_id'])->first();
-                $vendor->balance += $order->amount_paid;
+                $vendor->balance = $vendor->balance + $order->amount_paid;
                 $vendor->save();
     
                 WalletTransaction::create([
