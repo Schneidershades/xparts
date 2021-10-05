@@ -274,9 +274,16 @@ class OrderController extends Controller
 
             $order->update($data);
 
-            return $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
+            $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
             
+            foreach($findQuotes as $quote){
+                $quote->status = 'fulfilled';
+                $quote->save();
+            }
 
+
+            
+            return $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
             
 
             // return $order->orderItems->pluck('vendor_id')->toArray(); // working 
@@ -366,7 +373,7 @@ class OrderController extends Controller
             'remarks' => 'fulfilled',
             'balance' => $wallet->balance,
             'walletable_id' => $order->id,
-            'walletable_type' => 'orders',
+            'walletable_type' => 'orders',// });
         ]);
 
     }
