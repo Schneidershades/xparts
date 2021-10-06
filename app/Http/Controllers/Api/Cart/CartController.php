@@ -78,9 +78,9 @@ class CartController extends Controller
     */
     public function store(CartCreateFormRequest $request)
     {
-        $cart = Cart::where('cartable_id', $request->cartable_id)
+        $cart = Cart::where('cartable_id', $request['cartable_id'])
                 ->where('user_id', auth()->user()->id)
-                ->where('cartable_type', $request->cartable_type)
+                ->where('cartable_type', $request['cartable_type'])
                 ->first();
         if($cart == null){
             return $this->showOne(auth()->user()->cart()->create($request->validated()));
@@ -136,7 +136,7 @@ class CartController extends Controller
         if($request['quantity'] > $cart->cartable->quantity ){
             return $this->errorResponse('You have reached the maximum number of stock for this product', 409);
         }
-        
+
         $cart->update($request->validated());
         return $this->showOne(auth()->user()->cart->where('id', $id)->first());
     }
