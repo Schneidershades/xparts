@@ -5,17 +5,18 @@ namespace App\Http\Controllers\Api\Order;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Quote;
 use App\Models\Wallet;
 use App\Models\OrderItem;
+use App\Models\XpartRequest;
 use App\Models\PaymentCharge;
 use App\Traits\Payment\Paystack;
 use App\Models\WalletTransaction;
 use App\Http\Controllers\Controller;
+use App\Models\XpartRequestVendorWatch;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
-use App\Models\Quote;
-use App\Models\XpartRequestVendorWatch;
 
 class OrderController extends Controller
 {
@@ -253,6 +254,7 @@ class OrderController extends Controller
             }
 
             $wallet->balance = $wallet->balance - $order->total;
+            $wallet->save();
             
             $data = [
                 'currency' => 'NGN',
@@ -296,6 +298,13 @@ class OrderController extends Controller
 
             foreach($allRequestsSent as $sent){
                 $sent->status =  'expired';
+                $sent->save();
+            }
+
+            $userRequest = XpartRequest::whereIn('id', $allRequestsSent)->get();
+            
+            foreach($userRequest as $sent){
+                $sent->status =  'fulfilled';
                 $sent->save();
             }
 
