@@ -46,7 +46,11 @@ class WithdrawalController extends Controller
     public function store(WithdrawalCreateFormRequest $request)
     {
         $wallet = Wallet::where('user_id', auth()->user()->id)->first();
+
+
         $balance = $wallet->balance;
+
+        dd($wallet);
         
         if($balance >= $request->amount ){
             return $this->errorResponse('Insufficient funds', 409);
