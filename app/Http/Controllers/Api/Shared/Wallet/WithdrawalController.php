@@ -49,10 +49,8 @@ class WithdrawalController extends Controller
 
 
         $balance = $wallet->balance;
-
-        dd($wallet);
         
-        if($balance >= $request->amount ){
+        if($balance < $request->amount ){
             return $this->errorResponse('Insufficient funds', 409);
         }
 
