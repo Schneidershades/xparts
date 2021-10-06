@@ -301,12 +301,9 @@ class OrderController extends Controller
                 $sent->save();
             }
 
-            return $userRequest = XpartRequest::whereIn('id', $allRequestsSent)->get();
-            
-            foreach($userRequest as $sent){
-                $sent->status =  'fulfilled';
-                $sent->save();
-            }
+            $userRequest = XpartRequest::whereIn('id', $allRequestsSent)->first();
+            $userRequest->status =  'fulfilled';
+            $userRequest->save();
 
             return $this->showMessage('Payment processed successfully');
         }else{
