@@ -38,6 +38,8 @@ class Order extends Model
         'transaction_type',
         'service_status',
         'status',
+        'title',
+        'description',
     ];
 
     public $oneItem = OrderResource::class;
