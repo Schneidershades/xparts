@@ -47,7 +47,6 @@ class WithdrawalController extends Controller
     {
         $wallet = Wallet::where('user_id', auth()->user()->id)->first();
 
-
         $balance = $wallet->balance;
         
         if($balance < $request->amount ){
@@ -72,8 +71,8 @@ class WithdrawalController extends Controller
             'details' => 'Fund Withdrawals',
             'user_id' => auth()->user()->id,
             'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
-            'subtotal' => $request->amount,
-            'total' => $request->amount + $fee,
+            'subtotal' => $request['amount'],
+            'total' => $request['amount'] + $fee,
             'transaction_type' => 'debit',
         ]);
 
