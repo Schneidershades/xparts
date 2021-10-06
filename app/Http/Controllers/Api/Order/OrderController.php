@@ -280,7 +280,6 @@ class OrderController extends Controller
         if($receipt == true){
 
             $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
-
             
             foreach($findQuotes as $quote){
                 $quote->status = 'fulfilled';
@@ -290,7 +289,6 @@ class OrderController extends Controller
             foreach($findQuotes as $item){
                 $this->creditVendors($order, $item, 'fullfilled', 'credit');
             }
-
 
             $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
 
@@ -333,6 +331,7 @@ class OrderController extends Controller
     public function creditVendors($order, $item, $status, $transaction_type)
     {
         $vendor = Wallet::where('user_id', $item->vendor_id)->first();
+        $item_total = $item->price + 
         $vendor->balance = $vendor->balance  + $item->price;
         $vendor->save();
 

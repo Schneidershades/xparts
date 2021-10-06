@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Shared\Wallet;
 
+use App\Models\Wallet;
 use Illuminate\Support\Str;
 use App\Models\PaymentCharge;
 use App\Http\Controllers\Controller;
@@ -44,7 +45,10 @@ class WithdrawalController extends Controller
      */
     public function store(WithdrawalCreateFormRequest $request)
     {
-        if(auth()->user()->wallet->balance >= $request->amount ){
+        $wallet = Wallet::where('user_id', auth()->user()->id)->first();
+        $balance = $wallet->balance;
+        
+        if($balance >= $request->amount ){
             return $this->errorResponse('Insufficient funds', 409);
         }
 
