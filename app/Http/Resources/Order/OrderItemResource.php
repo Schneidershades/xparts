@@ -17,11 +17,11 @@ class OrderItemResource extends JsonResource
         return [
             'id' => $this->id,
             $this->mergeWhen($this->itemable_type == 'quotes', [
-                'title' => $this->itemable->xpartRequest->part->name,
-                'grade' => $this->itemable->partGrade->name,
-                'brand' => $this->itemable->brand,
-                'part_number' => $this->itemable->part_number,
-                'vendor_id' => $this->itemable->vendor_id,
+                'title' => $this->itemable ?? $this->itemable->xpartRequest->part->name,
+                'grade' => $this->itemable ?? $this->itemable->partGrade->name,
+                'brand' => $this->itemable ?? $this->itemable->brand,
+                'part_number' => $this->itemable ?? $this->itemable->part_number,
+                'vendor_id' => $this->itemable ?? $this->itemable->vendor_id,
             ]),
             
             'cartable_type' => $this->cartable_type,
