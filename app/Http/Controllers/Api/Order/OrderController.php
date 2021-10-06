@@ -319,8 +319,6 @@ class OrderController extends Controller
         $vendor->balance = $vendor->balance  + $item->price;
         $vendor->save();
 
-        dd($vendor, $vendor->user);
-
         WalletTransaction::create([
             'receipt_number' => $order->receipt_number,
             'title' => $order->title,
