@@ -333,8 +333,8 @@ class OrderController extends Controller
     public function creditVendors($order, $item, $status, $transaction_type)
     {
         $vendor = Wallet::where('user_id', $item->vendor_id)->first();
-        $item_total = $item->price + 
-        $vendor->balance = $vendor->balance  + $item->price;
+        $item_total = $item->price + $item->quantity;
+        $vendor->balance = $vendor->balance  + $item_total;
         $vendor->save();
 
         WalletTransaction::create([
