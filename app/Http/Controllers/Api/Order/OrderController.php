@@ -278,6 +278,7 @@ class OrderController extends Controller
         if($receipt == true){
 
             $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
+
             
             foreach($findQuotes as $quote){
                 $quote->status = 'fulfilled';
@@ -286,6 +287,16 @@ class OrderController extends Controller
             
             foreach($findQuotes as $item){
                 $this->creditVendors($order, $item, 'fullfilled', 'credit');
+            }
+
+
+            $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
+            
+            $allRequestsSent = XpartRequestVendorWatch::whereIn('xparts_request_id', $allRequestsSent)->get();
+
+            foreach($allRequestsSent as $sent){
+                $sent->status =  'expired';
+                $sent->save();
             }
 
             return $this->showMessage('Payment processed successfully');
