@@ -76,6 +76,22 @@ class WithdrawalController extends Controller
             'transaction_type' => 'debit',
         ]);
 
+        WalletTransaction::create([
+            'receipt_number' => $order->receipt_number,
+            'title' => $order->title,
+            'user_id' => $wallet->user->id,
+            'details' => $order->details,
+            'amount' => $order->subtotal,
+            'amount_paid' => $order->total,
+            'category' => $order->transaction_type,
+            'transaction_type' => 'debit',
+            'status' => 'pending',
+            'remarks' => 'pending approval from admin',
+            'balance' => $wallet->balance,
+            'walletable_id' => $order->id,
+            'walletable_type' => 'orders',
+        ]);
+
         return $this->showOne($order);
     }
 }

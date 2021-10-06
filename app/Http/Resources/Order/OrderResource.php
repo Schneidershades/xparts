@@ -20,6 +20,8 @@ class OrderResource extends JsonResource
         return [
             'id' => $this->id,
             'receipt_number' => $this->receipt_number,
+            'title' => $this->title,
+            'details' => $this->details,
             'user_id' => $this->user_id,
             'address' => new AddressResource($this->address),
             'vat_id' => $this->vat_id,
