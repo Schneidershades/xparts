@@ -284,7 +284,7 @@ class OrderController extends Controller
                 $quote->save();
             }        
             
-            foreach($order->orderItems as $item){
+            foreach($findQuotes as $item){
                 $this->creditVendors($order, $item, 'fullfilled', 'credit');
             }
 
@@ -316,7 +316,7 @@ class OrderController extends Controller
     public function creditVendors($order, $item, $status, $transaction_type)
     {
         $vendor = Wallet::where('user_id', $item->vendor_id)->first();
-        $vendor->balance += $item->price;
+        $vendor->balance = $vendor->balance  + $item->price;
         $vendor->save();
 
         WalletTransaction::create([
