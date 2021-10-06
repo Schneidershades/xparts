@@ -294,14 +294,14 @@ class OrderController extends Controller
 
             $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
 
-            return $allRequestsSent = XpartRequestVendorWatch::whereIn('xpart_request_id', $allRequestsSent)->get();
+            $sentRequest = XpartRequestVendorWatch::whereIn('xpart_request_id', $allRequestsSent)->get();
 
-            foreach($allRequestsSent as $sent){
+            foreach($sentRequest as $sent){
                 $sent->status =  'expired';
                 $sent->save();
             }
 
-            $userRequest = XpartRequest::whereIn('id', $allRequestsSent)->get();
+            return $userRequest = XpartRequest::whereIn('id', $allRequestsSent)->get();
             
             foreach($userRequest as $sent){
                 $sent->status =  'fulfilled';
