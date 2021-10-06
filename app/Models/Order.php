@@ -39,7 +39,7 @@ class Order extends Model
         'service_status',
         'status',
         'title',
-        'description',
+        'details',
     ];
 
     public $oneItem = OrderResource::class;
