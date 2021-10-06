@@ -284,7 +284,9 @@ class OrderController extends Controller
             foreach($findQuotes as $quote){
                 $quote->status = 'fulfilled';
                 $quote->save();
-            }        
+            }       
+            
+            dd($findQuotes);
             
             foreach($findQuotes as $item){
                 $this->creditVendors($order, $item, 'fullfilled', 'credit');

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\Shared\Wallet;
 
-use App\Models\Wallet;
 use Illuminate\Support\Str;
 use App\Models\PaymentCharge;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Wallet\WithdrawalCreateFormRequest;
+use App\Models\Wallet;
 
 class WithdrawalController extends Controller
 {    
@@ -39,7 +39,7 @@ class WithdrawalController extends Controller
      *      @OA\Response(
      *          response=403,
      *          description="Forbidden"
-     *      ),
+     *      ),sh
      *      security={ {"bearerAuth": {}} },
      * )
      */
