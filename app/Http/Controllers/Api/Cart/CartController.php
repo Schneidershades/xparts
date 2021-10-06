@@ -131,7 +131,13 @@ class CartController extends Controller
     */
     public function update(CartUpdateFormRequest $request, $id)
     {
-        auth()->user()->cart->where('id', $id)->first()->update($request->validated());
+        $cart = auth()->user()->cart->where('id', $id)->first();
+
+        if($request['quantity'] > $cart->cartable->quantity ){
+            return $this->errorResponse('You have reached the maximum number of stock for this product', 409);
+        }
+        
+        $cart->update($request->validated());
         return $this->showOne(auth()->user()->cart->where('id', $id)->first());
     }
 
