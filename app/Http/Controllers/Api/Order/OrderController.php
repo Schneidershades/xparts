@@ -223,7 +223,6 @@ class OrderController extends Controller
      */
     public function update(OrderUpdateFormRequest $request, $id)
     {
-        
         $order = Order::where('receipt_number', $request['payment_reference'])->first();
 
         // if (!$order->paymentMethod) {

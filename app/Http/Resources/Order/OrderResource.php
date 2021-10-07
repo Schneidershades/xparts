@@ -26,6 +26,7 @@ class OrderResource extends JsonResource
             'address' => new AddressResource($this->address),
             'vat_id' => $this->vat_id,
             'discount_id' => $this->discount_id,
+            'payment_method_id' => $this->payment_method_id,
             'payment_method_selected' => $this->paymentMethod ? $this->paymentMethod->name : null,
             'charge' => new PaymentChargeResource($this->paymentCharge),
             'subtotal' => $this->subtotal,

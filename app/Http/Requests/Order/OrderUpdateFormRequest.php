@@ -27,6 +27,18 @@ class OrderUpdateFormRequest extends FormRequest
      */
     public $payment_reference;
 
+
+    /**
+     * @OA\Property(
+     *      title="Order payment method id",
+     *      description="Order payment method id",
+     *      example="quote"
+     * )
+     *
+     * @var string
+     */
+    public $payment_method_id;
+
     /**
      * @OA\Property(
      *      title="Order payment gateway",
@@ -69,6 +81,7 @@ class OrderUpdateFormRequest extends FormRequest
     {
         return [
             'order_id' => 'required|exists:orders,id',
+            'payment_method_id' => 'required|string|unique:payment_methods,id',
             'payment_reference' => 'required|string|unique:orders,payment_reference',
             'payment_gateway' => 'required|string|max:255|in:paystack,wallet',
         ];
