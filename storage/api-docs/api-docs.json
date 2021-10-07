@@ -3082,7 +3082,7 @@
                 ]
             }
         },
-        "/api/v1/shared/withdrawals": {
+        "api/v1/shared/withdrawals": {
             "post": {
                 "tags": [
                     "Shared"

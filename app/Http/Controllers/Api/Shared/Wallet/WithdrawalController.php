@@ -13,7 +13,7 @@ class WithdrawalController extends Controller
 {    
     /**
      * @OA\Post(
-     *      path="/api/v1/shared/withdrawals",
+     *      path="api/v1/shared/withdrawals",
      *      operationId="postWithdrawals",
      *      tags={"Shared"},
      *      summary="postWithdrawals",
@@ -40,7 +40,7 @@ class WithdrawalController extends Controller
      *      @OA\Response(
      *          response=403,
      *          description="Forbidden"
-     *      ),sh
+     *      ),
      *      security={ {"bearerAuth": {}} },
      * )
      */
