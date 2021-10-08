@@ -24,6 +24,7 @@ class CreateOrdersTable extends Migration
             $table->integer('discount_id')->index()->unsigned()->nullable();
             $table->integer('payment_method_id')->index()->unsigned()->nullable();
             $table->integer('payment_charge_id')->index()->unsigned()->nullable();
+            $table->string('payment_method')->nullable();
             $table->float('subtotal')->nullable();
             $table->string('orderable_type')->nullable();
             $table->integer('orderable_id')->nullable();
