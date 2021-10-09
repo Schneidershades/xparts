@@ -57,6 +57,8 @@ class VinCheckerController extends Controller
         $checkerApi = new VinChecker();
         $vinResponse =  $checkerApi->sendVin($request->vin_number);
 
+        dd($vinResponse);
+
         if($vinResponse == null){
             $model = new Vin;
             $model = $this->contentAndDbIntersection($vinResponse, $model);
