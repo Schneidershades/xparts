@@ -45,6 +45,9 @@ class VinCheckerController extends Controller
     public function __invoke(Request $request)
     {
 
+        $checkerApi = new VinChecker();
+        $vinResponse =  $checkerApi->sendVin($request['vin_number']);
+
         $vin = Vin::where('vin_number', $request['vin_number'])->first();
 
         dd($vin);
