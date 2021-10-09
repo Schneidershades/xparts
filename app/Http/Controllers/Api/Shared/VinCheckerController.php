@@ -57,17 +57,15 @@ class VinCheckerController extends Controller
         $checkerApi = new VinChecker();
         $vinResponse =  $checkerApi->sendVin($request->vin_number);
 
-        dd($vinResponse);
-
         if($vinResponse == null){
+            return $this->errorResponse('The api has an issue', 409);
+        }else{
             $model = new Vin;
             $model = $this->contentAndDbIntersection($vinResponse, $model);
             $model->save();
 
             $vin = Vin::where('vin_number', $request->vin_number)->first();
             return $this->showOne($vin);
-        }else{
-            return $this->errorResponse('The api has an issue', 409);
         }
 
     }
