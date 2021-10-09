@@ -44,28 +44,24 @@ class VinCheckerController extends Controller
     */
     public function __invoke(Request $request)
     {
+        $vin = Vin::where('vin_number', $request->vin_number)->first();
+        dd($request->vin_number);
 
-        $checkerApi = new VinChecker();
-        $vinResponse =  $checkerApi->sendVin($request['vin_number']);
 
-        $vin = Vin::where('vin_number', $request['vin_number'])->first();
-
-        dd($vin);
-
-        if($vin == null){
-            $checkerApi = new VinChecker();
-            $vinResponse =  $checkerApi->sendVin($request['vin_number']);
-            
-            $vin = new Vin;
-            $vin = $this->contentAndDbIntersection($vinResponse, $vin);
-            $vin->save();
-        }else{
-            $vin->search_count = $vin->search_count + 1;
+        if(!empty($vin)){
+            $vin->search_count += 1;
             $vin->save();
             return $this->showOne($vin);
         }
 
-        $vin = Vin::where('vin_number', $request['vin_number'])->first();
+        $checkerApi = new VinChecker();
+        $vinResponse =  $checkerApi->sendVin($request->vin_number);
+        
+        $model = new Vin;
+        $model = $this->contentAndDbIntersection($vinResponse, $model);
+        $model->save();
+
+        $vin = Vin::where('vin_number', $request->vin_number)->first();
         return $this->showOne($vin);
 
     }
