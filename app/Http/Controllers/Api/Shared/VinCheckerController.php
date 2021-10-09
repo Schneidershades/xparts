@@ -50,8 +50,6 @@ class VinCheckerController extends Controller
             $vin->search_count += 1;
             $vin->save();
             return $this->showOne($vin);
-        }else{
-
         }
 
         $checkerApi = new VinChecker();
