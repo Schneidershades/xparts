@@ -15,7 +15,7 @@ class CreateVinsTable extends Migration
     {
         Schema::create('vins', function (Blueprint $table) {
             $table->id();
-            $table->string('vin_number');
+            $table->string('vin_number')->nullable();
             $table->string('make')->nullable();
             $table->string('manufacturer')->nullable();
             $table->string('model')->nullable();

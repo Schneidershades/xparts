@@ -4132,6 +4132,12 @@
                         "type": "string",
                         "example": "quote"
                     },
+                    "payment_method_id": {
+                        "title": "Order payment method id",
+                        "description": "Order payment method id",
+                        "type": "string",
+                        "example": "quote"
+                    },
                     "payment_gateway": {
                         "title": "Order payment gateway",
                         "description": "Order payment gateway",
