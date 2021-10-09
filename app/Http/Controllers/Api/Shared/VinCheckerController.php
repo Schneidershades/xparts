@@ -63,7 +63,6 @@ class VinCheckerController extends Controller
             $model = new Vin;
             $model = $this->contentAndDbIntersection($vinResponse, $model);
             $model->save();
-
             $vin = Vin::where('vin_number', $request->vin_number)->first();
             return $this->showOne($vin);
         }
