@@ -47,6 +47,8 @@ class VinCheckerController extends Controller
 
         $vin = Vin::where('vin_number', $request['vin_number'])->first();
 
+        dd($vin);
+
         if($vin){
             $vin->search_count = $vin->search_count + 1;
             $vin->save();
