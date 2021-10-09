@@ -45,8 +45,6 @@ class VinCheckerController extends Controller
     public function __invoke(Request $request)
     {
         $vin = Vin::where('vin_number', $request->vin_number)->first();
-        dd($request->vin_number);
-
 
         if(!empty($vin)){
             $vin->search_count += 1;

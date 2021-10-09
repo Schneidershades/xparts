@@ -21,8 +21,6 @@ class VinChecker
 		
 		$res = json_decode($response->body(), true );
 
-        dd($res);
-
 		if($res == null){
 			return [];
 		}
