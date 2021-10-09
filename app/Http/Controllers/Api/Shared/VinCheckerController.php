@@ -67,8 +67,6 @@ class VinCheckerController extends Controller
         }else{
             return $this->errorResponse('The api has an issue', 409);
         }
-        
-        
 
     }
 }
