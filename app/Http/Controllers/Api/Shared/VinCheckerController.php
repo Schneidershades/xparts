@@ -47,6 +47,8 @@ class VinCheckerController extends Controller
 
         $vin = Vin::where('vin_number', $request['vin_number'])->first();
 
+        dd($vin);
+
         if($vin == null){
             $checkerApi = new VinChecker();
             $vinResponse =  $checkerApi->sendVin($request['vin_number']);
@@ -59,7 +61,6 @@ class VinCheckerController extends Controller
             $vin->save();
             return $this->showOne($vin);
         }
-
 
         $vin = Vin::where('vin_number', $request['vin_number'])->first();
         return $this->showOne($vin);
