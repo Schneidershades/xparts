@@ -67,7 +67,7 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('users', 'UserController', array("as"=>"regUsers"));
 		Route::Resource('vehicle-specialization', 'VehicleSpecializationController', array("as"=>"vehicleSpecItems"));
 		Route::Resource('vins', 'VinController', array("as"=>"regVin"));
-		Route::Resource('xpart-request', 'XpartRequestController', array("as"=>"userXpartRequests"));
+		Route::Resource('xpart-requests', 'XpartRequestController', array("as"=>"userXpartRequests"));
 		Route::Resource('statistics', 'DashboardController', array("as"=>"dashboard"));
 		Route::Resource('wallet-transactions', 'WalletTransactionController', array("as"=>"dashboard"));
 	});
