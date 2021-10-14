@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\WalletTransaction;
+use App\Http\Controllers\Controller;
 
 class WithdrawalController extends Controller
 {
@@ -40,6 +41,6 @@ class WithdrawalController extends Controller
 
     public function index()
     {
-        $this->showAll(WalletTransaction::all());
+        return $this->showAll(WalletTransaction::where('transaction_type', 'debit')->latest()->get());
     }
 }

@@ -15,6 +15,7 @@ class PaymentChargeResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'charge' => $this->charge(),
         ];
     }

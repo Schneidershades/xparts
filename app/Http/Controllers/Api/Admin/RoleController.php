@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Role;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\RoleUpdateFormRequest;
 
 class RoleController extends Controller
 {
@@ -39,7 +40,7 @@ class RoleController extends Controller
     */
     public function index()
     {
-        $this->showAll(auth()->user()->roles);
+        return $this->showAll(Role::all());
     }
 
     /**
@@ -122,7 +123,7 @@ class RoleController extends Controller
     */
     public function show(Role $role)
     {
-        return $this->showOne(Role::findOrFail($id));
+        return $this->showOne(Role::findOrFail($role->id));
     }
 
     /**
@@ -171,7 +172,8 @@ class RoleController extends Controller
     
     public function update(RoleUpdateFormRequest $request, Role $role)
     {
-        return $this->showOne($role->update($request->validated()));
+        ($role->update($request->validated()));
+        return $this->showOne($role);
     }
 
      /**

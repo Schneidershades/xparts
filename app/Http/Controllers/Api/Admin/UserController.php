@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UserUpdateFormRequest;
 
 class UserController extends Controller
 {
@@ -39,7 +40,7 @@ class UserController extends Controller
     */
     public function index()
     {
-        $this->showAll(auth()->user()->users);
+        return $this->showAll(User::latest()->get());
     }
 
     /**
@@ -171,7 +172,8 @@ class UserController extends Controller
     
     public function update(UserUpdateFormRequest $request, User $user)
     {
-        return $this->showOne($user->update($request->validated()));
+        ($user->update($request->validated()));
+        return $this->showOne($user);
     }
 
      /**

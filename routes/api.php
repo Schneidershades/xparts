@@ -61,11 +61,15 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('quotes', 'QuoteController', array("as"=>"userQuotes"));
 		Route::Resource('part-specialization', 'PartSpecializationController', array("as"=>"partSpecItems"));
 		Route::Resource('part-grades', 'PartGradeController', array("as"=>"partGradesItems"));
+		Route::Resource('payment-charges', 'PaymentChargeContoller', array("as"=>"paymentCharges"));
+		Route::Resource('payment-methods', 'PaymentMethodController', array("as"=>"paymentMethods"));
 		Route::Resource('roles', 'RoleController', array("as"=>"userRoles"));
 		Route::Resource('users', 'UserController', array("as"=>"regUsers"));
 		Route::Resource('vehicle-specialization', 'VehicleSpecializationController', array("as"=>"vehicleSpecItems"));
 		Route::Resource('vins', 'VinController', array("as"=>"regVin"));
 		Route::Resource('xpart-request', 'XpartRequestController', array("as"=>"userXpartRequests"));
+		Route::Resource('statistics', 'DashboardController', array("as"=>"dashboard"));
+		Route::Resource('wallet-transactions', 'WalletTransactionController', array("as"=>"dashboard"));
 	});
 });
 

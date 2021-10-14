@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Order;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
@@ -40,6 +39,6 @@ class OrderController extends Controller
 
     public function index()
     {
-        $this->showAll(Order::all());
+        return $this->showAll(Order::latest()->get());
     }
 }

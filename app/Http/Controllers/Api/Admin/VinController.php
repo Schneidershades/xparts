@@ -44,7 +44,7 @@ class VinController extends Controller
 
     public function index()
     {
-        return $this->showAll(Vin::all());
+        return $this->showAll(Vin::latest()->get());
     }
 
     /**

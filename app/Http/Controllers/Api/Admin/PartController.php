@@ -10,6 +10,6 @@ class PartController extends Controller
 {
     public function index()
     {
-        $this->showAll(Part::all());
+        return $this->showAll(Part::all());
     }
 }

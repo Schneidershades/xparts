@@ -13,14 +13,14 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/v1/admin/funds": {
+        "/api/v1/admin/statistics": {
             "get": {
                 "tags": [
                     "Admin"
                 ],
-                "summary": "allFunds",
-                "description": "allFunds",
-                "operationId": "allFunds",
+                "summary": "statistics",
+                "description": "statistics",
+                "operationId": "statistics",
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -1359,7 +1359,7 @@
                 ]
             }
         },
-        "/api/v1/admin/xparts-requests": {
+        "/api/v1/admin/xpart-requests": {
             "get": {
                 "tags": [
                     "Admin"

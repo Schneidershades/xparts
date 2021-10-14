@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\XpartRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class XpartRequestController extends Controller
 {
      /**
     * @OA\Get(
-    *      path="/api/v1/admin/xparts-requests",
+    *      path="/api/v1/admin/xpart-requests",
     *      operationId="allXpartRequest",
     *      tags={"Admin"},
     *      summary="allXpartRequest",
@@ -40,6 +39,6 @@ class XpartRequestController extends Controller
 
     public function index()
     {
-        $this->showAll(XpartRequest::all());
+        return $this->showAll(XpartRequest::latest()->get());
     }
 }

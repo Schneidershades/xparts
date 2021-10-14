@@ -10,6 +10,6 @@ class BankController extends Controller
 {
     public function index()
     {
-        $this->showAll(Bank::all());
+        return $this->showAll(Bank::all());
     }
 }

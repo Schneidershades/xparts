@@ -40,7 +40,7 @@ class WalletTransactionController extends Controller
 
     public function index()
     {
-        $this->showAll(WalletTransaction::all());
+        return $this->showAll(WalletTransaction::latest()->get());
     }
 
      /**

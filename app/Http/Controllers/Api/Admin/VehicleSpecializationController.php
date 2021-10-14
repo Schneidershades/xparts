@@ -41,7 +41,7 @@ class VehicleSpecializationController extends Controller
     
     public function index()
     {
-        $this->showAll(VehicleSpecialization::all());
+        return $this->showAll(VehicleSpecialization::all());
     }
 
     /**

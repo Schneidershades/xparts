@@ -40,6 +40,6 @@ class PartGradeController extends Controller
 
     public function index()
     {
-        $this->showAll(PartGrade::all());
+        return $this->showAll(PartGrade::all());
     }
 }

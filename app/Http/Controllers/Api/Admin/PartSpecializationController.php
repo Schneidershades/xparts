@@ -41,7 +41,7 @@ class PartSpecializationController extends Controller
 
     public function index()
     {
-        $this->showAll(PartSpecialization::all());
+        return $this->showAll(PartSpecialization::all());
     }
     
     /**

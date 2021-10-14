@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\Quote;
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\XpartRequest;
 use App\Http\Controllers\Controller;
 
-class QuoteController extends Controller
+class DashboardController extends Controller
 {
      /**
     * @OA\Get(
-    *      path="/api/v1/admin/quotes",
-    *      operationId="allQuotes",
+    *      path="/api/v1/admin/statistics",
+    *      operationId="statistics",
     *      tags={"Admin"},
-    *      summary="allQuotes",
-    *      description="allQuotes",
+    *      summary="statistics",
+    *      description="statistics",
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -37,9 +38,15 @@ class QuoteController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-
+    
     public function index()
     {
-        return $this->showAll(Quote::latest()->get());
+        return $this->showMessage([
+            'vendors' => User::where('role', 'vendor')->get()->count(),
+            'users' => User::where('role', 'user')->get()->count(),
+            'xpartRequest' => XpartRequest::all()->count(),
+            'transactions' => Order::where('status', 'successful')->get()->count(),
+            'total_sales' => Order::where('status', 'successful')->get()->sum('amount_paid'),
+        ]);
     }
 }

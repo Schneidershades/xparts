@@ -39,6 +39,6 @@ class PaymentMethodController extends Controller
 
     public function index()
     {
-        $this->showAll(PaymentMethod::all());
+        return $this->showAll(PaymentMethod::all());
     }
 }
