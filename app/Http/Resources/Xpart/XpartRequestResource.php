@@ -4,18 +4,11 @@ namespace App\Http\Resources\Xpart;
 
 use App\Http\Resources\Vin\VinResource;
 use App\Http\Resources\Part\PartResource;
-use App\Http\Resources\Vin\VinCollection;
 use App\Http\Resources\Quote\QuoteResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class XpartRequestResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-     */
     public function toArray($request)
     {
         return [
@@ -25,6 +18,7 @@ class XpartRequestResource extends JsonResource
             'vendorQuotesCount' => $this->vendorQuotes->count(),
             'quotes' => QuoteResource::collection($this->vendorQuotes),
             'images' => $this->images != null ? $this->images->pluck('file_url') : null,
+            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             
