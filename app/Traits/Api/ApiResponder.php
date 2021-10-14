@@ -61,6 +61,11 @@ trait ApiResponder
         return $this->successResponse(['data' => ['message' => $message]], $code);
     }
 
+    protected function showContent($message, $code = 200)
+    {
+        return $this->successResponse(['data' => $message], $code);
+    }
+
     protected function respondWithToken($token)
     {
         return response()->json([

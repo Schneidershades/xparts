@@ -41,7 +41,7 @@ class DashboardController extends Controller
     
     public function index()
     {
-        return $this->showMessage([
+        return $this->showContent([
             'vendors' => User::where('role', 'vendor')->get()->count(),
             'users' => User::where('role', 'user')->get()->count(),
             'xpartRequest' => XpartRequest::all()->count(),

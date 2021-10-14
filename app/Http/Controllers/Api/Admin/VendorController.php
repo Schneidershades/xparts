@@ -7,15 +7,15 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserUpdateFormRequest;
 
-class UserController extends Controller
+class VendorController extends Controller
 {
     /**
     * @OA\Get(
-    *      path="/api/v1/admin/users",
-    *      operationId="allUsers",
+    *      path="/api/v1/admin/vendors",
+    *      operationId="allVendors",
     *      tags={"Admin"},
-    *      summary="Get all users",
-    *      description="Get all users",
+    *      summary="Get all vendors",
+    *      description="Get all vendors",
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -40,16 +40,16 @@ class UserController extends Controller
     */
     public function index()
     {
-        return $this->showAll(User::where('role', 'user')->latest()->get());
+        return $this->showAll(User::where('role', 'vendor')->latest()->get());
     }
 
     /**
     * @OA\Post(
-    *      path="/api/v1/admin/users",
-    *      operationId="postUser",
+    *      path="/api/v1/admin/vendors",
+    *      operationId="postVendors",
     *      tags={"Admin"},
-    *      summary="Post users",
-    *      description="Post users",
+    *      summary="Post vendors",
+    *      description="Post vendors",
     *      @OA\RequestBody(
     *          required=true,
     *          @OA\JsonContent(ref="#/components/schemas/UserCreateFormRequest")
@@ -78,20 +78,20 @@ class UserController extends Controller
     */
     public function store(Request $request)
     {
-        return $this->showOne(auth()->user()->users->create($request->validated()));
+        return $this->showOne(auth()->user()->vendors->create($request->validated()));
     }
 
     /**
     * @OA\Get(
-    *      path="/api/v1/admin/users/{id}",
-    *      operationId="showUser",
+    *      path="/api/v1/admin/vendors/{id}",
+    *      operationId="showVendor",
     *      tags={"Admin"},
-    *      summary="Show user",
-    *      description="Show user",
+    *      summary="Show vendor",
+    *      description="Show vendor",
     *      
      *      @OA\Parameter(
      *          name="id",
-     *          description="User ID",
+     *          description="Vendor ID",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -128,15 +128,15 @@ class UserController extends Controller
 
     /**
     * @OA\Put(
-    *      path="/api/v1/admin/users/{id}",
-    *      operationId="UserUpdate",
+    *      path="/api/v1/admin/vendors/{id}",
+    *      operationId="VendorUpdate",
     *      tags={"Admin"},
-    *      summary="Update user",
-    *      description="Update user",
+    *      summary="Update Vendor",
+    *      description="Update Vendor",
     *      
      *      @OA\Parameter(
      *          name="id",
-     *          description="user ID",
+     *          description="Vendor ID",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -178,15 +178,15 @@ class UserController extends Controller
 
      /**
     * @OA\Delete(
-    *      path="/api/v1/admin/users/{id}",
-    *      operationId="deleteUser",
+    *      path="/api/v1/admin/vendors/{id}",
+    *      operationId="deleteVendor",
     *      tags={"Admin"},
-    *      summary="Delete user",
-    *      description="Delete user",
+    *      summary="Delete Vendor",
+    *      description="Delete Vendor",
     *      
      *      @OA\Parameter(
      *          name="id",
-     *          description="User ID",
+     *          description="Vendor ID",
      *          required=true,
      *          in="path",
      *          @OA\Schema(

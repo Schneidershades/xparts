@@ -41,4 +41,50 @@ class XpartRequestController extends Controller
     {
         return $this->showAll(XpartRequest::latest()->get());
     }
+
+    /**
+    * @OA\Get(
+    *      path="/api/v1/admin/xpart-requests/{id}",
+    *      operationId="showXpartRequest",
+    *      tags={"Admin"},
+    *      summary="Show XpartRequest",
+    *      description="Show XpartRequest",
+    *      
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="XpartRequest ID",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successful signin",
+    *          @OA\MediaType(
+    *             mediaType="application/json",
+    *         ),
+    *       ),
+    *      @OA\Response(
+    *          response=400,
+    *          description="Bad Request"
+    *      ),
+    *      @OA\Response(
+    *          response=401,
+    *          description="unauthenticated",
+    *      ),
+    *      @OA\Response(
+    *          response=403,
+    *          description="Forbidden"
+    *      ),
+    *      security={ {"bearerAuth": {}} },
+    * )
+    */
+    public function show($id)
+    {
+        return $this->showOne(XpartRequest::findOrFail($id));
+    }
+
 }
