@@ -18,4 +18,38 @@ class UserCollection extends ResourceCollection
             'data' => UserResource::collection($this->collection),
         ];
     }
+
+    public static function originalAttribute($index)
+    {
+        $attribute = [
+            'id' => 'id',
+            'identifier' => 'identifier',
+            'name' => 'name',
+            'email' => 'email',
+            'gender' => 'gender',
+            'phone' => 'phone',
+            'role' => 'role',
+            'status' => 'status',
+            'referral_code' => 'referral_code',
+        ];
+
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
+
+    public static function transformedAttribute($index)
+    {
+        $attribute = [
+            'id' => 'id',
+            'identifier' => 'identifier',
+            'name' => 'name',
+            'email' => 'email',
+            'gender' => 'gender',
+            'phone' => 'phone',
+            'role' => 'role',
+            'status' => 'status',
+            'referral_code' => 'referral_code',
+        ];
+
+        return isset($attribute[$index]) ? $attribute[$index] : null;
+    }
 }
