@@ -52,7 +52,7 @@ class MarkupPricingController extends Controller
     *      description="Post markup-pricing",
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/UserCreateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/MarkupPricingCreateFormRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -145,7 +145,7 @@ class MarkupPricingController extends Controller
      *     ),
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/UserCreateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/MarkupPricingUpdateFormRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
