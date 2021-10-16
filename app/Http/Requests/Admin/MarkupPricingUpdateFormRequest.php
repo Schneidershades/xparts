@@ -86,10 +86,10 @@ class MarkupPricingUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'min_value' => 'numeric|min:1|max:100',
-            'max_value' => 'numeric|min:1|max:100',
-            'percentage' => 'numeric|min:1',
-            'type' => 'string',
+            'min_value' => 'required|numeric|min:1',
+            'max_value' => 'required|numeric|min:1',
+            'type' => 'required|string',
+            'percentage' => 'required|numeric|min:1|max:100',
             'active' => 'required|boolean',
         ];
     }
