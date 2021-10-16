@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Resources\Pricing\MarkupPricingResource;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Resources\Pricing\MarkupPricingCollection;
 
 class MarkupPricing extends Model
 {
