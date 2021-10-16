@@ -12,7 +12,7 @@ class MarkupPricingController extends Controller
     /**
     * @OA\Get(
     *      path="/api/v1/admin/markup-pricing",
-    *      operationId="allUsers",
+    *      operationId="allMarkupPricing",
     *      tags={"Admin"},
     *      summary="Get all markup-pricing",
     *      description="Get all markup-pricing",
@@ -84,7 +84,7 @@ class MarkupPricingController extends Controller
     /**
     * @OA\Get(
     *      path="/api/v1/admin/markup-pricing/{id}",
-    *      operationId="showUser",
+    *      operationId="showMarkupPricing",
     *      tags={"Admin"},
     *      summary="Show markup-pricing",
     *      description="Show markup-pricing",
@@ -129,7 +129,7 @@ class MarkupPricingController extends Controller
     /**
     * @OA\Put(
     *      path="/api/v1/admin/markup-pricing/{id}",
-    *      operationId="UserUpdate",
+    *      operationId="UserMarkupPricing",
     *      tags={"Admin"},
     *      summary="Update markup-pricing",
     *      description="Update markup-pricing",
@@ -179,7 +179,7 @@ class MarkupPricingController extends Controller
      /**
     * @OA\Delete(
     *      path="/api/v1/admin/markup-pricing/{id}",
-    *      operationId="deleteUser",
+    *      operationId="deleteMarkupPricing",
     *      tags={"Admin"},
     *      summary="Delete markup-pricing",
     *      description="Delete markup-pricing",
