@@ -48,14 +48,14 @@ class MarkupPricingUpdateFormRequest extends FormRequest
 
     /**
      * @OA\Property(
-     *      title="Active Status",
-     *      description="Active Status of the Price",
-     *      example="false"
+     *      title="Status",
+     *      description="Status of the Price",
+     *      example="inactive/active"
      * )
      *
-     * @var boolean
+     * @var string
      */
-    private $active;
+    private $status;
 
     /**
      * @OA\Property(
@@ -90,7 +90,7 @@ class MarkupPricingUpdateFormRequest extends FormRequest
             'max_value' => 'required|numeric|min:1',
             'type' => 'required|string',
             'percentage' => 'required|numeric|min:1|max:100',
-            'active' => 'required|boolean',
+            'status' => 'required|string|max:255|in:active,inactive',
         ];
     }
 }
