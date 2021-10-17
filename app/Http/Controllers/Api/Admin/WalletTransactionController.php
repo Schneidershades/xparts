@@ -43,6 +43,51 @@ class WalletTransactionController extends Controller
         return $this->showAll(WalletTransaction::latest()->get());
     }
 
+    /**
+    * @OA\Get(
+    *      path="/api/v1/admin/wallet-transactions/{id}",
+    *      operationId="showWalletTransactions",
+    *      tags={"User"},
+    *      summary="showWalletTransactions",
+    *      description="showWalletTransactions",
+    *      
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="WalletTransactions Receipt number",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successful signin",
+    *          @OA\MediaType(
+    *             mediaType="application/json",
+    *         ),
+    *       ),
+    *      @OA\Response(
+    *          response=400,
+    *          description="Bad Request"
+    *      ),
+    *      @OA\Response(
+    *          response=401,
+    *          description="unauthenticated",
+    *      ),
+    *      @OA\Response(
+    *          response=403,
+    *          description="Forbidden"
+    *      ),
+    *      security={ {"bearerAuth": {}} },
+    * )
+    */
+
+    public function show($id)
+    {
+        return $this->showOne(WalletTransaction::where('receipt_number', $id));
+    }
+
      /**
     * @OA\Put(
     *      path="/api/v1/admin/wallet-transactions/{id}",

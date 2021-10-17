@@ -58,7 +58,7 @@ class XpartRequest extends Model
 
     public function vendorQuotes()
     {
-        return $this->hasMany(Quote::class);
+        return $this->hasMany(Quote::class)->where('vendor_id', '!=', auth()->user()->id);
     }
 
     public function images()
