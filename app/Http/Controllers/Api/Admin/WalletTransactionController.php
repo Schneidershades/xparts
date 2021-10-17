@@ -98,11 +98,11 @@ class WalletTransactionController extends Controller
     *      
      *      @OA\Parameter(
      *          name="id",
-     *          description="updateVin ID",
+     *          description="WalletTransactions Receipt Number ",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
-     *              type="integer"
+     *              type="string"
      *          )
      *     ),
     *      @OA\RequestBody(
@@ -132,8 +132,10 @@ class WalletTransactionController extends Controller
     * )
     */
     
-    public function update(AdminWalletUpdateFormRequest $request, WalletTransaction $walletTransaction)
+    public function update(AdminWalletUpdateFormRequest $request, $id)
     {
-        return $this->showOne(WalletTransaction::find($walletTransaction->id)->update($request->validated()));
+        $transaction = WalletTransaction::where('receipt_number', $id)->first();
+        $transaction->update($request->validated());
+        return $this->showOne($transaction);
     }
 }

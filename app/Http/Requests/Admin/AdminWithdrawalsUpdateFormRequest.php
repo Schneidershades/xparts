@@ -6,26 +6,15 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @OA\Schema(
- *      title="Admin Wallet Update Form Request Fields",
- *      description="Admin Wallet Update request body data",
+ *      title="Admin Withdrawals Update Form Request Fields",
+ *      description="Admin Withdrawals Update request body data",
  *      type="object",
  *      required={"name"}
  * )
  */
 
-class AdminWalletUpdateFormRequest extends FormRequest
+class AdminWithdrawalsUpdateFormRequest extends FormRequest
 {
-    /**
-     * @OA\Property(
-     *      title="status",
-     *      description="status",
-     *      example="approve/decline"
-     * )
-     *
-     * @var string
-     */
-    private $status;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -33,7 +22,7 @@ class AdminWalletUpdateFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -44,7 +33,7 @@ class AdminWalletUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'required|string|in:approve,decline',
+            //
         ];
     }
 }
