@@ -46,7 +46,7 @@ class OrderController extends Controller
     * @OA\Get(
     *      path="/api/v1/admin/orders/{id}",
     *      operationId="showOrders",
-    *      tags={"User"},
+    *      tags={"Admin"},
     *      summary="showOrders",
     *      description="showOrders",
     *      

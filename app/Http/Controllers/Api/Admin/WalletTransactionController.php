@@ -47,7 +47,7 @@ class WalletTransactionController extends Controller
     * @OA\Get(
     *      path="/api/v1/admin/wallet-transactions/{id}",
     *      operationId="showWalletTransactions",
-    *      tags={"User"},
+    *      tags={"Admin"},
     *      summary="showWalletTransactions",
     *      description="showWalletTransactions",
     *      
