@@ -267,8 +267,8 @@ class OrderController extends Controller
                 'transaction_initiated_date' => Carbon::now(),
                 'transaction_initiated_time' => Carbon::now(),
                 'date_time_paid' => Carbon::now(),
-                'status' => 'approved',
-                'service_status' => 'approved',
+                'status' => 'fulfilled',
+                'service_status' => 'fulfilled',
             ];
 
             $order->update($data);
@@ -286,7 +286,7 @@ class OrderController extends Controller
             }       
             
             foreach($findQuotes as $item){
-                $this->creditVendors($order, $item, 'fullfilled', 'credit');
+                $this->creditVendors($order, $item, 'fulfilled', 'credit');
             }
 
             $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();

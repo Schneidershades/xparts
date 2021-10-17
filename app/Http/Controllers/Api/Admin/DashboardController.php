@@ -45,8 +45,8 @@ class DashboardController extends Controller
             'vendors' => User::where('role', 'vendor')->get()->count(),
             'users' => User::where('role', 'user')->get()->count(),
             'xpartRequest' => XpartRequest::all()->count(),
-            'transactions' => Order::where('status', 'successful')->get()->count(),
-            'total_sales' => Order::where('status', 'successful')->get()->sum('amount_paid'),
+            'transactions' => Order::where('status', 'fulfilled')->get()->count(),
+            'total_sales' => Order::where('status', 'approved')->get()->sum('amount_paid'),
         ]);
     }
 }
