@@ -85,7 +85,7 @@ class WalletTransactionController extends Controller
 
     public function show($id)
     {
-        return $this->showOne(WalletTransaction::where('receipt_number', $id));
+        return $this->showOne(WalletTransaction::where('receipt_number', $id)->first());
     }
 
      /**

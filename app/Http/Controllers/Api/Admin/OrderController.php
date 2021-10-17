@@ -56,7 +56,7 @@ class OrderController extends Controller
      *          required=true,
      *          in="path",
      *          @OA\Schema(
-     *              type="integer"
+     *              type="string"
      *          )
      *      ),
     *      @OA\Response(
@@ -84,6 +84,6 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        return $this->showOne(Order::where('receipt_number', $id));
+        return $this->showOne(Order::where('receipt_number', $id)->first());
     }
 }
