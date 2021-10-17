@@ -124,6 +124,9 @@
 
                     <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                        {{env('MIX_PUSHER_APP_KEY')}}
+
+                        {{env('MIX_PUSHER_APP_CLUSTER')}}
                     </div>
                 </div>
             </div>
