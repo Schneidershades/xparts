@@ -45,6 +45,53 @@ class WithdrawalController extends Controller
         return $this->showAll(WalletTransaction::where('transaction_type', 'debit')->latest()->get());
     }
 
+
+
+    /**
+    * @OA\Get(
+    *      path="/api/v1/admin/withdrawals/{id}",
+    *      operationId="showWithdrawals",
+    *      tags={"Admin"},
+    *      summary="showWithdrawals",
+    *      description="showWithdrawals",
+    *      
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="showWithdrawals Receipt number",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successful signin",
+    *          @OA\MediaType(
+    *             mediaType="application/json",
+    *         ),
+    *       ),
+    *      @OA\Response(
+    *          response=400,
+    *          description="Bad Request"
+    *      ),
+    *      @OA\Response(
+    *          response=401,
+    *          description="unauthenticated",
+    *      ),
+    *      @OA\Response(
+    *          response=403,
+    *          description="Forbidden"
+    *      ),
+    *      security={ {"bearerAuth": {}} },
+    * )
+    */
+
+    public function show($id)
+    {
+        return $this->showOne(Order::where('receipt_number', $id)->first());
+    }
+
      /**
     * @OA\Put(
     *      path="/api/v1/admin/withdrawals/{id}",
