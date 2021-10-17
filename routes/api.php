@@ -72,6 +72,7 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('statistics', 'DashboardController', array("as"=>"dashboard"));
 		Route::Resource('wallet-transactions', 'WalletTransactionController', array("as"=>"dashboard"));
 		Route::Resource('markup-pricing', 'MarkupPricingController', array("as"=>"markupPricing"));
+		Route::Resource('withdrawals', 'WithdrawalController', array("as"=>"userWithdrawals"));
 	});
 });
 
