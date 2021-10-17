@@ -15,6 +15,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class AdminWithdrawalsUpdateFormRequest extends FormRequest
 {
+     /**
+     * @OA\Property(
+     *      title="status",
+     *      description="status",
+     *      example="approve/decline"
+     * )
+     *
+     * @var string
+     */
+    private $status;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -22,7 +33,7 @@ class AdminWithdrawalsUpdateFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -33,7 +44,7 @@ class AdminWithdrawalsUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'status' => 'required|string|in:approve,decline',
         ];
     }
 }

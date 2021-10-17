@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Models\Order;
 use App\Models\WalletTransaction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminWithdrawalsUpdateFormRequest;
@@ -88,8 +89,10 @@ class WithdrawalController extends Controller
     * )
     */
     
-    public function update(AdminWithdrawalsUpdateFormRequest $request, WalletTransaction $walletTransaction)
+    public function update(AdminWithdrawalsUpdateFormRequest $request, $id)
     {
-        return $this->showOne(WalletTransaction::find($walletTransaction->id)->update($request->validated()));
+        $transaction = Order::where('receipt_number', $id)->first();
+        $transaction->update($request->validated());
+        return $this->showOne($transaction);
     }
 }
