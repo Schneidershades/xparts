@@ -18,6 +18,7 @@ class MarkupPricingResource extends JsonResource
             'id' => $this->id,
             'min_value' => $this->min_value,
             'max_value' => $this->min_value,
+            'percentage' => $this->percentage,
             'type' => $this->type,
             'active' => $this->active,
         ];

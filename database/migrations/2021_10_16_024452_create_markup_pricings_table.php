@@ -15,11 +15,12 @@ class CreateMarkupPricingsTable extends Migration
     {
         Schema::create('markup_pricings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->decimal('min_value', 40, 2)->default(0);
-            $table->decimal('max_value', 40, 2)->default(0);
+            $table->float('min_value', 40, 2)->default(0);
+            $table->float('max_value', 40, 2)->default(0);
             $table->integer('percentage');
             $table->string('type')->nullable();
             $table->string('status')->default('inactive');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
