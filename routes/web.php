@@ -7,8 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('send', function () {
-//     broadcast(new \App\Events\TestEvent());
-//     return "OK";
-// });
-// });
+Route::get('send', function () {
+    broadcast(new \App\Events\TestEvent());
+    return "OK";
+});
