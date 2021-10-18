@@ -39,7 +39,7 @@ class BankDetailController extends Controller
     */
     public function index()
     {
-        return $this->showAll(auth()->user()->BankDetails);
+        return $this->showAll(auth()->user()->bankDetails);
     }
     /**
     * @OA\Post(

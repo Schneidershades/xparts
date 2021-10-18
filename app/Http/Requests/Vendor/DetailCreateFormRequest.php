@@ -38,8 +38,6 @@ class DetailCreateFormRequest extends FormRequest
      */
     public $vehicle_specialization_id;
 
-
-
     /**
      * @OA\Property(
      *      title="Country ID",
@@ -50,8 +48,6 @@ class DetailCreateFormRequest extends FormRequest
      * @var int
      */
     public $country_id;
-
-
 
     /**
      * @OA\Property(
@@ -86,18 +82,6 @@ class DetailCreateFormRequest extends FormRequest
      * @var int
      */
     public $bank_id;
-
-    /**
-     * @OA\Property(
-     *      title="Category One ID",
-     *      description="Category One ID",
-     *      example="1"
-     * )
-     *
-     * @var int
-     */
-    public $category_one_id;
-
 
     /**
      * @OA\Property(
