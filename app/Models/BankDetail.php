@@ -18,11 +18,11 @@ class BankDetail extends Model
 
     public function user()
     {
-        return $this->belongTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function bank()
     {
-        return $this->belongTo(Bank::class);
+        return $this->belongsTo(Bank::class);
     }
 }
