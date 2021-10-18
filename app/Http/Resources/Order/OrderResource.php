@@ -57,6 +57,8 @@ class OrderResource extends JsonResource
             'status' => $this->status,
             'transaction_type' => $this->transaction_type,
             'items' => OrderItemResource::collection($this->orderItems),
+            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at,
         ];
     }
 }
