@@ -46,7 +46,7 @@ class DetailController extends Controller
     
     public function store(DetailCreateFormRequest $request)
     {
-        return $address = Address::where('user_id', auth()->user()->id)->first();
+        $address = Address::where('user_id', auth()->user()->id)->first();
         $bankDetail = BankDetail::where('user_id', auth()->user()->id)->first();
         $array = ['user_id' => auth()->user()->id];
         $user = User::find(auth()->user()->id);
@@ -67,7 +67,7 @@ class DetailController extends Controller
             $address->save();
         }    
         
-        if($address == null){
+        if($bankDetail == null){
             $bankDetail = new BankDetail;
             $bankDetail = $this->requestAndDbIntersection($request, $bankDetail, [], $array);
             $bankDetail->save();
