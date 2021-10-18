@@ -283,12 +283,12 @@ class OrderController extends Controller
             $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
             
             foreach($findQuotes as $quote){
-                $quote->status = 'fulfilled';
+                $quote->status = 'paid';
                 $quote->save();
             }       
             
             foreach($findQuotes as $item){
-                $this->creditVendors($order, $item, 'fulfilled', 'credit');
+                $this->creditVendors($order, $item, 'successful', 'credit');
             }
 
             $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
@@ -301,7 +301,7 @@ class OrderController extends Controller
             }
 
             $userRequest = XpartRequest::whereIn('id', $allRequestsSent)->first();
-            $userRequest->status =  'fulfilled';
+            $userRequest->status =  'paid';
             $userRequest->save();
 
             return $this->showMessage('Payment processed successfully');
