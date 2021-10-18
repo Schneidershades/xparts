@@ -40,9 +40,7 @@ class UserResource extends JsonResource
                 'cart' => CartResource::collection($this->cart),
             ]),
 
-            $this->mergeWhen(auth()->user()->id == $this->id && auth()->user()->role == 'vendor', [
-                'bankDetails' => BankDetailResource::collection($this->bankDetails),
-            ]),
+            'bankDetails' => BankDetailResource::collection($this->bankDetails),
 
             'avatar' => $this->avatar != null ? $this->avatar->file_url : null,
             'created_at' => $this->created_at,
