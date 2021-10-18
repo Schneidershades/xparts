@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use Carbon\Carbon;
+use App\Models\Order;
+use App\Models\Wallet;
 use App\Models\WalletTransaction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminWalletUpdateFormRequest;
@@ -134,8 +137,55 @@ class WalletTransactionController extends Controller
     
     public function update(AdminWalletUpdateFormRequest $request, $id)
     {
-        $transaction = WalletTransaction::where('receipt_number', $id)->first();
-        $transaction->update($request->validated());
-        return $this->showOne($transaction);
+        $order = Order::where('receipt_number', $id)->first();
+
+        $wallet = Wallet::where('user_id', $order->user_id)->first();
+
+        $wallet->balance = $wallet->balance - $order->total;
+        $wallet->save();
+
+        $data = [
+            'currency' => 'NGN',
+            'payment_method' => 'wallet',
+            'payment_gateway' => 'wallet',
+            'payment_reference' => $order->receipt_number,
+            'payment_gateway_charge' => 0,
+            'payment_message' => 'payment successful',
+            'payment_status' => 'successful',
+            'platform_initiated' => 'inapp',
+            'transaction_initiated_date' => Carbon::now(),
+            'transaction_initiated_time' => Carbon::now(),
+            'date_time_paid' => Carbon::now(),
+            'status' => 'fulfilled',
+            'service_status' => 'fulfilled',
+        ];
+
+        $order->update($request->validated());
+
+        $this->debitUserWallet($order, $wallet);
+        
+        return $this->showOne($order);
+    }
+
+    public function debitUserWallet($order, $wallet)
+    {
+        $transaction = WalletTransaction::where('receipt_number', $order->receipt_number)->first();
+
+        $transaction->update([
+            'receipt_number' => $order->receipt_number,
+            'title' => $order->title,
+            'user_id' => $wallet->user->id,
+            'details' => $order->details,
+            'amount' => $order->subtotal,
+            'amount_paid' => $order->total,
+            'category' => $order->transaction_type,
+            'transaction_type' => 'debit',
+            'status' => 'fulfilled',
+            'remarks' => 'fulfilled',
+            'balance' => $wallet->balance,
+            'walletable_id' => $order->id,
+            'walletable_type' => 'orders',
+        ]);
+
     }
 }
