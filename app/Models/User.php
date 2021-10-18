@@ -130,6 +130,6 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 
     public function walletTransactions()
     {
-        return $this->hasMany(WalletTransaction::class);
+        return $this->hasMany(WalletTransaction::class)->latest();
     }
 }
