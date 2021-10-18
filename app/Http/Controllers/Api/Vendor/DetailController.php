@@ -65,13 +65,21 @@ class DetailController extends Controller
             $address = new Address;
             $address = $this->requestAndDbIntersection($request, $address, [], $array);
             $address->save();
-        }    
+        }else{
+            $address = $this->requestAndDbIntersection($request, $address, [], $array);
+            $address->save();
+        }
         
         if($bankDetail == null){
             $bankDetail = new BankDetail;
             $bankDetail = $this->requestAndDbIntersection($request, $bankDetail, [], $array);
             $bankDetail->save();
+        }else{
+            $bankDetail = $this->requestAndDbIntersection($request, $bankDetail, [], $array);
+            $bankDetail->save();
         }
+
+        return $bankDetail;
 
         return $this->showMessage('Details saved');
     }
