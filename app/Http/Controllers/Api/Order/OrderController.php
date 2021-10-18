@@ -51,7 +51,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return $this->showAll(Order::where('user_id', auth()->user()->id)->latest()->get());
+        return $this->showAll(auth()->user()->orders);
     }
 
     /**
