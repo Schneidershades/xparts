@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Vendor;
 
+use App\Models\User;
 use App\Models\Address;
 use App\Models\BankDetail;
 use App\Http\Controllers\Controller;
@@ -48,6 +49,17 @@ class DetailController extends Controller
         $address = Address::where('user_id', auth()->user()->id)->first();
         $bankDetail = BankDetail::where('user_id', auth()->user()->id)->first();
         $array = ['user_id' => auth()->user()->id];
+        $user = User::find(auth()->user()->id);
+
+        $userDetails = [
+            'vehicle_specialization_id' => $request->vehicle_specialization_id,
+            'part_specialization_id' => $request->part_specialization_id,
+        ];
+
+        if($user){
+            $this->requestAndDbIntersection($request, $user, [], $userDetails);
+            $user->save();
+        }
         
         if($address == null){
             $address = new Address;
