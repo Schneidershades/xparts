@@ -18,14 +18,26 @@ class DetailCreateFormRequest extends FormRequest
 
     /**
      * @OA\Property(
-     *      title="Part ID",
-     *      description="Part ID",
+     *      title="Part Specalization ID",
+     *      description="Part Specalization ID",
      *      example="1"
      * )
      *
      * @var int
      */
-    public $part_id;
+    public $part_specialization_id;
+
+    /**
+     * @OA\Property(
+     *      title="Vehicle Specalization ID",
+     *      description="Vehicle Specalization ID",
+     *      example="1"
+     * )
+     *
+     * @var int
+     */
+    public $vehicle_specialization_id;
+
 
 
     /**
