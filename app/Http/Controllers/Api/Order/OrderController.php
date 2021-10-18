@@ -267,11 +267,13 @@ class OrderController extends Controller
                 'transaction_initiated_date' => Carbon::now(),
                 'transaction_initiated_time' => Carbon::now(),
                 'date_time_paid' => Carbon::now(),
-                'status' => 'fulfilled',
-                'service_status' => 'fulfilled',
+                'status' => 'paid',
+                'service_status' => 'paid',
             ];
 
             $order->update($data);
+
+            $this->debitUserWallet($order, $wallet);
 
             $receipt = true;
         }
