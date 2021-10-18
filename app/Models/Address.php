@@ -24,6 +24,9 @@ class Address extends Model
         'state',
         'postal_code',
         'primary_address',
+        'city_id',
+        'country_id',
+        'states_id',
     ];
 
     public function user()
