@@ -111,9 +111,9 @@ class AddressCreateFormRequest extends FormRequest
         return [
             'name' => 'string|max:255',
             'address' => 'string',
-            'state_id' => 'required|integer',
-            'city_id' => 'required|integer',
-            'country_id' => 'required|integer',
+            'state_id' => 'required|integer|exists:states,id',
+            'city_id' => 'required|integer|exists:cities,id',
+            'country_id' => 'required|integer||exists:cities,id',
             'postal_code' => 'integer',
             'primary_address' => 'boolean',
         ];
