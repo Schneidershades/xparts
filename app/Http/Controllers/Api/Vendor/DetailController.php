@@ -71,6 +71,8 @@ class DetailController extends Controller
             $bankDetail = new BankDetail;
             $bankDetail = $this->requestAndDbIntersection($request, $bankDetail, [], $array);
             $bankDetail->save();
+
+            return $bankDetail;
         }
 
         return $this->showMessage('Details saved');
