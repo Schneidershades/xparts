@@ -46,7 +46,7 @@ class DetailController extends Controller
     
     public function store(DetailCreateFormRequest $request)
     {
-        $address = Address::where('user_id', auth()->user()->id)->first();
+        return $address = Address::where('user_id', auth()->user()->id)->first();
         $bankDetail = BankDetail::where('user_id', auth()->user()->id)->first();
         $array = ['user_id' => auth()->user()->id];
         $user = User::find(auth()->user()->id);
