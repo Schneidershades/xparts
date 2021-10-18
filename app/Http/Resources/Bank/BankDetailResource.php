@@ -16,7 +16,7 @@ class BankDetailResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'bank_name' => $this->bank->name,
+            'bank_name' => $this->bank ? $this->bank->name : 'N/A',
             'bank_account_name' => $this->bank_account_name,
             'bank_account_number' => $this->bank_account_number,
         ];
