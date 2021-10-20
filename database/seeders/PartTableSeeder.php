@@ -21,7 +21,9 @@ class PartTableSeeder extends Seeder
         Part::truncate();
   
         $json1 = File::get("database/json/parts.json");
-        $countries1 = ($json1);
+        $countries1 = json_decode($json1);
+
+        dd($countries1);
   
         foreach ($countries1 as $key => $value) {
             Part::create([
