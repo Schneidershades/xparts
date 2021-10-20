@@ -112,6 +112,45 @@ class DashboardController extends Controller
                 ],
             ],
 
+            'xpartRequestSentToVendors' => [
+                'all' =>[
+                    'key' => 'all requests',
+                    'value' => XpartRequestVendorWatch::all()->count()
+                ],
+
+                'active' =>[
+                    'key' => 'active requests',
+                    'value' => XpartRequestVendorWatch::where('status', 'active')->get()->count()
+                ],
+
+                'paid' =>[
+                    'key' => 'paid requests',
+                    'value' => XpartRequestVendorWatch::where('status', 'paid')->get()->count()
+                ],
+
+                'delivered2xparts' =>[
+                    'key' => 'Vendor Delivery',
+                    'value' => XpartRequestVendorWatch::where('status', 'vendor2xparts')->get()->count()
+                ],
+
+                'delivered2user' =>[
+                    'key' => 'User Delivery',
+                    'value' => XpartRequestVendorWatch::where('status', 'xparts2user')->get()->count()
+                ],
+
+                'expired' =>[
+                    'key' => 'Expired Request',
+                    'value' => XpartRequestVendorWatch::where('status', 'expired')->get()->count()
+                ],
+            ],
+
+            'vin' => [
+                'all' =>[
+                    'key' => 'all banks',
+                    'value' => Vin::all()->count()
+                ],
+            ],
+
             'banks' => [
                 'all' =>[
                     'key' => 'all vin',
