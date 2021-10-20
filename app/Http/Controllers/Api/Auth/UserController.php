@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use App\Http\Requests\Auth\UserRegistrationFormRequest;
 use App\Http\Requests\Auth\UserLoginFormRequest;
 use App\Http\Requests\Auth\AuthUpdateFormRequest;
-use App\Http\Requests\Auth\UserRegistrationFormRequest;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -138,7 +137,8 @@ class UserController extends Controller
         $this->requestAndDbIntersection($request, $model, []);
 
         $model->save();
-        if($request->hasFile('image')){            
+        
+        if($request->hasFile('image')){
             $path = $this->uploadImage($request->image, "profile_photos");
             $model->avatar()->create([
                 'file_path' => $path,
