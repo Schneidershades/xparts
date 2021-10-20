@@ -36,7 +36,7 @@ class AuthUpdateFormRequest extends FormRequest
         return [
             'name' => 'string|max:255',
             'email' => 'string|email|max:255|unique:users,email',
-            'phone' => 'int|unique:users,phone',
+            'phone' => 'string|unique:users,phone',
             'image' => 'nullable|image|max:2048', 
         ];
     }
