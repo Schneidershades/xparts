@@ -81,27 +81,27 @@ class DashboardController extends Controller
 
                 'active' =>[
                     'key' => 'active requests',
-                    'value' => XpartRequest::where('role', 'active')->get()->count()
+                    'value' => XpartRequest::where('status', 'active')->get()->count()
                 ],
 
                 'paid' =>[
                     'key' => 'paid requests',
-                    'value' => XpartRequest::where('role', 'active')->get()->count()
+                    'value' => XpartRequest::where('paid', 'active')->get()->count()
                 ],
 
                 'delivered2xparts' =>[
                     'key' => 'Vendor Delivery',
-                    'value' => XpartRequest::where('role', 'active')->get()->count()
+                    'value' => XpartRequest::where('vendor2xparts', 'active')->get()->count()
                 ],
 
                 'delivered2user' =>[
                     'key' => 'User Delivery',
-                    'value' => XpartRequest::where('role', 'active')->get()->count()
+                    'value' => XpartRequest::where('xparts2user', 'active')->get()->count()
                 ],
 
                 'expired' =>[
                     'key' => 'Expired Request',
-                    'value' => XpartRequest::where('role', 'expored')->get()->count()
+                    'value' => XpartRequest::where('expired', 'expored')->get()->count()
                 ],
             ],
 
