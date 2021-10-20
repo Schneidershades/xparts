@@ -69,7 +69,7 @@ class DashboardController extends Controller
 
                 'admin' => [
                     'key' => 'admins',
-                    'value' => User::where('role', 'vendor')->get()->count()
+                    'value' => User::where('role', 'admin')->get()->count()
                 ],
             ],
 
