@@ -125,7 +125,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 
     public function avatar()
     {
-        return $this->morphOne(Media::class, 'fileable');
+        return $this->morphOne(Media::class, 'fileable')->latest();
     }
 
     public function walletTransactions()
