@@ -138,11 +138,7 @@ class UserController extends Controller
         $this->requestAndDbIntersection($request, $model, []);
 
         $model->save();
-        if($request->hasFile('image')){
-
-            $s3 = Storage::disk('s3');
-            $s3->delete('filename');
-            
+        if($request->hasFile('image')){            
             $path = $this->uploadImage($request->image, "profile_photos");
             $model->avatar()->create([
                 'file_path' => $path,
