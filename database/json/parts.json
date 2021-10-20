@@ -581,8 +581,6 @@
     {
         "DESCRIPTION": "STRUT MOUNT"
     }
-],
-"Sheet1": [
     {
         "DESCRIPTION": "Engine Oil"
     },
@@ -3099,9 +3097,7 @@
     },
     {
         "DESCRIPTION": "Valves"
-    }
-],
-"vehicle_part_types": [
+    },
     {
         "DESCRIPTION": "DESCRIPTION"
     },
