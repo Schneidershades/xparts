@@ -46,13 +46,13 @@ class DashboardController extends Controller
     
     public function index()
     {
-        return $this->showContent([
-            'vendors' => User::where('role', 'vendor')->get()->count(),
-            'users' => User::where('role', 'user')->get()->count(),
-            'xpartRequest' => XpartRequest::all()->count(),
-            'transactions' => Order::where('status', 'fulfilled')->get()->count(),
-            'total_sales' => Order::where('status', 'approved')->get()->sum('amount_paid'),
-        ]);
+        // return $this->showContent([
+        //     'vendors' => User::where('role', 'vendor')->get()->count(),
+        //     'users' => User::where('role', 'user')->get()->count(),
+        //     'xpartRequest' => XpartRequest::all()->count(),
+        //     'transactions' => Order::where('status', 'fulfilled')->get()->count(),
+        //     'total_sales' => Order::where('status', 'approved')->get()->sum('amount_paid'),
+        // ]);
 
 
         return $this->showContent([
@@ -119,36 +119,36 @@ class DashboardController extends Controller
                 ],
             ],
 
-            'details' => [
-                'vin' => Vin::all()->count(),
-                'banks' => Bank::all()->count(),
-                'bankDetails' => BankDetail::all()->count(),
-                'markupPricings' => MarkupPricing::all()->count(),
-            ],
+            // 'details' => [
+            //     'vin' => Vin::all()->count(),
+            //     'banks' => Bank::all()->count(),
+            //     'bankDetails' => BankDetail::all()->count(),
+            //     'markupPricings' => MarkupPricing::all()->count(),
+            // ],
 
-            'quotes' => [
-                'xpartRequest' => XpartRequest::all()->count(),
-                'customer' => User::where('role', 'vendor')->get()->count(),
-                'users' => User::where('role', 'user')->get()->count(),
-                'admin' => User::where('role', 'admin')->get()->count(),
-            ],
+            // 'quotes' => [
+            //     'xpartRequest' => XpartRequest::all()->count(),
+            //     'customer' => User::where('role', 'vendor')->get()->count(),
+            //     'users' => User::where('role', 'user')->get()->count(),
+            //     'admin' => User::where('role', 'admin')->get()->count(),
+            // ],
 
-            'walletTransactions' => [
-                'debits' => User::where('role', 'vendor')->get()->count(),
-                'credits' => User::where('role', 'user')->get()->count(),
-            ],
+            // 'walletTransactions' => [
+            //     'debits' => User::where('role', 'vendor')->get()->count(),
+            //     'credits' => User::where('role', 'user')->get()->count(),
+            // ],
 
-            'categories' => [
-                'parts' => User::where('role', 'vendor')->get()->count(),
-                'vehicle_specializations' => User::where('role', 'user')->get()->count(),
-                'parts_specializations' => User::where('role', 'user')->get()->count(),
-            ],
+            // 'categories' => [
+            //     'parts' => User::where('role', 'vendor')->get()->count(),
+            //     'vehicle_specializations' => User::where('role', 'user')->get()->count(),
+            //     'parts_specializations' => User::where('role', 'user')->get()->count(),
+            // ],
 
-            'payment_methods' => [
-                'parts' => User::where('role', 'vendor')->get()->count(),
-                'vehicle_specializations' => User::where('role', 'user')->get()->count(),
-                'parts_specializations' => User::where('role', 'user')->get()->count(),
-            ],
+            // 'payment_methods' => [
+            //     'parts' => User::where('role', 'vendor')->get()->count(),
+            //     'vehicle_specializations' => User::where('role', 'user')->get()->count(),
+            //     'parts_specializations' => User::where('role', 'user')->get()->count(),
+            // ],
         ]);
     }
 }
