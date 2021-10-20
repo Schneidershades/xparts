@@ -124,6 +124,7 @@ class XpartRequestController extends Controller
             XpartRequestVendorWatch::insert([
                 'xpart_request_id' => $xpartRequest->id,
                 'vendor_id' => $user['id'],
+                'status' => 'active'
             ]);
 
             SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails');

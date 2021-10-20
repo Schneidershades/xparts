@@ -86,7 +86,8 @@ class QuoteController extends Controller
 
         $model = new Quote;
         $model = $this->requestAndDbIntersection($request, $model, [], [
-            'vendor_id' => auth()->user()->id
+            'vendor_id' => auth()->user()->id,
+            'status' => 'active'
         ]);
         $model->save();
 
