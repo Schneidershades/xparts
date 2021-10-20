@@ -34,10 +34,10 @@ class AuthUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|max:255',
-            'email' => 'string|email|max:255|unique:users,email',
-            'phone' => 'string|unique:users,phone',
-            'image' => 'nullable|image|max:2048', 
+            // 'name' => 'string|max:255',
+            // 'email' => 'string|email|max:255|unique:users,email',
+            // 'phone' => 'string|unique:users,phone',
+            // 'image' => 'nullable|image|max:2048', 
         ];
     }
 }
