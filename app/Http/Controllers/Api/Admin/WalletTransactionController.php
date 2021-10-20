@@ -156,8 +156,8 @@ class WalletTransactionController extends Controller
             'transaction_initiated_date' => Carbon::now(),
             'transaction_initiated_time' => Carbon::now(),
             'date_time_paid' => Carbon::now(),
-            'status' => 'fulfilled',
-            'service_status' => 'fulfilled',
+            'status' => 'approved',
+            'service_status' => 'approved',
         ];
 
         $order->update($request->validated());
@@ -180,8 +180,8 @@ class WalletTransactionController extends Controller
             'amount_paid' => $order->total,
             'category' => $order->transaction_type,
             'transaction_type' => 'debit',
-            'status' => 'fulfilled',
-            'remarks' => 'fulfilled',
+            'status' => $order->status,
+            'remarks' => $order->status,
             'balance' => $wallet->balance,
             'walletable_id' => $order->id,
             'walletable_type' => 'orders',
