@@ -22,7 +22,7 @@ trait AwsS3
 
     protected function uploadImage($image, $path, $connection = "s3")
     {
-        $path = $image->store($path, $connection);
+        $path = $image->put($path, $connection);
         return $path;
     }
 }

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\Auth\UserRegistrationFormRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Auth\UserLoginFormRequest;
 use App\Http\Requests\Auth\AuthUpdateFormRequest;
-use App\Models\User;
+use App\Http\Requests\Auth\UserRegistrationFormRequest;
 
 class UserController extends Controller
 {
@@ -138,6 +139,10 @@ class UserController extends Controller
 
         $model->save();
         if($request->hasFile('image')){
+
+            $s3 = Storage::disk('s3');
+            $s3->delete('filename');
+            
             $path = $this->uploadImage($request->image, "profile_photos");
             $model->avatar()->create([
                 'file_path' => $path,

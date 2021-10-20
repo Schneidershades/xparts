@@ -27,7 +27,7 @@ class CreateQuotesTable extends Migration
             $table->integer('part_warranty')->nullable();
             $table->float('price')->nullable();
             $table->text('description')->nullable();
-            $table->string('status')->default('pending');
+            $table->string('status')->default('active');
             $table->integer('city_id')->index()->unsigned()->nullable();
             $table->integer('state_id')->index()->unsigned()->nullable();
             $table->integer('country_id')->index()->unsigned()->nullable();
