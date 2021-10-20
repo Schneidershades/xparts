@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Part;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class PartTableSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class PartTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Part::truncate();
   
         $json1 = File::get("database/json/parts.json");
@@ -27,5 +29,7 @@ class PartTableSeeder extends Seeder
                 "slug" => Str::slug($value->DESCRIPTION, '-'),
             ]);
         }
+
+		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

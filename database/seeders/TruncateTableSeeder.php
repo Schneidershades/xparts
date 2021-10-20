@@ -17,9 +17,9 @@ class TruncateTableSeeder extends Seeder
      */
     public function run()
     {
-        Quote::truncate();
-        XpartRequest::truncate();
-        XpartRequestVendorWatch::truncate();
-        WalletTransaction::truncate();
+        // Quote::truncate();
+        // XpartRequest::truncate();
+        // XpartRequestVendorWatch::truncate();
+        // WalletTransaction::truncate();
     }
 }
