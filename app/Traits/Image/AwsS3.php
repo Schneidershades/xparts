@@ -22,7 +22,8 @@ trait AwsS3
 
     protected function uploadImage($image, $path, $connection = "s3")
     {
-        $path = $image->put($path, $connection);
+        Storage::disk($connection)->put($path, fopen($image, 'r+'));
+        // $path = $image->put($path, $connection);
         return $path;
     }
 }
