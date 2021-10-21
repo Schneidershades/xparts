@@ -36,6 +36,8 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('addresses', 'AddressController')->middleware('auth:api');
 		Route::Resource('payment-methods', 'PaymentMethodController');
 
+		Route::post('upload', 'UploadController@store')->middleware('auth:api');
+
 		Route::Resource('states', 'StateController');
 		Route::Resource('countries', 'CountryController');
 
