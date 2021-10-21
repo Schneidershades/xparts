@@ -61,7 +61,7 @@ class ChangeXpartRequestStatus extends Command
         $time_end = microtime(true);
         $execution_time = ($time_end - $time_start) / 60;
 
-        $this->info("Updated {$this->total} locations, Completed after {$execution_time} minutes");
+        $this->info("Updated {$this->total} xp_requests, Completed after {$execution_time} minutes");
         return 0;
     }
 }
