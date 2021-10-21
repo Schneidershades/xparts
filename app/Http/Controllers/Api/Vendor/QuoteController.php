@@ -7,6 +7,7 @@ use App\Models\Quote;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vendor\QuoteCreateFormRequest;
+use App\Models\Media;
 use App\Models\User;
 use App\Models\XpartRequest;
 
@@ -97,10 +98,18 @@ class QuoteController extends Controller
 
         if ($request->has('images')) {
             foreach ($request['images'] as $image) {
-                $path = $this->uploadImage($image, "quote_images");
-                $model->images()->create([
-                    'file_path' => $path,
-                ]);
+                if (gettype($image) != "integer") {
+                    $path = $this->uploadImage($image, "quote_images");
+                    $model->images()->create([
+                        'file_path' => $path,
+                    ]);
+                } else {
+                    $media = Media::where('id', $image)->first();
+                    $media->update([
+                        'fileable_id' => $model->id,
+                        'fileable_type' => $model->getMorphClass(),
+                    ]);
+                }
             }
         }
 
