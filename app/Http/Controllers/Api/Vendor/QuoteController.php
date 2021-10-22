@@ -7,6 +7,7 @@ use App\Models\Quote;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vendor\QuoteCreateFormRequest;
+use App\Models\MarkupPricing;
 use App\Models\Media;
 use App\Models\User;
 use App\Models\XpartRequest;
@@ -83,19 +84,35 @@ class QuoteController extends Controller
 
     public function store(QuoteCreateFormRequest $request)
     {
+        $markupPrice = 0;
+        $markupDetails = null;
+
         $vendor = User::where('id', auth()->user()->id)->first();
 
         $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
+
+        $markupDetails = $this->markupService($request['price']);
+
+        if($markupDetails != null)
+        {
+            $calculatedPercentage = (100 + $markupDetails->percentage) / 100;
+            $calculatedPrice = $request['price'] * $calculatedPercentage;
+            $markupPrice = $request['price'] * $calculatedPrice;
+        }
 
         if($xpartRequest->status ==  'expired'){
             return $this->errorResponse('Sorry this quote is expired', 409);
         }
 
         $model = new Quote;
+
         $model = $this->requestAndDbIntersection($request, $model, [], [
             'vendor_id' => auth()->user()->id,
-            'status' => 'active'
+            'status' => 'active', 
+            'markup_pricing_id' => $markupDetails ? $markupDetails->id : null,
+            'current_markup_price' => $markupPrice,
         ]);
+
         $model->save();
 
         broadcast(new VendorQuoteSent($vendor, $xpartRequest, $model));
@@ -252,5 +269,12 @@ class QuoteController extends Controller
             return $this->showAll($quotes);
         }
         return $this->errorResponse("No recent quote", 400);
+    }
+
+    public function markupService($amount)
+    {
+        return MarkupPricing::where('min_value', '<=,', $amount)
+                ->where('max_value', '>=', $amount)
+                ->first();
     }
 }
