@@ -148,35 +148,34 @@ class DashboardController extends Controller
             'quoteTransactions' => [
                 'all' =>[
                     'key' => 'all total sum',
-                    'value' => Quote::all()->sum('price')
+                    'value' => Quote::all()->sum('amount_paid')
                 ],
 
                 'active' =>[
                     'key' => 'active requests',
-                    'value' => Quote::where('status', 'active')->get()->sum('price')
+                    'value' => Quote::where('status', 'active')->get()->sum('amount_paid')
                 ],
 
                 'paid' =>[
                     'key' => 'paid requests',
-                    'value' => Quote::where('status', 'paid')->get()->sum('price')
+                    'value' => Quote::where('status', 'paid')->get()->sum('amount_paid')
                 ],
 
                 'delivered2xparts' =>[
                     'key' => 'Vendor Delivery',
-                    'value' => Quote::where('status', 'vendor2xparts')->get()->sum('price')
+                    'value' => Quote::where('status', 'vendor2xparts')->get()->sum('amount_paid')
                 ],
 
                 'delivered2user' =>[
                     'key' => 'User Delivery',
-                    'value' => Quote::where('status', 'xparts2user')->get()->sum('price')
+                    'value' => Quote::where('status', 'xparts2user')->get()->sum('amount_paid')
                 ],
 
                 'expired' =>[
                     'key' => 'Expired Request',
-                    'value' => Quote::where('status', 'expired')->get()->sum('price')
+                    'value' => Quote::where('status', 'expired')->get()->sum('amount_paid')
                 ],
             ],
-            
 
             'vin' => [
                 'all' =>[
