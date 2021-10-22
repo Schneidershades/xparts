@@ -84,14 +84,18 @@ class QuoteController extends Controller
     {
         $vendor = User::where('id', auth()->user()->id)->first();
 
+        $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
+
+        if($xpartRequest->status ==  'expired'){
+            return $this->errorResponse('Sorry this quote is expired', 409);
+        }
+
         $model = new Quote;
         $model = $this->requestAndDbIntersection($request, $model, [], [
             'vendor_id' => auth()->user()->id,
             'status' => 'active'
         ]);
         $model->save();
-
-        $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
 
         broadcast(new VendorQuoteSent($vendor, $xpartRequest, $model));
 
