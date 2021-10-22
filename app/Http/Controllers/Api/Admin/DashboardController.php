@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Models\Vin;
+use App\Models\Bank;
 use App\Models\User;
 use App\Models\Order;
-use App\Models\XpartRequest;
-use App\Http\Controllers\Controller;
-use App\Models\Bank;
+use App\Models\Quote;
 use App\Models\BankDetail;
+use App\Models\XpartRequest;
 use App\Models\MarkupPricing;
-use App\Models\Vin;
+use App\Http\Controllers\Controller;
 use App\Models\XpartRequestVendorWatch;
 
 class DashboardController extends Controller
@@ -144,35 +145,35 @@ class DashboardController extends Controller
                 ],
             ],
 
-            'orderTransactions' => [
+            'quoteTransactions' => [
                 'all' =>[
                     'key' => 'all total sum',
-                    'value' => Order::all()->sum('amount_paid')
+                    'value' => Quote::all()->sum('amount_paid')
                 ],
 
                 'active' =>[
                     'key' => 'active requests',
-                    'value' => Order::where('status', 'active')->get()->sum('amount_paid')
+                    'value' => Quote::where('status', 'active')->get()->sum('amount_paid')
                 ],
 
                 'paid' =>[
                     'key' => 'paid requests',
-                    'value' => Order::where('status', 'paid')->get()->sum('amount_paid')
+                    'value' => Quote::where('status', 'paid')->get()->sum('amount_paid')
                 ],
 
                 'delivered2xparts' =>[
                     'key' => 'Vendor Delivery',
-                    'value' => Order::where('status', 'vendor2xparts')->get()->sum('amount_paid')
+                    'value' => Quote::where('status', 'vendor2xparts')->get()->sum('amount_paid')
                 ],
 
                 'delivered2user' =>[
                     'key' => 'User Delivery',
-                    'value' => Order::where('status', 'xparts2user')->get()->sum('amount_paid')
+                    'value' => Quote::where('status', 'xparts2user')->get()->sum('amount_paid')
                 ],
 
                 'expired' =>[
                     'key' => 'Expired Request',
-                    'value' => Order::where('status', 'expired')->get()->sum('amount_paid')
+                    'value' => Quote::where('status', 'expired')->get()->sum('amount_paid')
                 ],
             ],
 
