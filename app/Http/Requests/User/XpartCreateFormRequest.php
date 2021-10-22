@@ -59,7 +59,7 @@ class XpartCreateFormRequest extends FormRequest
             'part' => 'required|string',
             'vin_number' => 'required|string',
             'images' => 'nullable|array',
-            'images.*' => 'nullable|image|max:2048',     
+            'images.*' => 'nullable|max:2048',     
         ];
     }
 }

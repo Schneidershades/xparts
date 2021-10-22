@@ -20,7 +20,8 @@ class XpartRequest extends Model
 
     protected $fillable = [
         'vin_id',
-        'part_id'
+        'part_id',
+        'status',
     ];
     
     public $oneItem = XpartRequestResource::class;
