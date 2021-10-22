@@ -18,10 +18,20 @@ class XpartRequestResource extends JsonResource
             'vendorQuotesCount' => $this->vendorQuotes->count(),
             'quotes' => QuoteResource::collection($this->vendorQuotes),
             'images' => $this->images != null ? $this->images->pluck('file_url') : null,
-            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            
+
+            $this->mergeWhen($this->status =='xparts2user' || $this->status =='vendor2xparts' && auth()->user()->role == 'user', [
+                'status' => 'paid',
+            ]),
+
+            $this->mergeWhen($this->status == 'delivered' || $this->status == 'active' || $this->status == 'paid' && auth()->user()->role == 'user', [
+                'status' => $this->status,
+            ]),
+
+            $this->mergeWhen(auth()->user()->role == 'admin', [
+                'status' => $this->status,
+            ]),
         ];
     }
 }
