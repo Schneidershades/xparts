@@ -172,7 +172,7 @@ class MarkupPricingController extends Controller
     
     public function update(MarkupPricingUpdateFormRequest $request, MarkupPricing $markupPricing)
     {
-        ($markupPricing->update($request->validated()));
+        (MarkupPricing::where('id', $markupPricing)->first()->update($request->validated()));
         return $this->showOne($markupPricing);
     }
 
