@@ -165,7 +165,7 @@ class QuoteCreateFormRequest extends FormRequest
             'description' => 'nullable',
             'brand' => 'nullable',
             'images' => 'nullable|array',
-            'images.*' => 'nullable|image|max:2048',  
+            'images.*' => 'nullable|max:2048',  
         ];
     }
 }

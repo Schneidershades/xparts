@@ -12,6 +12,7 @@ use App\Models\XpartRequestVendorWatch;
 use App\Http\Requests\User\XpartCreateFormRequest;
 use App\Jobs\SendEmail;
 use App\Mail\User\XpartRequestMail;
+use App\Models\Media;
 
 class XpartRequestController extends Controller
 {
@@ -85,8 +86,8 @@ class XpartRequestController extends Controller
     public function store(XpartCreateFormRequest $request)
     {
         $part = Part::where('name', $request->part)->first();
-         
-        if($part == null){
+
+        if ($part == null) {
             $part = new Part;
             $part->name = $request->part;
             $part->slug = Str::slug($request->part, '-');
@@ -95,12 +96,12 @@ class XpartRequestController extends Controller
 
         $vin = Vin::where('vin_number', $request->vin_number)->first();
 
-        if($vin == null){
+        if ($vin == null) {
             $vin = new Vin;
             $vin->vin_number = $request->vin_number;
             $vin->save();
         }
-      
+
         $auth = auth()->user()->id;
 
         $xpartRequest = new XpartRequest;
@@ -111,13 +112,21 @@ class XpartRequestController extends Controller
 
         if ($request->has('images')) {
             foreach ($request->images as $image) {
-                $path = $this->uploadImage($image, "xpart_requests");
-                $xpartRequest->images()->create([
-                    'file_path' => $path,
-                ]);
+                if (gettype($image) != "integer") {
+                    $path = $this->uploadImage($image, "xpart_requests");
+                    $xpartRequest->images()->create([
+                        'file_path' => $path,
+                    ]);
+                } else {
+                    $media = Media::where('id', $image)->first();
+                    $media->update([
+                        'fileable_id' => $xpartRequest->id,
+                        'fileable_type' => $xpartRequest->getMorphClass(),
+                    ]);
+                }
             }
         }
-      
+
         $users = User::select('email', 'name', 'id')->where('role', 'vendor')->get();
 
         collect($users)->each(function ($user) use ($xpartRequest) {
