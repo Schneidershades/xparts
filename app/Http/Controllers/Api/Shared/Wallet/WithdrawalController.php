@@ -90,6 +90,7 @@ class WithdrawalController extends Controller
         $wallet = Wallet::where('user_id', $userId)->first();
         $wallet->balance = $wallet->balance - $order->total;
         $wallet->save();
+        return $wallet;
     }
 
     public function creditUserWallet($order, $userId)
