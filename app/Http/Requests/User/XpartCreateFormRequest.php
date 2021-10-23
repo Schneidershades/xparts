@@ -22,20 +22,20 @@ class XpartCreateFormRequest extends FormRequest
      *      example="seatbelt holder"
      * )
      *
-     * @var int
+     * @var string
      */
-    public $name;
+    public $part;
 
     /**
      * @OA\Property(
      *      title="Vin Number",
      *      description="Vin Number ID",
-     *      example="1"
+     *      example="48938484803390"
      * )
      *
-     * @var int
+     * @var string
      */
-    public $vin_id;
+    public $vin_number;
     
 
     /**

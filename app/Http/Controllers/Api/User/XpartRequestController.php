@@ -86,27 +86,27 @@ class XpartRequestController extends Controller
     public function store(XpartCreateFormRequest $request)
     {
         $status = null;
-
-        $part = Part::where('name', $request->part)->first();
+        
+        $part = Part::where('name', $request['part'])->first();
 
         if ($part == null) {
             $part = new Part;
-            $part->name = $request->part;
-            $part->slug = Str::slug($request->part, '-');
+            $part->name = $request['part'];
+            $part->slug = Str::slug($request['part'], '-');
             $part->admin_attention = 1;
             $part->save();
         }
 
 
-        $vin = Vin::where('vin_number', $request->vin_number)->first();
+        $vin = Vin::where('vin_number', $request['vin_number'])->first();
+
+        return $vin;
 
         if ($vin == null) {
             $vin = new Vin;
-            $vin->vin_number = $request->vin_number;
+            $vin->vin_number = $request['vin_number'];
             $vin->admin_attention = 1;
             $vin->save();
-
-            $status = 'awaiting';
         }
 
         $auth = auth()->user()->id;

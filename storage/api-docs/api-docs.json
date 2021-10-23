@@ -45,6 +45,213 @@
                 ]
             }
         },
+        "/api/v1/admin/markup-pricing": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get all markup-pricing",
+                "description": "Get all markup-pricing",
+                "operationId": "allMarkupPricing",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Post markup-pricing",
+                "description": "Post markup-pricing",
+                "operationId": "postUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MarkupPricingCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/markup-pricing/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Show markup-pricing",
+                "description": "Show markup-pricing",
+                "operationId": "showMarkupPricing",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "markup-pricing ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Update markup-pricing",
+                "description": "Update markup-pricing",
+                "operationId": "UserMarkupPricing",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "markup-pricing ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MarkupPricingUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Delete markup-pricing",
+                "description": "Delete markup-pricing",
+                "operationId": "deleteMarkupPricing",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "markup-pricing ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/admin/orders": {
             "get": {
                 "tags": [
@@ -53,6 +260,49 @@
                 "summary": "allOrders",
                 "description": "allOrders",
                 "operationId": "allOrders",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/orders/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "showOrders",
+                "description": "showOrders",
+                "operationId": "showOrders",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Order Receipt number",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -388,6 +638,59 @@
                 "summary": "allQuotes",
                 "description": "allQuotes",
                 "operationId": "allQuotes",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/quotes/{id}": {
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "updateQuotes",
+                "description": "updateQuotes",
+                "operationId": "updateQuotes",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "updateQuotes ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AdminQuoteUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -1482,6 +1785,47 @@
             }
         },
         "/api/v1/admin/wallet-transactions/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "showWalletTransactions",
+                "description": "showWalletTransactions",
+                "operationId": "showWalletTransactions",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "WalletTransactions Receipt number",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
             "put": {
                 "tags": [
                     "Admin"
@@ -1493,10 +1837,10 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "updateVin ID",
+                        "description": "WalletTransactions Receipt Number ",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -1566,6 +1910,100 @@
                 ]
             }
         },
+        "/api/v1/admin/withdrawals/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "showWithdrawals",
+                "description": "showWithdrawals",
+                "operationId": "showWithdrawals",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "showWithdrawals Receipt number",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "updateWithdrawals",
+                "description": "updateWithdrawals",
+                "operationId": "updateWithdrawals",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "updateWithdrawals Receipt Number ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AdminWithdrawalsUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/admin/xpart-requests": {
             "get": {
                 "tags": [
@@ -1574,6 +2012,100 @@
                 "summary": "allXpartRequest",
                 "description": "allXpartRequest",
                 "operationId": "allXpartRequest",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/xpart-requests/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Show XpartRequest",
+                "description": "Show XpartRequest",
+                "operationId": "showXpartRequest",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "XpartRequest ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "updateXpartRequest",
+                "description": "updateXpartRequest",
+                "operationId": "updateXpartRequest",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "updateXpartRequest ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AdminXpartRequestUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -3976,12 +4508,142 @@
                 },
                 "type": "object"
             },
+            "AdminQuoteUpdateFormRequest": {
+                "title": "Admin Quote Update Form Request Fields",
+                "description": "Admin Quote Update request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "status": {
+                        "title": "status",
+                        "description": "status",
+                        "type": "string",
+                        "example": "approve/decline"
+                    }
+                },
+                "type": "object"
+            },
             "AdminWalletUpdateFormRequest": {
                 "title": "Admin Wallet Update Form Request Fields",
                 "description": "Admin Wallet Update request body data",
                 "required": [
                     "name"
                 ],
+                "properties": {
+                    "status": {
+                        "title": "status",
+                        "description": "status",
+                        "type": "string",
+                        "example": "approve/decline"
+                    }
+                },
+                "type": "object"
+            },
+            "AdminWithdrawalsUpdateFormRequest": {
+                "title": "Admin Withdrawals Update Form Request Fields",
+                "description": "Admin Withdrawals Update request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "status": {
+                        "title": "status",
+                        "description": "status",
+                        "type": "string",
+                        "example": "approve/decline"
+                    }
+                },
+                "type": "object"
+            },
+            "AdminXpartRequestUpdateFormRequest": {
+                "title": "Admin XpartRequest Update Form Request Fields",
+                "description": "Admin XpartRequest Update request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "status": {
+                        "title": "status",
+                        "description": "status",
+                        "type": "string",
+                        "example": "approve/decline"
+                    }
+                },
+                "type": "object"
+            },
+            "MarkupPricingCreateFormRequest": {
+                "title": "Markup Pricing Create Form Request Fields",
+                "description": "Markup Pricing Create request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "min_value": {
+                        "title": "Max Value",
+                        "description": "Maximum Value of the Price",
+                        "type": "string",
+                        "example": "10000.00"
+                    },
+                    "max_value": {
+                        "title": "Min Value",
+                        "description": "Minimum Value of the Price",
+                        "type": "string",
+                        "example": "100000.00"
+                    },
+                    "percentage": {
+                        "title": "Percentage Value",
+                        "description": "Percentage Value of the Price",
+                        "type": "string",
+                        "example": "100"
+                    },
+                    "type": {
+                        "title": "Markup Type",
+                        "description": "Type of the Price",
+                        "type": "boolean",
+                        "example": "quotes"
+                    }
+                },
+                "type": "object"
+            },
+            "MarkupPricingUpdateFormRequest": {
+                "title": "Markup Pricing Update Form Request Fields",
+                "description": "Markup Pricing Update request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "min_value": {
+                        "title": "Max Value",
+                        "description": "Maximum Value of the Price",
+                        "type": "string",
+                        "example": "10000.00"
+                    },
+                    "max_value": {
+                        "title": "Min Value",
+                        "description": "Minimum Value of the Price",
+                        "type": "string",
+                        "example": "100000.00"
+                    },
+                    "percentage": {
+                        "title": "Percentage Value",
+                        "description": "Percentage Value of the Price",
+                        "type": "string",
+                        "example": "100"
+                    },
+                    "status": {
+                        "title": "Status",
+                        "description": "Status of the Price",
+                        "type": "string",
+                        "example": "inactive/active"
+                    },
+                    "type": {
+                        "title": "Markup Type",
+                        "description": "Type of the Price",
+                        "type": "boolean",
+                        "example": "quotes"
+                    }
+                },
                 "type": "object"
             },
             "PartSpecializationCreateFormRequest": {
@@ -4386,14 +5048,14 @@
                     "name": {
                         "title": "Xpart Part name",
                         "description": "Xpart Part name",
-                        "type": "integer",
+                        "type": "string",
                         "example": "seatbelt holder"
                     },
-                    "vin_id": {
+                    "vin_number": {
                         "title": "Vin Number",
                         "description": "Vin Number ID",
-                        "type": "integer",
-                        "example": "1"
+                        "type": "string",
+                        "example": "48938484803390"
                     }
                 },
                 "type": "object"
@@ -4405,9 +5067,15 @@
                     "email"
                 ],
                 "properties": {
-                    "part_id": {
-                        "title": "Part ID",
-                        "description": "Part ID",
+                    "part_specialization_id": {
+                        "title": "Part Specalization ID",
+                        "description": "Part Specalization ID",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "vehicle_specialization_id": {
+                        "title": "Vehicle Specalization ID",
+                        "description": "Vehicle Specalization ID",
                         "type": "integer",
                         "example": "1"
                     },
@@ -4432,12 +5100,6 @@
                     "bank_id": {
                         "title": "Bank ID",
                         "description": "Bank ID",
-                        "type": "integer",
-                        "example": "1"
-                    },
-                    "category_one_id": {
-                        "title": "Category One ID",
-                        "description": "Category One ID",
                         "type": "integer",
                         "example": "1"
                     },
