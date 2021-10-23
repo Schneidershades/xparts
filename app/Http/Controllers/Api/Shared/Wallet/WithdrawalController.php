@@ -79,7 +79,14 @@ class WithdrawalController extends Controller
 
         $wallet = $this->debitUserWallet($order, auth()->user()->id);
 
-        $this->walletTransaction($order, $wallet, 'debit', 'orders', 'pending approval from admin');
+        $this->walletTransaction(
+            $order, 
+            $wallet, 
+            'debit', 
+            'orders', 
+            'pending approval from admin',
+            $order->status
+        );
 
         return $this->showOne($order);
     }
@@ -102,7 +109,7 @@ class WithdrawalController extends Controller
     }
 
 
-    public function walletTransaction($order, $wallet, $transaction_type, $polymorphic_type, $remarks)
+    public function walletTransaction($order, $wallet, $transaction_type, $polymorphic_type, $remarks, $status)
     {
         $transaction = WalletTransaction::where('receipt_number', $order->receipt_number)->first();
 
@@ -117,8 +124,8 @@ class WithdrawalController extends Controller
         $transaction->amount_paid = $order->total;
         $transaction->category = $order->transaction_type;
         $transaction->transaction_type = $transaction_type;
-        $transaction->status = $order->status;
-        $transaction->remarks = $order->status;
+        $transaction->status = $status;
+        $transaction->remarks = $remarks;
         $transaction->balance = $wallet->balance;
         $transaction->walletable_id = $order->id;
         $transaction->walletable_type = $polymorphic_type;
