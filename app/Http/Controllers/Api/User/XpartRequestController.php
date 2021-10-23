@@ -97,6 +97,10 @@ class XpartRequestController extends Controller
             $part->save();
 
             $status = 'awaiting';
+        }else{
+            if($part->admin_attention == true){
+                $status = 'awaiting';
+            }
         }
 
         $vin = Vin::where('vin_number', $request->vin_number)->first();
@@ -108,11 +112,13 @@ class XpartRequestController extends Controller
             $vin->save();
 
             $status = 'awaiting';
+        }else{
+            if($vin->admin_attention == true){
+                $status = 'awaiting';
+            }
         }
 
-        if($vin->admin_attention == true){
-            $status = 'awaiting';
-        }
+        
 
         $auth = auth()->user()->id;
 
