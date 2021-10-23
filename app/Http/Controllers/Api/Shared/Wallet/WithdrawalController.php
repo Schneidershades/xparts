@@ -77,22 +77,52 @@ class WithdrawalController extends Controller
             'transaction_type' => 'debit',
         ]);
 
-        WalletTransaction::create([
-            'receipt_number' => $order->receipt_number,
-            'title' => $order->title,
-            'user_id' => $wallet->user->id,
-            'details' => $order->details,
-            'amount' => $order->subtotal,
-            'amount_paid' => $order->total,
-            'category' => $order->transaction_type,
-            'transaction_type' => 'debit',
-            'status' => 'pending',
-            'remarks' => 'pending approval from admin',
-            'balance' => $wallet->balance,
-            'walletable_id' => $order->id,
-            'walletable_type' => 'orders',
-        ]);
+        $wallet = $this->debitUserWallet($order, auth()->user()->id);
+
+        $this->walletTransaction($order, $wallet, 'debit', 'orders', 'pending approval from admin');
 
         return $this->showOne($order);
+    }
+
+
+    public function debitUserWallet($order, $userId)
+    {
+        $wallet = Wallet::where('user_id', $userId)->first();
+        $wallet->balance = $wallet->balance - $order->total;
+        $wallet->save();
+    }
+
+    public function creditUserWallet($order, $userId)
+    {
+        $wallet = Wallet::where('user_id', $userId)->first();
+        $wallet->balance = $wallet->balance + $order->total;
+        $wallet->save();
+        return $wallet;
+    }
+
+
+    public function walletTransaction($order, $wallet, $transaction_type, $polymorphic_type, $remarks)
+    {
+        $transaction = WalletTransaction::where('receipt_number', $order->receipt_number)->first();
+
+        if($transaction == null){
+            $transaction =  new WalletTransaction;
+        }
+        $transaction->receipt_number = $order->receipt_number;
+        $transaction->title = $order->title;
+        $transaction->user_id = $wallet->user->id;
+        $transaction->details = $order->details;
+        $transaction->amount = $order->subtotal;
+        $transaction->amount_paid = $order->total;
+        $transaction->category = $order->transaction_type;
+        $transaction->transaction_type = $transaction_type;
+        $transaction->status = $order->status;
+        $transaction->remarks = $order->status;
+        $transaction->balance = $wallet->balance;
+        $transaction->walletable_id = $order->id;
+        $transaction->walletable_type = $polymorphic_type;
+        $transaction->save();
+
+        return $transaction;
     }
 }

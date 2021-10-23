@@ -142,11 +142,6 @@ class WithdrawalController extends Controller
     {
         $order = Order::where('receipt_number', $id)->first();
 
-        $wallet = Wallet::where('user_id', $order->user_id)->first();
-
-        $wallet->balance = $wallet->balance - $order->total;
-        $wallet->save();
-
         $data = [
             'currency' => 'NGN',
             'payment_method' => 'wallet',
@@ -164,14 +159,17 @@ class WithdrawalController extends Controller
         ];
 
         $order->update($request->validated());
-
-        $this->debitUserWallet($order, $wallet);
         
         return $this->showOne($order);
     }
 
-    public function debitUserWallet($order, $wallet)
+    public function debitUserWallet($order, $userId)
     {
+        $wallet = Wallet::where('user_id', $userId)->first();
+
+        $wallet->balance = $wallet->balance - $order->total;
+        $wallet->save();
+
         $transaction = WalletTransaction::where('receipt_number', $order->receipt_number)->first();
 
         $transaction->update([
