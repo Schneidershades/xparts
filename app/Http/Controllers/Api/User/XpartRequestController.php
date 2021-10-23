@@ -106,6 +106,8 @@ class XpartRequestController extends Controller
             $vin->vin_number = $request->vin_number;
             $vin->admin_attention = true;
             $vin->save();
+
+            $status = 'awaiting';
         }
 
         $auth = auth()->user()->id;
@@ -114,7 +116,7 @@ class XpartRequestController extends Controller
         $xpartRequest->part_id = $part->id;
         $xpartRequest->vin_id = $vin->id;
         $xpartRequest->user_id = $auth;
-        $xpartRequest->status = $status ? 'active' : $status;
+        $xpartRequest->status = $status  == null ? 'active' : $status;
         $xpartRequest->save();
 
         if ($request->has('images')) {
