@@ -131,8 +131,6 @@ class OrderController extends Controller
             ]);
         });
 
-        auth()->user()->cart()->delete();
-
         return $this->showOne(Order::findOrfail($order->id));
     }
 
@@ -277,6 +275,8 @@ class OrderController extends Controller
 
             $receipt = true;
         }
+
+        auth()->user()->cart()->delete();
 
         if($receipt == true){
 
