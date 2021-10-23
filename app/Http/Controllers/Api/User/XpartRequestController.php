@@ -93,7 +93,7 @@ class XpartRequestController extends Controller
             $part = new Part;
             $part->name = $request->part;
             $part->slug = Str::slug($request->part, '-');
-            $part->status = 'invalid';
+            $part->admin_attention = true;
             $part->save();
 
             $status = 'awaiting';
@@ -104,9 +104,8 @@ class XpartRequestController extends Controller
         if ($vin == null) {
             $vin = new Vin;
             $vin->vin_number = $request->vin_number;
+            $vin->admin_attention = true;
             $vin->save();
-
-            $status = 'awaiting';
         }
 
         $auth = auth()->user()->id;
