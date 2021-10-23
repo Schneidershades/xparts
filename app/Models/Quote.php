@@ -27,7 +27,7 @@ class Quote extends Model
         "part_warranty",
         "price",
         "description",
-        "units",
+        "measurement",
     ];
 
     public $oneItem = QuoteResource::class;
