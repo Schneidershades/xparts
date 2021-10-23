@@ -51,6 +51,8 @@ class DetailController extends Controller
         $array = ['user_id' => auth()->user()->id];
         $user = User::find(auth()->user()->id);
 
+        $user->assignRole('Vendor');
+
         $userDetails = [
             'vehicle_specialization_id' => $request->vehicle_specialization_id,
             'part_specialization_id' => $request->part_specialization_id,

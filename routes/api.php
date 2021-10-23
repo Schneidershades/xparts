@@ -11,6 +11,7 @@ Route::prefix('v1')->group(function () {
         Route::get('profile', 'UserController@profile')->middleware('auth:api');
         Route::post('update', 'UserController@updateUser')->middleware('auth:api');
         Route::post('refresh/token', 'UserController@refresh');
+        Route::post('change/password', 'ChangePasswordController');
 
         // Route::post('update', 'ForgotPasswordController@updateUser')->middleware('auth:api');
 
