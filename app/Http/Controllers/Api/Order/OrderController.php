@@ -280,8 +280,8 @@ class OrderController extends Controller
 
         if($receipt == true){
 
-            $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
-            
+            $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();   
+                        
             foreach($findQuotes as $quote){
                 $quote->status = 'paid';
                 $quote->save();
@@ -290,6 +290,13 @@ class OrderController extends Controller
             foreach($findQuotes as $item){
                 $this->creditVendors($order, $item, 'successful', 'credit');
             }
+
+            $findNotFoundQuotes = Quote::whereNotIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
+
+            foreach($findNotFoundQuotes as $quote){
+                $quote->status = 'expired';
+                $quote->save();
+            }    
 
             $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
 
