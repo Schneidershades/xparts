@@ -126,7 +126,7 @@ class XpartRequestController extends Controller
         $xpartRequest->part_id = $part->id;
         $xpartRequest->vin_id = $vin->id;
         $xpartRequest->user_id = $auth;
-        $xpartRequest->status = $status  == 'awaiting' ? 'awaiting' : 'active';
+        $xpartRequest->status = $vin->admin_attention == true || $part->admin_attention == true ? 'awaiting' : 'active';
         $xpartRequest->save();
 
         if ($request->has('images')) {
