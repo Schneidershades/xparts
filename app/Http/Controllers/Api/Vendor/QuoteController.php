@@ -273,8 +273,9 @@ class QuoteController extends Controller
 
     public function markupService($amount)
     {
-        return MarkupPricing::where('min_value', '<=,', $amount)
+        $mark =  MarkupPricing::where('min_value', '<=,', $amount)
                 ->where('max_value', '>=', $amount)
                 ->first();
+        dd($mark);
     }
 }
