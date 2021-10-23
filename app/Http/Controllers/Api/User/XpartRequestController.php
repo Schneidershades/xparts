@@ -93,17 +93,17 @@ class XpartRequestController extends Controller
             $part = new Part;
             $part->name = $request->part;
             $part->slug = Str::slug($request->part, '-');
-            $part->admin_attention = true;
+            $part->admin_attention = 1;
             $part->save();
         }
 
-        
+
         $vin = Vin::where('vin_number', $request->vin_number)->first();
 
         if ($vin == null) {
             $vin = new Vin;
             $vin->vin_number = $request->vin_number;
-            $vin->admin_attention = true;
+            $vin->admin_attention = 1;
             $vin->save();
 
             $status = 'awaiting';
@@ -115,7 +115,7 @@ class XpartRequestController extends Controller
         $xpartRequest->part_id = $part->id;
         $xpartRequest->vin_id = $vin->id;
         $xpartRequest->user_id = $auth;
-        $xpartRequest->status = $vin->admin_attention == true || $part->admin_attention == true ? 'awaiting' : 'active';
+        $xpartRequest->status = ($vin->admin_attention == true || $part->admin_attention == true) ? 'awaiting' : 'active';
         $xpartRequest->save();
 
         if ($request->has('images')) {
