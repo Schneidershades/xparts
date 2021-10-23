@@ -20,7 +20,7 @@ class MarkupPricingResource extends JsonResource
             'max_value' => $this->max_value,
             'percentage' => $this->percentage,
             'type' => $this->type,
-            'active' => $this->active,
+            'active' => $this->active ? true : false,
         ];
     }
 }
