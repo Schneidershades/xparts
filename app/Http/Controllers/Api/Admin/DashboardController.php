@@ -93,6 +93,38 @@ class DashboardController extends Controller
                 ],
             ],
 
+            'salesTransacion' => [
+                'all' =>[
+                    'key' => 'all requests',
+                    'value' => XpartRequest::all()->count()
+                ],
+
+                'active' =>[
+                    'key' => 'active requests',
+                    'value' => XpartRequest::where('status', 'active')->get()->count()
+                ],
+
+                'paid' =>[
+                    'key' => 'paid requests',
+                    'value' => XpartRequest::where('status', 'paid')->get()->count()
+                ],
+
+                'delivered2xparts' =>[
+                    'key' => 'Vendor Delivery',
+                    'value' => XpartRequest::where('status', 'vendor2xparts')->get()->count()
+                ],
+
+                'delivered2user' =>[
+                    'key' => 'User Delivery',
+                    'value' => XpartRequest::where('status', 'xparts2user')->get()->count()
+                ],
+
+                'expired' =>[
+                    'key' => 'Expired Request',
+                    'value' => XpartRequest::where('status', 'expired')->get()->count()
+                ],
+            ],
+
             'vin' => [
                 'all' =>[
                     'key' => 'all banks',
