@@ -44,7 +44,7 @@ class AdminWithdrawalsUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'required|string|in:approve,decline',
+            'status' => 'required|string|in:approved,declined',
         ];
     }
 }
