@@ -59,7 +59,11 @@ class VinCheckerController extends Controller
             return $this->errorResponse('The VIN provider is not responding. please contact support', 409);
         }else{
             $model = new Vin;
-            $model = $this->contentAndDbIntersection($vinResponse, $model);
+            
+            $model = $this->contentAndDbIntersection($vinResponse, $model, [], [
+                'admin_attention' => 1
+            ]);
+
             $model->save();
             $vin = Vin::where('vin_number', $request->vin_number)->first();
             return $this->showOne($vin);
