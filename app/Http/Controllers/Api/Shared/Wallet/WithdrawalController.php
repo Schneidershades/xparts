@@ -85,7 +85,7 @@ class WithdrawalController extends Controller
             'debit', 
             'orders', 
             'pending approval from admin',
-            $order->status
+            'pending'
         );
 
         return $this->showOne($order);
