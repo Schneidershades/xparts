@@ -37,8 +37,8 @@ return [
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
                 'encrypted' => false,
-                'host' => env('MIX_PUSHER_HOST'),
-                'port' => '6001',
+                // 'host' => env('MIX_PUSHER_HOST'),
+                // 'port' => '6001',
                 'scheme' => 'http',
                 'cluster' => 'mt1',
                 'useTLS' => true
