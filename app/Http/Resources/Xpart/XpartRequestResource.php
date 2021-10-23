@@ -25,7 +25,7 @@ class XpartRequestResource extends JsonResource
                 'status' => 'paid',
             ]),
 
-            $this->mergeWhen($this->status == 'delivered' || $this->status == 'active' || $this->status == 'paid' && auth()->user()->role == 'user', [
+            $this->mergeWhen($this->status == 'delivered' || $this->status == 'awaiting' || $this->status == 'active' || $this->status == 'paid' && auth()->user()->role == 'user', [
                 'status' => $this->status,
             ]),
 

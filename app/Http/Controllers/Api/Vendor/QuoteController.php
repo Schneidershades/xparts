@@ -263,8 +263,7 @@ class QuoteController extends Controller
         $myLastQuote = auth()->user()->quotes()->latest()->first();
         if ($myLastQuote) {
             $quotes = Quote::with('vendor:name')
-                ->where('xpart_request_id', $myLastQuote->xpart_request_id)
-                ->where('id', '!=', $myLastQuote->id)->get();
+                ->where('xpart_request_id', $myLastQuote->xpart_request_id)->get();
 
             return $this->showAll($quotes);
         }

@@ -85,13 +85,18 @@ class XpartRequestController extends Controller
      */
     public function store(XpartCreateFormRequest $request)
     {
+        $status = null;
+
         $part = Part::where('name', $request->part)->first();
 
         if ($part == null) {
             $part = new Part;
             $part->name = $request->part;
             $part->slug = Str::slug($request->part, '-');
+            $part->status = 'invalid';
             $part->save();
+
+            $status = 'awaiting';
         }
 
         $vin = Vin::where('vin_number', $request->vin_number)->first();
@@ -100,6 +105,8 @@ class XpartRequestController extends Controller
             $vin = new Vin;
             $vin->vin_number = $request->vin_number;
             $vin->save();
+
+            $status = 'awaiting';
         }
 
         $auth = auth()->user()->id;
@@ -108,6 +115,7 @@ class XpartRequestController extends Controller
         $xpartRequest->part_id = $part->id;
         $xpartRequest->vin_id = $vin->id;
         $xpartRequest->user_id = $auth;
+        $xpartRequest->status = $status==null ? 'active' : $status;
         $xpartRequest->save();
 
         if ($request->has('images')) {
@@ -127,16 +135,19 @@ class XpartRequestController extends Controller
             }
         }
 
-        $users = User::select('email', 'name', 'id')->where('role', 'vendor')->get();
+        $users = User::select('email', 'name', 'id')->where('role', 'vendor')->where('id', '!=', auth()->user()->id)->get();
 
         collect($users)->each(function ($user) use ($xpartRequest) {
-            XpartRequestVendorWatch::insert([
-                'xpart_request_id' => $xpartRequest->id,
-                'vendor_id' => $user['id'],
-                'status' => 'active'
-            ]);
+            if($xpartRequest->status == 'active'){
+                
+                XpartRequestVendorWatch::insert([
+                    'xpart_request_id' => $xpartRequest->id,
+                    'vendor_id' => $user['id'],
+                    'status' => 'active'
+                ]);
 
-            SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails');
+                SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails');
+            } 
         });
 
         return $this->showOne($xpartRequest);
