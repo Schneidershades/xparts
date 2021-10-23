@@ -38,6 +38,7 @@ class VinResource extends JsonResource
             'doors' => $this->doors,
             'driver_type' => $this->driver_type,
             'search_count' => $this->search_count,
+            'admin_attention' => $this->admin_attention,
         ];
     }
 }
