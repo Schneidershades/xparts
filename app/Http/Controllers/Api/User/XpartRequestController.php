@@ -97,10 +97,7 @@ class XpartRequestController extends Controller
             $part->save();
         }
 
-
         $vin = Vin::where('vin_number', $request['vin_number'])->first();
-
-        return $vin;
 
         if ($vin == null) {
             $vin = new Vin;
