@@ -108,7 +108,7 @@ class XpartRequestController extends Controller
             $vin->save();
         }
 
-        if($vin->$vin->admin_attention == true){
+        if($vin->admin_attention == true){
             $status = 'awaiting';
         }
 
