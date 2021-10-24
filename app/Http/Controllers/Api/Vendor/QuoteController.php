@@ -109,7 +109,7 @@ class QuoteController extends Controller
             'vendor_id' => auth()->user()->id,
             'status' => 'active', 
             'markup_pricing_id' => $markupDetails ? $markupDetails->id : null,
-            'markup_price' => $markupPrice,
+            'markup_price' => $markupPrice > 0 ? $markupPrice : $request['price'],
         ]);
 
         $model->save();
