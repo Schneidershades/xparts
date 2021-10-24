@@ -95,7 +95,7 @@ class OrderController extends Controller
         $cartList = CartResource::collection(auth()->user()->cart);
 
         $total = $cartList->sum(function ($cart) {
-            return $cart->cartable->price * $cart->quantity;
+            return ($cart->cartable->markup_price ?  $cart->cartable->markup_price : $cart->cartable->price)* $cart->quantity;
         });
 
         $paymentCharge = PaymentCharge::where('payment_method_id', $request->payment_method_id)
