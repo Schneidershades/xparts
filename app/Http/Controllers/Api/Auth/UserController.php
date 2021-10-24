@@ -47,6 +47,8 @@ class UserController extends Controller
     {
         $user = User::create($request->validated());
 
+        $user->assignRole($request->role);
+
         $user->sendEmailVerificationNotification();
 
         if(!$token = auth()->attempt($request->only(['email', 'password']))){
