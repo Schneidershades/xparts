@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Rules\CurrentPassword;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ChangePasswordFormRequest;
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Rules\CurrentPassword;
 
 class ChangePasswordController extends Controller
 {
@@ -40,41 +40,13 @@ class ChangePasswordController extends Controller
      *          response=403,
      *          description="Forbidden"
      *      ),
+    *      security={ {"bearerAuth": {}} },
      * )
      */
 
     public function __invoke(ChangePasswordFormRequest $request)
     {
-        $user = User::find(auth()->user()->id);
-        $user->password = bcrypt($request['password']);
-        $user->save();
-
+        User::find(auth()->user()->id)->update(['password'=> bcrypt($request->password)]);
         return $this->showMessage('your password has been changed');
-
-        // if(auth()->user()){
-        //     $this->validate($request, [
-        //         'password_current' => ['required', new CurrentPassword() ],
-        //         'password' => 'required|string|min:6|confirmed',
-        //     ]);
-        //     $phoneUser = auth()->user()->id;
-
-        // }else{
-        //     $this->validate($request, [
-        //         'password' => 'required|string|min:6|confirmed',
-        //     ]);
-
-        //     $phone = $request->phone;
-        //     $phoneUser = User::where('phone', $phone)->first();
-        // }
-
-    
-
-        // return $this->errorResponse($phoneUser->phone .' '. $request->password , 400);
-
-        // $user = $phoneUser;
-        // $user->password = bcrypt($request->password);
-        // $user->save();
-
-        // return $this->showMessage('your password has been changed');
     }
 }
