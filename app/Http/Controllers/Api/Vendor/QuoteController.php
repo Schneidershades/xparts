@@ -99,7 +99,7 @@ class QuoteController extends Controller
             (float) $markupPrice = $request['price'] * $calculatedPercentage;
         }
 
-        if($xpartRequest->status ==  'expired'){
+        if($xpartRequest->status != 'active'){
             return $this->errorResponse('Sorry this quote is expired', 409);
         }
 
