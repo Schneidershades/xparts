@@ -340,7 +340,7 @@ class OrderController extends Controller
     {
         $vendor = Wallet::where('user_id', $item->vendor_id)->first();
         $item_total = ($item->price) * $item->quantity;
-        $vendor->balance = $vendor->balance  + $item_total;
+        $vendor->balance = $vendor->balance + $item_total;
         $vendor->save();
 
         WalletTransaction::create([
