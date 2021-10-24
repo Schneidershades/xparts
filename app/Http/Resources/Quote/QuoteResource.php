@@ -26,6 +26,7 @@ class QuoteResource extends JsonResource
             'quantity' => $this->quantity,
             'part_number' => $this->part_number,
             'part_warranty' => $this->part_warranty,
+            'actual_price' => $this->price,
             'price' => $this->markup_price ? $this->markup_price :  $this->price,
             'description' => $this->description,
             'status' => $this->status,
@@ -33,6 +34,7 @@ class QuoteResource extends JsonResource
             'city' => $this->city ? $this->city->name : 'N/A',
             'country' => $this->country ? $this->country->name : 'N/A',
             'images' => $this->images != null ? $this->images->pluck('file_url') : null,
+            'markup_price' => $this->markup_price,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
