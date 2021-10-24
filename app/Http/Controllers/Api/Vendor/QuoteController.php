@@ -91,12 +91,12 @@ class QuoteController extends Controller
 
         $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
 
-        return $markupDetails = $this->markupService($request['price']);        
+        $markupDetails = $this->markupService($request['price']);        
 
         if($markupDetails != null)
         {
             (float) $calculatedPercentage = (100 + $markupDetails->percentage) / 100;            
-            (float) $markupPrice = $request['price'] * $calculatedPercentage;
+            return (float) $markupPrice = $request['price'] * $calculatedPercentage;
         }
 
         if($xpartRequest->status ==  'expired'){
