@@ -13,7 +13,7 @@ class XpartRequestVendorWatch extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $guarded = [];
     
     public $oneItem = XpartRequestVendorWatchResource::class;
     public $allItems = XpartRequestVendorWatchCollection::class;

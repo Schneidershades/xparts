@@ -28,6 +28,8 @@ class Quote extends Model
         "price",
         "description",
         "measurement",
+        "status",
+        "markup_pricing_id",
     ];
 
     public $oneItem = QuoteResource::class;
