@@ -22,6 +22,11 @@ class OrderItemResource extends JsonResource
                 'brand' => $this->itemable ? $this->itemable->brand : 'N/A',
                 'part_number' => $this->itemable ? $this->itemable->part_number : 'N/A',
                 'vendor_id' => $this->itemable ? $this->itemable->vendor_id : 'N/A',
+                'measurement' => $this->cartable->measurement,
+                'available_stock' => $this->cartable->quantity,
+                'make' => $this->cartable->xpartRequest ? $this->cartable->xpartRequest->vin->make : null,
+                'model' => $this->cartable->xpartRequest ?  $this->cartable->xpartRequest->vin->model : null,
+                'year' => $this->cartable->xpartRequest ?  $this->cartable->xpartRequest->vin->model_year : null,
             ]),
             
             'cartable_type' => $this->cartable_type,
