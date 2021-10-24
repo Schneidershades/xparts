@@ -22,7 +22,7 @@ class CartResource extends JsonResource
                 'grade' => $this->cartable->partGrade->name,
                 'brand' => $this->cartable->brand,
                 'part_number' => $this->cartable->part_number,
-                'mesaurement' => $this->cartable->mesaurement,
+                'measurement' => $this->cartable->measurement,
                 'available_stock' => $this->cartable->quantity,
                 'vendor_id' => $this->cartable->vendor_id,
                 'make' => $this->cartable->xpartRequest ? $this->cartable->xpartRequest->vin->make : null,
