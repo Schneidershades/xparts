@@ -33,9 +33,9 @@ class CartResource extends JsonResource
             'cartable_id' => $this->cartable_id,
 
             'category' => $this->cartable_type,
-            'price' => $this->cartable->price,
+            'price' => $this->cartable->markup_price > 0 ? $this->cartable->markup_price  : $this->cartable->price,
             'quantity' => $this->quantity,
-            'total' => $this->cartable->price * $this->quantity,
+            'total' => ($this->cartable->markup_price > 0 ? $this->cartable->markup_price  : $this->cartable->price) * $this->quantity,
         ];
     }
 }
