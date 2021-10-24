@@ -143,7 +143,9 @@ class XpartRequestController extends Controller
                     'status' => 'active'
                 ]);
 
-                SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails');
+                new XpartRequestMail($xpartRequest, $user);
+
+                // SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails');
             } 
         });
 
