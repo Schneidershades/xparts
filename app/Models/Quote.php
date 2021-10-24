@@ -15,7 +15,20 @@ class Quote extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        "xpart_request_id",
+        "part_grade_id",
+        "part_category_id",
+        "part_subcategory_id",
+        "part_condition_id",
+        "brand",
+        "quantity",
+        "part_number",
+        "part_warranty",
+        "price",
+        "description",
+        "measurement",
+    ];
 
     public $oneItem = QuoteResource::class;
     public $allItems = QuoteCollection::class;
