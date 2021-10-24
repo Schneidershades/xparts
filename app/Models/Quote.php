@@ -74,4 +74,9 @@ class Quote extends Model
     {
         return $this->morphMany(Media::class, 'fileable');
     }
+
+    public function getPriceAttribute()
+    {
+        return $this->markup_price ? $this->markup_price : $this->price;
+    }
 }
