@@ -148,7 +148,7 @@ class WithdrawalController extends Controller
             $this->walletTransaction(
                 $order, 
                 $wallet, 
-                'debit', 
+                'credit', 
                 'orders', 
                 'transaction reversal from withdrawal action',
                 'pending'

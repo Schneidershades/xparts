@@ -17,6 +17,7 @@ class CreatePartsTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->text('slug')->nullable();
+            $table->boolean('admin_attention')->default(false);
             $table->timestamps();
         });
     }

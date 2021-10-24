@@ -91,13 +91,12 @@ class QuoteController extends Controller
 
         $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
 
-        $markupDetails = $this->markupService($request['price']);
+        $markupDetails = $this->markupService($request['price']);        
 
         if($markupDetails != null)
         {
-            $calculatedPercentage = (100 + $markupDetails->percentage) / 100;
-            $calculatedPrice = $request['price'] * $calculatedPercentage;
-            $markupPrice = $request['price'] * $calculatedPrice;
+            (float) $calculatedPercentage = (100 + $markupDetails->percentage) / 100;            
+            (float) $markupPrice = $request['price'] * $calculatedPercentage;
         }
 
         if($xpartRequest->status ==  'expired'){
@@ -270,9 +269,21 @@ class QuoteController extends Controller
         return $this->errorResponse("No recent quote", 400);
     }
 
+    public function othersRecentQuoteFromQuoteId($id)
+    {
+        $myLastQuote = auth()->user()->quotes->where('id', $id)->first();
+        if ($myLastQuote) {
+            $quotes = Quote::with('vendor:name')
+                ->where('xpart_request_id', $myLastQuote->xpart_request_id)->get();
+
+            return $this->showAll($quotes);
+        }
+        return $this->errorResponse("No recent quote", 400);
+    }
+
     public function markupService($amount)
     {
-        $mark =  MarkupPricing::where('min_value', '<=,', $amount)
+        $mark =  MarkupPricing::where('min_value', '<=', $amount)
                 ->where('max_value', '>=', $amount)
                 ->first();
         return($mark);

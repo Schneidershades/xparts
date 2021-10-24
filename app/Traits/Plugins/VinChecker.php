@@ -25,30 +25,34 @@ class VinChecker
 			return [];
 		}
 
-		$vinResponse = $res['Results'][0];
+		$vinResponse = $res['Results'] ? $res['Results'][0] : null;
 
-        return [
-            'vin_number' => $vin,
-            'make' => $vinResponse['Make'],
-            'manufacturer' => $vinResponse['Manufacturer'],
-            'model' => $vinResponse['Model'],
-            'model_year' => $vinResponse['ModelYear'],
-            'plant_company_name' => $vinResponse['PlantCompanyName'],
-            'plant_country' => $vinResponse['PlantCountry'],
-            'plant_state' => $vinResponse['PlantState'],
-            'series' => $vinResponse['Series'],
-            'series_description' => $vinResponse['Series2'],
-            'vehicle_type' => $vinResponse['VehicleType'],
-            'trim' => $vinResponse['Trim'],
-            'body_class' => $vinResponse['BodyClass'],
-            'engine_configuration' => $vinResponse['EngineConfiguration'],
-            'engine_cylinders' => $vinResponse['EngineCylinders'],
-            'engine_hp' => $vinResponse['EngineHP'],
-            'engine_kw' => $vinResponse['EngineKW'],
-            'engine_model' => $vinResponse['EngineModel'],
-            'fuel_type' => $vinResponse['FuelTypePrimary'],
-            'doors' => $vinResponse['Doors'],
-            'driver_type' => $vinResponse['DriveType'],
-        ];
+        if($vinResponse != null){
+            return [
+                'vin_number' => $vin,
+                'make' => $vinResponse['Make'] != "" ? $vinResponse['Make'] : null  ,
+                'manufacturer' => $vinResponse['Manufacturer'] ? $vinResponse['Manufacturer'] : null,
+                'model' => $vinResponse['Model'] ? $vinResponse['Model'] : null,
+                'model_year' => $vinResponse['ModelYear'] ? $vinResponse['ModelYear'] : null,
+                'plant_company_name' => $vinResponse['PlantCompanyName'] ? $vinResponse['PlantCompanyName'] : null,
+                'plant_country' => $vinResponse['PlantCountry'] ? $vinResponse['PlantCountry'] : null,
+                'plant_state' => $vinResponse['PlantState'] ? $vinResponse['PlantState'] : null,
+                'series' => $vinResponse['Series'] ? $vinResponse['Series'] : null,
+                'series_description' => $vinResponse['Series2'] ? $vinResponse['Series2'] : null,
+                'vehicle_type' => $vinResponse['VehicleType'] ? $vinResponse['VehicleType'] : null,
+                'trim' => $vinResponse['Trim'] ? $vinResponse['Trim'] : null,
+                'body_class' => $vinResponse['BodyClass'] ? $vinResponse['BodyClass'] : null,
+                'engine_configuration' => $vinResponse['EngineConfiguration'] ? $vinResponse['EngineConfiguration'] : null,
+                'engine_cylinders' => $vinResponse['EngineCylinders'] ? $vinResponse['EngineCylinders'] : null,
+                'engine_hp' => $vinResponse['EngineHP'] ? $vinResponse['EngineHP'] : null,
+                'engine_kw' => $vinResponse['EngineKW'] ? $vinResponse['EngineKW'] : null,
+                'engine_model' => $vinResponse['EngineModel'] ? $vinResponse['EngineModel'] : null,
+                'fuel_type' => $vinResponse['FuelTypePrimary'] ? $vinResponse['FuelTypePrimary'] : null,
+                'doors' => $vinResponse['Doors'] ? $vinResponse['Doors'] : null,
+                'driver_type' => $vinResponse['DriveType'] ? $vinResponse['DriveType'] : null,
+            ];
+        }else{
+            return $vinResponse;
+        }
 	}
 }

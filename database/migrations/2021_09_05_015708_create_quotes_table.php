@@ -29,7 +29,7 @@ class CreateQuotesTable extends Migration
             $table->string('measurement')->nullable();
             $table->text('description')->nullable();
             $table->string('status')->default('active');
-            $table->foreignId('markup_pricing_id')->nullable()->constrained();
+            $table->foreignId('markup_pricing_id')->nullable()->constrained('markup_pricings');
             $table->float('markup_price')->nullable();
             $table->integer('city_id')->index()->unsigned()->nullable();
             $table->integer('state_id')->index()->unsigned()->nullable();
