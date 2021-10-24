@@ -50,6 +50,11 @@ class Quote extends Model
         return $this->belongsTo(User::class, 'vendor_id', 'id');
     }
 
+    public function markupPricing()
+    {
+        return $this->belongsTo(MarkupPricing::class);
+    }
+
     public function images()
     {
         return $this->morphMany(Media::class, 'fileable');

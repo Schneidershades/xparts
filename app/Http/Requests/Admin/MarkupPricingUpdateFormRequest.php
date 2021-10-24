@@ -89,7 +89,7 @@ class MarkupPricingUpdateFormRequest extends FormRequest
             'min_value' => 'required|numeric|min:1',
             'max_value' => 'required|numeric|min:1',
             'type' => 'required|string',
-            'percentage' => 'required|numeric|min:1|max:100',
+            'percentage' => 'required|numeric|min:-100|max:100',
             'status' => 'required|string|max:255|in:active,inactive',
         ];
     }
