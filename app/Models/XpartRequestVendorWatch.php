@@ -13,10 +13,7 @@ class XpartRequestVendorWatch extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'xpart_request_id',
-        'status'
-    ];
+    protected $fillable = [];
     
     public $oneItem = XpartRequestVendorWatchResource::class;
     public $allItems = XpartRequestVendorWatchCollection::class;

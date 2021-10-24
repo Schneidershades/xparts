@@ -137,7 +137,7 @@ class XpartRequestController extends Controller
         collect($users)->each(function ($user) use ($xpartRequest) {
             if($xpartRequest->status == 'active'){
                 
-                XpartRequestVendorWatch::insert([
+                XpartRequestVendorWatch::create([
                     'xpart_request_id' => $xpartRequest->id,
                     'vendor_id' => $user['id'],
                     'status' => 'active'
