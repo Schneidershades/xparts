@@ -91,7 +91,7 @@ class QuoteController extends Controller
 
         $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
 
-        $markupDetails = $this->markupService($request['price']);        
+        return $markupDetails = $this->markupService($request['price']);        
 
         if($markupDetails != null)
         {
