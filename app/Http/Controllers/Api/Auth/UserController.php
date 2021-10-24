@@ -47,7 +47,7 @@ class UserController extends Controller
     {
         $user = User::create($request->validated());
 
-        $user->assignRole($request->role);
+        $user->assignRole($request['role']);
 
         $user->sendEmailVerificationNotification();
 
