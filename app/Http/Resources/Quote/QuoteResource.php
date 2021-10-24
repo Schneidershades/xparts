@@ -26,7 +26,7 @@ class QuoteResource extends JsonResource
             'quantity' => $this->quantity,
             'part_number' => $this->part_number,
             'part_warranty' => $this->part_warranty,
-            'actual_price' => $this->markup_price,
+            'actual_price' => $this->getOriginal('price'),
             'price' => $this->price,
             'description' => $this->description,
             'status' => $this->status,
