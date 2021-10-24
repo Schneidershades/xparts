@@ -24,6 +24,9 @@ class CartResource extends JsonResource
                 'part_number' => $this->cartable->part_number,
                 'mesaurement' => $this->cartable->mesaurement,
                 'vendor_id' => $this->cartable->vendor_id,
+                'make' => $this->cartable->xpartRequest ? $this->cartable->xpartRequest->vin->make : null,
+                'model' => $this->cartable->xpartRequest ?  $this->cartable->xpartRequest->vin->model : null,
+                'year' => $this->cartable->xpartRequest ?  $this->cartable->xpartRequest->vin->model_year : null,
             ]),
             
             'cartable_type' => $this->cartable_type,
