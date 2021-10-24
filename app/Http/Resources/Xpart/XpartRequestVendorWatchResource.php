@@ -19,6 +19,8 @@ class XpartRequestVendorWatchResource extends JsonResource
             'id' => $this->id,
             'xpartRequest' => new XpartRequestResource($this->xpartRequest),
             'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

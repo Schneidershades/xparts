@@ -39,6 +39,8 @@ class VinResource extends JsonResource
             'driver_type' => $this->driver_type,
             'search_count' => $this->search_count,
             'admin_attention' => $this->admin_attention,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

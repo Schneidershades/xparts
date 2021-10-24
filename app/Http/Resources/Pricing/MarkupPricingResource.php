@@ -21,6 +21,8 @@ class MarkupPricingResource extends JsonResource
             'percentage' => $this->percentage,
             'type' => $this->type,
             'active' => $this->active ? true : false,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

@@ -20,19 +20,19 @@ class XpartRequestResource extends JsonResource
             'images' => $this->images != null ? $this->images->pluck('file_url') : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'status' => $this->status,
+            // 'status' => $this->status,
 
-            // $this->mergeWhen($this->status =='xparts2user' || $this->status =='vendor2xparts' && auth()->user()->role == 'user', [
-            //     'status' => 'paid',
-            // ]),
+            $this->mergeWhen($this->status =='xparts2user' || $this->status =='vendor2xparts' && auth()->user()->role == 'user', [
+                'status' => 'paid',
+            ]),
 
-            // $this->mergeWhen($this->status == 'delivered' || $this->status == 'awaiting' || $this->status == 'active' || $this->status == 'paid' && auth()->user()->role == 'user', [
-            //     'status' => $this->status,
-            // ]),
+            $this->mergeWhen($this->status == 'delivered' || $this->status == 'awaiting' || $this->status == 'active' || $this->status == 'paid' && auth()->user()->role == 'user', [
+                'status' => $this->status,
+            ]),
 
-            // $this->mergeWhen(auth()->user()->role == 'admin', [
-            //     'status' => $this->status,
-            // ]),
+            $this->mergeWhen(auth()->user()->role == 'admin', [
+                'status' => $this->status,
+            ]),
         ];
     }
 }
