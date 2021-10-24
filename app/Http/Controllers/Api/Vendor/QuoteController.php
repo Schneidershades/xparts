@@ -96,7 +96,7 @@ class QuoteController extends Controller
         if($markupDetails != null)
         {
             (float) $calculatedPercentage = (100 + $markupDetails->percentage) / 100;            
-            return (float) $markupPrice = $request['price'] * $calculatedPercentage;
+            (float) $markupPrice = $request['price'] * $calculatedPercentage;
         }
 
         if($xpartRequest->status ==  'expired'){
