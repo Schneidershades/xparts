@@ -5,15 +5,16 @@ namespace App\Http\Controllers\Api\User;
 use App\Models\Vin;
 use App\Models\Part;
 use App\Models\User;
+use App\Models\Media;
+use App\Jobs\SendEmail;
 use Illuminate\Support\Str;
 use App\Models\XpartRequest;
+use App\Mail\User\XpartRequestMail;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use App\Models\XpartRequestVendorWatch;
 use App\Http\Requests\User\XpartCreateFormRequest;
-use App\Jobs\SendEmail;
-use App\Mail\User\XpartRequestMail;
-use App\Models\Media;
-use Illuminate\Support\Facades\Log;
 
 class XpartRequestController extends Controller
 {
@@ -144,7 +145,9 @@ class XpartRequestController extends Controller
                     'status' => 'active'
                 ]);
 
-                new XpartRequestMail($xpartRequest, $user);
+                
+                Mail::to($user)->send(new XpartRequestMail($xpartRequest, $user));
+                
                 Log::debug('sent mails');
                 // SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails');
             } 
