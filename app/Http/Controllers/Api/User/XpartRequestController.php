@@ -146,8 +146,8 @@ class XpartRequestController extends Controller
                 ]);
 
                 
-                Mail::to($user)->send(new XpartRequestMail($xpartRequest, $user));
-                
+                Mail::to($user->email)->send(new XpartRequestMail($xpartRequest, $user));
+
                 Log::debug('sent mails');
                 // SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails');
             } 
