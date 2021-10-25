@@ -285,7 +285,7 @@ class OrderController extends Controller
             foreach($findQuotes as $quote){
                 $quote->status = 'paid';
                 $quote->save();
-            }       
+            }  
             
             foreach($findQuotes as $item){
                 $this->creditVendors($order, $item, 'successful', 'credit');
@@ -298,14 +298,14 @@ class OrderController extends Controller
                 $quote->save();
             }    
 
-            $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
+            $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray()->get();
 
-            // $sentRequest = XpartRequestVendorWatch::whereIn('xpart_request_id', $allRequestsSent)->get();
+            $sentRequest = XpartRequestVendorWatch::whereIn('xpart_request_id', $allRequestsSent)->get();
 
-            // foreach($sentRequest as $sent){
-            //     $sent->status =  'expired';
-            //     $sent->save();
-            // }
+            foreach($sentRequest as $sent){
+                $sent->status = 'expired';
+                $sent->save();
+            }
 
             $userRequest = XpartRequest::whereIn('id', $allRequestsSent)->first();
             $userRequest->status =  'paid';
@@ -377,7 +377,6 @@ class OrderController extends Controller
             'walletable_id' => $order->id,
             'walletable_type' => 'orders',
         ]);
-
     }
 
     public function vendorsUnderABid($order)
