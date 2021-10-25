@@ -13,6 +13,7 @@ use App\Http\Requests\User\XpartCreateFormRequest;
 use App\Jobs\SendEmail;
 use App\Mail\User\XpartRequestMail;
 use App\Models\Media;
+use Illuminate\Support\Facades\Log;
 
 class XpartRequestController extends Controller
 {
@@ -143,9 +144,9 @@ class XpartRequestController extends Controller
                     'status' => 'active'
                 ]);
 
-                // new XpartRequestMail($xpartRequest, $user);
-
-                SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails');
+                new XpartRequestMail($xpartRequest, $user);
+                Log::debug('sent mails');
+                // SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails');
             } 
         });
 
