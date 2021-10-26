@@ -21,7 +21,7 @@ class CartCollection extends ResourceCollection
             'cart' => [
 
                 'total' => $this->collection->sum(function ($cart) {
-                    return $cart->total;
+                    return $cart;
                 }),
 
                 'subtotal' => $this->collection->sum(function ($cart) {
