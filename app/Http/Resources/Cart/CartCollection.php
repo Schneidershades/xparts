@@ -21,11 +21,11 @@ class CartCollection extends ResourceCollection
             'cart' => [
 
                 'total' => $this->collection->sum(function ($cart) {
-                    return $cart->price * $cart->quantity;
+                    return $cart->cartable->price * $cart->quantity;
                 }),
 
                 'subtotal' => $this->collection->sum(function ($cart) {
-                    return $cart->price * $cart->quantity;
+                    return $$cart->cartable->price * $cart->quantity;
                 }),
 
                 'discount' => 0,
