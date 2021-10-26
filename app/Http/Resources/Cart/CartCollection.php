@@ -25,7 +25,7 @@ class CartCollection extends ResourceCollection
                 }),
 
                 'subtotal' => $this->collection->sum(function ($cart) {
-                    return $cart->cartable->markup_price ? $cart->cartable->markup_price : $cart->cartable->price * $cart->quantity;
+                    return $cart->cartable->markup_price * $cart->quantity;
                 }),
 
                 'discount' => 0,
