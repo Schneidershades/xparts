@@ -327,6 +327,215 @@
                 ]
             }
         },
+        "/api/v1/admin/parts": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "getParts",
+                "description": "getParts",
+                "operationId": "allParts",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/part": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "postPart",
+                "description": "postPart",
+                "operationId": "postPart",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PartCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/part/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "showPart",
+                "description": "showPart",
+                "operationId": "showPart",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "showPart ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "updatePart",
+                "description": "updatePart",
+                "operationId": "updatePart",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "updatePart ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PartUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "deletePart",
+                "description": "deletePart",
+                "operationId": "deletePart",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "deletePart ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/admin/part-grades": {
             "get": {
                 "tags": [
@@ -4613,6 +4822,14 @@
                 },
                 "type": "object"
             },
+            "PartCreateFormRequest": {
+                "title": "Part Create Form Request Fields",
+                "description": "Part Create request body data",
+                "required": [
+                    "name"
+                ],
+                "type": "object"
+            },
             "PartSpecializationCreateFormRequest": {
                 "title": "Part Specialization Create Form Request Fields",
                 "description": "Part Specialization Create request body data",
@@ -4624,6 +4841,14 @@
             "PartSpecializationUpdateFormRequest": {
                 "title": "Part Specialization Update Form Request Fields",
                 "description": "Part Specialization Update request body data",
+                "required": [
+                    "name"
+                ],
+                "type": "object"
+            },
+            "PartUpdateFormRequest": {
+                "title": "Part Update Form Request Fields",
+                "description": "Part Update request body data",
                 "required": [
                     "name"
                 ],

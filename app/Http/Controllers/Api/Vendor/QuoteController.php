@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Api\Vendor;
 
-use App\Events\VendorQuoteSent;
-use App\Models\Quote;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Vendor\QuoteCreateFormRequest;
-use App\Models\MarkupPricing;
-use App\Models\Media;
 use App\Models\User;
+use App\Models\Media;
+use App\Models\Quote;
 use App\Models\XpartRequest;
+use Illuminate\Http\Request;
+use App\Models\MarkupPricing;
+use App\Events\VendorQuoteSent;
+use App\Mail\User\XpartRequestMail;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\User\VendorQuoteSentMail;
+use App\Http\Requests\Vendor\QuoteCreateFormRequest;
 
 class QuoteController extends Controller
 {
@@ -91,6 +95,8 @@ class QuoteController extends Controller
 
         $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
 
+        $requestingUser = User::where('id', $xpartRequest->user_id)->first();
+
         $markupDetails = $this->markupService($request['price']);        
 
         if($markupDetails != null)
@@ -132,6 +138,11 @@ class QuoteController extends Controller
                 }
             }
         }
+
+
+        Mail::to($requestingUser->email)->send(new VendorQuoteSentMail($xpartRequest, $requestingUser, $model));
+
+        Log::debug('sent mails');
 
         return $this->showAll(auth()->user()->quotes);
     }
