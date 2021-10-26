@@ -20,9 +20,7 @@ class CartCollection extends ResourceCollection
             
             'cart' => [
 
-                'total' => $this->collection->sum(function ($cart) {
-                    return $cart->total;
-                }),
+                'total' => $this->collection->sum('total'),
 
                 'subtotal' => $this->collection->sum(function ($cart) {
                     return $cart->cartable->markup_price ? $cart->cartable->markup_price : $cart->cartable->price * $cart->quantity;
