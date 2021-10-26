@@ -342,7 +342,7 @@ class OrderController extends Controller
     {
         foreach($order->items as $cart){
 
-            $quantityPurchased = $cart['quantity'];
+            $quantityPurchased = $cart->quantity;
             $vendor = Wallet::where('user_id', $item->vendor_id)->first();
             $item_total = $item->markup_price * $quantityPurchased;
             $vendor->balance = $vendor->balance + $item_total;
