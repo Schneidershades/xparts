@@ -300,7 +300,7 @@ class OrderController extends Controller
                 $quote->save();
             }    
 
-            $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray()->get();
+            $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
 
             $sentRequest = XpartRequestVendorWatch::whereIn('xpart_request_id', $allRequestsSent)->get();
 
