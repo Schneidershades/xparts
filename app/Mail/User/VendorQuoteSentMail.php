@@ -45,6 +45,7 @@ class VendorQuoteSentMail extends Mailable
             ->with('xp', $this->xpartRequest)
             ->with('user', $this->user)
             ->with('quote', $this->quote)
+            ->with('link', $link)
             ->subject("A new quote has been sent");
     }
 }
