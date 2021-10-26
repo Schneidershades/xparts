@@ -289,7 +289,7 @@ class OrderController extends Controller
             }  
             
             foreach($findQuotes as $item){
-                $this->creditVendors($order, $item, 'successful', 'credit');
+                $this->creditVendors($order, $order->orderItems, $item, 'successful', 'credit');
             }
 
             $notPaidQuotesButStillActive = Quote::whereIn('id', $order->orderItems->pluck('itemable_id'))
@@ -338,9 +338,9 @@ class OrderController extends Controller
         ]);
     }
 
-    public function creditVendors($order, $item, $status, $transaction_type)
+    public function creditVendors($order, $cartItems, $item, $status, $transaction_type)
     {
-        foreach($order->items as $cart){
+        foreach($cartItems as $cart){
 
             $quantityPurchased = $cart->quantity;
             $vendor = Wallet::where('user_id', $item->vendor_id)->first();
