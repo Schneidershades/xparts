@@ -28,19 +28,7 @@ class QuoteResource extends JsonResource
             'part_warranty' => $this->part_warranty,
             'measurement' => $this->measurement,
             'actual_price' => $this->price,
-            
-            $this->mergeWhen(auth()->user()->hasRole('VEndor'), [
-                'price' => $this->price,
-            ]),
-
-            $this->mergeWhen(auth()->user()->hasRole('User'), [
-                'price' => $this->price,
-            ]),
-
-            $this->mergeWhen(auth()->user()->hasRole('Admin'), [
-                'price' => $this->markup_price ? $this->markup_price :  $this->price,
-            ]),
-            
+            'price' => $this->markup_price ? $this->markup_price :  $this->price,
             'description' => $this->description,
             'status' => $this->status,
             'state' => $this->state ? $this->state->name : 'N/A',
