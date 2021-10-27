@@ -80,7 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 
     public function sendPasswordResetNotification($token)
     {
-        $baseUrl = env("VENDOR_APP_URL");
+        $baseUrl = env("WEB_APP_URL");
         
         $url = "{$baseUrl}/reset-password?token=" . $token;
 
