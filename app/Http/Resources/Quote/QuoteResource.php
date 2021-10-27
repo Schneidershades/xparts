@@ -29,15 +29,15 @@ class QuoteResource extends JsonResource
             'measurement' => $this->measurement,
             'actual_price' => $this->price,
             
-            $this->mergeWhen(auth()->user()->role != 'admin' && auth()->user()->role != 'user', [
+            $this->mergeWhen($this->hasRole('Vendor'), [
                 'price' => $this->price,
             ]),
 
-            $this->mergeWhen(auth()->user()->role == 'vendor', [
+            $this->mergeWhen(auth()->user()->role == 'Vendor', [
                 'price' => $this->price,
             ]),
 
-            $this->mergeWhen(auth()->user()->role == 'user', [
+            $this->mergeWhen($this->hasRole('User'), [
                 'price' => $this->markup_price ? $this->markup_price :  $this->price,
             ]),
             
