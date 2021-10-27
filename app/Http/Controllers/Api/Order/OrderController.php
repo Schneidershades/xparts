@@ -292,7 +292,10 @@ class OrderController extends Controller
                 $this->creditVendors($order, $order->orderItems, $item, 'successful', 'credit');
             }
 
-            $notPaidQuotesButStillActive = Quote::whereIn('id', $order->orderItems->pluck('itemable_id'))
+
+            $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
+
+            $notPaidQuotesButStillActive = Quote::whereIn('xpart_request_id', $allRequestsSent)
                             ->where('status', 'active')->get();
 
             foreach($notPaidQuotesButStillActive as $quote){
@@ -300,7 +303,6 @@ class OrderController extends Controller
                 $quote->save();
             }    
 
-            $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
 
             $sentRequest = XpartRequestVendorWatch::whereIn('xpart_request_id', $allRequestsSent)->get();
 
