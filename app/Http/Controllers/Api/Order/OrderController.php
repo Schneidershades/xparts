@@ -18,6 +18,7 @@ use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
 use App\Models\DeliveryRate;
+use App\Models\PaymentMethod;
 
 class OrderController extends Controller
 {
@@ -235,10 +236,36 @@ class OrderController extends Controller
         //     return $this->errorResponse('Error with payment gateway at the moment please try again later', 400);
         // } 
 
+        $paymentMethod = PaymentMethod::where('id', $request['payment_method_id'])->first();
+
         $receipt = false;
+
+        if($paymentMethod->name == "Payment on Delivery"){
+            $data = [
+                'currency' => 'NGN',
+                'payment_method' => 'pay-on-delivery',
+                'payment_gateway' => 'pay-on-delivery',
+                'payment_reference' => $request['payment_reference'],
+                'payment_gateway_charge' => 0,
+                'payment_message' => 'payment successful',
+                'payment_status' => 'successful',
+                'platform_initiated' => 'inapp',
+                'transaction_initiated_date' => Carbon::now(),
+                'transaction_initiated_time' => Carbon::now(),
+                'date_time_paid' => Carbon::now(),
+                'status' => 'pay-on-delivey',
+                'service_status' => 'pay-on-delivey',
+            ];
+
+            $receipt = false;
+
+            $order->update($data);
+
+            return $this->showOne($order);
+        }
         
 
-        if($request['payment_gateway'] == "paystack"){
+        if($paymentMethod->name == "Card" && $request['payment_gateway'] == "paystack"){
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
@@ -251,7 +278,7 @@ class OrderController extends Controller
             $receipt = true;
         }
 
-        if($request['payment_gateway'] == "wallet"){
+        if($paymentMethod->name == "Card" && $request['payment_gateway'] == "wallet"){
             
             $wallet = Wallet::where('user_id', $order->user_id)->first();
 
