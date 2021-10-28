@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\Shared\Wallet;
 
 use App\Models\Wallet;
-use Illuminate\Support\Str;
 use App\Models\PaymentCharge;
 use App\Models\WalletTransaction;
 use App\Http\Controllers\Controller;
@@ -13,7 +12,7 @@ class WithdrawalController extends Controller
 {    
     /**
      * @OA\Post(
-     *      path="api/v1/shared/withdrawals",
+     *      path="/api/v1/shared/withdrawals",
      *      operationId="postWithdrawals",
      *      tags={"Shared"},
      *      summary="postWithdrawals",
@@ -44,36 +43,39 @@ class WithdrawalController extends Controller
      *      security={ {"bearerAuth": {}} },
      * )
      */
+
     public function store(WithdrawalCreateFormRequest $request)
     {
         $wallet = Wallet::where('user_id', auth()->user()->id)->first();
 
         $balance = $wallet->balance;
         
-        if($balance < $request->amount ){
+        if($balance < $request['amount'] ){
             return $this->errorResponse('Insufficient funds', 409);
         }
 
         $paymentCharge = PaymentCharge::where('payment_method_id', $request->payment_method_id)
                                 ->where('gateway', $request->payment_gateway)
                                 ->first();
-        $fee = 0;
+        $fee = 100;
         
-        if($paymentCharge){
-            $paymentChargeAmount = $paymentCharge->amount_gateway_charge + $paymentCharge->amount_company_charge;
-            $paymentChargePercentage = $paymentCharge->percentage_gateway_charge + $paymentCharge->percentage_company_charge;
-            $convertPercentage = $paymentChargePercentage/100;
-            $fee = $request->amount * $convertPercentage;
-        }
+        // if($paymentCharge){
+        //     $paymentChargeAmount = $paymentCharge->amount_gateway_charge + $paymentCharge->amount_company_charge;
+        //     $paymentChargePercentage = $paymentCharge->percentage_gateway_charge + $paymentCharge->percentage_company_charge;
+        //     $convertPercentage = $paymentChargePercentage/100;
+        //     $fee = $request->amount * $convertPercentage;
+        // }
 
         $order = auth()->user()->orders()->create([
             'payment_method_id' => 1,
             'title' => 'Fund Withdrawals',
+            'action' => 'transfer',
             'details' => 'Fund Withdrawals',
             'user_id' => auth()->user()->id,
-            'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
+            // 'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
             'subtotal' => $request['amount'],
-            'total' => $request['amount'] + $fee,
+            'total' => $request['amount'] ,
+            'amount_paid' => $request['amount'] + $fee,
             'transaction_type' => 'debit',
         ]);
 
@@ -95,7 +97,7 @@ class WithdrawalController extends Controller
     public function debitUserWallet($order, $userId)
     {
         $wallet = Wallet::where('user_id', $userId)->first();
-        $wallet->balance = $wallet->balance - $order->total;
+        $wallet->balance = $wallet->balance - $order->amount_paid;
         $wallet->save();
         return $wallet;
     }
@@ -103,7 +105,7 @@ class WithdrawalController extends Controller
     public function creditUserWallet($order, $userId)
     {
         $wallet = Wallet::where('user_id', $userId)->first();
-        $wallet->balance = $wallet->balance + $order->total;
+        $wallet->balance = $wallet->balance + $order->amount_paid;
         $wallet->save();
         return $wallet;
     }
@@ -121,7 +123,7 @@ class WithdrawalController extends Controller
         $transaction->user_id = $wallet->user->id;
         $transaction->details = $order->details;
         $transaction->amount = $order->subtotal;
-        $transaction->amount_paid = $order->total;
+        $transaction->amount_paid = $order->amount_paid;
         $transaction->category = $order->transaction_type;
         $transaction->transaction_type = $transaction_type;
         $transaction->status = $status;

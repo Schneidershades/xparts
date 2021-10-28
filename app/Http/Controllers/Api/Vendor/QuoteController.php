@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\User\VendorQuoteSentMail;
 use App\Http\Requests\Vendor\QuoteCreateFormRequest;
+use App\Models\XpartRequestVendorWatch;
 
 class QuoteController extends Controller
 {
@@ -119,6 +120,13 @@ class QuoteController extends Controller
         ]);
 
         $model->save();
+
+        $quotes_done = XpartRequestVendorWatch::where('user_id', $vendor->id)
+                            ->where('xpart_request_id', $xpartRequest->id)->first();
+
+        $quotes_done->views += 1;
+        $quotes_done->number_of_bids += 1;
+        $quotes_done->save();
 
         broadcast(new VendorQuoteSent($vendor, $xpartRequest, $model));
 

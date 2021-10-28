@@ -13,6 +13,8 @@ class BankDetail extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public $oneItem = BankDetailResource::class;
     public $allItems = BankDetailCollection::class;
 

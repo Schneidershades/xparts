@@ -6,25 +6,37 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @OA\Schema(
- *      title="Admin Withdrawals Update Form Request Fields",
- *      description="Admin Withdrawals Update request body data",
+ *      title="Delivery Rates Create Form Request Fields",
+ *      description="Delivery Rates Create request body data",
  *      type="object",
  *      required={"name"}
  * )
  */
 
-class AdminWithdrawalsUpdateFormRequest extends FormRequest
+
+class DeliveryRateCreateFormRequest extends FormRequest
 {
-     /**
+    /**
      * @OA\Property(
-     *      title="status",
-     *      description="status",
-     *      example="approved,declined,refunded"
+     *      title="type",
+     *      description="Type of deliveryRates",
+     *      example="flat"
      * )
      *
      * @var string
      */
-    private $status;
+    private $type;
+
+    /**
+     * @OA\Property(
+     *      title="Min Value",
+     *      description="Minimum Value of the Price",
+     *      example="100000.00"
+     * )
+     *
+     * @var string
+     */
+    private $max_value;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -33,7 +45,7 @@ class AdminWithdrawalsUpdateFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -44,7 +56,7 @@ class AdminWithdrawalsUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'required|string|in:approved,declined,refunded',
+            //
         ];
     }
 }

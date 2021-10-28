@@ -20,6 +20,8 @@ class XpartRequestResource extends JsonResource
             'images' => $this->images != null ? $this->images->pluck('file_url') : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'user_id' => $this->user_id,
+            
             // 'status' => $this->status,
 
             $this->mergeWhen($this->status =='xparts2user' || $this->status =='vendor2xparts' && auth()->user()->role == 'user', [

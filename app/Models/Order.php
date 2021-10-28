@@ -5,11 +5,14 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Address;
 use App\Models\OrderItem;
+use Illuminate\Support\Str;
+use App\Models\DeliveryRate;
+use App\Models\PaymentCharge;
+use App\Models\PaymentMethod;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Order\OrderResource;
 use App\Http\Resources\Order\OrderCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Str;
 
 class Order extends Model
 {
@@ -73,6 +76,11 @@ class Order extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function deliveryRate()
+    {
+        return $this->belongsTo(DeliveryRate::class);
     }
 
     protected static function boot()

@@ -17,6 +17,7 @@ use App\Models\XpartRequestVendorWatch;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
+use App\Models\DeliveryRate;
 
 class OrderController extends Controller
 {
@@ -102,6 +103,11 @@ class OrderController extends Controller
                                 ->where('gateway', $request->payment_gateway)
                                 ->first();
         $fee = 0;
+
+        $deliverySetting = DeliveryRate::where('type', 'flat')->first();
+        if($deliverySetting){
+            $fee = $fee + $deliverySetting->amount;
+        }
         
         if($paymentCharge){
             $paymentChargeAmount = $paymentCharge->amount_gateway_charge +  $paymentCharge->amount_company_charge;
@@ -116,8 +122,10 @@ class OrderController extends Controller
             'address_id' => $request->address_id,
             'payment_method_id' => $request->payment_method_id,
             'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
+            'delivery_setting_id' => $deliverySetting ? $deliverySetting->id : null,
             'subtotal' => $total,
             'total' => $total + $fee,
+            'amount_paid' => $total + $fee,
             'transaction_type' => 'payments',
         ]);
 
@@ -228,6 +236,7 @@ class OrderController extends Controller
         // } 
 
         $receipt = false;
+        
 
         if($request['payment_gateway'] == "paystack"){
             $paystack = new Paystack;

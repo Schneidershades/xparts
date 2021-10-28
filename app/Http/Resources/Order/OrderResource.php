@@ -27,6 +27,8 @@ class OrderResource extends JsonResource
             'vat_id' => $this->vat_id,
             'discount_id' => $this->discount_id,
             'payment_method_id' => $this->payment_method_id,
+            'delivery_rate_id' => $this->delivery_rate_id,
+            'delivery_fee' => $this->deliveryRate ? $this->deliveryRate->amount : null,
             'payment_method_selected' => $this->paymentMethod ? $this->paymentMethod->name : null,
             'charge' => new PaymentChargeResource($this->paymentCharge),
             'subtotal' => $this->subtotal,
@@ -37,6 +39,15 @@ class OrderResource extends JsonResource
             'discount_amount' => $this->discount_amount,
             'action' => $this->action,
             'currency_id' => $this->currency_id,
+
+
+            'payment_transfer_status' => $this->payment_transfer_status,
+            'payment_recipient_code' => $this->payment_recipient_code,
+            'payment_transfer_code' => $this->payment_transfer_code,
+            'payment_transfer_remarks' => $this->payment_transfer_remarks,
+            'payment_gateway_remarks' => $this->payment_gateway_remarks,
+            'payment_charge_id' => $this->payment_charge_id,
+
             'currency' => $this->currency,
             'payment_gateway' => $this->payment_gateway,
             'payment_gateway_charged_percentage' => $this->payment_gateway_charged_percentage,

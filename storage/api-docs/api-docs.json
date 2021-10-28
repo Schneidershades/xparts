@@ -2175,7 +2175,7 @@
                         "description": "updateWithdrawals Receipt Number ID",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -2189,6 +2189,91 @@
                         }
                     }
                 },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/withdrawals/finalize": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "finalizeWithdrawals",
+                "description": "finalizeWithdrawals",
+                "operationId": "finalizeWithdrawals",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AdminFinalizeTransferFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/withdrawals/verify/{receipt_number}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "verifyWithdrawals",
+                "description": "verifyWithdrawals",
+                "operationId": "verifyWithdrawals",
+                "parameters": [
+                    {
+                        "name": "receipt_number",
+                        "in": "path",
+                        "description": "verifyWithdrawals Receipt Number ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -4072,7 +4157,7 @@
                 ]
             }
         },
-        "api/v1/shared/withdrawals": {
+        "/api/v1/shared/withdrawals": {
             "post": {
                 "tags": [
                     "Shared"
@@ -4680,6 +4765,28 @@
                         "description": "primary address of the user",
                         "type": "boolean",
                         "example": "false"
+                    }
+                },
+                "type": "object"
+            },
+            "AdminFinalizeTransferFormRequest": {
+                "title": "Withdrawal Finalize Form Request Fields",
+                "description": "Withdrawal Finalize Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "receipt_number": {
+                        "title": "Order receipt payment reference",
+                        "description": "Order  receipt payment reference",
+                        "type": "string",
+                        "example": "quote"
+                    },
+                    "otp": {
+                        "title": "Order payment paystack otp",
+                        "description": "Order payment paystack otp",
+                        "type": "integer",
+                        "example": "593349"
                     }
                 },
                 "type": "object"

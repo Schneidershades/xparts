@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Xpart;
+namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Xpart\XpartRequestResource;
 
-class XpartRequestVendorWatchResource extends JsonResource
+class UserProfileResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +16,10 @@ class XpartRequestVendorWatchResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'xpartRequest' => new XpartRequestResource($this->xpartRequest),
-            'status' => $this->status,
-            'views' => $this->views,
-            'number_of_bids' => $this->number_of_bids,
+            'name' => $this->name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'avatar' => $this->avatar != null ? $this->avatar->file_url : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
