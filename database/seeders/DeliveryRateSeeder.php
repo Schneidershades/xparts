@@ -16,7 +16,7 @@ class DeliveryRateSeeder extends Seeder
     {
         DeliveryRate::create( [
     		'type' =>'flat',
-    		'amount'=> 2000,
+    		'amount'=> 0,
     	] );
     }
 }
