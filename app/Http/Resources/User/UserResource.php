@@ -45,7 +45,7 @@ class UserResource extends JsonResource
             'avatar' => $this->avatar != null ? $this->avatar->file_url : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-
+            'is_complete' => $this->is_complete,
         ];
     }
 }
