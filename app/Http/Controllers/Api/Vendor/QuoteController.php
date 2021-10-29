@@ -121,7 +121,7 @@ class QuoteController extends Controller
 
         $model->save();
 
-        $quotes_done = XpartRequestVendorWatch::where('user_id', $vendor->id)
+        $quotes_done = XpartRequestVendorWatch::where('vendor_id', $vendor->id)
                             ->where('xpart_request_id', $xpartRequest->id)->first();
 
         $quotes_done->views += 1;

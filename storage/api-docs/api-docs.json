@@ -45,6 +45,213 @@
                 ]
             }
         },
+        "/api/v1/admin/delivery-rates": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get all delivery-rates",
+                "description": "Get all delivery-rates",
+                "operationId": "allDeliveryRate",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Post delivery-rates",
+                "description": "Post delivery-rates",
+                "operationId": "postUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeliveryRateCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/delivery-rates/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Show delivery-rates",
+                "description": "Show delivery-rates",
+                "operationId": "showDeliveryRate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "delivery-rates ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Update delivery-rates",
+                "description": "Update delivery-rates",
+                "operationId": "UserDeliveryRate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "delivery-rates ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeliveryRateUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Delete delivery-rates",
+                "description": "Delete delivery-rates",
+                "operationId": "deleteDeliveryRate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "delivery-rates ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/admin/markup-pricing": {
             "get": {
                 "tags": [
@@ -4834,7 +5041,7 @@
                         "title": "status",
                         "description": "status",
                         "type": "string",
-                        "example": "approve/decline"
+                        "example": "approved,declined,refunded"
                     }
                 },
                 "type": "object"
@@ -4851,6 +5058,50 @@
                         "description": "status",
                         "type": "string",
                         "example": "approve/decline"
+                    }
+                },
+                "type": "object"
+            },
+            "DeliveryRateCreateFormRequest": {
+                "title": "Delivery Rates Create Form Request Fields",
+                "description": "Delivery Rates Create request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "type": {
+                        "title": "type",
+                        "description": "Type of deliveryRates",
+                        "type": "string",
+                        "example": "flat"
+                    },
+                    "max_value": {
+                        "title": "Min Value",
+                        "description": "Minimum Value of the Price",
+                        "type": "string",
+                        "example": "100000.00"
+                    }
+                },
+                "type": "object"
+            },
+            "DeliveryRateUpdateFormRequest": {
+                "title": "Delivery Rates Update Form Request Fields",
+                "description": "MDelivery Rates Update request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "type": {
+                        "title": "type",
+                        "description": "Type of deliveryRates",
+                        "type": "string",
+                        "example": "flat"
+                    },
+                    "max_value": {
+                        "title": "Min Value",
+                        "description": "Minimum Value of the Price",
+                        "type": "string",
+                        "example": "100000.00"
                     }
                 },
                 "type": "object"
