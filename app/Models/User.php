@@ -44,6 +44,8 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         'phone',
     ];
 
+    protected $appends = ['is_complete'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -81,10 +83,18 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     public function sendPasswordResetNotification($token)
     {
         $baseUrl = env("WEB_APP_URL");
-        
+
         $url = "{$baseUrl}/reset-password?token=" . $token;
 
         $this->notify(new PasswordResetNotification($url));
+    }
+
+    public function getIsCompleteAttribute()
+    {
+        if ($this->hasRole("Vendor")) {
+            return $this->bankDetails->count() > 0;
+        }
+        return true;
     }
 
     public function orders()
@@ -101,7 +111,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return $this->hasMany(XpartRequestVendorWatch::class, 'vendor_id')->latest();
     }
-    
+
     public function addresses()
     {
         return $this->hasMany(Address::class);
