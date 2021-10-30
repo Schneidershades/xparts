@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Vendor;
 use App\Models\User;
 use App\Models\Media;
 use App\Models\Quote;
+use App\Jobs\SendEmail;
 use App\Models\XpartRequest;
 use Illuminate\Http\Request;
 use App\Models\MarkupPricing;
@@ -14,8 +15,8 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\User\VendorQuoteSentMail;
-use App\Http\Requests\Vendor\QuoteCreateFormRequest;
 use App\Models\XpartRequestVendorWatch;
+use App\Http\Requests\Vendor\QuoteCreateFormRequest;
 
 class QuoteController extends Controller
 {
@@ -147,8 +148,7 @@ class QuoteController extends Controller
             }
         }
 
-
-        Mail::to($requestingUser->email)->send(new VendorQuoteSentMail($xpartRequest, $requestingUser, $model));
+        SendEmail::dispatch($requestingUser->email, new VendorQuoteSentMail($xpartRequest, $requestingUser, $model))->onQueue('emails')->delay(5);
 
         Log::debug('sent mails');
 

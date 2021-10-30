@@ -144,11 +144,6 @@ class XpartRequestController extends Controller
                     'vendor_id' => $user['id'],
                     'status' => 'active'
                 ]);
-
-                
-                // Mail::to($user->email)->send(new XpartRequestMail($xpartRequest, $user));
-
-                // Log::debug('sent mails');
                 SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
             } 
         });

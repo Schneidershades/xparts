@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Quote;
 use App\Models\Wallet;
+use App\Jobs\SendEmail;
 use App\Models\OrderItem;
 use App\Models\DeliveryRate;
 use App\Models\XpartRequest;
@@ -98,23 +99,23 @@ class OrderController extends Controller
         $cartList = CartResource::collection(auth()->user()->cart);
 
         $total = $cartList->sum(function ($cart) {
-            return ($cart->cartable->markup_price ?  $cart->cartable->markup_price : $cart->cartable->price)* $cart->quantity;
+            return ($cart->cartable->markup_price ?  $cart->cartable->markup_price : $cart->cartable->price) * $cart->quantity;
         });
 
         $paymentCharge = PaymentCharge::where('payment_method_id', $request->payment_method_id)
-                                ->where('gateway', $request->payment_gateway)
-                                ->first();
+            ->where('gateway', $request->payment_gateway)
+            ->first();
         $fee = 0;
 
         $deliverySetting = DeliveryRate::where('type', 'flat')->first();
-        if($deliverySetting){
+        if ($deliverySetting) {
             $fee = $fee + $deliverySetting->amount;
         }
-        
-        if($paymentCharge){
+
+        if ($paymentCharge) {
             $paymentChargeAmount = $paymentCharge->amount_gateway_charge +  $paymentCharge->amount_company_charge;
             $paymentChargePercentage = $paymentCharge->percentage_gateway_charge +  $paymentCharge->percentage_company_charge;
-            $convertPercentage = $paymentChargePercentage/100;
+            $convertPercentage = $paymentChargePercentage / 100;
             $fee = $total * $convertPercentage;
         }
 
@@ -237,23 +238,22 @@ class OrderController extends Controller
 
         $status = $payment_message = $payment_method = $payment_gateway = $payment_status = null;
 
-        if($paymentMethod->name == "Payment on Delivery"){
+        if ($paymentMethod->name == "Payment on Delivery") {
             $status = 'ordered';
             $payment_message = 'payment on delivery';
             $payment_method = 'pay on delivery';
             $payment_gateway = 'pay on delivery';
             $payment_status = 'pending';
         }
-        
 
-        if($paymentMethod->name == "Card" && $request['payment_gateway'] == "paystack")
-        {
+
+        if ($paymentMethod->name == "Card" && $request['payment_gateway'] == "paystack") {
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
             if ($status != "success") {
                 return $this->errorResponse($data, 400);
-            } 
+            }
 
             $status = 'paid';
             $payment_message = 'payment successful';
@@ -262,17 +262,17 @@ class OrderController extends Controller
             $payment_status = 'successful';
         }
 
-        if($paymentMethod->name == "Wallet" && $request['payment_gateway'] == "wallet"){
-            
+        if ($paymentMethod->name == "Wallet" && $request['payment_gateway'] == "wallet") {
+
             $wallet = Wallet::where('user_id', $order->user_id)->first();
 
-            if($wallet->balance < $order->total){
+            if ($wallet->balance < $order->total) {
                 return $this->errorResponse('Insufficient funds', 409);
             }
 
             $wallet->balance = $wallet->balance - $order->total;
             $wallet->save();
-            
+
             $this->debitUserWallet($order, $wallet);
 
             $status = 'paid';
@@ -282,7 +282,7 @@ class OrderController extends Controller
             $payment_status = 'successful';
         }
 
-        if($status == null){
+        if ($status == null) {
             return $this->errorResponse('An error occurred. please contact support', 403);
         }
 
@@ -305,19 +305,18 @@ class OrderController extends Controller
 
         $order->update($data);
 
-        // find all the quotes of all the items in the order item
-        $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();  
-        
-        foreach($findQuotes as $item){
+        $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
+
+        foreach ($findQuotes as $item) {
             $this->creditVendors($order, $order->orderItems, $item, 'successful', 'credit');
-        } 
-                    
-        foreach($findQuotes as $quote){
+        }
+
+        foreach ($findQuotes as $quote) {
             $quote->status = $status;
             $quote->save();
-          
-            Mail::to($quote->user->email)->send(new XpartQuoteMail($quote, $quote->user));
-        }  
+
+            SendEmail::dispatch($quote->user->email, new XpartQuoteMail($quote, $quote->user))->onQueue('emails')->delay(5);
+        }
 
         $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
 
@@ -328,14 +327,14 @@ class OrderController extends Controller
         // expire the remaining activities
         $notPaidQuotesButStillActive = Quote::whereIn('xpart_request_id', $allRequestsSent)->where('status', 'active')->get();
 
-        foreach($notPaidQuotesButStillActive as $quote){
+        foreach ($notPaidQuotesButStillActive as $quote) {
             $quote->status = 'expired';
             $quote->save();
-        }    
+        }
 
         $sentRequest = XpartRequestVendorWatch::whereIn('xpart_request_id', $allRequestsSent)->get();
 
-        foreach($sentRequest as $sent){
+        foreach ($sentRequest as $sent) {
             $sent->status = 'expired';
             $sent->save();
         }
@@ -366,7 +365,7 @@ class OrderController extends Controller
 
     public function creditVendors($order, $cartItems, $item, $status, $transaction_type)
     {
-        foreach($cartItems as $cart){
+        foreach ($cartItems as $cart) {
 
             $quantityPurchased = $cart->quantity;
             $vendor = Wallet::where('user_id', $item->vendor_id)->first();
@@ -389,7 +388,7 @@ class OrderController extends Controller
                 'walletable_id' => $item->itemable_id,
                 'walletable_type' => $item->itemable_type,
             ]);
-        }        
+        }
     }
 
     public function debitUserWallet($order, $wallet)
@@ -416,7 +415,7 @@ class OrderController extends Controller
         $allVendorsUnderABid = $order->orderItems->where('')->pluck('vendor_id')->toArray();
         $xpartsVendorCatelog = XpartRequestVendorWatch::whereIn('vendor', $allVendorsUnderABid)->get();
 
-        foreach($xpartsVendorCatelog as $cat){
+        foreach ($xpartsVendorCatelog as $cat) {
             $cat->status = 'expired';
         }
     }
@@ -426,7 +425,7 @@ class OrderController extends Controller
         $allVendorsUnderABid = $order->orderItems->where('')->pluck('vendor_id')->toArray();
         $xpartsVendorCatelog = XpartRequestVendorWatch::whereIn('vendor', $allVendorsUnderABid)->get();
 
-        foreach($xpartsVendorCatelog as $cat){
+        foreach ($xpartsVendorCatelog as $cat) {
             $cat->status = 'expired';
         }
     }
