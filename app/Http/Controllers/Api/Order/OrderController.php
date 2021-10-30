@@ -315,7 +315,7 @@ class OrderController extends Controller
             $quote->status = $status;
             $quote->save();
 
-            SendEmail::dispatch($quote->user->email, new XpartQuoteMail($quote, $quote->user))->onQueue('emails')->delay(5);
+            SendEmail::dispatch($quote->user['email'], new XpartQuoteMail($quote, $quote->user))->onQueue('emails')->delay(5);
         }
 
         $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
