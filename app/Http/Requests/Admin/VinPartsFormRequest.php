@@ -4,6 +4,15 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *      title="Vin Parts  Form Request Fields",
+ *      description="Vin Parts  Form request body data",
+ *      type="object",
+ *      required={"email"}
+ * )
+ */
+
 class VinPartsFormRequest extends FormRequest
 {
     /**

@@ -2343,6 +2343,48 @@
                 ]
             }
         },
+        "/api/v1/admin/vin-parts": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "postVinPart",
+                "description": "postVinPart",
+                "operationId": "postVinPart",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/VinPartsFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/admin/wallet-transactions": {
             "get": {
                 "tags": [
@@ -5533,6 +5575,70 @@
                 "required": [
                     "name"
                 ],
+                "type": "object"
+            },
+            "VinPartsFormRequest": {
+                "title": "Vin Parts  Form Request Fields",
+                "description": "Vin Parts  Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "vin_id": {
+                        "title": "vinid",
+                        "description": "vin id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "part_id": {
+                        "title": "part id",
+                        "description": "part id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "xpart_request_id": {
+                        "title": "xpart request id",
+                        "description": "xpart request id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "make": {
+                        "title": "make",
+                        "description": "vin make",
+                        "type": "string",
+                        "example": "toyota"
+                    },
+                    "model": {
+                        "title": "model",
+                        "description": "vin model",
+                        "type": "string",
+                        "example": "toyota"
+                    },
+                    "model_year": {
+                        "title": "model_year",
+                        "description": "vin model_year",
+                        "type": "string",
+                        "example": "toyota"
+                    },
+                    "make_part_active": {
+                        "title": "make_part_active",
+                        "description": "make_part_active",
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "make_vin_active": {
+                        "title": "make_vin_active",
+                        "description": "make_vin_active",
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "make_xpart_request_active": {
+                        "title": "make_xpart_request_active",
+                        "description": "make_xpart_request_active",
+                        "type": "boolean",
+                        "example": "true"
+                    }
+                },
                 "type": "object"
             },
             "VinUpdateFormRequest": {
