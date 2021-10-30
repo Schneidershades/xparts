@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Order;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Quote;
 use App\Models\Wallet;
@@ -309,13 +310,15 @@ class OrderController extends Controller
 
         foreach ($findQuotes as $item) {
             $this->creditVendors($order, $order->orderItems, $item, 'successful', 'credit');
-
-            SendEmail::dispatch($item->user->email, new XpartQuoteMail($item, $item->user))->onQueue('emails')->delay(5);
         }
 
         foreach ($findQuotes as $quote) {
             $quote->status = $status;
             $quote->save();
+
+            $vendorEmail = User::where('id', $item->user_id)->first()->email;
+
+            SendEmail::dispatch($vendorEmail, new XpartQuoteMail($item, $item->user))->onQueue('emails')->delay(5);
         }
 
         $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
