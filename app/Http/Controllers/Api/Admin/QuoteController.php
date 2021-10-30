@@ -43,7 +43,6 @@ class QuoteController extends Controller
         return $this->showAll(Quote::latest()->get());
     }
 
-
      /**
     * @OA\Put(
     *      path="/api/v1/admin/quotes/{id}",

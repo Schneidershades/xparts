@@ -8,12 +8,6 @@ use App\Http\Resources\Xpart\XpartRequestResource;
 
 class QuoteResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-     */
     public function toArray($request)
     {
         return [
@@ -37,6 +31,7 @@ class QuoteResource extends JsonResource
             'images' => $this->images != null ? $this->images->pluck('file_url') : null,
             'markup_price' => $this->markup_price ? $this->markup_price : 0,
             'markup_price_details' => $this->markupPricing,
+            'price_margin' => ($this->markup_price - $this->price),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

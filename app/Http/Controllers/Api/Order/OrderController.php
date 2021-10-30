@@ -232,40 +232,21 @@ class OrderController extends Controller
     {
         $order = Order::where('receipt_number', $request['payment_reference'])->first();
 
-        // if (!$order->paymentMethod) {
-        //     return $this->errorResponse('Error with payment gateway at the moment please try again later', 400);
-        // } 
-
         $paymentMethod = PaymentMethod::where('id', $request['payment_method_id'])->first();
 
-        $receipt = false;
+        $status = $payment_message = $payment_method = $payment_gateway = $payment_status = null;
 
         if($paymentMethod->name == "Payment on Delivery"){
-            $data = [
-                'currency' => 'NGN',
-                'payment_method' => 'pay-on-delivery',
-                'payment_gateway' => 'pay-on-delivery',
-                'payment_reference' => $request['payment_reference'],
-                'payment_gateway_charge' => 0,
-                'payment_message' => 'payment successful',
-                'payment_status' => 'successful',
-                'platform_initiated' => 'inapp',
-                'transaction_initiated_date' => Carbon::now(),
-                'transaction_initiated_time' => Carbon::now(),
-                'date_time_paid' => Carbon::now(),
-                'status' => 'pay-on-delivey',
-                'service_status' => 'pay-on-delivey',
-            ];
-
-            $receipt = false;
-
-            $order->update($data);
-
-            return $this->showOne($order);
+            $status = 'ordered';
+            $payment_message = 'payment on delivery';
+            $payment_method = 'pay on delivery';
+            $payment_gateway = 'pay on delivery';
+            $payment_status = 'pending';
         }
         
 
-        if($paymentMethod->name == "Card" && $request['payment_gateway'] == "paystack"){
+        if($paymentMethod->name == "Card" && $request['payment_gateway'] == "paystack")
+        {
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
@@ -273,12 +254,14 @@ class OrderController extends Controller
                 return $this->errorResponse($data, 400);
             } 
 
-            $order->update($data);
-
-            $receipt = true;
+            $status = 'paid';
+            $payment_message = 'payment successful';
+            $payment_method = 'wallet';
+            $payment_gateway = 'wallet';
+            $payment_status = 'successful';
         }
 
-        if($paymentMethod->name == "Card" && $request['payment_gateway'] == "wallet"){
+        if($paymentMethod->name == "Wallet" && $request['payment_gateway'] == "wallet"){
             
             $wallet = Wallet::where('user_id', $order->user_id)->first();
 
@@ -289,72 +272,74 @@ class OrderController extends Controller
             $wallet->balance = $wallet->balance - $order->total;
             $wallet->save();
             
-            $data = [
-                'currency' => 'NGN',
-                'payment_method' => 'wallet',
-                'payment_gateway' => 'wallet',
-                'payment_reference' => $request['payment_reference'],
-                'payment_gateway_charge' => 0,
-                'payment_message' => 'payment successful',
-                'payment_status' => 'successful',
-                'platform_initiated' => 'inapp',
-                'transaction_initiated_date' => Carbon::now(),
-                'transaction_initiated_time' => Carbon::now(),
-                'date_time_paid' => Carbon::now(),
-                'status' => 'paid',
-                'service_status' => 'paid',
-            ];
-
-            $order->update($data);
-
             $this->debitUserWallet($order, $wallet);
 
-            $receipt = true;
+            $status = 'paid';
+            $payment_message = 'payment successful';
+            $payment_method = 'wallet';
+            $payment_gateway = 'wallet';
+            $payment_status = 'successful';
+        }
+
+        if($status == null){
+            return $this->errorResponse('An error occurred. please contact support', 403);
+        }
+
+        $data = [
+            'currency' => 'NGN',
+            'payment_method_id' => $paymentMethod->id,
+            'payment_method' => $payment_method,
+            'payment_gateway' => $payment_gateway,
+            'payment_reference' => $request['payment_reference'],
+            'payment_gateway_charge' => 0,
+            'payment_message' => $payment_message,
+            'payment_status' => $payment_status,
+            'platform_initiated' => 'inapp',
+            'transaction_initiated_date' => Carbon::now(),
+            'transaction_initiated_time' => Carbon::now(),
+            'date_time_paid' => Carbon::now(),
+            'status' => $status,
+            'service_status' => $status,
+        ];
+
+        $order->update($data);
+
+        // find all the quotes of all the items in the order item
+        $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();  
+        
+        foreach($findQuotes as $item){
+            $this->creditVendors($order, $order->orderItems, $item, 'successful', 'credit');
+        } 
+                    
+        foreach($findQuotes as $quote){
+            $quote->status = $status;
+            $quote->save();
+        }  
+        
+        $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
+
+        $userRequest = XpartRequest::whereIn('id', $allRequestsSent)->first();
+        $userRequest->status =  $status;
+        $userRequest->save();
+
+        // expire the remaining activities
+        $notPaidQuotesButStillActive = Quote::whereIn('xpart_request_id', $allRequestsSent)->where('status', 'active')->get();
+
+        foreach($notPaidQuotesButStillActive as $quote){
+            $quote->status = 'expired';
+            $quote->save();
+        }    
+
+        $sentRequest = XpartRequestVendorWatch::whereIn('xpart_request_id', $allRequestsSent)->get();
+
+        foreach($sentRequest as $sent){
+            $sent->status = 'expired';
+            $sent->save();
         }
 
         auth()->user()->cart()->delete();
 
-        if($receipt == true){
-
-            // find all the quotes of all the items in the order item
-            $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();   
-                        
-            foreach($findQuotes as $quote){
-                $quote->status = 'paid';
-                $quote->save();
-            }  
-            
-            foreach($findQuotes as $item){
-                $this->creditVendors($order, $order->orderItems, $item, 'successful', 'credit');
-            }
-
-
-            $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
-
-            $notPaidQuotesButStillActive = Quote::whereIn('xpart_request_id', $allRequestsSent)
-                            ->where('status', 'active')->get();
-
-            foreach($notPaidQuotesButStillActive as $quote){
-                $quote->status = 'expired';
-                $quote->save();
-            }    
-
-
-            $sentRequest = XpartRequestVendorWatch::whereIn('xpart_request_id', $allRequestsSent)->get();
-
-            foreach($sentRequest as $sent){
-                $sent->status = 'expired';
-                $sent->save();
-            }
-
-            $userRequest = XpartRequest::whereIn('id', $allRequestsSent)->first();
-            $userRequest->status =  'paid';
-            $userRequest->save();
-
-            return $this->showMessage('Payment processed successfully');
-        }else{
-            return $this->errorResponse('An error occurred. please contact support', 403);
-        }
+        return $this->showMessage('Payment processed successfully');
     }
 
     public function walletTransaction($order, $user, $balance, $title, $category, $status, $type, $polyId, $polyType)

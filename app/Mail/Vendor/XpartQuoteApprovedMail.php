@@ -34,9 +34,13 @@ class XpartQuoteApprovedMail extends Mailable
      */
     public function build()
     {
+        $baseUrl = env("VENDOR_APP_URL");
+        $link = "{$baseUrl}/quote/{$this->xpartRequest->id}";
+
         return $this->markdown('emails.vendor.xpart.quote-approved')
             ->with('xp', $this->xpartRequest)
             ->with('user', $this->user)
-            ->subject("xparts quote approved");
+            ->with('link', $link)
+            ->subject("Xparts quote approved");
     }
 }

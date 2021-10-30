@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Mail\User;
+namespace App\Mail\Vendor;
 
-use App\Models\User;
-use App\Models\XpartRequest;
+use App\Models\Quote;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Petstore30\controllers\User;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class XpartRequestMail extends Mailable
+class XpartQuoteMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $xpartRequest;
+    private $quote;
     private $user;
 
     /**
@@ -21,9 +21,9 @@ class XpartRequestMail extends Mailable
      *
      * @return void
      */
-    public function __construct(XpartRequest $req, User $user)
+    public function __construct(Quote $quote, User $user)
     {
-        $this->xpartRequest = $req;
+        $this->xpartRequest = $quote;
         $this->user = $user;
     }
 
@@ -35,12 +35,12 @@ class XpartRequestMail extends Mailable
     public function build()
     {
         $baseUrl = env("VENDOR_APP_URL");
-        $link = "{$baseUrl}/quote/{$this->xpartRequest->id}";
+        $link = "{$baseUrl}/quote/{$this->quote->id}";
         
-        return $this->markdown('emails.users.xpart.request')
-            ->with('xp', $this->xpartRequest)
+        return $this->markdown('emails.vendor.xpart.quote')
+            ->with('xp', $this->quote)
             ->with('user', $this->user)
             ->with('link', $link)
-            ->subject("New xparts request ");
+            ->subject("Your Quote Request {$this->quote->status}");
     }
 }

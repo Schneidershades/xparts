@@ -1044,6 +1044,181 @@
                         "bearerAuth": []
                     }
                 ]
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Post payment-methods",
+                "description": "Post payment-methods",
+                "operationId": "postPaymentMethods",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PaymentMethodCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/payment-methods/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Show payment-methods",
+                "description": "Show payment-methods",
+                "operationId": "showPaymentMethods",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "payment-methods ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Update payment-methods",
+                "description": "Update payment-methods",
+                "operationId": "UserPaymentMethods",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "payment-methods ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PaymentMethodUpdateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Delete payment-methods",
+                "description": "Delete payment-methods",
+                "operationId": "deletePaymentMethods",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "payment-methods ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/admin/quotes": {
@@ -5210,6 +5385,98 @@
                 "required": [
                     "name"
                 ],
+                "type": "object"
+            },
+            "PaymentMethodCreateFormRequest": {
+                "title": "Payment Method Create Form Request Fields",
+                "description": "Payment Method Create request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "name of payment method",
+                        "type": "string",
+                        "example": "Card"
+                    },
+                    "type": {
+                        "title": "type",
+                        "description": "type of payment method",
+                        "type": "string",
+                        "example": "Card"
+                    },
+                    "connect": {
+                        "title": "connect",
+                        "description": "connect of payment method",
+                        "type": "string",
+                        "example": "Card"
+                    },
+                    "payment_gateway": {
+                        "title": "payment_gateway",
+                        "description": "payment_gateway of payment method",
+                        "type": "string",
+                        "example": "paystack"
+                    },
+                    "stage": {
+                        "title": "stage",
+                        "description": "stage of payment method",
+                        "type": "string",
+                        "example": "live"
+                    },
+                    "public_key": {
+                        "title": "public_key",
+                        "description": "public_key of payment method",
+                        "type": "string",
+                        "example": "live"
+                    }
+                },
+                "type": "object"
+            },
+            "PaymentMethodUpdateFormRequest": {
+                "title": "Payment Method Update Form Request Fields",
+                "description": "Payment Method Update request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "name of payment method",
+                        "type": "string",
+                        "example": "Card"
+                    },
+                    "type": {
+                        "title": "type",
+                        "description": "type of payment method",
+                        "type": "string",
+                        "example": "Card"
+                    },
+                    "connect": {
+                        "title": "connect",
+                        "description": "connect of payment method",
+                        "type": "string",
+                        "example": "Card"
+                    },
+                    "payment_gateway": {
+                        "title": "payment_gateway",
+                        "description": "payment_gateway of payment method",
+                        "type": "string",
+                        "example": "paystack"
+                    },
+                    "stage": {
+                        "title": "stage",
+                        "description": "stage of payment method",
+                        "type": "string",
+                        "example": "live"
+                    },
+                    "public_key": {
+                        "title": "public_key",
+                        "description": "public_key of payment method",
+                        "type": "string",
+                        "example": "live"
+                    }
+                },
                 "type": "object"
             },
             "RoleCreateFormRequest": {

@@ -11,6 +11,11 @@ class PaymentMethodResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'connect' => $this->connect,
+            'stage' => $this->stage,
+            'type' => $this->type,
+            'payment_gateway' => $this->payment_gateway,
+            'public_key' => $this->public_key,
         ];
     }
 }

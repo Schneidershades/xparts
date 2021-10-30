@@ -12,6 +12,8 @@ class PaymentMethod extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public $oneItem = PaymentMethodResource::class;
     public $allItems = PaymentMethodCollection::class;
 

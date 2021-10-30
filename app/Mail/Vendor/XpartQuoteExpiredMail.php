@@ -34,9 +34,13 @@ class XpartQuoteExpiredMail extends Mailable
      */
     public function build()
     {
+        $baseUrl = env("VENDOR_APP_URL");
+        $link = "{$baseUrl}/quote/{$this->xpartRequest->id}";
+        
         return $this->markdown('emails.vendor.xpart.quote-expired')
             ->with('xp', $this->xpartRequest)
             ->with('user', $this->user)
+            ->with('link', $link)
             ->subject("xparts quote expired");
     }
 }
