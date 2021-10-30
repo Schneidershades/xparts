@@ -3,22 +3,23 @@
 namespace App\Http\Controllers\Api\Order;
 
 use Carbon\Carbon;
-use App\Models\User;
 use App\Models\Order;
 use App\Models\Quote;
 use App\Models\Wallet;
 use App\Models\OrderItem;
+use App\Models\DeliveryRate;
 use App\Models\XpartRequest;
 use App\Models\PaymentCharge;
+use App\Models\PaymentMethod;
 use App\Traits\Payment\Paystack;
 use App\Models\WalletTransaction;
+use App\Mail\Vendor\XpartQuoteMail;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use App\Models\XpartRequestVendorWatch;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
-use App\Models\DeliveryRate;
-use App\Models\PaymentMethod;
 
 class OrderController extends Controller
 {
@@ -314,8 +315,10 @@ class OrderController extends Controller
         foreach($findQuotes as $quote){
             $quote->status = $status;
             $quote->save();
+          
+            Mail::to($quote->user->email)->send(new XpartQuoteMail($quote, $quote->user));
         }  
-        
+
         $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
 
         $userRequest = XpartRequest::whereIn('id', $allRequestsSent)->first();
@@ -339,7 +342,7 @@ class OrderController extends Controller
 
         auth()->user()->cart()->delete();
 
-        return $this->showMessage('Payment processed successfully');
+        return $this->showMessage('Order processed successfully');
     }
 
     public function walletTransaction($order, $user, $balance, $title, $category, $status, $type, $polyId, $polyType)
