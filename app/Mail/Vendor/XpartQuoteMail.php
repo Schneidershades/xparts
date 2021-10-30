@@ -2,10 +2,10 @@
 
 namespace App\Mail\Vendor;
 
+use App\Models\User;
 use App\Models\Quote;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Petstore30\controllers\User;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
