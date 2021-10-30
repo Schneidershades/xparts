@@ -23,7 +23,7 @@ class XpartQuoteMail extends Mailable
      */
     public function __construct(Quote $quote, User $user)
     {
-        $this->xpartRequest = $quote;
+        $this->quote = $quote;
         $this->user = $user;
     }
 
