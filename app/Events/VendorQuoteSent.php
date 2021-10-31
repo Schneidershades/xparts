@@ -32,12 +32,9 @@ class VendorQuoteSent implements ShouldBroadcast
      */
     public function __construct(User $vendor, XpartRequest $xpartRequest, Quote $quote)
     {
-        $this->vendor = [
-            'id' => 1,
-            'name' => "Adedeji Rotibi", 
-        ];
+        $this->vendor = $vendor;
         $this->xpartRequest = $xpartRequest;
-        $this->quote = $quote;
+        $this->quote = (new QuoteResource($this->quote))->jsonSerialize();
     }
     
     public function broadcastWith()
