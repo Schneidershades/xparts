@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\DeliveryRate;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DeliveryRateCreateFormRequest;
 use App\Http\Requests\Admin\DeliveryRateUpdateFormRequest;
@@ -41,7 +40,7 @@ class DeliveryRateController extends Controller
     */
     public function index()
     {
-        return $this->showOne(DeliveryRate::where('type', 'flat')->get());
+        return $this->showAll(DeliveryRate::where('type', 'flat')->get());
     }
 
     /**
