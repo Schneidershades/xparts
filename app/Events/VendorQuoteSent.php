@@ -35,6 +35,11 @@ class VendorQuoteSent implements ShouldBroadcast
         $this->quote = $quote;
     }
 
+    public function broadcastAs()
+    {
+        return 'VendorQuoteSent';
+    }
+
     /**
      * Get the channels the event should broadcast on.
      *
