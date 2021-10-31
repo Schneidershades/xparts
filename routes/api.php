@@ -78,6 +78,7 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('withdrawals', 'WithdrawalController', array("as"=>"userWithdrawals"));
 		Route::post('withdrawals/finalize', 'WithdrawalController@paystackPaymentFinalize');
 		Route::get('withdrawals/verify/{receipt_number}', 'WithdrawalController@paystackVerifyTransferPayment');
+		Route::post('vin-parts', 'VinPartsController@store');
 	});
 });
 
