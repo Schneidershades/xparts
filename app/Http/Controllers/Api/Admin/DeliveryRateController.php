@@ -41,7 +41,7 @@ class DeliveryRateController extends Controller
     */
     public function index()
     {
-        return $this->showOne(DeliveryRate::first());
+        return $this->showOne(DeliveryRate::where('type', 'flat')->get());
     }
 
     /**
