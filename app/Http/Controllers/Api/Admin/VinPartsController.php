@@ -67,5 +67,7 @@ class VinPartsController extends Controller
             $xpartRequest->status = 'active';
             $xpartRequest->save();
         }
+
+        return $this->showOne($xpartRequest);
     }
 }
