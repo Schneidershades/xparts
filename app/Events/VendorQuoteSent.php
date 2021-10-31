@@ -32,7 +32,10 @@ class VendorQuoteSent implements ShouldBroadcast
      */
     public function __construct(User $vendor, XpartRequest $xpartRequest, Quote $quote)
     {
-        $this->vendor = $vendor;
+        $this->vendor = [
+            'id' => 1,
+            'name' => "Adedeji Rotibi", 
+        ];
         $this->xpartRequest = $xpartRequest;
         $this->quote = $quote;
     }

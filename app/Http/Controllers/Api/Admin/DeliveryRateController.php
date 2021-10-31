@@ -185,7 +185,7 @@ class DeliveryRateController extends Controller
     *      summary="Delete delivery-rates",
     *      description="Delete delivery-rates",
     *      
-     *      @OA\Parameter(
+    *      @OA\Parameter(
      *          name="id",
      *          description="delivery-rates ID",
      *          required=true,
