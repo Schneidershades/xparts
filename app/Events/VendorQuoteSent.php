@@ -2,16 +2,18 @@
 
 namespace App\Events;
 
-use App\Models\Quote;
 use App\Models\User;
+use App\Models\Quote;
 use App\Models\XpartRequest;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Http\Resources\Quote\QuoteResource;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use App\Http\Resources\Xpart\XpartRequestResource;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class VendorQuoteSent implements ShouldBroadcast
 {
@@ -33,6 +35,11 @@ class VendorQuoteSent implements ShouldBroadcast
         $this->vendor = $vendor;
         $this->xpartRequest = $xpartRequest;
         $this->quote = $quote;
+    }
+    
+    public function broadcastWith()
+    {
+        return (new QuoteResource($this->quote))->jsonSerialize();
     }
 
     public function broadcastAs()

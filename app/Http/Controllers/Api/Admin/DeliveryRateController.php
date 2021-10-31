@@ -171,10 +171,10 @@ class DeliveryRateController extends Controller
     * )
     */
     
-    public function update(DeliveryRateUpdateFormRequest $request, DeliveryRate $markupPricing)
+    public function update(DeliveryRateUpdateFormRequest $request, DeliveryRate $deliveryRate)
     {
-        ($markupPricing->update($request->validated()));
-        return $this->showOne($markupPricing);
+        ($deliveryRate->update($request->validated()));
+        return $this->showOne($deliveryRate);
     }
 
      /**

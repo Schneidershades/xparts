@@ -5292,7 +5292,7 @@
                         "type": "string",
                         "example": "flat"
                     },
-                    "max_value": {
+                    "amount": {
                         "title": "Min Value",
                         "description": "Minimum Value of the Price",
                         "type": "string",
@@ -5314,7 +5314,7 @@
                         "type": "string",
                         "example": "flat"
                     },
-                    "max_value": {
+                    "amount": {
                         "title": "Min Value",
                         "description": "Minimum Value of the Price",
                         "type": "string",
