@@ -35,7 +35,7 @@ class DeliveryRateUpdateFormRequest extends FormRequest
      *
      * @var string
      */
-    private $max_value;
+    private $amount;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -55,7 +55,8 @@ class DeliveryRateUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'type' => 'required',
+            'amount' => 'required|numeric|min:1',
         ];
     }
 }
