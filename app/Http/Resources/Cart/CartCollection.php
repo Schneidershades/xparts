@@ -31,7 +31,7 @@ class CartCollection extends ResourceCollection
 
                 'discount' => 0,
 
-                'delivery_fee' => Address::where('type', 'flat')->first() ? Address::where('type', 'flat')->first()->amount : null,
+                'delivery_fee' => Address::where('type', 'flat')->first() ? Address::where('type', 'flat')->first()->amount : 0,
                 
                 'cartCount' => CartResource::collection(auth()->user()->cart)->count(),
             ],
