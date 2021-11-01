@@ -12,7 +12,6 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use App\Http\Resources\Xpart\XpartRequestResource;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class VendorQuoteSent implements ShouldBroadcast
@@ -34,17 +33,7 @@ class VendorQuoteSent implements ShouldBroadcast
     {
         $this->vendor = $vendor;
         $this->xpartRequest = $xpartRequest;
-        $this->quote = (new QuoteResource($this->quote))->jsonSerialize();
-    }
-    
-    public function broadcastWith()
-    {
-        return (new QuoteResource($this->quote))->jsonSerialize();
-    }
-
-    public function broadcastAs()
-    {
-        return 'VendorQuoteSent';
+        $this->quote = (new QuoteResource($quote))->jsonSerialize();
     }
 
     /**

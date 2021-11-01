@@ -23,6 +23,9 @@ class XpartRequestResource extends JsonResource
             'user_id' => $this->user_id,
             
             // 'status' => $this->status,
+            $this->mergeWhen($this->status =='ordered' , [
+                'status' => 'ordered',
+            ]),
 
             $this->mergeWhen($this->status =='xparts2user' || $this->status =='vendor2xparts' && auth()->user()->role == 'user', [
                 'status' => 'paid',
