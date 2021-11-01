@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Cart;
 
+use App\Models\Address;
 use App\Http\Resources\Cart\CartResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -29,6 +30,8 @@ class CartCollection extends ResourceCollection
                 }),
 
                 'discount' => 0,
+
+                'delivery_fee' => Address::where('type', 'flat')->first()->amount,
                 
                 'cartCount' => CartResource::collection(auth()->user()->cart)->count(),
             ],
