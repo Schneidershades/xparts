@@ -247,7 +247,7 @@ class OrderController extends Controller
         }
 
 
-        if ($paymentMethod->name == "Card" && $request['payment_gateway'] == "paystack") {
+        if ($paymentMethod->name == "Card" && $paymentMethod->payment_gateway == "paystack") {
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
 
@@ -262,7 +262,7 @@ class OrderController extends Controller
             $payment_status = 'successful';
         }
 
-        if ($paymentMethod->name == "Wallet" && $request['payment_gateway'] == "wallet") {
+        if ($paymentMethod->name == "Wallet") {
 
             $wallet = Wallet::where('user_id', $order->user_id)->first();
 
