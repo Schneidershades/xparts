@@ -139,7 +139,7 @@ class XpartRequestController extends Controller
     {
         $order = XpartRequest::where('id', $id)->first();
         
-        $order->status = $request->status;
+        $order->status = $request['status'];
         
         return $this->showOne($order);
     }
