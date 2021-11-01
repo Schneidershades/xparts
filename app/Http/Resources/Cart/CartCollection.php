@@ -17,6 +17,7 @@ class CartCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+        $deliveryFee = DeliveryRate::where('type', 'flat')->first() ? DeliveryRate::where('type', 'flat')->first()->amount : 0;
         return [
             'data' => CartResource::collection($this->collection),
             
@@ -32,7 +33,7 @@ class CartCollection extends ResourceCollection
 
                 'discount' => 0,
 
-                'delivery_fee' => DeliveryRate::where('type', 'flat')->first() ? DeliveryRate::where('type', 'flat')->first()->amount : 0,
+                'delivery_fee' => $deliveryFee,
                 
                 'cartCount' => CartResource::collection(auth()->user()->cart)->count(),
             ],
