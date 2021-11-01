@@ -88,9 +88,6 @@ class XpartRequestController extends Controller
         return $this->showOne(XpartRequest::findOrFail($id));
     }
 
-
-
-
      /**
     * @OA\Put(
     *      path="/api/v1/admin/xpart-requests/{id}",
@@ -137,11 +134,17 @@ class XpartRequestController extends Controller
     
     public function update(AdminXpartRequestUpdateFormRequest $request, $id)
     {
-        $order = XpartRequest::where('id', $id)->first();
+        $xpartRequest = XpartRequest::where('id', $id)->first();
         
-        $order->status = $request['status'];
+        $xpartRequest->status = $request['status'];
+
+        $xpartRequest->save();
+
+        if($xpartRequest == 'delivered'){
+
+        }
         
-        return $this->showOne($order);
+        return $this->showOne($xpartRequest);
     }
 
 }

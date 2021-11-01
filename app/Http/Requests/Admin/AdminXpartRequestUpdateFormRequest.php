@@ -44,7 +44,7 @@ class AdminXpartRequestUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'required|string|in:active,declined,expired,awaiting',
+            'status' => 'required|string|in:active,declined,expired,awaiting,delivered',
         ];
     }
 }

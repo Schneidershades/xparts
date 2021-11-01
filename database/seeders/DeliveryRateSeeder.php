@@ -14,7 +14,6 @@ class DeliveryRateSeeder extends Seeder
      */
     public function run()
     {
-        DeliveryRate::truncate();
         DeliveryRate::create( [
     		'type' =>'flat',
     		'amount'=> 0,
