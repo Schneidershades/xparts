@@ -78,7 +78,6 @@ class DeliveryRateController extends Controller
     */
     public function store(DeliveryRateCreateFormRequest $request)
     {
-        return $request->validated();
         return $this->showOne(DeliveryRate::create($request->validated()));
     }
 
