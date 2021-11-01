@@ -18,18 +18,19 @@ class CartCollection extends ResourceCollection
     public function toArray($request)
     {
         $deliveryFee = DeliveryRate::where('type', 'flat')->first() ? DeliveryRate::where('type', 'flat')->first()->amount : 0;
+
+        $total = $this->collection->sum(function ($cart) {
+            return $cart->cartable->markup_price * $cart->quantity;
+        });
+
         return [
             'data' => CartResource::collection($this->collection),
             
             'cart' => [
 
-                'total' => $this->collection->sum(function ($cart) {
-                    return $cart->cartable->markup_price * $cart->quantity;
-                }),
+                'total' => $total + $deliveryFee,
 
-                'subtotal' => $this->collection->sum(function ($cart) {
-                    return $cart->cartable->markup_price * $cart->quantity;
-                }),
+                'subtotal' => $total + $deliveryFee,
 
                 'discount' => 0,
 
