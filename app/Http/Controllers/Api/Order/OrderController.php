@@ -100,11 +100,16 @@ class OrderController extends Controller
 
         $total = $cartList->sum(function ($cart) {
             return ($cart->cartable->markup_price ?  $cart->cartable->markup_price : $cart->cartable->price) * $cart->quantity;
-        });
+        });        
 
-        $paymentCharge = PaymentCharge::where('payment_method_id', $request->payment_method_id)
-            ->where('gateway', $request->payment_gateway)
-            ->first();
+        $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])->first();
+
+        $paymentMethod = PaymentMethod::where('id', $request['payment_method_id'])->first();
+
+        if($paymentMethod == null){
+            return $this->errorResponse('Payment method was not sent. Please select a payment method', 409);
+        }
+        
         $fee = 0;
 
         $deliverySetting = DeliveryRate::where('type', 'flat')->first();
@@ -122,8 +127,8 @@ class OrderController extends Controller
         $order = auth()->user()->orders()->create([
             'title' => 'Bid Transaction Payment',
             'details' => 'Bid Transaction Payment',
-            'address_id' => $request->address_id,
-            'payment_method_id' => $request->payment_method_id,
+            'address_id' => $request['address_id'],
+            'payment_method_id' => $request['payment_method_id'],
             'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
             'delivery_setting_id' => $deliverySetting ? $deliverySetting->id : null,
             'subtotal' => $total,
