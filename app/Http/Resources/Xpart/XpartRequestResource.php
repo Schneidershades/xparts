@@ -5,6 +5,7 @@ namespace App\Http\Resources\Xpart;
 use App\Http\Resources\Vin\VinResource;
 use App\Http\Resources\Part\PartResource;
 use App\Http\Resources\Quote\QuoteResource;
+use App\Http\Resources\Address\AddressResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class XpartRequestResource extends JsonResource
@@ -21,6 +22,7 @@ class XpartRequestResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'user_id' => $this->user_id,
+            'address' => new AddressResource($this->address),
             
             // 'status' => $this->status,
             $this->mergeWhen($this->status =='ordered' , [
