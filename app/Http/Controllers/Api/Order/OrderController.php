@@ -236,6 +236,14 @@ class OrderController extends Controller
 
         $paymentMethod = PaymentMethod::where('id', $request['payment_method_id'])->first();
 
+        if($order == null){
+            return $this->errorResponse('Transaction reference not found', 409);
+        }
+
+        if($order->status == 'paid' || $order->status == 'ordered' || $order->payment_status == 'successful'){
+            return $this->errorResponse('This transaction has already been initiated', 409);
+        }
+
         $status = $payment_message = $payment_method = $payment_gateway = $payment_status = null;
 
         if ($paymentMethod->name == "Payment on Delivery") {
@@ -378,7 +386,6 @@ class OrderController extends Controller
             $vendor = Wallet::where('user_id', $item->vendor_id)->first();
             $item_total = $item->price * $quantityPurchased;
             $vendor->balance = $vendor->balance + $item_total;
-
             $cart->status = 'paid';
             $cart->save();
 

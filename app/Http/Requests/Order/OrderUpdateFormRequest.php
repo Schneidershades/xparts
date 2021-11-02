@@ -82,7 +82,8 @@ class OrderUpdateFormRequest extends FormRequest
         return [
             'order_id' => 'required|exists:orders,id',
             'payment_method_id' => 'required|int|exists:payment_methods,id',
-            'payment_reference' => 'required|string|unique:orders,payment_reference',
+            'payment_reference' => 'required|string',
+            // 'payment_reference' => 'required|string|unique:orders,payment_reference',
         ];
     }
 }
