@@ -105,6 +105,7 @@ class OrderController extends Controller
         $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])
             ->where('gateway', $request['payment_gateway'])
             ->first();
+            
         $fee = 0;
 
         $deliverySetting = DeliveryRate::where('type', 'flat')->first();
