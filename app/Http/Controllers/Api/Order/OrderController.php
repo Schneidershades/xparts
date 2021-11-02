@@ -100,16 +100,11 @@ class OrderController extends Controller
 
         $total = $cartList->sum(function ($cart) {
             return ($cart->cartable->markup_price ?  $cart->cartable->markup_price : $cart->cartable->price) * $cart->quantity;
-        });        
+        });
 
-        $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])->first();
-
-        $paymentMethod = PaymentMethod::where('id', $request['payment_method_id'])->first();
-
-        if($paymentMethod == null){
-            return $this->errorResponse('Payment method was not sent. Please select a payment method', 409);
-        }
-        
+        $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])
+            ->where('gateway', $request['payment_gateway'])
+            ->first();
         $fee = 0;
 
         $deliverySetting = DeliveryRate::where('type', 'flat')->first();
