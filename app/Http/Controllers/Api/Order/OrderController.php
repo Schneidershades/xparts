@@ -319,12 +319,10 @@ class OrderController extends Controller
         $order->update($data);
 
         $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
-        
 
-        foreach ($findQuotes as $item) {
-            if ($status == 'paid') {
-                $this->creditVendors($order, $order->orderItems, $item, 'successful', 'credit');
-            }
+        foreach ($findQuotes as $bid) {
+            $orderItem = $this->findOrderItemsForQuotesSelected($order, $bid, $status);
+            $this->creditVendors($order, $orderItem, $bid, 'successful', 'credit');
         }
 
         foreach ($findQuotes as $quote) {
@@ -383,35 +381,36 @@ class OrderController extends Controller
         ]);
     }
 
-    public function creditVendors($order, $cartItems, $item, $status, $transaction_type)
+    public function findOrderItemsForQuotesSelected($order, $quote, $status)
     {
-        foreach ($cartItems as $cart) {
+        $item = OrderItem::where('order_id', $order->id)->where('quote_id', $quote->id)->first();
+        $item->status = $status;
+        return $item;
+    }
 
-            $quantityPurchased = $cart->quantity;
-            $vendor = Wallet::where('user_id', $item->vendor_id)->first();
-            $item_total = $item->price * $quantityPurchased;
-            $vendor->balance = $vendor->balance + $item_total;
-            $cart->status = 'paid';
-            $cart->save();
+    public function creditVendors($order, $orderItemDetails, $bid, $status, $transaction_type)
+    {
+        $quantityPurchased = $orderItemDetails->quantity;
+        $vendorBalance = Wallet::where('user_id', $bid->vendor_id)->first();
+        $item_total = $bid->price * $quantityPurchased;
+        $vendorBalance->balance = $vendorBalance->balance + $item_total;
+        $vendorBalance->save();
 
-            $vendor->save();
-
-            WalletTransaction::create([
-                'receipt_number' => $order->receipt_number,
-                'title' => $order->title,
-                'user_id' => $vendor->user->id,
-                'details' => $order->details,
-                'amount' => $item_total,
-                'amount_paid' => $item_total,
-                'category' => $order->transaction_type,
-                'transaction_type' => $transaction_type,
-                'status' => $status,
-                'remarks' => $status,
-                'balance' => $vendor->balance,
-                'walletable_id' => $item->itemable_id,
-                'walletable_type' => $item->itemable_type,
-            ]);
-        }
+        WalletTransaction::create([
+            'receipt_number' => $order->receipt_number,
+            'title' => $order->title,
+            'user_id' => $vendorBalance->user->id,
+            'details' => $order->details,
+            'amount' => $item_total,
+            'amount_paid' => $item_total,
+            'category' => $order->transaction_type,
+            'transaction_type' => $transaction_type,
+            'status' => $status,
+            'remarks' => $status,
+            'balance' => $vendorBalance->balance,
+            'walletable_id' => $orderItemDetails->itemable_id,
+            'walletable_type' => $orderItemDetails->itemable_type,
+        ]);
     }
 
     public function debitUserWallet($order, $wallet)
