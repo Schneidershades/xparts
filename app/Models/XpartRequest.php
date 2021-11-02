@@ -66,4 +66,9 @@ class XpartRequest extends Model
     {
         return $this->morphMany(Media::class, 'fileable');
     }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
 }

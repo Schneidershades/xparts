@@ -306,9 +306,12 @@ class OrderController extends Controller
         $order->update($data);
 
         $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
+        
 
         foreach ($findQuotes as $item) {
-            $this->creditVendors($order, $order->orderItems, $item, 'successful', 'credit');
+            if ($status == 'paid') {
+                $this->creditVendors($order, $order->orderItems, $item, 'successful', 'credit');
+            }
         }
 
         foreach ($findQuotes as $quote) {
@@ -320,9 +323,13 @@ class OrderController extends Controller
 
         $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
 
-        $userRequest = XpartRequest::whereIn('id', $allRequestsSent)->first();
-        $userRequest->status =  $status;
-        $userRequest->save();
+        $userRequests = XpartRequest::whereIn('id', $allRequestsSent)->get();
+        
+        foreach ($userRequests as $userRequest) {
+            $userRequest->status =  $status;
+            $userRequest->address_id =  $order->address_id;
+            $userRequest->save();
+        }
 
         // expire the remaining activities
         $notPaidQuotesButStillActive = Quote::whereIn('xpart_request_id', $allRequestsSent)->where('status', 'active')->get();
