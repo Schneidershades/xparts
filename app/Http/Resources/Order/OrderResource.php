@@ -30,7 +30,7 @@ class OrderResource extends JsonResource
             'payment_method_id' => $this->payment_method_id,
             'delivery_rate_id' => $this->delivery_rate_id,
             'delivery_fee' => $this->deliveryRate ? $this->deliveryRate->amount : null,
-            'payment_method' => new PaymentMethod($this->paymentMethod),
+            'payment_method' => new PaymentMethodResource($this->paymentMethod),
             'charge' => new PaymentChargeResource($this->paymentCharge),
             'subtotal' => $this->subtotal,
             'orderable_type' => $this->orderable_type,
