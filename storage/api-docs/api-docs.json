@@ -5227,6 +5227,12 @@
                         "description": "status",
                         "type": "string",
                         "example": "approve/decline"
+                    },
+                    "receipt_number": {
+                        "title": "order_receipt_number",
+                        "description": "order_receipt_number",
+                        "type": "string",
+                        "example": "43934-493094309-4039430eifje"
                     }
                 },
                 "type": "object"
