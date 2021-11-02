@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Models\Order;
 use App\Models\Quote;
+use App\Models\Wallet;
+use App\Models\OrderItem;
+use App\Models\WalletTransaction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminQuoteUpdateFormRequest;
 
@@ -90,15 +94,55 @@ class QuoteController extends Controller
     public function update(AdminQuoteUpdateFormRequest $request, $id)
     {
         $quote = Quote::where('id', $id)->first();
+
+        $order = Order::where('receipt_number',  $request['receipt_number'])->first();
+
+        $orderItem = null;
         
         $quote->status = $request->status;
 
         $quote->save();
 
         if($quote->status = "delivered"){
-            
+            $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
+
+            if($orderItem->status == 'pending'){
+                $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
+                $orderItem->status = "paid";
+                $order->save();
+            }
         }
-        
         return $this->showOne($quote);
+    }
+
+    public function findOrderItemsForQuotesSelected($order, $quote)
+    {
+        $item = OrderItem::where('order_id', $order->id)->where('itemable_id', $quote->id)->where('itemable_type', 'quotes')->first();
+        return $item;
+    }
+
+    public function creditVendors($order, $orderItemDetails, $bid, $status, $transaction_type)
+    {
+        $quantityPurchased = $orderItemDetails->quantity;
+        $vendorBalance = Wallet::where('user_id', $bid->vendor_id)->first();
+        $item_total = $bid->price * $quantityPurchased;
+        $vendorBalance->balance = $vendorBalance->balance + $item_total;
+        $vendorBalance->save();
+
+        WalletTransaction::create([
+            'receipt_number' => $order->receipt_number,
+            'title' => $order->title,
+            'user_id' => $vendorBalance->user->id,
+            'details' => $order->details,
+            'amount' => $item_total,
+            'amount_paid' => $item_total,
+            'category' => $order->transaction_type,
+            'transaction_type' => $transaction_type,
+            'status' => $status,
+            'remarks' => $status,
+            'balance' => $vendorBalance->balance,
+            'walletable_id' => $orderItemDetails->itemable_id,
+            'walletable_type' => $orderItemDetails->itemable_type,
+        ]);
     }
 }

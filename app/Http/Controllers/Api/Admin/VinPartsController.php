@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Vin;
 use App\Models\Part;
+use App\Models\User;
+use App\Jobs\SendEmail;
 use App\Models\XpartRequest;
+use App\Mail\User\XpartRequestMail;
 use App\Http\Controllers\Controller;
+use App\Models\XpartRequestVendorWatch;
 use App\Http\Requests\Admin\VinPartsFormRequest;
 
 class VinPartsController extends Controller
@@ -66,6 +70,20 @@ class VinPartsController extends Controller
         if($request['make_xpart_request_active'] == true){
             $xpartRequest->status = 'active';
             $xpartRequest->save();
+
+            $users = User::select('email', 'name', 'id')->where('role', 'vendor')->where('id', '!=', auth()->user()->id)->get();
+
+            collect($users)->each(function ($user) use ($xpartRequest) {
+                if($xpartRequest->status == 'active'){
+                    
+                    XpartRequestVendorWatch::create([
+                        'xpart_request_id' => $xpartRequest->id,
+                        'vendor_id' => $user['id'],
+                        'status' => 'active'
+                    ]);
+                    SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
+                } 
+            });
         }
 
         return $this->showOne($xpartRequest);

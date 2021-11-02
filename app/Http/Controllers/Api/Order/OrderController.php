@@ -102,9 +102,10 @@ class OrderController extends Controller
             return ($cart->cartable->markup_price ?  $cart->cartable->markup_price : $cart->cartable->price) * $cart->quantity;
         });
 
-        $paymentCharge = PaymentCharge::where('payment_method_id', $request->payment_method_id)
-            ->where('gateway', $request->payment_gateway)
+        $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])
+            ->where('gateway', $request['payment_gateway'])
             ->first();
+            
         $fee = 0;
 
         $deliverySetting = DeliveryRate::where('type', 'flat')->first();
@@ -122,8 +123,8 @@ class OrderController extends Controller
         $order = auth()->user()->orders()->create([
             'title' => 'Bid Transaction Payment',
             'details' => 'Bid Transaction Payment',
-            'address_id' => $request->address_id,
-            'payment_method_id' => $request->payment_method_id,
+            'address_id' => $request['address_id'],
+            'payment_method_id' => $request['payment_method_id'],
             'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
             'delivery_setting_id' => $deliverySetting ? $deliverySetting->id : null,
             'subtotal' => $total,
@@ -236,6 +237,18 @@ class OrderController extends Controller
 
         $paymentMethod = PaymentMethod::where('id', $request['payment_method_id'])->first();
 
+        if($paymentMethod == null){
+            return $this->errorResponse('Payment method was not sent. Please select a payment method', 409);
+        }
+
+        if($order == null){
+            return $this->errorResponse('Transaction reference not found', 409);
+        }
+
+        if($order->status == 'paid' || $order->status == 'ordered' || $order->payment_status == 'successful'){
+            return $this->errorResponse('This transaction has already been initiated', 409);
+        }
+
         $status = $payment_message = $payment_method = $payment_gateway = $payment_status = null;
 
         if ($paymentMethod->name == "Payment on Delivery") {
@@ -306,14 +319,16 @@ class OrderController extends Controller
         $order->update($data);
 
         $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
-        
 
-        foreach ($findQuotes as $item) {
-            if ($status == 'paid') {
-                $this->creditVendors($order, $order->orderItems, $item, 'successful', 'credit');
+        if($status == "paid"){
+            foreach ($findQuotes as $bid) {
+                $bid->receipt_number = $order->receipt_number;
+                $bid->save();
+                $orderItem = $this->findOrderItemsForQuotesSelected($order, $bid, $status);
+                $this->creditVendors($order, $orderItem, $bid, 'successful', 'credit');
             }
         }
-
+       
         foreach ($findQuotes as $quote) {
             $quote->status = $status;
             $quote->save();
@@ -370,32 +385,46 @@ class OrderController extends Controller
         ]);
     }
 
-    public function creditVendors($order, $cartItems, $item, $status, $transaction_type)
+    public function findOrderItemsForQuotesSelected($order, $quote, $status)
     {
-        foreach ($cartItems as $cart) {
+        $item = OrderItem::where('order_id', $order->id)->where('itemable_id', $quote->id)->where('itemable_type', 'quotes')->first();
+        $item->status = $status;
+        $item->save();
+        return $item;
+    }
 
-            $quantityPurchased = $cart->quantity;
-            $vendor = Wallet::where('user_id', $item->vendor_id)->first();
-            $item_total = $item->price * $quantityPurchased;
-            $vendor->balance = $vendor->balance + $item_total;
-            $vendor->save();
+    public function debitWallet($order, $orderItemDetails, $bid)
+    {
+        $quantityPurchased = $orderItemDetails->quantity;
+        $vendorBalance = Wallet::where('user_id', $bid->vendor_id)->first();
+        $item_total = $bid->price * $quantityPurchased;
+        $vendorBalance->balance = $vendorBalance->balance + $item_total;
+        $vendorBalance->save();
+    }
 
-            WalletTransaction::create([
-                'receipt_number' => $order->receipt_number,
-                'title' => $order->title,
-                'user_id' => $vendor->user->id,
-                'details' => $order->details,
-                'amount' => $item_total,
-                'amount_paid' => $item_total,
-                'category' => $order->transaction_type,
-                'transaction_type' => $transaction_type,
-                'status' => $status,
-                'remarks' => $status,
-                'balance' => $vendor->balance,
-                'walletable_id' => $item->itemable_id,
-                'walletable_type' => $item->itemable_type,
-            ]);
-        }
+    public function creditVendors($order, $orderItemDetails, $bid, $status, $transaction_type)
+    {
+        $quantityPurchased = $orderItemDetails->quantity;
+        $vendorBalance = Wallet::where('user_id', $bid->vendor_id)->first();
+        $item_total = $bid->price * $quantityPurchased;
+        $vendorBalance->balance = $vendorBalance->balance + $item_total;
+        $vendorBalance->save();
+
+        WalletTransaction::create([
+            'receipt_number' => $order->receipt_number,
+            'title' => $order->title,
+            'user_id' => $vendorBalance->user->id,
+            'details' => $order->details,
+            'amount' => $item_total,
+            'amount_paid' => $item_total,
+            'category' => $order->transaction_type,
+            'transaction_type' => $transaction_type,
+            'status' => $status,
+            'remarks' => $status,
+            'balance' => $vendorBalance->balance,
+            'walletable_id' => $orderItemDetails->itemable_id,
+            'walletable_type' => $orderItemDetails->itemable_type,
+        ]);
     }
 
     public function debitUserWallet($order, $wallet)
