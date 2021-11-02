@@ -383,7 +383,7 @@ class OrderController extends Controller
 
     public function findOrderItemsForQuotesSelected($order, $quote, $status)
     {
-        $item = OrderItem::where('order_id', $order->id)->where('quote_id', $quote->id)->first();
+        $item = OrderItem::where('order_id', $order->id)->where('itemable_id', $quote->id)->where('itemable_type', 'quotes')->first();
         $item->status = $status;
         return $item;
     }
