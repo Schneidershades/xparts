@@ -236,6 +236,10 @@ class OrderController extends Controller
 
         $paymentMethod = PaymentMethod::where('id', $request['payment_method_id'])->first();
 
+        if($paymentMethod == null){
+            return $this->errorResponse('Payment method was not sent. Please select a payment method', 409);
+        }
+
         if($order == null){
             return $this->errorResponse('Transaction reference not found', 409);
         }
