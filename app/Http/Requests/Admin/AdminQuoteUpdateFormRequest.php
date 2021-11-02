@@ -27,6 +27,17 @@ class AdminQuoteUpdateFormRequest extends FormRequest
      */
     private $status;
 
+      /**
+     * @OA\Property(
+     *      title="order_receipt_number",
+     *      description="order_receipt_number",
+     *      example="43934-493094309-4039430eifje"
+     * )
+     *
+     * @var string
+     */
+    private $receipt_number;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -45,6 +56,7 @@ class AdminQuoteUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
+            'receipt_number' => 'required|int|exists:orders,receipt_number',
             'status' => 'required|string|in:approved,declined,vendor2xparts,xparts2user,expired',
         ];
     }

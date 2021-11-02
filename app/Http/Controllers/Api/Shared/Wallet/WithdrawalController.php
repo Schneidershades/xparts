@@ -54,8 +54,8 @@ class WithdrawalController extends Controller
             return $this->errorResponse('Insufficient funds', 409);
         }
 
-        $paymentCharge = PaymentCharge::where('payment_method_id', $request->payment_method_id)
-                                ->where('gateway', $request->payment_gateway)
+        $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])
+                                ->where('gateway', $request['payment_gateway'])
                                 ->first();
         $fee = 100;
         

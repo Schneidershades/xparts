@@ -320,11 +320,15 @@ class OrderController extends Controller
 
         $findQuotes = Quote::whereIn('id', $order->orderItems->pluck('itemable_id')->toArray())->get();
 
-        foreach ($findQuotes as $bid) {
-            $orderItem = $this->findOrderItemsForQuotesSelected($order, $bid, $status);
-            $this->creditVendors($order, $orderItem, $bid, 'successful', 'credit');
+        if($status == "paid"){
+            foreach ($findQuotes as $bid) {
+                $bid->receipt_number = $order->receipt_number;
+                $bid->save();
+                $orderItem = $this->findOrderItemsForQuotesSelected($order, $bid, $status);
+                $this->creditVendors($order, $orderItem, $bid, 'successful', 'credit');
+            }
         }
-
+       
         foreach ($findQuotes as $quote) {
             $quote->status = $status;
             $quote->save();
@@ -387,6 +391,15 @@ class OrderController extends Controller
         $item->status = $status;
         $item->save();
         return $item;
+    }
+
+    public function debitWallet($order, $orderItemDetails, $bid)
+    {
+        $quantityPurchased = $orderItemDetails->quantity;
+        $vendorBalance = Wallet::where('user_id', $bid->vendor_id)->first();
+        $item_total = $bid->price * $quantityPurchased;
+        $vendorBalance->balance = $vendorBalance->balance + $item_total;
+        $vendorBalance->save();
     }
 
     public function creditVendors($order, $orderItemDetails, $bid, $status, $transaction_type)
