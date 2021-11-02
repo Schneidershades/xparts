@@ -13,8 +13,8 @@ class AddAddressIdToXpartRequestId extends Migration
      */
     public function up()
     {
-        Schema::table('xpart_request_id', function (Blueprint $table) {
-            $table->foreignId('address_id')->nullable()->constrained();
+        Schema::table('xpart_requests', function (Blueprint $table) {
+            $table->foreignId('address_id')->nullable()->constrained()->after('vin_id');
         });
     }
 
