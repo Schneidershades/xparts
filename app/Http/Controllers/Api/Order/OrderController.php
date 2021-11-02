@@ -385,6 +385,7 @@ class OrderController extends Controller
     {
         $item = OrderItem::where('order_id', $order->id)->where('itemable_id', $quote->id)->where('itemable_type', 'quotes')->first();
         $item->status = $status;
+        $item->save();
         return $item;
     }
 
