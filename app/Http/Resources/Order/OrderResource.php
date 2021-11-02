@@ -6,6 +6,7 @@ use App\Http\Resources\Address\AddressResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Payment\PaymentChargeResource;
 use App\Http\Resources\Payment\PaymentMethodResource;
+use App\Models\PaymentMethod;
 
 class OrderResource extends JsonResource
 {
@@ -29,7 +30,7 @@ class OrderResource extends JsonResource
             'payment_method_id' => $this->payment_method_id,
             'delivery_rate_id' => $this->delivery_rate_id,
             'delivery_fee' => $this->deliveryRate ? $this->deliveryRate->amount : null,
-            'payment_method_selected' => $this->paymentMethod ? $this->paymentMethod->name : null,
+            'payment_method' => new PaymentMethod($this->paymentMethod),
             'charge' => new PaymentChargeResource($this->paymentCharge),
             'subtotal' => $this->subtotal,
             'orderable_type' => $this->orderable_type,
