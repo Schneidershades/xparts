@@ -323,6 +323,7 @@ class OrderController extends Controller
         if($status == "paid"){
             foreach ($findQuotes as $bid) {
                 $bid->receipt_number = $order->receipt_number;
+                $bid->order_id = $order->id;
                 $bid->save();
                 $orderItem = $this->findOrderItemsForQuotesSelected($order, $bid, $status);
                 $this->creditVendors($order, $orderItem, $bid, 'successful', 'credit');
@@ -342,6 +343,7 @@ class OrderController extends Controller
         
         foreach ($userRequests as $userRequest) {
             $userRequest->receipt_number = $order->receipt_number;
+            $userRequest->order_id = $order->id;
             $userRequest->status =  $status;
             $userRequest->address_id =  $order->address_id;
             $userRequest->save();

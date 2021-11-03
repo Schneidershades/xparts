@@ -14,6 +14,7 @@ class QuoteResource extends JsonResource
             'id' => $this->id,
             'xpartRequestPart' => $this->xpartRequest->part->name,
             'xpartRequestVin' => $this->xpartRequest->vin->vin_number,
+            'receipt_number' => $this->receipt_number,
             'vendor' => new VendorResource($this->vendor),
             'grade' => $this->partGrade->name,
             'brand' => $this->brand,

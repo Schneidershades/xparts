@@ -24,6 +24,8 @@ class XpartRequestResource extends JsonResource
             'user_id' => $this->user_id,
             'address' => new AddressResource($this->address),
             
+            'receipt_number' => $this->receipt_number,
+            
             // 'status' => $this->status,
 
             $this->mergeWhen($this->status =='expired' , [
