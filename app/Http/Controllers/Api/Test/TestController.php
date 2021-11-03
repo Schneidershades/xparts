@@ -25,10 +25,9 @@ class TestController extends Controller
     {
         $orders = Order::where('status', 'paid')->orWhere('status', 'ordered')->get();
 
-        $itemables = null;
+        $itemables = $orders->orderItems->pluck('itemable_id')->toArray();
 
         foreach($orders as $order){
-            $itemables = $order->orderItems->pluck('itemable_id')->toArray();
             foreach($order->orderItems as $orderItem){
                 $orderItem->receipt_number = $order->receipt_number;
                 $orderItem->status = $order->status;
