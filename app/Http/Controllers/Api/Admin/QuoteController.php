@@ -106,11 +106,9 @@ class QuoteController extends Controller
         if($quote->status = "delivered"){
             $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
 
-            if($orderItem->status == 'pending'){
-                $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
-                $orderItem->status = "paid";
-                $order->save();
-            }
+            $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
+            $orderItem->status = $quote->status;
+            $order->save();
         }
         return $this->showOne($quote);
     }
