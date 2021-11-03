@@ -83,6 +83,6 @@ Route::prefix('v1')->group(function () {
 	});
 
 	
-	Route::post('process-all-orders', 'Test\TestController@quoteProcessing');
+	Route::post('process-all-orders', 'Api\Test\TestController@quoteProcessing');
 });
 
