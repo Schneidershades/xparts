@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Test;
 
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Quote;
 use App\Models\XpartRequest;
 use App\Events\VendorQuoteSent;
@@ -18,5 +19,18 @@ class TestController extends Controller
         
         broadcast(new VendorQuoteSent($user, $xpartRequest, $quotes));
 
+    }
+
+    public function quoteProcessing()
+    {
+        $orders = Order::where('status', 'paid')->get();
+
+        foreach($orders as $order){
+            foreach($order->orderItems as $orderItem){
+                $orderItem->receipt_number = $order->receipt_number;
+                $orderItem->save();
+            }
+        }
+        
     }
 }
