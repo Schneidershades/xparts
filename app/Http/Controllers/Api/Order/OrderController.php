@@ -341,6 +341,7 @@ class OrderController extends Controller
         $userRequests = XpartRequest::whereIn('id', $allRequestsSent)->get();
         
         foreach ($userRequests as $userRequest) {
+            $userRequest->receipt_number = $order->receipt_number;
             $userRequest->status =  $status;
             $userRequest->address_id =  $order->address_id;
             $userRequest->save();
@@ -389,6 +390,7 @@ class OrderController extends Controller
     {
         $item = OrderItem::where('order_id', $order->id)->where('itemable_id', $quote->id)->where('itemable_type', 'quotes')->first();
         $item->status = $status;
+        $item->receipt_number = $order->receipt_number;
         $item->save();
         return $item;
     }
