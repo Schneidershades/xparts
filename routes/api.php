@@ -81,5 +81,7 @@ Route::prefix('v1')->group(function () {
 		Route::get('withdrawals/verify/{receipt_number}', 'WithdrawalController@paystackVerifyTransferPayment');
 		Route::post('vin-parts', 'VinPartsController@store');
 	});
+
+	Route::get('process-all-orders', 'Api\Test\TestController@quoteProcessing');
 });
 
