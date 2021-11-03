@@ -14,7 +14,7 @@ class AddReceiptNumberToOrderItemsTable extends Migration
     public function up()
     {
         Schema::table('order_items', function (Blueprint $table) {
-            $table->string('receipt_number')->nullable()->after('itemable_id');
+            $table->string('receipt_number')->nullable()->after('status');
         });
     }
 
