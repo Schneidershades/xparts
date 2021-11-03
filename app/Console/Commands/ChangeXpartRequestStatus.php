@@ -2,10 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Quote;
 use App\Jobs\SendEmail;
-use App\Mail\User\XpartRequestExpiredMail;
 use App\Models\XpartRequest;
 use Illuminate\Console\Command;
+use App\Mail\Vendor\XpartQuoteMail;
+use App\Models\XpartRequestVendorWatch;
+use App\Mail\User\XpartRequestExpiredMail;
 
 class ChangeXpartRequestStatus extends Command
 {
@@ -53,9 +56,27 @@ class ChangeXpartRequestStatus extends Command
             $xpartRequest->update([
                 'status' => 'expired',
             ]);
-
             SendEmail::dispatch($user['email'], new XpartRequestExpiredMail($xpartRequest, $user))->onQueue('emails');
             $this->total += 1;
+        }
+
+
+        $allRequestsSent = $requests->pluck('id')->toArray();
+
+        $notPaidQuotesButStillActive = Quote::whereIn('xpart_request_id', $allRequestsSent)->where('status', 'active')->get();
+
+        foreach ($notPaidQuotesButStillActive as $quote) {
+            $quote->status = 'expired';
+            $quote->save();
+
+            SendEmail::dispatch($quote->vendor->email, new XpartQuoteMail($quote, $quote->vendor))->onQueue('emails')->delay(5);
+        }
+
+        $sentRequest = XpartRequestVendorWatch::whereIn('xpart_request_id', $allRequestsSent)->get();
+
+        foreach ($sentRequest as $sent) {
+            $sent->status = 'expired';
+            $sent->save();
         }
 
         $time_end = microtime(true);
