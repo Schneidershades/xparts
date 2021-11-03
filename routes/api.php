@@ -82,7 +82,6 @@ Route::prefix('v1')->group(function () {
 		Route::post('vin-parts', 'VinPartsController@store');
 	});
 
-	
-	Route::post('process-all-orders', 'Api\Test\TestController@quoteProcessing');
+	Route::get('process-all-orders', 'Api\Test\TestController@quoteProcessing');
 });
 

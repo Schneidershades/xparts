@@ -42,7 +42,7 @@ class MarkupPricingController extends Controller
     {
         $count = MarkupPricing::all()->count();
         if($count > 1){
-            return $this->errorResponse('You cannot create any further. Kindly edit the one available', 409)
+            return $this->errorResponse('You cannot create any further. Kindly edit the one available', 409);
         }
         return $this->showAll(MarkupPricing::all());
     }
