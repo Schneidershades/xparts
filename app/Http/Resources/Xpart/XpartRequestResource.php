@@ -25,6 +25,11 @@ class XpartRequestResource extends JsonResource
             'address' => new AddressResource($this->address),
             
             // 'status' => $this->status,
+
+            $this->mergeWhen($this->status =='expired' , [
+                'status' => 'expired',
+            ]),
+
             $this->mergeWhen($this->status =='ordered' , [
                 'status' => 'ordered',
             ]),
