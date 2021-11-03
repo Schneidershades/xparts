@@ -37,12 +37,14 @@ class TestController extends Controller
             }
         }
 
-        return dd(Arr::flatten($itemables));
+        // return dd(Arr::flatten($itemables));
 
         if($itemables != null){
 
             $items = Quote::whereIn('id', $itemables)->get();
             
+            dd($items );
+
             $xpartsIds = $items->pluck('xparts_request_id')->toArray();
 
             foreach($items as $item){
