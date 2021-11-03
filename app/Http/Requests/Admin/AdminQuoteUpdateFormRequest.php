@@ -57,6 +57,8 @@ class AdminQuoteUpdateFormRequest extends FormRequest
     {
         return [
             'receipt_number' => 'required|int|exists:orders,receipt_number',
+            'xpart_request_id' => 'required|int|exists:xpart_requests,id',
+            'current_xpart_request_status' => 'required|string|in:ordered,paid,declined,vendor2xparts,delivered,expired',
             'status' => 'required|string|in:approved,declined,vendor2xparts,delivered,expired',
         ];
     }
