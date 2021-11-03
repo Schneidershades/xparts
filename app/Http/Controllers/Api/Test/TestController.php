@@ -31,6 +31,7 @@ class TestController extends Controller
             $itemables = $order->orderItems->pluck('itemable_id')->toArray();
             foreach($order->orderItems as $orderItem){
                 $orderItem->receipt_number = $order->receipt_number;
+                $orderItem->status = $order->status;
                 $orderItem->save();
             }
         }
@@ -43,6 +44,7 @@ class TestController extends Controller
 
             foreach($items as $item){
                 $item->receipt_number = $order->receipt_number;
+                $item->order_id = $order->id;
                 $item->save();
             }
 
@@ -50,6 +52,7 @@ class TestController extends Controller
 
             foreach($xpartRequest as $x){
                 $x->receipt_number = $order->receipt_number;
+                $x->order_id = $order->id;
                 $x->save();
             }
         }
