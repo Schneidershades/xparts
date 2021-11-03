@@ -37,7 +37,7 @@ class TestController extends Controller
             }
         }
 
-        return Arr::flatten($itemables);
+        // return Arr::flatten($itemables);
 
         if($itemables != null){
 
