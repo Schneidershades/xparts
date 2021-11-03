@@ -42,8 +42,6 @@ class TestController extends Controller
         if($itemables != null){
 
             $items = Quote::whereIn('id', $itemables)->get();
-            
-            dd($items );
 
             $xpartsIds = $items->pluck('xparts_request_id')->toArray();
 
