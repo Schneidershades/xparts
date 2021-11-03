@@ -56,9 +56,7 @@ class AdminQuoteUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'receipt_number' => 'required|int|exists:orders,receipt_number',
-            'xpart_request_id' => 'required|int|exists:xpart_requests,id',
-            'current_xpart_request_status' => 'required|string|in:ordered,paid,declined,vendor2xparts,delivered,expired',
+            'receipt_number' => 'required|string|exists:orders,receipt_number',
             'status' => 'required|string|in:approved,declined,vendor2xparts,delivered,expired',
         ];
     }
