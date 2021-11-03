@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Test;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Quote;
+use Illuminate\Support\Arr;
 use App\Models\XpartRequest;
 use App\Events\VendorQuoteSent;
 use App\Http\Controllers\Controller;
@@ -25,10 +26,10 @@ class TestController extends Controller
     {
         $orders = Order::where('status', 'paid')->orWhere('status', 'ordered')->get();
 
-        $itemables = null;
+        $itemables = [];
 
         foreach($orders as $order){
-            $itemables = $order->orderItems->pluck('itemable_id')->toArray();
+            $itemables[] = $order->orderItems->pluck('itemable_id')->toArray();
             foreach($order->orderItems as $orderItem){
                 $orderItem->receipt_number = $order->receipt_number;
                 $orderItem->status = $order->status;
@@ -36,10 +37,12 @@ class TestController extends Controller
             }
         }
 
+        $itemables = (Arr::flatten($itemables));
+
         if($itemables != null){
 
             $items = Quote::whereIn('id', $itemables)->get();
-            
+
             $xpartsIds = $items->pluck('xparts_request_id')->toArray();
 
             foreach($items as $item){
