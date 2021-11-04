@@ -117,8 +117,8 @@ class QuoteController extends Controller
             if($orderItem->status == 'pending'){
                 $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
             }
-            
-            $orderItem->status = $quote->status;
+
+            $orderItem->status = $request['status'];
             $order->save();
         }
 
