@@ -103,6 +103,8 @@ class QuoteController extends Controller
 
         $quote->save();
 
+        dd($quote);
+
         if(!$quote){
             return $this->errorResponse('Quote not found', 404);
         }
