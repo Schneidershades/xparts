@@ -103,9 +103,9 @@ class QuoteController extends Controller
             return $this->errorResponse('Quote not found', 404);
         }
 
-        // if($quote->status == $request['status']){
-        //     return $this->errorResponse('Quote already '. $request['status'], 409);
-        // }
+        if($quote->status == $request['status']){
+            return $this->errorResponse('Quote already '. $request['status'], 409);
+        }
 
         if($quote->status = "delivered"){
             $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
