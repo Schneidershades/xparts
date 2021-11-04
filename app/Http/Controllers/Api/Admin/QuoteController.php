@@ -126,6 +126,8 @@ class QuoteController extends Controller
             $countDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', 'delivered')->count();
             $countNotDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', '!=', 'delivered')->count();
 
+            dd($countNotDeliveredQuotes);
+
             if($countNotDeliveredQuotes == 0){
                 $xpartRequest->status = $request['status'];
                 $xpartRequest->save();
