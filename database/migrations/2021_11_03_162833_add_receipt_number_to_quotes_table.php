@@ -14,7 +14,7 @@ class AddReceiptNumberToQuotesTable extends Migration
     public function up()
     {
         Schema::table('quotes', function (Blueprint $table) {
-            $table->foreignId('order_id')->nullable()->constrained()->after('status'); 
+            $table->foreignId('order_id')->unsigned()->index()->after('status'); 
             $table->string('receipt_number')->nullable()->after('order_id');
         });
     }
