@@ -132,27 +132,6 @@ class QuoteController extends Controller
             }
         }
 
-        // if($itemables != null){
-
-        //     $items = Quote::whereIn('receipt_number', $request['receipt_number'])->get();
-
-        //     $xpartsIds = $items->pluck('xparts_request_id')->toArray();
-
-        //     foreach($items as $item){
-        //         $item->receipt_number = $order->receipt_number;
-        //         $item->order_id = $order->id;
-        //         $item->save();
-        //     }
-
-        //     $xpartRequest = XpartRequest::whereIn('id', $xpartsIds)->get();
-
-        //     foreach($xpartRequest as $x){
-        //         $x->receipt_number = $order->receipt_number;
-        //         $x->order_id = $order->id;
-        //         $x->save();
-        //     }
-        // }
-
         $quote->status = $request['status'];
 
         $quote->save();
@@ -163,7 +142,7 @@ class QuoteController extends Controller
     public function findOrderItemsForQuotesSelected($order, $quote)
     {
         $item = OrderItem::where('receipt_number', $order->receipt_number)
-            ->where('order_id', $quote->id)
+            ->where('order_id', $order->id)
             ->where('itemable_id', $quote->id)
             ->where('itemable_type', 'quotes')
             ->first();
