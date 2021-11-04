@@ -104,7 +104,7 @@ class QuoteController extends Controller
         }
 
         // if($quote->status == $request['status']){
-        //     return $this->errorResponse('Quote already '. $request['status'], 404);
+        //     return $this->errorResponse('Quote already '. $request['status'], 409);
         // }
 
         if($quote->status = "delivered"){
@@ -120,7 +120,30 @@ class QuoteController extends Controller
 
             $orderItem->status = $request['status'];
             $orderItem->save();
+
+            dd($orderItem->itemable->xpartsRequest->quotes);
         }
+
+        // if($itemables != null){
+
+        //     $items = Quote::whereIn('receipt_number', $request['receipt_number'])->get();
+
+        //     $xpartsIds = $items->pluck('xparts_request_id')->toArray();
+
+        //     foreach($items as $item){
+        //         $item->receipt_number = $order->receipt_number;
+        //         $item->order_id = $order->id;
+        //         $item->save();
+        //     }
+
+        //     $xpartRequest = XpartRequest::whereIn('id', $xpartsIds)->get();
+
+        //     foreach($xpartRequest as $x){
+        //         $x->receipt_number = $order->receipt_number;
+        //         $x->order_id = $order->id;
+        //         $x->save();
+        //     }
+        // }
 
         $quote->status = $request['status'];
 
