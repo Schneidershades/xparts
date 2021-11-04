@@ -38,7 +38,6 @@ class TestController extends Controller
 
             $itemables = (Arr::flatten($itemables));
 
-
             $items = Quote::whereIn('id', $itemables)->get();
 
             $xpartsIds = $items->pluck('xparts_request_id')->toArray();
