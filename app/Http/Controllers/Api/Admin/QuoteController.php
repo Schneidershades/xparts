@@ -102,11 +102,10 @@ class QuoteController extends Controller
         $quote->status = $request->status;
 
         $quote->save();
+        
 
         if($quote->status = "delivered"){
             $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
-
-            dd($orderItem);
 
             if($orderItem->status == 'pending'){
                 $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
@@ -119,7 +118,6 @@ class QuoteController extends Controller
 
     public function findOrderItemsForQuotesSelected($order, $quote)
     {
-        dd($order, $quote);
         $item = OrderItem::where('order_id', $order->id)->where('itemable_id', $quote->id)->where('itemable_type', 'quotes')->first();
         return $item;
     }
