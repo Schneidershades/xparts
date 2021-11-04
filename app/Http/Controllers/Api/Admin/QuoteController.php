@@ -114,7 +114,7 @@ class QuoteController extends Controller
                 return $this->errorResponse('Quote order item not found. Please contact support', 404);
             }
 
-            if($orderItem->status == 'pending'){
+            if($orderItem->status == 'pending' || $orderItem->status == 'ordered'){
                 $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
             }
 
