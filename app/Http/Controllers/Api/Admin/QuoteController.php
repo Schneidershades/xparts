@@ -119,7 +119,7 @@ class QuoteController extends Controller
             }
 
             $orderItem->status = $request['status'];
-            $order->save();
+            $orderItem->save();
         }
 
         $quote->status = $request['status'];
