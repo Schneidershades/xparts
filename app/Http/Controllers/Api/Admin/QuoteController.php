@@ -106,23 +106,25 @@ class QuoteController extends Controller
         // if($quote->status == $request['status']){
         //     return $this->errorResponse('Quote already '. $request['status'], 404);
         // }
-        
-        $quote->status = $request['status'];
-
-        $quote->save();
-        
 
         if($quote->status = "delivered"){
             $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
 
-            dd($orderItem);
+            if(!$orderItem){
+                return $this->errorResponse('Quote order item not found. Please contact support', 404);
+            }
 
             if($orderItem->status == 'pending'){
                 $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
-                $orderItem->status = $quote->status;
-                $order->save();
             }
+            
+            $orderItem->status = $quote->status;
+            $order->save();
         }
+
+        $quote->status = $request['status'];
+
+        $quote->save();
 
         return $this->showOne($quote);
     }
