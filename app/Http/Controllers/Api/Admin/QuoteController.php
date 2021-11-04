@@ -107,12 +107,12 @@ class QuoteController extends Controller
         $quote->status = $request['status'];
 
         $quote->save();
-        
+
         // if($quote->status == $request['status']){
         //     return $this->errorResponse('Quote already '. $request['status'], 409);
         // }
 
-        if($quote->status = "delivered"){
+        if($quote->status == "delivered"){
             $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
 
             if(!$orderItem){
