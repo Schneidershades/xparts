@@ -93,7 +93,7 @@ class DashboardController extends Controller
                 ],
             ],
 
-            'salesTransacion' => [
+            'salesTransaction' => [
                 'all' =>[
                     'key' => 'all requests',
                     'value' => XpartRequest::all()->count()

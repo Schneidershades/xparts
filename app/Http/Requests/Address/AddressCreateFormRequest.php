@@ -114,7 +114,7 @@ class AddressCreateFormRequest extends FormRequest
             'state_id' => 'required|integer|exists:states,id',
             'city_id' => 'required|integer|exists:cities,id',
             'country_id' => 'required|integer|exists:countries,id',
-            'postal_code' => 'integer',
+            'postal_code' => 'string',
             'primary_address' => 'boolean',
         ];
     }
