@@ -99,12 +99,16 @@ class QuoteController extends Controller
 
         $quote = Quote::where('id', $id)->first();
 
+        $quote->status = $request['status'];
+
+        $quote->save();
+
         if(!$quote){
             return $this->errorResponse('Quote not found', 404);
         }
 
         // if($quote->status == $request['status']){
-        //     return $this->errorResponse('Quote already '. $request['status'], 404);
+        //     return $this->errorResponse('Quote already '. $request['status'], 409);
         // }
 
         if($quote->status = "delivered"){
@@ -120,11 +124,19 @@ class QuoteController extends Controller
 
             $orderItem->status = $request['status'];
             $orderItem->save();
+
+            $xpartRequest = $orderItem->itemable->xpartRequest;
+
+            $countDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', 'delivered')->count();
+            $countNotDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', '!=', 'delivered')->count();
+
+
+
+            if($countNotDeliveredQuotes == 0){
+                $xpartRequest->status = $request['status'];
+                $xpartRequest->save();
+            }
         }
-
-        $quote->status = $request['status'];
-
-        $quote->save();
 
         return $this->showOne($quote);
     }
@@ -132,7 +144,7 @@ class QuoteController extends Controller
     public function findOrderItemsForQuotesSelected($order, $quote)
     {
         $item = OrderItem::where('receipt_number', $order->receipt_number)
-            ->where('order_id', $quote->id)
+            ->where('order_id', $order->id)
             ->where('itemable_id', $quote->id)
             ->where('itemable_type', 'quotes')
             ->first();
