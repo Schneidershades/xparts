@@ -97,21 +97,21 @@ class QuoteController extends Controller
 
         $quote = Quote::where('id', $id)->first();
 
+        if(!$quote){
+            return $this->errorResponse('Quote not found', 404);
+        }
+
         $order = Order::where('receipt_number',  $quote->receipt_number)->first();
 
         $quote->status = $request['status'];
 
         $quote->save();
 
-        if(!$quote){
-            return $this->errorResponse('Quote not found', 404);
-        }
-
         // if($quote->status == $request['status']){
         //     return $this->errorResponse('Quote already '. $request['status'], 409);
         // }
 
-        if($quote->status = "delivered"){
+        if($quote->status == "delivered"){
             $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
 
             if(!$orderItem){
@@ -129,8 +129,6 @@ class QuoteController extends Controller
 
             $countDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', 'delivered')->count();
             $countNotDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', '!=', 'delivered')->count();
-
-
 
             if($countNotDeliveredQuotes == 0){
                 $xpartRequest->status = $request['status'];
