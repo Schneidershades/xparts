@@ -100,8 +100,12 @@ class QuoteController extends Controller
         $quote = Quote::where('id', $id)->first();
 
         if(!$quote){
-            return $this->errorResponse('Quote Not found', 404);
+            return $this->errorResponse('Quote not found', 404);
         }
+
+        // if($quote->status == $request['status']){
+        //     return $this->errorResponse('Quote already '. $request['status'], 404);
+        // }
         
         $quote->status = $request['status'];
 
@@ -110,6 +114,8 @@ class QuoteController extends Controller
 
         if($quote->status = "delivered"){
             $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
+
+            dd($orderItem);
 
             if($orderItem->status == 'pending'){
                 $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
@@ -123,7 +129,11 @@ class QuoteController extends Controller
 
     public function findOrderItemsForQuotesSelected($order, $quote)
     {
-        $item = OrderItem::where('receipt_number', $order->receipt_number)->where('itemable_id', $quote->id)->first();
+        $item = OrderItem::where('receipt_number', $order->receipt_number)
+            ->where('order_id', $quote->id)
+            ->where('itemable_id', $quote->id)
+            ->where('itemable_type', 'quotes')
+            ->first();
 
         return $item;
     }
