@@ -27,7 +27,6 @@ class AddReceiptNumberToQuotesTable extends Migration
     public function down()
     {
         Schema::table('quotes', function (Blueprint $table) {
-            $table->dropForeign(['order_id']);
             $table->dropColumn(['receipt_number', 'order_id']);
         });
     }

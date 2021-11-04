@@ -28,9 +28,7 @@ class AddReceiptNumberToXpartRequestsTable extends Migration
     public function down()
     {
         Schema::table('xpart_requests', function (Blueprint $table) {
-            $table->dropForeign(['order_id']);
-            $table->dropColumn(['receipt_number', 'order_id']);
-            
+            $table->dropColumn(['receipt_number', 'order_id', 'address_id']);
         });
     }
 }
