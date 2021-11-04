@@ -101,7 +101,6 @@ class QuoteController extends Controller
             return $this->errorResponse('Quote not found', 404);
         }
 
-
         $order = Order::where('receipt_number',  $quote->receipt_number)->first();
 
         $quote->status = $request['status'];
@@ -112,32 +111,30 @@ class QuoteController extends Controller
         //     return $this->errorResponse('Quote already '. $request['status'], 409);
         // }
 
-        if($quote->status == "delivered"){
-            $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
+        // if($quote->status == "delivered"){
+        //     $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
 
-            if(!$orderItem){
-                return $this->errorResponse('Quote order item not found. Please contact support', 404);
-            }
+        //     if(!$orderItem){
+        //         return $this->errorResponse('Quote order item not found. Please contact support', 404);
+        //     }
 
-            if($orderItem->status == 'pending' || $orderItem->status == 'ordered'){
-                $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
-            }
+        //     if($orderItem->status == 'pending' || $orderItem->status == 'ordered'){
+        //         $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
+        //     }
 
-            $orderItem->status = $request['status'];
-            $orderItem->save();
+        //     $orderItem->status = $request['status'];
+        //     $orderItem->save();
 
-            $xpartRequest = $orderItem->itemable->xpartRequest;
+        //     $xpartRequest = $orderItem->itemable->xpartRequest;
 
-            $countDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', 'delivered')->count();
-            $countNotDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', '!=', 'delivered')->count();
+        //     $countDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', 'delivered')->count();
+        //     $countNotDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', '!=', 'delivered')->count();
 
-
-
-            if($countNotDeliveredQuotes == 0){
-                $xpartRequest->status = $request['status'];
-                $xpartRequest->save();
-            }
-        }
+        //     if($countNotDeliveredQuotes == 0){
+        //         $xpartRequest->status = $request['status'];
+        //         $xpartRequest->save();
+        //     }
+        // }
 
         return $this->showOne($quote);
     }
