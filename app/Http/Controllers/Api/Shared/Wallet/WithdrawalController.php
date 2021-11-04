@@ -50,14 +50,21 @@ class WithdrawalController extends Controller
 
         $balance = $wallet->balance;
         
-        if($balance < $request['amount'] ){
-            return $this->errorResponse('Insufficient funds', 409);
-        }
+        // if($balance < $request['amount'] ){
+        //     return $this->errorResponse('Insufficient funds', 409);
+        // }
 
         $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])
                                 ->where('gateway', $request['payment_gateway'])
                                 ->first();
         $fee = 100;
+
+        $amount = $request['amount'] + $fee;
+
+        if($balance < $amount){
+            return $this->errorResponse('Insufficient funds', 409);
+        }
+
         
         // if($paymentCharge){
         //     $paymentChargeAmount = $paymentCharge->amount_gateway_charge + $paymentCharge->amount_company_charge;
