@@ -99,30 +99,28 @@ class QuoteController extends Controller
 
         $orderItem = null;
         
-        $quote->status = $request->status;
+        $quote->status = $request['status'];
 
         $quote->save();
         
 
-        // if($quote->status = "delivered"){
-        //     $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
+        if($quote->status = "delivered"){
+            $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
 
-        //     if($orderItem->status == 'pending'){
-        //         $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
-        //         $orderItem->status = $quote->status;
-        //         $order->save();
-        //     }
-        // }
+            if($orderItem->status == 'pending'){
+                $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
+                $orderItem->status = $quote->status;
+                $order->save();
+            }
+        }
 
         return $this->showOne($quote);
     }
 
     public function findOrderItemsForQuotesSelected($order, $quote)
     {
-        dd($order->id, $quote->id);
         $item = OrderItem::where('receipt_number', $order->receipt_number)->where('itemable_id', $quote->id)->first();
 
-        dd($item);
         return $item;
     }
 
