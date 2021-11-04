@@ -49,6 +49,7 @@ class TestController extends Controller
             foreach($xpartRequest as $x){
                 $x->receipt_number = $order->receipt_number;
                 $x->order_id = $order->id;
+                $x->address_id = $order->address_id;
                 $x->save();
             }
         }
