@@ -97,6 +97,8 @@ class QuoteController extends Controller
 
         $quote = Quote::where('id', $id)->first();
 
+        $order = Order::where('receipt_number',  $quote->receipt_number)->first();
+
         $quote->status = $request['status'];
 
         $quote->save();
