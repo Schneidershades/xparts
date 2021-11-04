@@ -102,6 +102,8 @@ class QuoteController extends Controller
         $quote->status = $request->status;
 
         $quote->save();
+
+        dd($quote);
         
 
         if($quote->status = "delivered"){
