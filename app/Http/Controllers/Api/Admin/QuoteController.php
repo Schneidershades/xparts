@@ -121,7 +121,7 @@ class QuoteController extends Controller
             $orderItem->status = $request['status'];
             $orderItem->save();
 
-            dd($orderItem->itemable->xpartRequest);
+            dd($orderItem->itemable->xpartRequest->allQuotes);
         }
 
         // if($itemables != null){
