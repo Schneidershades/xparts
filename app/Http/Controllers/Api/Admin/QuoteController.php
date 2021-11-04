@@ -93,11 +93,11 @@ class QuoteController extends Controller
     
     public function update(AdminQuoteUpdateFormRequest $request, $id)
     {
-        $quote = Quote::where('id', $id)->first();
+        $orderItem = null;
 
         $order = Order::where('receipt_number',  $request['receipt_number'])->first();
 
-        $orderItem = null;
+        $quote = Quote::where('id', $id)->first();
         
         $quote->status = $request['status'];
 
