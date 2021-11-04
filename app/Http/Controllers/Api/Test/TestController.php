@@ -26,20 +26,13 @@ class TestController extends Controller
     {
         $orders = Order::where('status', 'paid')->orWhere('status', 'ordered')->get();
 
-        $itemables = [];
-
         foreach($orders as $order){
-            $itemables[] = $order->orderItems->pluck('itemable_id')->toArray();
+            $itemables = $order->orderItems->pluck('itemable_id')->toArray();
             foreach($order->orderItems as $orderItem){
                 $orderItem->receipt_number = $order->receipt_number;
                 $orderItem->status = $order->status;
                 $orderItem->save();
             }
-        }
-
-        $itemables = (Arr::flatten($itemables));
-
-        if($itemables != null){
 
             $items = Quote::whereIn('id', $itemables)->get();
 

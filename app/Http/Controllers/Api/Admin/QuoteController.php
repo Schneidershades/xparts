@@ -95,9 +95,9 @@ class QuoteController extends Controller
     {
         $orderItem = null;
 
-        $order = Order::where('receipt_number',  $request['receipt_number'])->first();
-
         $quote = Quote::where('id', $id)->first();
+
+        $order = Order::where('receipt_number',  $quote->receipt_number)->first();
 
         $quote->status = $request['status'];
 
@@ -143,7 +143,7 @@ class QuoteController extends Controller
 
     public function findOrderItemsForQuotesSelected($order, $quote)
     {
-        $item = OrderItem::where('receipt_number', $order->receipt_number)
+        $item = OrderItem::where('receipt_number', $quote->receipt_number)
             ->where('order_id', $order->id)
             ->where('itemable_id', $quote->id)
             ->where('itemable_type', 'quotes')

@@ -23,7 +23,7 @@ class XpartRequestResource extends JsonResource
             'updated_at' => $this->updated_at,
             'user_id' => $this->user_id,
             'address' => new AddressResource($this->address),
-            
+            'receipt_number_details' => $this->receipt_number ? $this->receipt_number : 'N/A',
             'receipt_number' => $this->receipt_number,
             
             'status' => $this->status,
