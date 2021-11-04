@@ -26,8 +26,6 @@ class TestController extends Controller
     {
         $orders = Order::where('status', 'paid')->orWhere('status', 'ordered')->get();
 
-        $itemables = [];
-
         foreach($orders as $order){
             $itemables = $order->orderItems->pluck('itemable_id')->toArray();
             foreach($order->orderItems as $orderItem){
@@ -54,13 +52,6 @@ class TestController extends Controller
                 $x->save();
             }
         }
-
-        // $itemables = (Arr::flatten($itemables));
-
-        // if($itemables != null){
-
-           
-        // }
         
     }
 }
