@@ -118,7 +118,7 @@ class QuoteController extends Controller
 
     public function findOrderItemsForQuotesSelected($order, $quote)
     {
-        $item = OrderItem::where('receipt_number', $order->receipt_number)->first();
+        $item = OrderItem::where('receipt_number', $order->receipt_number)->where('itemable_id', $quote->id)->first();
 
         dd($item);
         return $item;
