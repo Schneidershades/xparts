@@ -130,7 +130,7 @@ class QuoteController extends Controller
 
             if($countNotDeliveredQuotes == 0){
                 $xpartRequest->status = $request['status'];
-                return $xpartRequest->save();
+                $xpartRequest->save();
             }
         }
 
