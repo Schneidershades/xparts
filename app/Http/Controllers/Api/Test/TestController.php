@@ -29,14 +29,12 @@ class TestController extends Controller
         $itemables = [];
 
         foreach($orders as $order){
-            $itemables[] = $order->orderItems->pluck('itemable_id')->toArray();
+            $itemables = $order->orderItems->pluck('itemable_id')->toArray();
             foreach($order->orderItems as $orderItem){
                 $orderItem->receipt_number = $order->receipt_number;
                 $orderItem->status = $order->status;
                 $orderItem->save();
             }
-
-            $itemables = (Arr::flatten($itemables));
 
             $items = Quote::whereIn('id', $itemables)->get();
 
@@ -57,5 +55,12 @@ class TestController extends Controller
             }
         }
 
+        // $itemables = (Arr::flatten($itemables));
+
+        // if($itemables != null){
+
+           
+        // }
+        
     }
 }
