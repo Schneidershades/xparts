@@ -95,8 +95,6 @@ class QuoteController extends Controller
     {
         $orderItem = null;
 
-        $order = Order::where('receipt_number',  $request['receipt_number'])->first();
-
         $quote = Quote::where('id', $id)->first();
 
         $quote->status = $request['status'];
@@ -112,13 +110,8 @@ class QuoteController extends Controller
         // }
 
         if($quote->status = "delivered"){
-            
-            // dd($order->receipt_number, $order->id, $quote->id);
-
             $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
-            
-            dd($orderItem);
-            
+
             if(!$orderItem){
                 return $this->errorResponse('Quote order item not found. Please contact support', 404);
             }
@@ -148,7 +141,8 @@ class QuoteController extends Controller
 
     public function findOrderItemsForQuotesSelected($order, $quote)
     {
-        $item = OrderItem::where('receipt_number', $order->receipt_number)
+        $item = OrderItem::where('receipt_number', $quote->receipt_number)
+            ->where('order_id', $order->id)
             ->where('itemable_id', $quote->id)
             ->where('itemable_type', 'quotes')
             ->first();
