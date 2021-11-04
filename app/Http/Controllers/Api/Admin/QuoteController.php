@@ -102,8 +102,6 @@ class QuoteController extends Controller
         $quote->status = $request->status;
 
         $quote->save();
-
-        dd($quote);
         
 
         if($quote->status = "delivered"){
@@ -120,6 +118,7 @@ class QuoteController extends Controller
 
     public function findOrderItemsForQuotesSelected($order, $quote)
     {
+        dd($order->id, $quote->id);
         $item = OrderItem::where('receipt_number', $order->receipt_number)->where('itemable_id', $quote->id)->first();
 
         dd($item);
