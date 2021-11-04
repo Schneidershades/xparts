@@ -98,6 +98,10 @@ class QuoteController extends Controller
         $order = Order::where('receipt_number',  $request['receipt_number'])->first();
 
         $quote = Quote::where('id', $id)->first();
+
+        if(!$quote){
+            return $this->errorResponse('Quote Not found', 404);
+        }
         
         $quote->status = $request['status'];
 
