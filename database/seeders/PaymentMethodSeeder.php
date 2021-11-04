@@ -16,10 +16,12 @@ class PaymentMethodSeeder extends Seeder
     {
         PaymentMethod::Create([
             'name'             => 'Card',
+            'payment_gateway'  => 'paystack'
         ]);
 
         PaymentMethod::Create([
             'name'             => 'Wallet',
+            'payment_gateway'  => 'wallet'
         ]);
 
         PaymentMethod::Create([

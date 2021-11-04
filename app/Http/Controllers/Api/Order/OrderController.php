@@ -139,6 +139,7 @@ class OrderController extends Controller
                 'itemable_type' => $cart->cartable_type,
                 'quantity' => $cart->quantity,
                 'order_id' => $order->id,
+                'receipt_number' => $order->receipt_number,
                 'vendor_id' => $cart->cartable->vendor_id,
             ]);
         });
@@ -327,6 +328,13 @@ class OrderController extends Controller
                 $bid->save();
                 $orderItem = $this->findOrderItemsForQuotesSelected($order, $bid, $status);
                 $this->creditVendors($order, $orderItem, $bid, 'successful', 'credit');
+            }
+        }else{
+            foreach ($findQuotes as $bid) {
+                $bid->receipt_number = $order->receipt_number;
+                $bid->order_id = $order->id;
+                $bid->save();
+                $orderItem = $this->findOrderItemsForQuotesSelected($order, $bid, $status);
             }
         }
        

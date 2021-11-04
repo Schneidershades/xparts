@@ -93,31 +93,50 @@ class QuoteController extends Controller
     
     public function update(AdminQuoteUpdateFormRequest $request, $id)
     {
-        $quote = Quote::where('id', $id)->first();
+        $orderItem = null;
 
         $order = Order::where('receipt_number',  $request['receipt_number'])->first();
 
-        $orderItem = null;
-        
-        $quote->status = $request->status;
+        $quote = Quote::where('id', $id)->first();
 
-        $quote->save();
+        if(!$quote){
+            return $this->errorResponse('Quote not found', 404);
+        }
+
+        // if($quote->status == $request['status']){
+        //     return $this->errorResponse('Quote already '. $request['status'], 404);
+        // }
 
         if($quote->status = "delivered"){
             $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
 
-            if($orderItem->status == 'pending'){
-                $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
-                $orderItem->status = "paid";
-                $order->save();
+            if(!$orderItem){
+                return $this->errorResponse('Quote order item not found. Please contact support', 404);
             }
+
+            if($orderItem->status == 'pending' || $orderItem->status == 'ordered'){
+                $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
+            }
+
+            $orderItem->status = $request['status'];
+            $orderItem->save();
         }
+
+        $quote->status = $request['status'];
+
+        $quote->save();
+
         return $this->showOne($quote);
     }
 
     public function findOrderItemsForQuotesSelected($order, $quote)
     {
-        $item = OrderItem::where('order_id', $order->id)->where('itemable_id', $quote->id)->where('itemable_type', 'quotes')->first();
+        $item = OrderItem::where('receipt_number', $order->receipt_number)
+            ->where('order_id', $quote->id)
+            ->where('itemable_id', $quote->id)
+            ->where('itemable_type', 'quotes')
+            ->first();
+
         return $item;
     }
 
