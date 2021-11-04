@@ -112,6 +112,9 @@ class QuoteController extends Controller
         // }
 
         if($quote->status = "delivered"){
+            
+            dd($order->receipt_number, $order->id, $quote->id);
+
             $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
 
             if(!$orderItem){
