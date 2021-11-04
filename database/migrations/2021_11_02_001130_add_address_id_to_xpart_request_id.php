@@ -26,6 +26,7 @@ class AddAddressIdToXpartRequestId extends Migration
     public function down()
     {
         Schema::table('xpart_requests', function (Blueprint $table) {
+            $table->dropForeign(['address_id']);
             $table->dropColumn('address_id');
         });
     }
