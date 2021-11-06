@@ -158,7 +158,7 @@ class QuoteCreateFormRequest extends FormRequest
             'part_grade_id' => 'required|int|exists:part_grades,id',
             'state_id' => 'required|int|exists:states,id',
             'city_id' => 'required|int|exists:cities,id',
-            'quantity' => 'required|int',
+            'quantity' => 'required|int|min:1',
             'measurement' => 'required|string',
             'price' => 'required|numeric|min:1',
             'part_number' => 'nullable',
