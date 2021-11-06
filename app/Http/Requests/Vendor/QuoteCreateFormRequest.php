@@ -160,7 +160,7 @@ class QuoteCreateFormRequest extends FormRequest
             'city_id' => 'required|int|exists:cities,id',
             'quantity' => 'required|int',
             'measurement' => 'required|string',
-            'price' => 'required|int',
+            'price' => 'required|numeric|min:1',
             'part_number' => 'nullable',
             'part_warranty' => 'nullable',
             'description' => 'nullable',

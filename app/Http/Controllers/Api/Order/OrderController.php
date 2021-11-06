@@ -102,6 +102,10 @@ class OrderController extends Controller
             return ($cart->cartable->markup_price ?  $cart->cartable->markup_price : $cart->cartable->price) * $cart->quantity;
         });
 
+        if($total <= 0){
+            return $this->errorResponse('An error occoured while processing your cart totals', 400);
+        }
+
         $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])
             ->where('gateway', $request['payment_gateway'])
             ->first();
@@ -433,7 +437,6 @@ class OrderController extends Controller
             'receipt_number' => $order->receipt_number,
             'address_id' => $order->address_id,
             'payment_method_id' => $order->payment_method_id,
-            'payment_charge_id' => $order->payment_charge_id,
             'payment_charge_id' => $order->payment_charge_id,
             'subtotal' => $order->subtotal,
             'total' => $order->total,
