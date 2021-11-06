@@ -428,7 +428,7 @@ class OrderController extends Controller
 
         if($orderItemDetails->itemable_type == 'quotes'){
             $title = 'Receiving '.  $orderItemDetails->itemable_type . ' transaction payment';
-            $details = 'Receiving '.  $orderItemDetails->itemable_type . ' transaction payment for ' .$orderItemDetails->xpartRequest->part->name;
+            $title = 'Receiving '.  $orderItemDetails->itemable_type . ' transaction payment';
         }
 
         $newOrder = $vendorBalance->user->orders()->create([
