@@ -46,7 +46,7 @@ class WithdrawalCreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'amount' => 'required|numeric|min:1000',
+            'amount' => 'required|numeric|gt:1000',
         ];
     }
 }
