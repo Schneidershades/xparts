@@ -57,7 +57,7 @@ class AdminFinalizeTransferFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'otp' => 'required|int',
+            'otp' => 'required|string',
             'receipt_number' => 'required|string',
         ];
     }
