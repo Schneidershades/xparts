@@ -197,7 +197,7 @@ class FundController extends Controller
                 'category' => 'Fund',
                 'transaction_type' => $order->transaction_type,
                 'status' => 'successful',
-                'remarks' => 'Monwy credited to wallet',
+                'remarks' => 'Money credited to wallet',
                 'balance' => $balance,
                 'walletable_id' => $order->id,
                 'walletable_type' => 'orders',

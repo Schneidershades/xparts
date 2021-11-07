@@ -45,7 +45,7 @@ class FundCreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'amount' => 'required|int',
+            'amount' => 'required|numeric|gt:1000',
         ];
     }
 }
