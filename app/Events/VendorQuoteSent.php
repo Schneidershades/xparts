@@ -36,6 +36,11 @@ class VendorQuoteSent implements ShouldBroadcast
         $this->quote = (new QuoteResource($quote))->jsonSerialize();
     }
 
+    public function broadcastAs()
+    {
+        return 'VendorQuoteSent';
+    }
+
     /**
      * Get the channels the event should broadcast on.
      *

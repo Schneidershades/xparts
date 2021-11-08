@@ -4267,6 +4267,24 @@
                 }
             }
         },
+        "/api/v1/shared/payment-methods-top-up": {
+            "get": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "paymentMethods",
+                "description": "paymentMethods",
+                "operationId": "paymentMethods",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/shared/states/{id}": {
             "get": {
                 "tags": [
