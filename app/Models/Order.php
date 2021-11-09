@@ -12,11 +12,12 @@ use App\Models\PaymentMethod;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Order\OrderResource;
 use App\Http\Resources\Order\OrderCollection;
+use App\Traits\Api\QueryFieldSearchScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, QueryFieldSearchScope;
 
 
     protected $fillable = [

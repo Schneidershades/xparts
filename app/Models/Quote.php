@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Quote\QuoteResource;
 use App\Http\Resources\Quote\QuoteCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class Quote extends Model
 {
-    use HasFactory;
+    use HasFactory, QueryFieldSearchScope;
 
     protected $fillable = [
         "xpart_request_id",

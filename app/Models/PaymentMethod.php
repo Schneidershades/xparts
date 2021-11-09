@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Payment\PaymentMethodResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Http\Resources\Payment\PaymentMethodCollection;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class PaymentMethod extends Model
 {
-    use HasFactory;
+    use HasFactory, QueryFieldSearchScope;
 
     protected $guarded = [];
 

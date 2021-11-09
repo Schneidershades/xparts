@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class Media extends Model
 {
-    use HasFactory;
+    use HasFactory, QueryFieldSearchScope;
 
     protected $fillable = ['uuid', 'file_path', 'fileable_id', 'fileable_type'];
 

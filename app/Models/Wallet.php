@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class Wallet extends Model
 {
-    use HasFactory;
+    use HasFactory, QueryFieldSearchScope;
 
     protected $fillable = [
         "balance",

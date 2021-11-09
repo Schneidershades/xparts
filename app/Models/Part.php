@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Part\PartResource;
 use App\Http\Resources\Part\PartCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class Part extends Model
 {
-    use HasFactory;
+    use HasFactory, QueryFieldSearchScope;
 
     public $oneItem = PartResource::class;
     public $allItems = PartCollection::class;

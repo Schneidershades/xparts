@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Http\Resources\Wallet\WalletTransactionResource;
 use App\Http\Resources\Wallet\WalletTransactionCollection;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class WalletTransaction extends Model
 {
-    use HasFactory;
+    use HasFactory, QueryFieldSearchScope;
 
     public $oneItem = WalletTransactionResource::class;
     public $allItems = WalletTransactionCollection::class;

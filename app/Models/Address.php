@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Address\AddressResource;
 use App\Http\Resources\Address\AddressCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class Address extends Model
 {
-    use HasFactory;
+    use HasFactory, QueryFieldSearchScope;
     
     public $oneItem = AddressResource::class;
     public $allItems = AddressCollection::class;

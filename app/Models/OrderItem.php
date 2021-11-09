@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Order\OrderItemResource;
 use App\Http\Resources\Order\OrderItemCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class OrderItem extends Model
 {
-    use HasFactory;
+    use HasFactory, QueryFieldSearchScope;
     
     protected $fillable = [
         'itemable_id',

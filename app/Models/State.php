@@ -7,9 +7,13 @@ use App\Models\City;
 use App\Models\Country;
 use App\Http\Resources\Location\StateResource;
 use App\Http\Resources\Location\StateCollection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class State extends Model
 {
+    use HasFactory, QueryFieldSearchScope;
+
     public $oneItem = StateResource::class;
     public $allItems = StateCollection::class;
 

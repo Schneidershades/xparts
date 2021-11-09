@@ -53,15 +53,15 @@ class DetailController extends Controller
 
         $user->assignRole('Vendor');
 
-        $userDetails = [
-            'vehicle_specialization_id' => $request->vehicle_specialization_id,
-            'part_specialization_id' => $request->part_specialization_id,
-        ];
+        // $userDetails = [
+        //     'vehicle_specialization_id' => $request->vehicle_specialization_id,
+        //     'part_specialization_id' => $request->part_specialization_id,
+        // ];
 
-        if($user){
-            $this->requestAndDbIntersection($request, $user, [], $userDetails);
-            $user->save();
-        }
+        // if($user){
+        //     $this->requestAndDbIntersection($request, $user, [], $userDetails);
+        //     $user->save();
+        // }
         
         if($address == null){
             $address = new Address;
