@@ -141,7 +141,7 @@ class UserController extends Controller
 
         $model->save();
         
-        if($request->hasFile('image')){
+        if($request->has('image')){
             $image = $request->image;
             if (gettype($image) != "integer") {
                 $path = $this->uploadImage($image, "profile_photos");
