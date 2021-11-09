@@ -139,10 +139,6 @@ class XpartRequestController extends Controller
         $xpartRequest->status = $request['status'];
 
         $xpartRequest->save();
-
-        if($xpartRequest->status == 'delivered'){
-            
-        }
         
         return $this->showOne($xpartRequest);
     }

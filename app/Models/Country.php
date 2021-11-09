@@ -6,6 +6,7 @@ use App\Http\Resources\Location\CountryCollection;
 use App\Http\Resources\Location\CountryResource;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Api\QueryFieldSearchScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
 * @property int $id
