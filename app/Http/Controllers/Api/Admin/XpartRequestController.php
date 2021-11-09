@@ -40,7 +40,7 @@ class XpartRequestController extends Controller
 
     public function index()
     {
-        return $this->showAll(XpartRequest::search()->searchRelatedModels()->get()->latest()->get());
+        return $this->showAll(XpartRequest::latest()->get());
     }
 
     /**
