@@ -21,10 +21,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\Auth\PasswordResetNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, QueryFieldSearchScope;
 
     protected $guard_name = 'api';
 

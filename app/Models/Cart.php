@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Resources\Cart\CartCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class Cart extends Model
 {
-    use HasFactory;
+    use HasFactory, QueryFieldSearchScope;
 
     protected $fillable = [
         'cartable_type',

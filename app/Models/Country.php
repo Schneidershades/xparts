@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Resources\Location\CountryCollection;
 use App\Http\Resources\Location\CountryResource;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Api\QueryFieldSearchScope;
 
 /**
 * @property int $id
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
 */
 class Country extends Model
 {
+    use HasFactory, QueryFieldSearchScope;
+    
     public $oneItem = CountryResource::class;
     public $allItems = CountryCollection::class;
 

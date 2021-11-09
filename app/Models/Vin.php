@@ -6,10 +6,11 @@ use App\Http\Resources\Vin\VinResource;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Vin\VinCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class Vin extends Model
 {
-    use HasFactory;
+    use HasFactory, QueryFieldSearchScope;
     public $oneItem = VinResource::class;
     public $allItems = VinCollection::class;
 

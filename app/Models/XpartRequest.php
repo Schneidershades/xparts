@@ -13,10 +13,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Xpart\XpartRequestResource;
 use App\Http\Resources\Xpart\XpartRequestCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class XpartRequest extends Model
 {
-    use HasFactory;
+    use HasFactory, QueryFieldSearchScope;
 
     protected $fillable = [
         'vin_id',

@@ -28,6 +28,8 @@ class OrderItemResource extends JsonResource
                 'make' => $this->itemable->xpartRequest ? $this->itemable->xpartRequest->vin->make : null,
                 'model' => $this->itemable->xpartRequest ?  $this->itemable->xpartRequest->vin->model : null,
                 'year' => $this->itemable->xpartRequest ?  $this->itemable->xpartRequest->vin->model_year : null,
+                
+                'status' => $this->itemable ? $this->itemable->status : 'N/A',
             ]),
             
             'cartable_type' => $this->cartable_type,

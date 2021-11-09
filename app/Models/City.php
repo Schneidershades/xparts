@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\State;
 use App\Models\Country;
 use App\Http\Resources\Location\CityResource;
+use App\Traits\Api\QueryFieldSearchScope;
 
 /**
 * @property int $id
@@ -17,6 +18,8 @@ use App\Http\Resources\Location\CityResource;
 */
 class City extends Model
 {
+    use HasFactory, QueryFieldSearchScope;
+    
     public $oneItem = CityResource::class;
     public $allItems = CityResource::class;
 

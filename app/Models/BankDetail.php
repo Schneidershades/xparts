@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Bank\BankDetailResource;
 use App\Http\Resources\Bank\BankDetailCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Api\QueryFieldSearchScope;
 
 class BankDetail extends Model
 {
-    use HasFactory;
+    use HasFactory, QueryFieldSearchScope;
 
     protected $guarded = [];
 
