@@ -26,9 +26,4 @@ class Part extends Model
     {
         return $this->hasMany(XpartRequest::class);
     }
-
-    public function scopeFilter($query)
-    {
-        $query->where('name', 'like', '%' . request('search') . '%');
-    }
 }

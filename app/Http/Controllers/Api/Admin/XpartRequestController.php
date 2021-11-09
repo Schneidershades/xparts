@@ -40,7 +40,7 @@ class XpartRequestController extends Controller
 
     public function index()
     {
-        return $this->showAll(XpartRequest::latest()->get());
+        return $this->showAll(XpartRequest::search()->searchRelatedModels()->get()->latest()->get());
     }
 
     /**
@@ -139,10 +139,6 @@ class XpartRequestController extends Controller
         $xpartRequest->status = $request['status'];
 
         $xpartRequest->save();
-
-        if($xpartRequest->status == 'delivered'){
-            
-        }
         
         return $this->showOne($xpartRequest);
     }

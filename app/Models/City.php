@@ -7,6 +7,7 @@ use App\Models\State;
 use App\Models\Country;
 use App\Http\Resources\Location\CityResource;
 use App\Traits\Api\QueryFieldSearchScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
 * @property int $id
