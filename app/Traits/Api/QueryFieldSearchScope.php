@@ -36,19 +36,27 @@ trait QueryFieldSearchScope
         return $builder;
     }
 
-    public function scopeSearchRelatedModels($query, array $relatedModels=[]){
+    public function scopeSearchRelatedModels($query, array $relatedModels=[])
+    {
         $search_query = request()->get('search');
-        foreach ($relatedModels as $relatedModel){
-            $query->whereHas($relatedModel, function($builder) use ($search_query, $relatedModel){
+
+        foreach ($relatedModels as $relatedModel)
+        {
+            $query->whereHas($relatedModel, function($builder) use ($search_query, $relatedModel)
+            {
                 $relatedModelClass = $this->$relatedModel()->getRelated();
+
                 $searchables = (new $relatedModelClass)->searchables;
-                foreach ($searchables as $key => $field) {
+                
+                foreach ($searchables as $key => $field) 
+                {
                     if ($key === 0) {
                         $builder->where($field, 'like', "%{$search_query}%");
                     } else {
                         $builder->orWhere($field, 'like', "%{$search_query}%");
                     }
                 }
+                
                 return $builder;
             });
         }

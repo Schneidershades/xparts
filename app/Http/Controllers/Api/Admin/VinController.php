@@ -44,6 +44,7 @@ class VinController extends Controller
 
     public function index()
     {
+        (Vin::searchRelatedModels()->search()->latest()->get());
         return $this->showAll(Vin::latest()->get());
     }
 
