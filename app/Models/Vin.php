@@ -11,10 +11,14 @@ use App\Traits\Api\QueryFieldSearchScope;
 class Vin extends Model
 {
     use HasFactory, QueryFieldSearchScope;
+
     public $oneItem = VinResource::class;
     public $allItems = VinCollection::class;
+    
+    public $searchables = ['vin_number'];
 
     protected $appends = ['vehicle_name'];
+
 
     public function getVehicleNameAttribute()
     {

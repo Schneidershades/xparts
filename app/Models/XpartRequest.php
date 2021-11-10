@@ -27,6 +27,8 @@ class XpartRequest extends Model
     
     public $oneItem = XpartRequestResource::class;
     public $allItems = XpartRequestCollection::class;
+    
+    public $searchables = ['status'];
 
     public function user()
     {

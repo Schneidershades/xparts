@@ -9,7 +9,6 @@ class VinResource extends JsonResource
     public function toArray($request)
     {
         return [
-            
             'id' => $this->id,
             'vin_number' => $this->vin_number,
             'make' => $this->make ? $this->make : 'N/A',
@@ -32,7 +31,6 @@ class VinResource extends JsonResource
             'fuel_type' => $this->fuel_type ? $this->fuel_type : 'N/A',
             'doors' => $this->doors ? $this->doors : 'N/A',
             'driver_type' => $this->driver_type ? $this->driver_type : 'N/A',
-            
             'search_count' => $this->search_count,
             'admin_attention' => $this->admin_attention,
             'created_at' => $this->created_at,
