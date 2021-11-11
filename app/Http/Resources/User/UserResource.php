@@ -6,6 +6,10 @@ use App\Http\Resources\Cart\CartResource;
 use App\Http\Resources\User\WalletResource;
 use App\Http\Resources\Address\AddressResource;
 use App\Http\Resources\Bank\BankDetailResource;
+use App\Http\Resources\Order\OrderResource;
+use App\Http\Resources\Quote\QuoteResource;
+use App\Http\Resources\Wallet\WalletTransactionResource;
+use App\Http\Resources\Xpart\XpartRequestResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -38,6 +42,14 @@ class UserResource extends JsonResource
 
             $this->mergeWhen(auth()->user()->id == $this->id && auth()->user()->role == 'user', [
                 'cart' => CartResource::collection($this->cart),
+            ]),
+
+            $this->mergeWhen(auth()->user()->role == 'admin', [
+                'orders' => OrderResource::collection($this->orders),
+                'walletTransactions' => WalletTransactionResource::collection($this->walletTransactions),
+                'cart' => CartResource::collection($this->cart),
+                'xpartRequests' => XpartRequestResource::collection($this->xpartRequests),
+                'quotes' => QuoteResource::collection($this->quotes),
             ]),
 
             'bankDetails' => BankDetailResource::collection($this->bankDetails),
