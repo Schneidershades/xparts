@@ -333,7 +333,7 @@ class OrderController extends Controller
                 $bid->save();
                 $orderItem = $this->findOrderItemsForQuotesSelected($order, $bid, $status);
 
-                $this->getWalletRepository->creditVendors($order, $orderItem, $bid, 'successful', 'credit');
+                $this->getWalletRepository()->creditVendors($order, $orderItem, $bid, 'successful', 'credit');
             }
         }else{
             foreach ($findQuotes as $bid) {
