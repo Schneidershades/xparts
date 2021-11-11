@@ -419,7 +419,7 @@ class OrderController extends Controller
         $vendorBalance->balance = $vendorBalance->balance + $item_total;
         $vendorBalance->save();
     }
-    
+
     public function debitUserWallet($order, $wallet)
     {
         WalletTransaction::create([
@@ -441,6 +441,6 @@ class OrderController extends Controller
 
     protected function getWalletRepository(): WalletRepository
     {
-        return new WalletRepository;
+        return new WalletRepository();
     }
 }
