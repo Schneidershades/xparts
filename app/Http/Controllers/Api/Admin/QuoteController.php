@@ -117,7 +117,7 @@ class QuoteController extends Controller
             }
 
             if($orderItem->status == 'pending' || $orderItem->status == 'ordered'){
-                $this->getWalletRepository()->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
+                $this->getWalletRepository->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
             }
 
             $orderItem->status = $request['status'];
