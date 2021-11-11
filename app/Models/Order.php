@@ -89,7 +89,8 @@ class Order extends Model
         parent::boot();
 
         static::creating(function ($order) {
-            $order->receipt_number = Str::orderedUuid();
+            $order->receipt_number = 'XR-'. strtoupper(bin2hex(random_bytes(8)));
         });
     }
 }
+

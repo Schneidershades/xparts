@@ -159,7 +159,7 @@ class DetailCreateFormRequest extends FormRequest
         return [
             'bank_id' => 'required|int|exists:banks,id',
             'bank_account_name' => 'required|string',
-            'bank_account_number' => 'required|string',
+            'bank_account_number' => 'required|string|max:12',
             'part_specialization_id' => 'sometimes|int|exists:part_specializations,id',
             'vehicle_specialization_id' => 'sometimes|int|exists:vehicle_specializations,id',
             'name' => 'required|string',
