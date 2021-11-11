@@ -151,6 +151,39 @@ class Paystack
         }
     }
 
+    public function resolveBank($account_number, $bank)
+    {
+        $response = $this->sendRequest(
+            "https://api.paystack.co/bank/resolve?account_number=". $account_number ."&bank_code=". $bank->code, 
+            'GET', 
+            []
+        );
+        
+        if($response == null){
+            return [
+                'status' => false,
+                'message' => 'cannot connect to service'
+            ];
+        }
+
+        if($response->status == false ){
+            return [
+                'status' => $response->status,
+                'message' => $response->message
+            ];
+        }
+
+        if($response->status == true ){
+            return [
+                'status' => $response->status,
+                'message' => $response->message,
+                'bank_account_number' => $response->data->account_number,
+                'bank_account_name' => $response->data->account_name,
+                'bank_id' => $bank->id,
+            ];
+        }
+    }
+
     public function finalizeTransfer($order, $otp)
     {
         $request_body = [
@@ -236,4 +269,5 @@ class Paystack
         $response = curl_exec($curl);
         return json_decode($response);
     }
+
 }
