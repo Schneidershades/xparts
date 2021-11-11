@@ -19,7 +19,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Models\XpartRequestVendorWatch;
 use App\Http\Resources\Cart\CartResource;
-use App\Repositories\Models\WalletRepository;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
 
@@ -332,8 +331,7 @@ class OrderController extends Controller
                 $bid->order_id = $order->id;
                 $bid->save();
                 $orderItem = $this->findOrderItemsForQuotesSelected($order, $bid, $status);
-
-                $this->getWalletRepository()->creditVendors($order, $orderItem, $bid, 'successful', 'credit');
+                $this->creditVendors($order, $orderItem, $bid, 'successful', 'credit');
             }
         }else{
             foreach ($findQuotes as $bid) {
@@ -420,6 +418,60 @@ class OrderController extends Controller
         $vendorBalance->save();
     }
 
+    public function creditVendors($order, $orderItemDetails, $bid, $status, $transaction_type)
+    {
+        $quantityPurchased = $orderItemDetails->quantity;
+        $vendorBalance = Wallet::where('user_id', $bid->vendor_id)->first();
+        $item_total = $bid->price * $quantityPurchased;
+        $vendorBalance->balance = $vendorBalance->balance + $item_total;
+        $vendorBalance->save();
+
+        if($orderItemDetails->itemable_type == 'quotes'){
+            $title = 'Receiving '.  $orderItemDetails->itemable_type . ' transaction payment';
+            $details = 'Receiving '.  $orderItemDetails->itemable_type . ' transaction payment';
+        }
+
+        $newOrder = $vendorBalance->user->orders()->create([
+            'title' => $title,
+            'details' => $details,
+            'receipt_number' => $order->receipt_number,
+            'address_id' => $order->address_id,
+            'payment_method_id' => $order->payment_method_id,
+            'payment_charge_id' => $order->payment_charge_id,
+            'subtotal' => $order->subtotal,
+            'total' => $order->total,
+            'amount_paid' => $order->amount_paid,
+            'transaction_type' => 'credit',
+            'currency' => 'NGN',
+            'payment_reference' => $order->receipt_number,
+            'payment_gateway_charge' => 0,
+            'payment_message' => $details,
+            'payment_status' => 'successful',
+            'platform_initiated' => 'inapp',
+            'transaction_initiated_date' => Carbon::now(),
+            'transaction_initiated_time' => Carbon::now(),
+            'date_time_paid' => Carbon::now(),
+            'status' => 'paid',
+            'service_status' => 'paid',
+        ]);
+
+        WalletTransaction::create([
+            'receipt_number' => $newOrder->receipt_number,
+            'title' => $newOrder->title,
+            'user_id' => $vendorBalance->user->id,
+            'details' => $newOrder->details,
+            'amount' => $item_total,
+            'amount_paid' => $item_total,
+            'category' => $newOrder->transaction_type,
+            'transaction_type' => $transaction_type,
+            'status' => $status,
+            'remarks' => $status,
+            'balance' => $vendorBalance->balance,
+            'walletable_id' => $orderItemDetails->itemable_id,
+            'walletable_type' => $orderItemDetails->itemable_type,
+        ]);
+    }
+
     public function debitUserWallet($order, $wallet)
     {
         WalletTransaction::create([
@@ -437,10 +489,5 @@ class OrderController extends Controller
             'walletable_id' => $order->id,
             'walletable_type' => 'orders',
         ]);
-    }
-
-    protected function getWalletRepository(): WalletRepository
-    {
-        return new WalletRepository;
     }
 }
