@@ -490,24 +490,4 @@ class OrderController extends Controller
             'walletable_type' => 'orders',
         ]);
     }
-
-    public function vendorsUnderABid($order)
-    {
-        $allVendorsUnderABid = $order->orderItems->where('')->pluck('vendor_id')->toArray();
-        $xpartsVendorCatelog = XpartRequestVendorWatch::whereIn('vendor', $allVendorsUnderABid)->get();
-
-        foreach ($xpartsVendorCatelog as $cat) {
-            $cat->status = 'expired';
-        }
-    }
-
-    public function quotesUnderABid($order)
-    {
-        $allVendorsUnderABid = $order->orderItems->where('')->pluck('vendor_id')->toArray();
-        $xpartsVendorCatelog = XpartRequestVendorWatch::whereIn('vendor', $allVendorsUnderABid)->get();
-
-        foreach ($xpartsVendorCatelog as $cat) {
-            $cat->status = 'expired';
-        }
-    }
 }

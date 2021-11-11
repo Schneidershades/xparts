@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Quote;
 use App\Models\Wallet;
@@ -9,6 +10,7 @@ use App\Models\OrderItem;
 use App\Models\WalletTransaction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminQuoteUpdateFormRequest;
+use App\Repositories\Models\WalletRepository;
 
 class QuoteController extends Controller
 {
@@ -107,10 +109,6 @@ class QuoteController extends Controller
 
         $quote->save();
 
-        // if($quote->status == $request['status']){
-        //     return $this->errorResponse('Quote already '. $request['status'], 409);
-        // }
-
         if($quote->status == "delivered"){
             $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
 
@@ -119,7 +117,7 @@ class QuoteController extends Controller
             }
 
             if($orderItem->status == 'pending' || $orderItem->status == 'ordered'){
-                $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
+                $this->getWalletRepository->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
             }
 
             $orderItem->status = $request['status'];
@@ -150,28 +148,8 @@ class QuoteController extends Controller
         return $item;
     }
 
-    public function creditVendors($order, $orderItemDetails, $bid, $status, $transaction_type)
+    protected function getWalletRepository(): WalletRepository
     {
-        $quantityPurchased = $orderItemDetails->quantity;
-        $vendorBalance = Wallet::where('user_id', $bid->vendor_id)->first();
-        $item_total = $bid->price * $quantityPurchased;
-        $vendorBalance->balance = $vendorBalance->balance + $item_total;
-        $vendorBalance->save();
-
-        WalletTransaction::create([
-            'receipt_number' => $order->receipt_number,
-            'title' => $order->title,
-            'user_id' => $vendorBalance->user->id,
-            'details' => $order->details,
-            'amount' => $item_total,
-            'amount_paid' => $item_total,
-            'category' => $order->transaction_type,
-            'transaction_type' => $transaction_type,
-            'status' => $status,
-            'remarks' => $status,
-            'balance' => $vendorBalance->balance,
-            'walletable_id' => $orderItemDetails->itemable_id,
-            'walletable_type' => $orderItemDetails->itemable_type,
-        ]);
+        return new WalletRepository;
     }
 }
