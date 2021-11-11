@@ -5,8 +5,9 @@ namespace App\Repositories\Models;
 use Carbon\Carbon;
 use App\Models\Wallet;
 use App\Models\WalletTransaction;
+use App\Repositories\ApplicationRepository;
 
-class WalletRepository 
+class WalletRepository implements ApplicationRepository
 {
     public function creditVendors($order, $orderItemDetails, $bid, $status, $transaction_type)
     {
