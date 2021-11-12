@@ -6,6 +6,10 @@ use App\Http\Resources\Cart\CartResource;
 use App\Http\Resources\User\WalletResource;
 use App\Http\Resources\Address\AddressResource;
 use App\Http\Resources\Bank\BankDetailResource;
+use App\Http\Resources\Order\OrderResource;
+use App\Http\Resources\Quote\QuoteResource;
+use App\Http\Resources\Wallet\WalletTransactionResource;
+use App\Http\Resources\Xpart\XpartRequestResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
