@@ -1849,7 +1849,7 @@
                 ]
             }
         },
-        "/api/v1/admin/user/{id}/xparts-request": {
+        "/api/v1/admin/user/{id}/xparts-requests": {
             "get": {
                 "tags": [
                     "Admin"
