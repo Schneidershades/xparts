@@ -44,14 +44,6 @@ class UserResource extends JsonResource
                 'cart' => CartResource::collection($this->cart),
             ]),
 
-            $this->mergeWhen(auth()->user()->role == 'admin', [
-                'orders' => OrderResource::collection($this->orders),
-                'walletTransactions' => WalletTransactionResource::collection($this->walletTransactions),
-                'cart' => CartResource::collection($this->cart),
-                'xpartRequests' => XpartRequestResource::collection($this->xpartRequests),
-                'quotes' => QuoteResource::collection($this->quotes),
-            ]),
-
             'bankDetails' => BankDetailResource::collection($this->bankDetails),
 
             'avatar' => $this->avatar != null ? $this->avatar->file_url : null,
