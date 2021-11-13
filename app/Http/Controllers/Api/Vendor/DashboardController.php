@@ -11,7 +11,7 @@ class DashboardController extends Controller
     * @OA\Get(
     *      path="/api/v1/vendor/statistics",
     *      operationId="statistics",
-    *      tags={"Admin"},
+    *      tags={"Vendor"},
     *      summary="statistics",
     *      description="statistics",
     *      @OA\Response(
@@ -39,9 +39,7 @@ class DashboardController extends Controller
     
     public function index()
     {
-        // something like this, but we'll just have "Total sales", "Total Orders", "Total Bids"
         return $this->showContent([
-
             'quoteTransactions' => [
                 
                 'all' =>[
