@@ -178,45 +178,11 @@ class QuoteController extends Controller
             $details = 'Receiving '.  $orderItemDetails->itemable_type . ' transaction payment';
         }
 
-        $newOrder = $vendorBalance->user->orders()->create([
-            'title' => $title,
-            'details' => $details,
-            'receipt_number' => $order->receipt_number,
-            'address_id' => $order->address_id,
-            'payment_method_id' => $order->payment_method_id,
-            'payment_charge_id' => $order->payment_charge_id,
-            'subtotal' => $order->subtotal,
-            'total' => $order->total,
-            'amount_paid' => $order->amount_paid,
-            'transaction_type' => 'credit',
-            'currency' => 'NGN',
-            'payment_reference' => $order->receipt_number,
-            'payment_gateway_charge' => 0,
-            'payment_message' => $details,
-            'payment_status' => 'successful',
-            'platform_initiated' => 'inapp',
-            'transaction_initiated_date' => Carbon::now(),
-            'transaction_initiated_time' => Carbon::now(),
-            'date_time_paid' => Carbon::now(),
-            'status' => 'paid',
-            'service_status' => 'paid',
-        ]);
+        $newOrder = $this->createOrder($vendorBalance, $title, $details, $order, $transaction_type);
 
-        WalletTransaction::create([
-            'receipt_number' => $newOrder->receipt_number,
-            'title' => $newOrder->title,
-            'user_id' => $vendorBalance->user->id,
-            'details' => $newOrder->details,
-            'amount' => $item_total,
-            'amount_paid' => $item_total,
-            'category' => $newOrder->transaction_type,
-            'transaction_type' => $transaction_type,
-            'status' => $status,
-            'remarks' => $status,
-            'balance' => $vendorBalance->balance,
-            'walletable_id' => $orderItemDetails->itemable_id,
-            'walletable_type' => $orderItemDetails->itemable_type,
-        ]);
+        $this->createOrderItem($newOrder, $orderItemDetails);
+
+        $this->createTransaction($newOrder, $vendorBalance, $item_total, $orderItemDetails, $status, $transaction_type);
     }
 
     public function debitVendors($order, $orderItemDetails, $bid, $status, $transaction_type)
@@ -237,45 +203,11 @@ class QuoteController extends Controller
             $details = 'Refunding user for '.  $orderItemDetails->itemable_type . ' transaction payment';
         }
 
-        $newOrder = $vendorBalance->user->orders()->create([
-            'title' => $title,
-            'details' => $details,
-            'receipt_number' => $order->receipt_number,
-            'address_id' => $order->address_id,
-            'payment_method_id' => $order->payment_method_id,
-            'payment_charge_id' => $order->payment_charge_id,
-            'subtotal' => $order->subtotal,
-            'total' => $order->total,
-            'amount_paid' => $order->amount_paid,
-            'transaction_type' => $transaction_type,
-            'currency' => 'NGN',
-            'payment_reference' => $order->receipt_number,
-            'payment_gateway_charge' => 0,
-            'payment_message' => $details,
-            'payment_status' => 'successful',
-            'platform_initiated' => 'inapp',
-            'transaction_initiated_date' => Carbon::now(),
-            'transaction_initiated_time' => Carbon::now(),
-            'date_time_paid' => Carbon::now(),
-            'status' => 'paid',
-            'service_status' => 'paid',
-        ]);
+        $newOrder = $this->createOrder($vendorBalance, $title, $details, $order, $transaction_type);
 
-        WalletTransaction::create([
-            'receipt_number' => $newOrder->receipt_number,
-            'title' => $newOrder->title,
-            'user_id' => $vendorBalance->user->id,
-            'details' => $newOrder->details,
-            'amount' => $item_total,
-            'amount_paid' => $item_total,
-            'category' => $newOrder->transaction_type,
-            'transaction_type' => $transaction_type,
-            'status' => $status,
-            'remarks' => $status,
-            'balance' => $vendorBalance->balance,
-            'walletable_id' => $orderItemDetails->itemable_id,
-            'walletable_type' => $orderItemDetails->itemable_type,
-        ]);
+        $this->createOrderItem($newOrder, $orderItemDetails);
+
+        $this->createTransaction($newOrder, $vendorBalance, $item_total, $orderItemDetails, $status, $transaction_type);
     }
 
     public function refundUser($order, $orderItemDetails, $bid, $status, $transaction_type)
@@ -287,34 +219,32 @@ class QuoteController extends Controller
         $userBalance->save();
 
         if($orderItemDetails->itemable_type == 'quotes'){
-            $title = 'Refunding '.  $orderItemDetails->itemable_type . ' transaction payment';
-            $details = 'Refunding '.  $orderItemDetails->itemable_type . ' transaction payment';
+            $title = 'Refunding for xpart request'.  $orderItemDetails->itemable_type . ' transaction payment';
+            $details = 'Refunding for xpart request'.  $orderItemDetails->itemable_type . ' transaction payment';
         }
 
-        $newOrder = $userBalance->user->orders()->create([
-            'title' => $title,
-            'details' => $details,
-            'receipt_number' => $order->receipt_number,
-            'address_id' => $order->address_id,
-            'payment_method_id' => $order->payment_method_id,
-            'payment_charge_id' => $order->payment_charge_id,
-            'subtotal' => $order->subtotal,
-            'total' => $order->total,
-            'amount_paid' => $order->amount_paid,
-            'transaction_type' => $transaction_type,
-            'currency' => 'NGN',
-            'payment_reference' => $order->receipt_number,
-            'payment_gateway_charge' => 0,
-            'payment_message' => $details,
-            'payment_status' => 'successful',
-            'platform_initiated' => 'inapp',
-            'transaction_initiated_date' => Carbon::now(),
-            'transaction_initiated_time' => Carbon::now(),
-            'date_time_paid' => Carbon::now(),
-            'status' => 'paid',
-            'service_status' => 'paid',
-        ]);
+        $newOrder = $this->createOrder($userBalance, $title, $details, $order, $transaction_type);
 
+        $this->createOrderItem($newOrder, $orderItemDetails);
+
+        $this->createTransaction($newOrder, $userBalance, $item_total, $orderItemDetails, $status, $transaction_type);
+
+    }
+
+    public function createOrderItem($newOrder, $orderItemDetails)
+    {
+        OrderItem::create([
+            'itemable_id' => $orderItemDetails->itemable_id,
+            'itemable_type' => $orderItemDetails->cartable_type,
+            'quantity' => $orderItemDetails->quantity,
+            'order_id' => $newOrder->id,
+            'receipt_number' => $newOrder->receipt_number,
+            'vendor_id' => $orderItemDetails->vendor_id,
+        ]);
+    }
+
+    public function createTransaction($newOrder, $userBalance, $item_total, $orderItemDetails, $status, $transaction_type)
+    {
         WalletTransaction::create([
             'receipt_number' => $newOrder->receipt_number,
             'title' => $newOrder->title,
@@ -329,6 +259,33 @@ class QuoteController extends Controller
             'balance' => $userBalance->balance,
             'walletable_id' => $orderItemDetails->itemable_id,
             'walletable_type' => $orderItemDetails->itemable_type,
+        ]);
+    }
+
+    public function createOrder($userBalance, $title, $details, $order, $transaction_type)
+    {
+        return $userBalance->user->orders()->create([
+            'title' => $title,
+            'details' => $details,
+            'receipt_number' => $order->receipt_number,
+            'address_id' => $order->address_id,
+            'payment_method_id' => $order->payment_method_id,
+            'payment_charge_id' => $order->payment_charge_id,
+            'subtotal' => $order->subtotal,
+            'total' => $order->total,
+            'amount_paid' => $order->amount_paid,
+            'transaction_type' => $transaction_type,
+            'currency' => 'NGN',
+            'payment_reference' => $order->receipt_number,
+            'payment_gateway_charge' => 0,
+            'payment_message' => $details,
+            'payment_status' => 'successful',
+            'platform_initiated' => 'inapp',
+            'transaction_initiated_date' => Carbon::now(),
+            'transaction_initiated_time' => Carbon::now(),
+            'date_time_paid' => Carbon::now(),
+            'status' => 'paid',
+            'service_status' => 'paid',
         ]);
     }
     
