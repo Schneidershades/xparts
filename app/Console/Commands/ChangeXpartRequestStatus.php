@@ -51,6 +51,7 @@ class ChangeXpartRequestStatus extends Command
             ->where('status', '!=', 'paid')
             ->where('status', '!=', 'delivered')
             ->where('status', '!=', 'awaiting')
+            ->where('status', '!=', 'refunded')
             ->whereDate('created_at', '<', now()->subDays(3)->setTime(0, 0, 0)->toDateTimeString())
             ->get();
 
