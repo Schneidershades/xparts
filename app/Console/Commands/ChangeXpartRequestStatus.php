@@ -47,7 +47,9 @@ class ChangeXpartRequestStatus extends Command
     {
         $time_start = microtime(true);
 
-        $requests = XpartRequest::where('status', '!=', 'fulfilled')
+        $requests = XpartRequest::where('status', '!=', 'ordered')
+            ->where('status', '!=', 'paid')
+            ->where('status', '!=', 'delivered')
             ->whereDate('created_at', '<', now()->subDays(3)->setTime(0, 0, 0)->toDateTimeString())
             ->get();
 
@@ -83,6 +85,7 @@ class ChangeXpartRequestStatus extends Command
         $execution_time = ($time_end - $time_start) / 60;
 
         $this->info("Updated {$this->total} xp_requests, Completed after {$execution_time} minutes");
+        
         return 0;
     }
 }
