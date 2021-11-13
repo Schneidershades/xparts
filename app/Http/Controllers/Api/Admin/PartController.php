@@ -172,7 +172,8 @@ class PartController extends Controller
     
     public function update(PartUpdateFormRequest $request, Part $part)
     {
-        return $this->showOne(Part::find($part)->update($request->validated()));
+        Part::find($part)->update($request->validated());
+        return $this->showMessage('part updated');
     }
 
      /**
