@@ -136,7 +136,7 @@ class XpartRequestController extends Controller
     {
         $xpartRequest = XpartRequest::where('id', $id)->first();
         
-        $xpartRequest->status = $request['status'];
+        $xpartRequest->status = $request['admin_description'];
 
         $xpartRequest->save();
         
