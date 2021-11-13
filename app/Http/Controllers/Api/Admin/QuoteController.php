@@ -227,9 +227,14 @@ class QuoteController extends Controller
         $vendorBalance->balance = $vendorBalance->balance - $item_total;
         $vendorBalance->save();
 
+        $order->amount_paid = $order->amount_paid - $bid->price;
+        $order->total = $order->total -  $bid->price;
+        $order->subtotal = $order->subtotal -  $bid->price;
+        $order->save();
+
         if($orderItemDetails->itemable_type == 'quotes'){
-            $title = 'Reversing '.  $orderItemDetails->itemable_type . ' transaction payment';
-            $details = 'Reversing '.  $orderItemDetails->itemable_type . ' transaction payment';
+            $title = 'Refunding users for '.  $orderItemDetails->itemable_type . ' transaction payment';
+            $details = 'Refunding user for '.  $orderItemDetails->itemable_type . ' transaction payment';
         }
 
         $newOrder = $vendorBalance->user->orders()->create([
