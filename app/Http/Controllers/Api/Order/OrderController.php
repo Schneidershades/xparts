@@ -455,6 +455,15 @@ class OrderController extends Controller
             'service_status' => 'paid',
         ]);
 
+        OrderItem::create([
+            'itemable_id' => $orderItemDetails->itemable_id,
+            'itemable_type' => $orderItemDetails->cartable_type,
+            'quantity' => $orderItemDetails->quantity,
+            'order_id' => $newOrder->id,
+            'receipt_number' => $newOrder->receipt_number,
+            'vendor_id' => $orderItemDetails->vendor_id,
+        ]);
+
         WalletTransaction::create([
             'receipt_number' => $newOrder->receipt_number,
             'title' => $newOrder->title,

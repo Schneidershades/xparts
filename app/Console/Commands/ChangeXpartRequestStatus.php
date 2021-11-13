@@ -50,6 +50,8 @@ class ChangeXpartRequestStatus extends Command
         $requests = XpartRequest::where('status', '!=', 'ordered')
             ->where('status', '!=', 'paid')
             ->where('status', '!=', 'delivered')
+            ->where('status', '!=', 'awaiting')
+            ->where('status', '!=', 'refunded')
             ->whereDate('created_at', '<', now()->subDays(3)->setTime(0, 0, 0)->toDateTimeString())
             ->get();
 
@@ -61,7 +63,6 @@ class ChangeXpartRequestStatus extends Command
             SendEmail::dispatch($user['email'], new XpartRequestExpiredMail($xpartRequest, $user))->onQueue('emails');
             $this->total += 1;
         }
-
 
         $allRequestsSent = $requests->pluck('id')->toArray();
 

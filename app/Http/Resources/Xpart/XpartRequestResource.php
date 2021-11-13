@@ -25,8 +25,8 @@ class XpartRequestResource extends JsonResource
             'address' => new AddressResource($this->address),
             'receipt_number_details' => $this->receipt_number ? $this->receipt_number : 'N/A',
             'receipt_number' => $this->receipt_number,
-            
             'status' => $this->status,
+            'customer_amount_to_pay' => $this->order ? $this->order->amount_paid : 'No orders placed yet',
         ];
     }
 }

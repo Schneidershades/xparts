@@ -5,15 +5,18 @@ namespace App\Models;
 use App\Models\Vin;
 use App\Models\Part;
 use App\Models\User;
+use App\Models\Media;
+use App\Models\Order;
 use App\Models\Quote;
+use App\Models\Address;
 use App\Models\OrderItem;
 use App\Models\CategoryThreePart;
 use App\Models\XpartRequestVendorWatch;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Api\QueryFieldSearchScope;
 use App\Http\Resources\Xpart\XpartRequestResource;
 use App\Http\Resources\Xpart\XpartRequestCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Traits\Api\QueryFieldSearchScope;
 
 class XpartRequest extends Model
 {
@@ -78,5 +81,10 @@ class XpartRequest extends Model
     public function address()
     {
         return $this->belongsTo(Address::class);
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
     }
 }
