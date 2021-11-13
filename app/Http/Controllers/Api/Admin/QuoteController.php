@@ -108,10 +108,17 @@ class QuoteController extends Controller
 
         $order = Order::where('receipt_number',  $quote->receipt_number)->first();
 
-        if($request['status'] == "refunded" || $quote->status == "delivered"){
+        if($request['status'] == "refunded" && $quote->status == "delivered" || $quote->status == "paid" ){
 
             $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
+
             $this->debitVendor($order, $orderItem, $quote, 'successful', 'debit');
+
+            $this->refundUser($order, $orderItem, $quote, 'successful', 'credit');
+
+            $orderItem->status = $request['status'];
+
+            $orderItem->save();
             
         }
 
@@ -221,8 +228,8 @@ class QuoteController extends Controller
         $vendorBalance->save();
 
         if($orderItemDetails->itemable_type == 'quotes'){
-            $title = 'Refunding '.  $orderItemDetails->itemable_type . ' transaction payment';
-            $details = 'Refunding '.  $orderItemDetails->itemable_type . ' transaction payment';
+            $title = 'Reversing '.  $orderItemDetails->itemable_type . ' transaction payment';
+            $details = 'Reversing '.  $orderItemDetails->itemable_type . ' transaction payment';
         }
 
         $newOrder = $vendorBalance->user->orders()->create([
@@ -265,4 +272,59 @@ class QuoteController extends Controller
             'walletable_type' => $orderItemDetails->itemable_type,
         ]);
     }
+
+    public function refundUser($order, $orderItemDetails, $bid, $status, $transaction_type)
+    {
+        $quantityPurchased = $orderItemDetails->quantity;
+        $userBalance = Wallet::where('user_id', $order->user_id)->first();
+        $item_total = $bid->markup_price * $quantityPurchased;
+        $userBalance->balance = $userBalance->balance - $item_total;
+        $userBalance->save();
+
+        if($orderItemDetails->itemable_type == 'quotes'){
+            $title = 'Refunding '.  $orderItemDetails->itemable_type . ' transaction payment';
+            $details = 'Refunding '.  $orderItemDetails->itemable_type . ' transaction payment';
+        }
+
+        $newOrder = $userBalance->user->orders()->create([
+            'title' => $title,
+            'details' => $details,
+            'receipt_number' => $order->receipt_number,
+            'address_id' => $order->address_id,
+            'payment_method_id' => $order->payment_method_id,
+            'payment_charge_id' => $order->payment_charge_id,
+            'subtotal' => $order->subtotal,
+            'total' => $order->total,
+            'amount_paid' => $order->amount_paid,
+            'transaction_type' => $transaction_type,
+            'currency' => 'NGN',
+            'payment_reference' => $order->receipt_number,
+            'payment_gateway_charge' => 0,
+            'payment_message' => $details,
+            'payment_status' => 'successful',
+            'platform_initiated' => 'inapp',
+            'transaction_initiated_date' => Carbon::now(),
+            'transaction_initiated_time' => Carbon::now(),
+            'date_time_paid' => Carbon::now(),
+            'status' => 'paid',
+            'service_status' => 'paid',
+        ]);
+
+        WalletTransaction::create([
+            'receipt_number' => $newOrder->receipt_number,
+            'title' => $newOrder->title,
+            'user_id' => $userBalance->user->id,
+            'details' => $newOrder->details,
+            'amount' => $item_total,
+            'amount_paid' => $item_total,
+            'category' => $newOrder->transaction_type,
+            'transaction_type' => $transaction_type,
+            'status' => $status,
+            'remarks' => $status,
+            'balance' => $userBalance->balance,
+            'walletable_id' => $orderItemDetails->itemable_id,
+            'walletable_type' => $orderItemDetails->itemable_type,
+        ]);
+    }
+    
 }
