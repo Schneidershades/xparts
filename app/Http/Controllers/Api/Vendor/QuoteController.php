@@ -151,7 +151,7 @@ class QuoteController extends Controller
 
         Log::debug('sent mails');
 
-        return $this->showAll(auth()->user()->quotes);
+        return $this->showMessage('Quote has been added to request');
     }
 
     /**

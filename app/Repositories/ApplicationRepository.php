@@ -2,8 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Repositories\RepositoryInterface;
 
-abstract class ApplicationRepository
+abstract class ApplicationRepository implements RepositoryInterface
 {
 
 }
