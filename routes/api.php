@@ -57,6 +57,7 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('quotes', 'QuoteController')->middleware('auth:api');
 		Route::get('quotes/recent/others', 'QuoteController@othersRecentQuote')->middleware('auth:api');
 		Route::Resource('business-details', 'DetailController')->middleware('auth:api');
+		Route::Resource('statistics', 'DashboardController');
 	});
 
 	Route::group(['prefix' => 'admin', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function(){
