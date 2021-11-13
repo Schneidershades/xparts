@@ -34,7 +34,7 @@ class XpartRequestExpiredMail extends Mailable
      */
     public function build()
     {
-        $baseUrl = env("VENDOR_APP_URL");
+        $baseUrl = env("WEB_APP_URL");
         $link = "{$baseUrl}/quote/{$this->xpartRequest->id}";
         
         return $this->markdown('emails.users.xpart.request-expired')

@@ -17,14 +17,14 @@ class AdminXpartRequestUpdateFormRequest extends FormRequest
 {
       /**
      * @OA\Property(
-     *      title="status",
-     *      description="status",
-     *      example="approve/decline"
+     *      title="admin_description",
+     *      description="admin_description",
+     *      example="This is the item i need"
      * )
      *
      * @var string
      */
-    private $status;
+    private $admin_description;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -44,7 +44,7 @@ class AdminXpartRequestUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'required|string|in:active,declined,expired,awaiting,delivered',
+            'admin_description' => 'required|string',
         ];
     }
 }

@@ -4971,6 +4971,38 @@
                 ]
             }
         },
+        "/api/v1/vendor/statistics": {
+            "get": {
+                "tags": [
+                    "Vendor"
+                ],
+                "summary": "statistics",
+                "description": "statistics",
+                "operationId": "statistics",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/vendor/business-details": {
             "post": {
                 "tags": [
@@ -5466,11 +5498,11 @@
                     "name"
                 ],
                 "properties": {
-                    "status": {
-                        "title": "status",
-                        "description": "status",
+                    "admin_description": {
+                        "title": "admin_description",
+                        "description": "admin_description",
                         "type": "string",
-                        "example": "approve/decline"
+                        "example": "This is the item i need"
                     }
                 },
                 "type": "object"

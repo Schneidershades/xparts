@@ -114,6 +114,9 @@ class XpartRequestController extends Controller
         $xpartRequest->part_id = $part->id;
         $xpartRequest->vin_id = $vin->id;
         $xpartRequest->user_id = $auth;
+        
+        $xpartRequest->user_description = $request['user_description'] ? $request['user_description'] : null;
+
         $xpartRequest->status = ($vin->admin_attention == true || $part->admin_attention == true) ? 'awaiting' : 'active';
         $xpartRequest->save();
 
