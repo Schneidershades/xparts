@@ -144,6 +144,7 @@ class VinPartsFormRequest extends FormRequest
             'make' => 'nullable',
             'model' => 'nullable',
             'model_year' => 'nullable',
+            'name' => 'nullable',
             'make_part_active' => 'required|boolean',
             'make_vin_active' => 'required|boolean',
             'make_xpart_request_active' => 'required|boolean',
