@@ -75,4 +75,9 @@ class Quote extends Model
     {
         return $this->morphMany(Media::class, 'fileable');
     }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

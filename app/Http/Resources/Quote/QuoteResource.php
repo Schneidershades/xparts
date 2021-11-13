@@ -34,6 +34,7 @@ class QuoteResource extends JsonResource
             'markup_price' => $this->markup_price ? $this->markup_price : 0,
             'markup_price_details' => $this->markupPricing,
             'price_margin' => ($this->markup_price - $this->price),
+            'customer_amount_to_pay' => $this->order ? $this->order->amount_paid : 'No orders placed yet',
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
