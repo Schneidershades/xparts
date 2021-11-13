@@ -63,7 +63,7 @@ class DashboardController extends Controller
                 ],
 
                 'delivered' =>[
-                    'key' => 'Total ordered, delivered, paid',
+                    'key' => 'Total delivered',
                     'value' => Quote::where('status', 'delivered')->get()->sum('price')
                 ],
 
