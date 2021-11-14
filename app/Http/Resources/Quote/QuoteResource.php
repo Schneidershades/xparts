@@ -44,28 +44,28 @@ class QuoteResource extends JsonResource
 
             $this->mergeWhen($this->status == 'delivered', [
                 'available_statuses' => [
-                    'refunded' => 'Refund user',
+                    ['refunded' => 'Refund user'],
                 ],
             ]),
 
             $this->mergeWhen($this->status == 'active', [
                 'available_statuses' => [
-                    'expired' => 'expire product',
+                    ['expired' => 'expire product'],
                 ],
             ]),
 
             $this->mergeWhen($this->status == 'expired', [
                 'available_statuses' => [
-                    'none' => 'you cannot process any status',
+                    ['none' => 'you cannot process any status'],
                 ],
             ]),
 
             $this->mergeWhen($this->status == 'pending' || $this->status == 'paid' || $this->status == 'vendor2xparts', [
                 'available_statuses' => [
-                    'delivered' => 'Refund user',
-                    'refunded' => 'refund user',
-                    'vendor2xparts' => 'refund user',
-                    'expired' => 'refund user',
+                    ['delivered' => 'Refund user'],
+                    ['refunded' => 'refund user'],
+                    ['vendor2xparts' => 'refund user'],
+                    ['expired' => 'refund user'],
                 ],
             ]),
         ];
