@@ -114,7 +114,7 @@ class QuoteController extends Controller
             return $this->errorResponse('Quote order item not found. Please contact support', 404);
         }
 
-        if($request['status'] == "refunded" && $quote->status == "delivered" || $quote->status == "paid" ){
+        if($request['status'] == "refunded" && $quote->status == "delivered" || $quote->status == "paid" || $quote->status == "paid" ){
 
             $this->debitVendorsOrderItemBasedOnPriceNotMarkupPrice($order, $orderItem, $quote, 'successful', 'debit');
 
@@ -227,7 +227,7 @@ class QuoteController extends Controller
         $quantityPurchased = $orderItemDetails->quantity;
         $userBalance = Wallet::where('user_id', $order->user_id)->first();
         $item_total = $bid->markup_price * $quantityPurchased;
-        $userBalance->balance = $userBalance->balance - $item_total;
+        $userBalance->balance = $userBalance->balance + $item_total;
         $userBalance->save();
 
         $product =  $orderItemDetails->itemable_type ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
