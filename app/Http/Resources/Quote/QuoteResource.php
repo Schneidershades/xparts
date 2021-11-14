@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources\Quote;
 
+use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\VendorResource;
+use App\Http\Resources\Address\AddressResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Xpart\XpartRequestResource;
 
@@ -34,6 +36,8 @@ class QuoteResource extends JsonResource
             'markup_price' => $this->markup_price ? $this->markup_price : 0,
             'markup_price_details' => $this->markupPricing,
             'price_margin' => ($this->markup_price - $this->price),
+            'userOrderDetails' => $this->order ? new UserResource($this->order->user) : 'user not available',
+            'address' => $this->order ? new AddressResource($this->order->address) : 'address not available',
             'customer_amount_to_pay' => $this->order ? $this->order->amount_paid : 'No orders placed yet',
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
