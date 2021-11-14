@@ -143,10 +143,10 @@ class QuoteController extends Controller
         $countDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', 'delivered')->count();
 
         $countNotDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes
-                ->where('status', '!=', 'delivered')
-                ->where('status', '!=', 'ordered')
-                ->where('status', '!=', 'paid')
-                ->where('status', '!=', 'vendor2xparts')
+                ->where('status', '=', 'delivered')
+                ->where('status', '=', 'ordered')
+                ->where('status', '=', 'paid')
+                ->where('status', '=', 'vendor2xparts')
                 ->count();
 
         if($countNotDeliveredQuotes == 0){
