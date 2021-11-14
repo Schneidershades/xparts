@@ -39,25 +39,25 @@ class QuoteResource extends JsonResource
             'updated_at' => $this->updated_at,
 
             $this->mergeWhen($this->status == 'delivered', [
-                'statuses' => [
+                'available_statuses' => [
                     'refunded',
                 ],
             ]),
 
             $this->mergeWhen($this->status == 'active', [
-                'statuses' => [
+                'available_statuses' => [
                     'expired',
                 ],
             ]),
 
             $this->mergeWhen($this->status == 'expired', [
-                'statuses' => [
+                'available_statuses' => [
                     'you cannot process any status',
                 ],
             ]),
 
             $this->mergeWhen($this->status == 'pending' || $this->status == 'paid' || $this->status == 'vendor2xparts', [
-                'statuses' => [
+                'available_statuses' => [
                     'delivered',
                     'refunded',
                     'vendor2xparts',
