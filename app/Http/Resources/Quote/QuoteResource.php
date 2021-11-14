@@ -44,6 +44,12 @@ class QuoteResource extends JsonResource
                 ],
             ]),
 
+            $this->mergeWhen($this->status == 'active', [
+                'statuses' => [
+                    'expired',
+                ],
+            ]),
+
             $this->mergeWhen($this->status == 'expired', [
                 'statuses' => [
                     'you cannot process any status',
