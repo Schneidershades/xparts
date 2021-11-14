@@ -173,7 +173,7 @@ class QuoteController extends Controller
         $vendorBalance->balance = $vendorBalance->balance + $item_total;
         $vendorBalance->save();
 
-        $product =  $orderItemDetails->itemable ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
+        $product =  $orderItemDetails->itemable_type ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
 
         if($orderItemDetails->itemable_type == 'quotes'){
             $title = "Refunding users for $product transaction payment";
@@ -201,7 +201,7 @@ class QuoteController extends Controller
         $order->subtotal = $order->subtotal -  $bid->price;
         $order->save();
 
-        $product =  $orderItemDetails->itemable ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
+        $product =  $orderItemDetails->itemable_type ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
 
         if($orderItemDetails->itemable_type == 'quotes'){
             $title = "Refunding users for $product transaction payment";
@@ -223,7 +223,7 @@ class QuoteController extends Controller
         $userBalance->balance = $userBalance->balance - $item_total;
         $userBalance->save();
 
-        $product =  $orderItemDetails->itemable ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
+        $product =  $orderItemDetails->itemable_type ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
 
         if($orderItemDetails->itemable_type == 'quotes'){
             $title = "Refunding users for $product transaction payment";
