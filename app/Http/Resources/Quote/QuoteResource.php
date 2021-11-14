@@ -40,7 +40,7 @@ class QuoteResource extends JsonResource
 
             $this->mergeWhen($this->status == 'delivered', [
                 'statuses' => [
-                    'delivered',
+                    'refunded',
                 ],
             ]),
 
