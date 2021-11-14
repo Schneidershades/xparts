@@ -56,7 +56,7 @@ class QuoteResource extends JsonResource
                 ],
             ]),
 
-            $this->mergeWhen($this->status == 'pending' || $this->status == 'paid', [
+            $this->mergeWhen($this->status == 'pending' || $this->status == 'paid' || $this->status == 'vendor2xparts', [
                 'statuses' => [
                     'delivered',
                     'refunded',
