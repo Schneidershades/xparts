@@ -402,7 +402,10 @@ class OrderController extends Controller
 
     public function findOrderItemsForQuotesSelected($order, $quote, $status)
     {
-        $item = OrderItem::where('order_id', $order->id)->where('itemable_id', $quote->id)->where('itemable_type', 'quotes')->first();
+        $item = OrderItem::where('order_id', $order->id)
+            ->where('itemable_id', $quote->id)
+            ->where('itemable_type', 'quotes')
+            ->first();
         $item->status = $status;
         $item->receipt_number = $order->receipt_number;
         $item->save();

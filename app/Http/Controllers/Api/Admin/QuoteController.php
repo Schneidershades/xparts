@@ -112,9 +112,9 @@ class QuoteController extends Controller
 
             $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
 
-            $this->debitVendor($order, $orderItem, $quote, 'successful', 'debit');
+            $this->debitVendorsOrderItemBasedOnPriceNotMarkupPrice($order, $orderItem, $quote, 'successful', 'debit');
 
-            $this->refundUser($order, $orderItem, $quote, 'successful', 'credit');
+            $this->refundUserOrderItemBasedOnMarkupPrice($order, $orderItem, $quote, 'successful', 'credit');
 
             $orderItem->status = $request['status'];
 
@@ -173,10 +173,13 @@ class QuoteController extends Controller
         $vendorBalance->balance = $vendorBalance->balance + $item_total;
         $vendorBalance->save();
 
+        $product =  $orderItemDetails->itemable ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
+
         if($orderItemDetails->itemable_type == 'quotes'){
-            $title = 'Receiving '.  $orderItemDetails->itemable_type . ' transaction payment';
-            $details = 'Receiving '.  $orderItemDetails->itemable_type . ' transaction payment';
+            $title = "Refunding users for $product transaction payment";
+            $details = "Refunding users for $product transaction payment";;
         }
+
 
         $newOrder = $this->createOrder($vendorBalance, $title, $details, $order, $transaction_type);
 
@@ -185,7 +188,7 @@ class QuoteController extends Controller
         $this->createTransaction($newOrder, $vendorBalance, $item_total, $orderItemDetails, $status, $transaction_type);
     }
 
-    public function debitVendors($order, $orderItemDetails, $bid, $status, $transaction_type)
+    public function debitVendorsOrderItemBasedOnPriceNotMarkupPrice($order, $orderItemDetails, $bid, $status, $transaction_type)
     {
         $quantityPurchased = $orderItemDetails->quantity;
         $vendorBalance = Wallet::where('user_id', $bid->vendor_id)->first();
@@ -198,9 +201,11 @@ class QuoteController extends Controller
         $order->subtotal = $order->subtotal -  $bid->price;
         $order->save();
 
+        $product =  $orderItemDetails->itemable ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
+
         if($orderItemDetails->itemable_type == 'quotes'){
-            $title = 'Refunding users for '.  $orderItemDetails->itemable_type . ' transaction payment';
-            $details = 'Refunding user for '.  $orderItemDetails->itemable_type . ' transaction payment';
+            $title = "Refunding users for $product transaction payment";
+            $details = "Refunding users for $product transaction payment";;
         }
 
         $newOrder = $this->createOrder($vendorBalance, $title, $details, $order, $transaction_type);
@@ -210,7 +215,7 @@ class QuoteController extends Controller
         $this->createTransaction($newOrder, $vendorBalance, $item_total, $orderItemDetails, $status, $transaction_type);
     }
 
-    public function refundUser($order, $orderItemDetails, $bid, $status, $transaction_type)
+    public function refundUserOrderItemBasedOnMarkupPrice($order, $orderItemDetails, $bid, $status, $transaction_type)
     {
         $quantityPurchased = $orderItemDetails->quantity;
         $userBalance = Wallet::where('user_id', $order->user_id)->first();
@@ -218,9 +223,11 @@ class QuoteController extends Controller
         $userBalance->balance = $userBalance->balance - $item_total;
         $userBalance->save();
 
+        $product =  $orderItemDetails->itemable ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
+
         if($orderItemDetails->itemable_type == 'quotes'){
-            $title = 'Refunding for xpart request'.  $orderItemDetails->itemable_type . ' transaction payment';
-            $details = 'Refunding for xpart request'.  $orderItemDetails->itemable_type . ' transaction payment';
+            $title = "Refunding users for $product transaction payment";
+            $details = "Refunding users for $product transaction payment";;
         }
 
         $newOrder = $this->createOrder($userBalance, $title, $details, $order, $transaction_type);
