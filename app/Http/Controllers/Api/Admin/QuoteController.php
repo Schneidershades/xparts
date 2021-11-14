@@ -102,53 +102,56 @@ class QuoteController extends Controller
             return $this->errorResponse('Quote not found', 404);
         }
 
-        if($quote->status == $request['status']){
-            return $this->errorResponse('Quote already '. $request['status'], 409);
-        }
+        // if($quote->status == $request['status']){
+        //     return $this->errorResponse('Quote already '. $request['status'], 409);
+        // }
 
         $order = Order::where('receipt_number',  $quote->receipt_number)->first();
 
-        if($request['status'] == "refunded" && $quote->status == "delivered" || $quote->status == "paid" ){
+        $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
 
-            $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
+        if(!$orderItem){
+            return $this->errorResponse('Quote order item not found. Please contact support', 404);
+        }
 
-            $this->debitVendor($order, $orderItem, $quote, 'successful', 'debit');
+        if($request['status'] == "refunded" && $quote->status == "delivered" || $quote->status == "paid" || $quote->status == "paid" ){
 
-            $this->refundUser($order, $orderItem, $quote, 'successful', 'credit');
+            $this->debitVendorsOrderItemBasedOnPriceNotMarkupPrice($order, $orderItem, $quote, 'successful', 'debit');
+
+            $this->refundUserOrderItemBasedOnMarkupPrice($order, $orderItem, $quote, 'successful', 'credit');
 
             $orderItem->status = $request['status'];
 
             $orderItem->save();
-            
         }
 
-        $quote->status = $request['status'];
-
-        $quote->save();
-
-        if($quote->status == "delivered"){
-            $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
-
-            if(!$orderItem){
-                return $this->errorResponse('Quote order item not found. Please contact support', 404);
-            }
-
+        if($request['status'] == "delivered"){
             if($orderItem->status == 'pending' || $orderItem->status == 'ordered'){
                 $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
             }
+        }
 
-            $orderItem->status = $request['status'];
-            $orderItem->save();
+        $quote->status = $request['status'];
+        $quote->save();
 
-            $xpartRequest = $orderItem->itemable->xpartRequest;
+        $orderItem->status = $request['status'];
+        $orderItem->save();
 
-            $countDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', 'delivered')->count();
-            $countNotDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', '!=', 'delivered')->count();
 
-            if($countDeliveredQuotes > 0){
-                $xpartRequest->status = $quote->status;
-                $xpartRequest->save();
-            }
+        $xpartRequest = $orderItem->itemable->xpartRequest;
+
+        $countDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', 'delivered')->count();
+
+        $countNotDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes
+                ->where('status', '=', 'delivered')
+                ->where('status', '=', 'ordered')
+                ->where('status', '=', 'paid')
+                ->where('status', '=', 'vendor2xparts')
+                ->count();
+
+        if($countNotDeliveredQuotes == 0){
+            $xpartRequest->status = $quote->status;
+            $xpartRequest->save();
         }
 
         return $this->showOne($quote);
@@ -173,9 +176,11 @@ class QuoteController extends Controller
         $vendorBalance->balance = $vendorBalance->balance + $item_total;
         $vendorBalance->save();
 
+        $product =  $orderItemDetails->itemable_type ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
+
         if($orderItemDetails->itemable_type == 'quotes'){
-            $title = 'Receiving '.  $orderItemDetails->itemable_type . ' transaction payment';
-            $details = 'Receiving '.  $orderItemDetails->itemable_type . ' transaction payment';
+            $title = "Refunding users for $product transaction payment";
+            $details = "Refunding users for $product transaction payment";;
         }
 
         $newOrder = $this->createOrder($vendorBalance, $title, $details, $order, $transaction_type);
@@ -185,11 +190,16 @@ class QuoteController extends Controller
         $this->createTransaction($newOrder, $vendorBalance, $item_total, $orderItemDetails, $status, $transaction_type);
     }
 
-    public function debitVendors($order, $orderItemDetails, $bid, $status, $transaction_type)
+    public function debitVendorsOrderItemBasedOnPriceNotMarkupPrice($order, $orderItemDetails, $bid, $status, $transaction_type)
     {
         $quantityPurchased = $orderItemDetails->quantity;
         $vendorBalance = Wallet::where('user_id', $bid->vendor_id)->first();
         $item_total = $bid->price * $quantityPurchased;
+
+        if ($vendorBalance->balance < $item_total) {
+            return $this->errorResponse('Insufficient funds', 409);
+        }
+
         $vendorBalance->balance = $vendorBalance->balance - $item_total;
         $vendorBalance->save();
 
@@ -198,9 +208,11 @@ class QuoteController extends Controller
         $order->subtotal = $order->subtotal -  $bid->price;
         $order->save();
 
+        $product =  $orderItemDetails->itemable_type ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
+
         if($orderItemDetails->itemable_type == 'quotes'){
-            $title = 'Refunding users for '.  $orderItemDetails->itemable_type . ' transaction payment';
-            $details = 'Refunding user for '.  $orderItemDetails->itemable_type . ' transaction payment';
+            $title = "Refunding users for $product transaction payment";
+            $details = "Refunding users for $product transaction payment";;
         }
 
         $newOrder = $this->createOrder($vendorBalance, $title, $details, $order, $transaction_type);
@@ -210,17 +222,19 @@ class QuoteController extends Controller
         $this->createTransaction($newOrder, $vendorBalance, $item_total, $orderItemDetails, $status, $transaction_type);
     }
 
-    public function refundUser($order, $orderItemDetails, $bid, $status, $transaction_type)
+    public function refundUserOrderItemBasedOnMarkupPrice($order, $orderItemDetails, $bid, $status, $transaction_type)
     {
         $quantityPurchased = $orderItemDetails->quantity;
         $userBalance = Wallet::where('user_id', $order->user_id)->first();
         $item_total = $bid->markup_price * $quantityPurchased;
-        $userBalance->balance = $userBalance->balance - $item_total;
+        $userBalance->balance = $userBalance->balance + $item_total;
         $userBalance->save();
 
+        $product =  $orderItemDetails->itemable_type ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
+
         if($orderItemDetails->itemable_type == 'quotes'){
-            $title = 'Refunding for xpart request'.  $orderItemDetails->itemable_type . ' transaction payment';
-            $details = 'Refunding for xpart request'.  $orderItemDetails->itemable_type . ' transaction payment';
+            $title = "Refunding users for $product transaction payment";
+            $details = "Refunding users for $product transaction payment";;
         }
 
         $newOrder = $this->createOrder($userBalance, $title, $details, $order, $transaction_type);
@@ -228,14 +242,13 @@ class QuoteController extends Controller
         $this->createOrderItem($newOrder, $orderItemDetails);
 
         $this->createTransaction($newOrder, $userBalance, $item_total, $orderItemDetails, $status, $transaction_type);
-
     }
 
     public function createOrderItem($newOrder, $orderItemDetails)
     {
         OrderItem::create([
             'itemable_id' => $orderItemDetails->itemable_id,
-            'itemable_type' => $orderItemDetails->cartable_type,
+            'itemable_type' => $orderItemDetails->itemable_type,
             'quantity' => $orderItemDetails->quantity,
             'order_id' => $newOrder->id,
             'receipt_number' => $newOrder->receipt_number,
