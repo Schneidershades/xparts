@@ -460,7 +460,7 @@ class OrderController extends Controller
 
         OrderItem::create([
             'itemable_id' => $orderItemDetails->itemable_id,
-            'itemable_type' => $orderItemDetails->cartable_type,
+            'itemable_type' => $orderItemDetails->itemable_type,
             'quantity' => $orderItemDetails->quantity,
             'order_id' => $newOrder->id,
             'receipt_number' => $newOrder->receipt_number,

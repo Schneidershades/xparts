@@ -17,11 +17,11 @@ class OrderItemResource extends JsonResource
         return [
             'id' => $this->id,
             $this->mergeWhen($this->itemable_type == 'quotes', [
-                'title' => $this->itemable ? $this->itemable->xpartRequest->part->name : 'N/A',
-                'grade' => $this->itemable ?  $this->itemable->partGrade->name : 'N/A',
-                'brand' => $this->itemable ? $this->itemable->brand : 'N/A',
-                'part_number' => $this->itemable ? $this->itemable->part_number : 'N/A',
-                'vendor_id' => $this->itemable ? $this->itemable->vendor_id : 'N/A',
+                'title' => $this->itemable != null ? $this->itemable->xpartRequest->part->name : 'N/A',
+                'grade' => $this->itemable != null ?  $this->itemable->partGrade->name : 'N/A',
+                'brand' => $this->itemable != null ? $this->itemable->brand : 'N/A',
+                'part_number' => $this->itemable != null ? $this->itemable->part_number : 'N/A',
+                'vendor_id' => $this->itemable != null ? $this->itemable->vendor_id : 'N/A',
 
                 'measurement' => $this->itemable->measurement ? $this->itemable->measurement : null,
                 'available_stock' => $this->itemable->quantity ? $this->itemable->quantity : null,
