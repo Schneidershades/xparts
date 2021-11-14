@@ -57,7 +57,7 @@ class AdminQuoteUpdateFormRequest extends FormRequest
     {
         return [
             'receipt_number' => 'required|string|exists:orders,receipt_number',
-            'status' => 'required|string|in:approved,declined,vendor2xparts,delivered,expired',
+            'status' => 'required|string|in:approved,declined,vendor2xparts,delivered,expired,refunded',
         ];
     }
 }
