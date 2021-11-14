@@ -108,9 +108,13 @@ class QuoteController extends Controller
 
         $order = Order::where('receipt_number',  $quote->receipt_number)->first();
 
-        if($request['status'] == "refunded" && $quote->status == "delivered" || $quote->status == "paid" ){
+        $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
 
-            $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
+        if(!$orderItem){
+            return $this->errorResponse('Quote order item not found. Please contact support', 404);
+        }
+
+        if($request['status'] == "refunded" && $quote->status == "delivered" || $quote->status == "paid" ){
 
             $this->debitVendorsOrderItemBasedOnPriceNotMarkupPrice($order, $orderItem, $quote, 'successful', 'debit');
 
@@ -119,37 +123,23 @@ class QuoteController extends Controller
             $orderItem->status = $request['status'];
 
             $orderItem->save();
-            
         }
 
-        $quote->status = $request['status'];
-
-        $quote->save();
-
-        if($quote->status == "delivered"){
-            $orderItem = $this->findOrderItemsForQuotesSelected($order, $quote);
-
-            if(!$orderItem){
-                return $this->errorResponse('Quote order item not found. Please contact support', 404);
-            }
-
+        if($request['status'] == "delivered"){
             if($orderItem->status == 'pending' || $orderItem->status == 'ordered'){
                 $this->creditVendors($order, $orderItem, $quote, 'successful', 'credit');
             }
-
-            $orderItem->status = $request['status'];
-            $orderItem->save();
-
-            $xpartRequest = $orderItem->itemable->xpartRequest;
-
-            $countDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', 'delivered')->count();
-            $countNotDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', '!=', 'delivered')->count();
-
-            if($countDeliveredQuotes > 0){
-                $xpartRequest->status = $quote->status;
-                $xpartRequest->save();
-            }
         }
+
+        $quote->status = $request['status'];
+        $quote->save();
+
+        $orderItem->status = $request['status'];
+        $orderItem->save();
+
+        $xpartRequest = $orderItem->itemable->xpartRequest;
+        $xpartRequest->status = $quote->status;
+        $xpartRequest->save();
 
         return $this->showOne($quote);
     }
@@ -179,7 +169,6 @@ class QuoteController extends Controller
             $title = "Refunding users for $product transaction payment";
             $details = "Refunding users for $product transaction payment";;
         }
-
 
         $newOrder = $this->createOrder($vendorBalance, $title, $details, $order, $transaction_type);
 
@@ -240,7 +229,6 @@ class QuoteController extends Controller
         $this->createOrderItem($newOrder, $orderItemDetails);
 
         $this->createTransaction($newOrder, $userBalance, $item_total, $orderItemDetails, $status, $transaction_type);
-
     }
 
     public function createOrderItem($newOrder, $orderItemDetails)

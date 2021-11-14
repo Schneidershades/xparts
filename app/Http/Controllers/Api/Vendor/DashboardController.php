@@ -41,7 +41,6 @@ class DashboardController extends Controller
     {
         return $this->showContent([
             'quoteTransactions' => [
-
                 'total_sales' =>[
                     'key' => 'Total ordered, delivered, paid',
                     'value' => Quote::where('vendor_id', auth()->user()->id)->where('status', 'delivered')->orWhere('status', 'paid')->get()->sum('price')

@@ -37,6 +37,27 @@ class QuoteResource extends JsonResource
             'customer_amount_to_pay' => $this->order ? $this->order->amount_paid : 'No orders placed yet',
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+
+            $this->mergeWhen($this->status == 'delivered', [
+                'statuses' => [
+                    'delivered',
+                ],
+            ]),
+
+            $this->mergeWhen($this->status == 'expired', [
+                'statuses' => [
+                    'you cannot process any status',
+                ],
+            ]),
+
+            $this->mergeWhen($this->status == 'pending' || $this->status == 'paid', [
+                'statuses' => [
+                    'delivered',
+                    'refunded',
+                    'vendor2xparts',
+                    'expired'
+                ],
+            ]),
         ];
     }
 }
