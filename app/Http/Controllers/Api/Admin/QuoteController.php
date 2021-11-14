@@ -137,9 +137,22 @@ class QuoteController extends Controller
         $orderItem->status = $request['status'];
         $orderItem->save();
 
+
         $xpartRequest = $orderItem->itemable->xpartRequest;
-        $xpartRequest->status = $quote->status;
-        $xpartRequest->save();
+
+        $countDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes->where('status', 'delivered')->count();
+
+        $countNotDeliveredQuotes = $orderItem->itemable->xpartRequest->allQuotes
+                ->where('status', '!=', 'delivered')
+                ->orWhere('status', '!=', 'ordered')
+                ->orWhere('status', '!=', 'paid')
+                ->orWhere('status', '!=', 'vendor2xparts')
+                ->count();
+
+        if($countNotDeliveredQuotes == 0){
+            $xpartRequest->status = $quote->status;
+            $xpartRequest->save();
+        }
 
         return $this->showOne($quote);
     }
