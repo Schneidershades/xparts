@@ -192,6 +192,11 @@ class QuoteController extends Controller
     {
         $quantityPurchased = $orderItemDetails->quantity;
         $vendorBalance = Wallet::where('user_id', $bid->vendor_id)->first();
+
+        if ($vendorBalance->balance < $order->total) {
+            return $this->errorResponse('Insufficient funds', 409);
+        }
+
         $item_total = $bid->price * $quantityPurchased;
         $vendorBalance->balance = $vendorBalance->balance - $item_total;
         $vendorBalance->save();
