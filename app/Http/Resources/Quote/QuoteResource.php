@@ -44,28 +44,49 @@ class QuoteResource extends JsonResource
 
             $this->mergeWhen($this->status == 'delivered', [
                 'available_statuses' => [
-                    ['refunded' => 'Refund user'],
+                    [
+                        'key' => 'refunded',
+                        'message' => 'refund user'
+                    ],
                 ],
             ]),
 
             $this->mergeWhen($this->status == 'active', [
                 'available_statuses' => [
-                    ['expired' => 'expire product'],
+                    [
+                        'key' => 'expired',
+                        'message' => 'expired'
+                    ],
                 ],
             ]),
 
             $this->mergeWhen($this->status == 'expired', [
                 'available_statuses' => [
-                    ['none' => 'you cannot process any status'],
+                    [
+                        'key' => 'none',
+                        'message' => 'you cannot process any status',
+                    ],
                 ],
             ]),
 
             $this->mergeWhen($this->status == 'pending' || $this->status == 'paid' || $this->status == 'vendor2xparts', [
                 'available_statuses' => [
-                    ['delivered' => 'Refund user'],
-                    ['refunded' => 'refund user'],
-                    ['vendor2xparts' => 'refund user'],
-                    ['expired' => 'refund user'],
+                    [
+                        'key' => 'delivered',
+                        'message' => 'Refund user',
+                    ],
+                    [
+                        'key' => 'refunded',
+                        'message' => 'refund user'
+                    ],
+                    [
+                        'key' => 'vendor2xparts',
+                        'message' => 'delivered user'
+                    ],
+                    [
+                        'key' => 'expired',
+                        'message' => 'expired'
+                    ],
                 ],
             ]),
         ];
