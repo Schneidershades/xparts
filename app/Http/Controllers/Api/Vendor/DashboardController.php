@@ -41,48 +41,22 @@ class DashboardController extends Controller
     {
         return $this->showContent([
             'quoteTransactions' => [
-                
-                'all' =>[
-                    'key' => 'all total sum',
-                    'value' => Quote::all()->count()
-                ],
 
-                'total' =>[
+                'total_sales' =>[
                     'key' => 'Total ordered, delivered, paid',
-                    'value' => Quote::where('vendor_id', auth()->user()->id)->orWhere('status', 'ordered')->where('status', 'delivered')->orWhere('status', 'paid')->get()->sum('price')
+                    'value' => Quote::where('vendor_id', auth()->user()->id)->where('status', 'delivered')->orWhere('status', 'paid')->get()->sum('price')
                 ],
 
-                'active' =>[
+                'total_orders' =>[
                     'key' => 'active bids',
                     'value' => Quote::where('vendor_id', auth()->user()->id)->where('status', 'active')->get()->sum('price')
                 ],
 
-                'ordered' =>[
-                    'key' => 'ordered bids',
-                    'value' => Quote::where('vendor_id', auth()->user()->id)->where('status', 'ordered')->get()->sum('price')
-                ],
-
-                'delivered' =>[
-                    'key' => 'Total delivered',
-                    'value' => Quote::where('status', 'delivered')->get()->sum('price')
-                ],
-
-                'paid' =>[
-                    'key' => 'paid requests',
-                    'value' => Quote::where('vendor_id', auth()->user()->id)->where('status', 'paid')->get()->sum('price')
-                ],
-
-                'delivered2xparts' =>[
-                    'key' => 'Vendor Delivery',
-                    'value' => Quote::where('vendor_id', auth()->user()->id)->where('status', 'vendor2xparts')->get()->sum('price')
-                ],
-
-                'expired' =>[
-                    'key' => 'Expired Request',
-                    'value' => Quote::where('vendor_id', auth()->user()->id)->where('status', 'expired')->get()->sum('price')
+                'total_bids' =>[
+                    'key' => 'bid quotes',
+                    'value' => Quote::where('vendor_id', auth()->user()->id)->get()->count()
                 ],
             ],
-
         ]);
     }
 }
