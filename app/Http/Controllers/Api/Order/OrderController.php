@@ -94,6 +94,8 @@ class OrderController extends Controller
 
     public function store(OrderCreateFormRequest $request)
     {
+        $fee = $margin = $deliveryFee = 0;
+
         $userCart = (auth()->user()->cart);
 
         $cartList = CartResource::collection(auth()->user()->cart);
@@ -101,6 +103,12 @@ class OrderController extends Controller
         $total = $cartList->sum(function ($cart) {
             return ($cart->cartable->markup_price ?  $cart->cartable->markup_price : $cart->cartable->price) * $cart->quantity;
         });
+
+        $actual_price = $cartList->sum(function ($cart) {
+            return ($cart->cartable->price) * $cart->quantity;
+        });
+
+        $margin = $total - $actual_price;
 
         if($total <= 0){
             return $this->errorResponse('An error occoured while processing your cart totals', 400);
@@ -110,11 +118,12 @@ class OrderController extends Controller
             ->where('gateway', $request['payment_gateway'])
             ->first();
             
-        $fee = 0;
 
         $deliverySetting = DeliveryRate::where('type', 'flat')->first();
+        
         if ($deliverySetting) {
             $fee = $fee + $deliverySetting->amount;
+            $deliveryFee = $deliverySetting->amount;
         }
 
         if ($paymentCharge) {
@@ -135,6 +144,8 @@ class OrderController extends Controller
             'total' => $total + $fee,
             'amount_paid' => $total + $fee,
             'transaction_type' => 'payments',
+            'margin' => $margin,
+            'delivery_fee' => $deliveryFee,
         ]);
 
         collect($userCart)->each(function ($cart) use ($order) {
@@ -329,6 +340,8 @@ class OrderController extends Controller
             foreach ($findQuotes as $bid) {
                 $bid->receipt_number = $order->receipt_number;
                 $bid->order_id = $order->id;
+                $bid->margin = $order->margin;
+                $bid->delivery_fee = $order->delivery_fee;
                 $bid->save();
                 $orderItem = $this->findOrderItemsForQuotesSelected($order, $bid, $status);
                 $this->creditVendors($order, $orderItem, $bid, 'successful', 'credit');
@@ -337,6 +350,8 @@ class OrderController extends Controller
             foreach ($findQuotes as $bid) {
                 $bid->receipt_number = $order->receipt_number;
                 $bid->order_id = $order->id;
+                $bid->margin = $order->margin;
+                $bid->delivery_fee = $order->delivery_fee;
                 $bid->save();
                 $orderItem = $this->findOrderItemsForQuotesSelected($order, $bid, $status);
             }
