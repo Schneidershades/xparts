@@ -89,17 +89,8 @@ class Order extends Model
         parent::boot();
 
         static::creating(function ($order) {
-            $order->receipt_number = $this->shortenLength('XR-'. strtoupper(bin2hex(random_bytes(8))));
+            $order->receipt_number = 'XR-'. substr(str_shuffle("0123456789"), 0, 6);
         });
-    }
-
-    public function shortenLength($string)
-    {
-        if (strlen($string) > 10)
-        {
-            $maxLength = 10;
-            return substr($string, 0, $maxLength);
-        }
     }
 }
 
