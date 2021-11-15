@@ -86,7 +86,7 @@ class WalletTransactionController extends Controller
         $user = User::find($request['user_id']);
 
         WalletTransaction::create([
-            'receipt_number' => $this->shortenLength('WT-'. strtoupper(bin2hex(random_bytes(8)))),
+            'receipt_number' => 'WT-'.substr(str_shuffle("0123456789"), 0, 6),
             'title' => 'Admin ',
             'user_id' => $user->id,
             'details' => $request['details'],
