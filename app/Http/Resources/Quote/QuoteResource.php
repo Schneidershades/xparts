@@ -39,6 +39,13 @@ class QuoteResource extends JsonResource
             'userOrderDetails' => $this->order ? new UserResource($this->order->user) : 'user not available',
             'address' => $this->order ? new AddressResource($this->order->address) : 'address not available',
             'customer_amount_to_pay' => $this->order ? $this->order->amount_paid : 'No orders placed yet',
+            'margin' => $this->margin,
+            'delivery_fee' => $this->delivery_fee,
+            'extra_fee_cost' => $this->extra_fee_cost,
+            'extra_fee_description' => $this->extra_fee_description,
+            'admin_id' => $this->admin_id,
+            'approving_admin_id' => $this->approving_admin_id,
+            'payment_method' => $this->payment_method,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 
@@ -74,18 +81,34 @@ class QuoteResource extends JsonResource
                     [
                         'key' => 'delivered',
                         'message' => 'Refund user',
+                        'credit_user_wallet_action' => false,
+                        'credit_vendor_wallet_action' => false,
+                        'debit_user_wallet_action' => false,
+                        'debit_vendor_wallet_action' => false,
                     ],
                     [
                         'key' => 'refunded',
-                        'message' => 'refund user'
+                        'message' => 'refund user',
+                        'credit_user_wallet_action' => false,
+                        'credit_user_wallet_action' => false,
+                        'debit_user_wallet_action' => false,
+                        'debit_vendor_wallet_action' => false,
                     ],
                     [
                         'key' => 'vendor2xparts',
-                        'message' => 'delivered user'
+                        'message' => 'delivered user',
+                        'credit_user_wallet_action' => false,
+                        'credit_user_wallet_action' => false,
+                        'debit_user_wallet_action' => false,
+                        'debit_vendor_wallet_action' => false,
                     ],
                     [
                         'key' => 'expired',
-                        'message' => 'expired'
+                        'message' => 'expired',
+                        'credit_user_wallet_action' => false,
+                        'credit_user_wallet_action' => false,
+                        'debit_user_wallet_action' => false,
+                        'debit_vendor_wallet_action' => false,
                     ],
                 ],
             ]),
