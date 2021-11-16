@@ -5591,13 +5591,19 @@
                         "title": "user_id",
                         "description": "user_id",
                         "type": "string",
-                        "example": "user_id"
+                        "example": "1"
                     },
                     "amount": {
                         "title": "amount",
                         "description": "amount",
                         "type": "string",
                         "example": "1000"
+                    },
+                    "charge": {
+                        "title": "charge",
+                        "description": "charge",
+                        "type": "string",
+                        "example": "1"
                     },
                     "payment_method_id": {
                         "title": "payment_method_id",
