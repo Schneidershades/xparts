@@ -57,7 +57,7 @@ class WalletTransactionController extends Controller
     *      description="postPart",
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/PartCreateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/AdminWalletCreateFormRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -84,8 +84,6 @@ class WalletTransactionController extends Controller
     public function store(AdminWalletCreateFormRequest $request)
     {
         $user = User::find($request['user_id']);
-
-        $paymentMethod = 
 
         WalletTransaction::create([
             'receipt_number' => 'WT-'.substr(str_shuffle("0123456789"), 0, 6),

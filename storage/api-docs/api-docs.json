@@ -2641,7 +2641,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/PartCreateFormRequest"
+                                "$ref": "#/components/schemas/AdminWalletCreateFormRequest"
                             }
                         }
                     }
