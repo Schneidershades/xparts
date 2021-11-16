@@ -54,7 +54,7 @@ class XpartRequestController extends Controller
     *      description="postPart",
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/XpartStoreFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/XpartRequestStoreFormRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
