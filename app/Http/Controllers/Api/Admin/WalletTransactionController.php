@@ -99,7 +99,7 @@ class WalletTransactionController extends Controller
             'amount' => $request['amount'],
             'amount_paid' => $amount_to_pay,
             'category' => $request['transaction_type'],
-            'transaction_type' => 'debit',
+            'transaction_type' => $request['transaction_type'],
             'remarks' => $request['details'],
             'balance' => $user->wallet->balance,
             'payment_method' => $request['payment_method'],
