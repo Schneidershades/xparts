@@ -37,14 +37,36 @@ class AdminWalletCreateFormRequest extends FormRequest
 
     /**
      * @OA\Property(
-     *      title="status",
-     *      description="status",
-     *      example="approve/decline"
+     *      title="payment_method_id",
+     *      description="payment_method_id",
+     *      example="1"
      * )
      *
      * @var string
      */
-    private $status;
+    private $payment_method_id;
+
+    /**
+     * @OA\Property(
+     *      title="details",
+     *      description="details",
+     *      example="This is a transaction"
+     * )
+     *
+     * @var string
+     */
+    private $details;
+
+    /**
+     * @OA\Property(
+     *      title="transaction_type",
+     *      description="transaction_type",
+     *      example="debit/credit"
+     * )
+     *
+     * @var string
+     */
+    private $transaction_type;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -66,7 +88,8 @@ class AdminWalletCreateFormRequest extends FormRequest
         return [
             'user_id' => 'required|string|in:approve,decline',
             'amount' => 'required|numeric|gt:100',
-            'payment_method' => 'required|numeric|in:bank-transfer',
+            'amount_paid' => 'required|numeric|gt:100',
+            'payment_method_id' => 'required|numeric|exists:payment_methods,id',
             'details' => 'required|string',
             'transaction_type' => 'required|string|in:debit,credit',
         ];

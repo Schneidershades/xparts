@@ -85,13 +85,15 @@ class WalletTransactionController extends Controller
     {
         $user = User::find($request['user_id']);
 
+        $paymentMethod = 
+
         WalletTransaction::create([
             'receipt_number' => 'WT-'.substr(str_shuffle("0123456789"), 0, 6),
             'title' => 'Admin ',
             'user_id' => $user->id,
             'details' => $request['details'],
             'amount' => $request['amount'],
-            'amount_paid' => $request['amount'],
+            'amount_paid' => $request['amount_paid'],
             'category' => $request['transaction_type'],
             'transaction_type' => 'debit',
             'remarks' => $request['details'],
