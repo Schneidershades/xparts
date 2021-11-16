@@ -202,6 +202,10 @@ class WalletTransactionController extends Controller
     {
         $transaction = WalletTransaction::where('receipt_number', $id)->first();
 
+        if($request['status'] == $transaction->status){
+            return $this->showMessage('This transaction has already been '.$request['status']);
+        }
+
         if($request['status'] != 'approved'){
             $transaction->status = $request['status'];
             return $this->showMessage('This transaction has been '.$request['status']);
