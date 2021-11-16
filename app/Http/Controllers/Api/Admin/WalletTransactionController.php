@@ -87,7 +87,7 @@ class WalletTransactionController extends Controller
 
         $amount_to_pay = $request['amount'] + $request['charge'];
 
-        if($user->wallet->balance < $amount_to_pay){
+        if($request['transaction_type'] == 'debit' && $user->wallet->balance < $amount_to_pay){
             return $this->errorResponse('insufficient funds', 409);
         }
 
