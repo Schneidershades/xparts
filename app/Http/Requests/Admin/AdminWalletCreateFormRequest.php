@@ -37,14 +37,14 @@ class AdminWalletCreateFormRequest extends FormRequest
 
     /**
      * @OA\Property(
-     *      title="charges",
-     *      description="charges",
+     *      title="charge",
+     *      description="charge",
      *      example="1"
      * )
      *
      * @var string
      */
-    private $charges;
+    private $charge;
 
     /**
      * @OA\Property(
@@ -99,7 +99,7 @@ class AdminWalletCreateFormRequest extends FormRequest
         return [
             'user_id' => 'required|string|in:approve,decline',
             'amount' => 'required|numeric|gt:100',
-            'charges' => 'required|numeric|gt:1',
+            'charge' => 'required|numeric|gt:1',
             'payment_method_id' => 'required|numeric|exists:payment_methods,id',
             'details' => 'required|string',
             'transaction_type' => 'required|string|in:debit,credit',
