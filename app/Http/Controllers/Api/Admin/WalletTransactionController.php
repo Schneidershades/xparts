@@ -106,7 +106,7 @@ class WalletTransactionController extends Controller
             'admin_id' => auth()->user()->id,
         ]);
 
-        $this->showMessage('Transaction initiated');
+        return $this->showMessage('Transaction initiated');
     }
 
     /**
