@@ -27,6 +27,17 @@ class AdminWalletUpdateFormRequest extends FormRequest
     private $status;
 
     /**
+     * @OA\Property(
+     *      title="remarks",
+     *      description="remarks",
+     *      example="this is a description"
+     * )
+     *
+     * @var string
+     */
+    private $remarks;
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -44,6 +55,7 @@ class AdminWalletUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
+            'remarks' => 'string',
             'status' => 'required|string|in:approved,declined',
         ];
     }
