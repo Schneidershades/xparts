@@ -37,6 +37,17 @@ class AdminWalletCreateFormRequest extends FormRequest
 
     /**
      * @OA\Property(
+     *      title="amount_paid",
+     *      description="amount_paid",
+     *      example="1000"
+     * )
+     *
+     * @var string
+     */
+    private $amount_paid;
+
+    /**
+     * @OA\Property(
      *      title="payment_method_id",
      *      description="payment_method_id",
      *      example="1"
