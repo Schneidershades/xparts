@@ -48,6 +48,54 @@ class QuoteController extends Controller
         return $this->showAll(Quote::latest()->get());
     }
 
+
+
+
+    /**
+    * @OA\Get(
+    *      path="/api/v1/admin/quotes/{id}",
+    *      operationId="showUserquotes",
+    *      tags={"Admin"},
+    *      summary="Show quotes",
+    *      description="Show quotes",
+    *      
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="quotes ID",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successful signin",
+    *          @OA\MediaType(
+    *             mediaType="application/json",
+    *         ),
+    *       ),
+    *      @OA\Response(
+    *          response=400,
+    *          description="Bad Request"
+    *      ),
+    *      @OA\Response(
+    *          response=401,
+    *          description="unauthenticated",
+    *      ),
+    *      @OA\Response(
+    *          response=403,
+    *          description="Forbidden"
+    *      ),
+    *      security={ {"bearerAuth": {}} },
+    * )
+    */
+    public function show($id)
+    {
+        return $this->showOne(Quote::findOrFail($id));
+    }
+
      /**
     * @OA\Put(
     *      path="/api/v1/admin/quotes/{id}",
