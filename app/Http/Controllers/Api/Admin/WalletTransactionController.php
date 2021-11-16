@@ -57,7 +57,7 @@ class WalletTransactionController extends Controller
     *      description="postPart",
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/PartCreateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/AdminWalletCreateFormRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -85,22 +85,28 @@ class WalletTransactionController extends Controller
     {
         $user = User::find($request['user_id']);
 
-        WalletTransaction::create([
+        $amount_to_pay = $request['amount'] + $request['charge'];
+
+        if($request['transaction_type'] == 'debit' && $user->wallet->balance < $amount_to_pay){
+            return $this->errorResponse('insufficient funds', 409);
+        }
+
+        $wallet = WalletTransaction::create([
             'receipt_number' => 'WT-'.substr(str_shuffle("0123456789"), 0, 6),
             'title' => 'Admin ',
             'user_id' => $user->id,
             'details' => $request['details'],
             'amount' => $request['amount'],
-            'amount_paid' => $request['amount'],
+            'amount_paid' => $amount_to_pay,
             'category' => $request['transaction_type'],
-            'transaction_type' => 'debit',
+            'transaction_type' => $request['transaction_type'],
             'remarks' => $request['details'],
             'balance' => $user->wallet->balance,
             'payment_method' => $request['payment_method'],
             'admin_id' => auth()->user()->id,
         ]);
 
-        $this->showMessage('Transaction initiated');
+        return $this->showOne($wallet);
     }
 
     /**
@@ -196,19 +202,28 @@ class WalletTransactionController extends Controller
     {
         $transaction = WalletTransaction::where('receipt_number', $id)->first();
 
-        if($request['status'] != 'approved'){
+        $initiatedWallet = $wallet = false;
+        $margin = 0;
+
+        if($transaction->status != 'pending'){
+            return $this->showMessage('This transaction is already '.$transaction->status);
+        }
+
+        if($request['status'] == 'declined'){
+            $transaction->remarks = $request['remarks'] ? $request['remarks'] : null;
             $transaction->status = $request['status'];
+            $transaction->save();
             return $this->showMessage('This transaction has been '.$request['status']);
         }
 
-        $initiatedWallet = false;
-        $margin = 0;
+        if($request['status'] == $transaction->status){
+            return $this->showMessage('This transaction has already been '.$request['status']);
+        }
 
         if($transaction->transaction_type == 'credit'){
             $wallet = Wallet::where('user_id', $transaction->user_id)->first();
-            $wallet->balance = $wallet->balance + $transaction->total;
+            $wallet->balance = $wallet->balance + $transaction->amount_paid;
             $wallet->save();
-
         }
 
         if($transaction->transaction_type == 'debit'){
@@ -218,10 +233,17 @@ class WalletTransactionController extends Controller
                 return $this->errorResponse('insufficient funds', 409);
             }
 
-            $wallet->balance = $wallet->balance - $transaction->total;
+            $wallet->balance = $wallet->balance - $transaction->amount_paid;
             $wallet->save();
-            
         }
+
+
+        $transaction->approving_admin_id =  auth()->user()->id;
+        // $transaction->payment_method =  '';
+        $transaction->remarks = $request['remarks'] ? $request['remarks'] : null;
+        $transaction->status = $request['status'];
+        $transaction->balance = $wallet->balance;
+        $transaction->save();
 
         Order::create([
             'title' => 'Admin Fund Transaction Payment',
@@ -231,7 +253,7 @@ class WalletTransactionController extends Controller
             'subtotal' => $transaction->amount,
             'total' => $transaction->amount,
             'amount_paid' => $transaction->amount_paid,
-            'transaction_type' => 'WalletFund',
+            'transaction_type' => $transaction->transaction_type,
             'margin' => $transaction->amount_paid - $transaction->amount,
             'currency' => 'NGN',
             'payment_method' => $transaction->payment_method,
@@ -244,10 +266,11 @@ class WalletTransactionController extends Controller
             'transaction_initiated_date' => Carbon::now(),
             'transaction_initiated_time' => Carbon::now(),
             'date_time_paid' => Carbon::now(),
-            'status' => 'approved',
-            'service_status' => 'approved',
-            'orderable_type' => class_basename($transaction),
+            'status' => $request['status'],
+            'service_status' => $request['status'],
+            'orderable_type' => 'WalletTransaction',
             'orderable_id' => $transaction->id,
+            
         ]);
         
         return $this->showMessage('This transaction has been '.$request['status']);
@@ -273,15 +296,5 @@ class WalletTransactionController extends Controller
             'walletable_type' => 'orders',
         ]);
 
-    }
-
-
-    public function shortenLength($string)
-    {
-        if (strlen($string) > 10)
-        {
-            $maxLength = 10;
-            return substr($string, 0, $maxLength);
-        }
     }
 }

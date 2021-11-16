@@ -1254,6 +1254,47 @@
             }
         },
         "/api/v1/admin/quotes/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Show quotes",
+                "description": "Show quotes",
+                "operationId": "showUserquotes",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "quotes ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
             "put": {
                 "tags": [
                     "Admin"
@@ -2587,6 +2628,46 @@
                         "bearerAuth": []
                     }
                 ]
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "postPart",
+                "description": "postPart",
+                "operationId": "postPart",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AdminWalletCreateFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/admin/wallet-transactions/{id}": {
@@ -2902,6 +2983,46 @@
                 "summary": "allXpartRequest",
                 "description": "allXpartRequest",
                 "operationId": "allXpartRequest",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "postPart",
+                "description": "postPart",
+                "operationId": "postPart",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/XpartRequestStoreFormRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -5459,6 +5580,52 @@
                 },
                 "type": "object"
             },
+            "AdminWalletCreateFormRequest": {
+                "title": "Admin Wallet Create Form Request Fields",
+                "description": "Admin Wallet Create request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "user_id": {
+                        "title": "user_id",
+                        "description": "user_id",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "amount": {
+                        "title": "amount",
+                        "description": "amount",
+                        "type": "string",
+                        "example": "1000"
+                    },
+                    "charge": {
+                        "title": "charge",
+                        "description": "charge",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "payment_method_id": {
+                        "title": "payment_method_id",
+                        "description": "payment_method_id",
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "details": {
+                        "title": "details",
+                        "description": "details",
+                        "type": "string",
+                        "example": "This is a transaction"
+                    },
+                    "transaction_type": {
+                        "title": "transaction_type",
+                        "description": "transaction_type",
+                        "type": "string",
+                        "example": "debit/credit"
+                    }
+                },
+                "type": "object"
+            },
             "AdminWalletUpdateFormRequest": {
                 "title": "Admin Wallet Update Form Request Fields",
                 "description": "Admin Wallet Update request body data",
@@ -5874,6 +6041,14 @@
                 "description": "Vin Update request body data",
                 "required": [
                     "name"
+                ],
+                "type": "object"
+            },
+            "XpartRequestStoreFormRequest": {
+                "title": "Xpart Request Store  Form Request Fields",
+                "description": "Xpart Request Form request body data",
+                "required": [
+                    "email"
                 ],
                 "type": "object"
             },

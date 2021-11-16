@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\XpartRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\XpartRequestStoreFormRequest;
 use App\Http\Requests\Admin\AdminXpartRequestUpdateFormRequest;
 
 class XpartRequestController extends Controller
@@ -53,7 +54,7 @@ class XpartRequestController extends Controller
     *      description="postPart",
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/XpartStoreFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/XpartRequestStoreFormRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -77,7 +78,7 @@ class XpartRequestController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    public function store(XpartStoreFormRequest $request)
+    public function store(XpartRequestStoreFormRequest $request)
     {
         return $this->showOne(XpartRequest::create($request->validated()));
     }
@@ -175,7 +176,7 @@ class XpartRequestController extends Controller
     {
         $xpartRequest = XpartRequest::where('id', $id)->first();
         
-        $xpartRequest->status = $request['admin_description'];
+        $xpartRequest->admin_description = $request['admin_description'];
 
         $xpartRequest->save();
         

@@ -137,7 +137,8 @@ class XpartRequestController extends Controller
             }
         }
 
-        $users = User::select('email', 'name', 'id')->where('role', 'vendor')->where('id', '!=', auth()->user()->id)->get();
+        $users = User::role('Vendor')->get(); 
+        // $users = User::select('email', 'name', 'id')->where('role', 'vendor')->where('id', '!=', auth()->user()->id)->get();
 
         collect($users)->each(function ($user) use ($xpartRequest) {
             if($xpartRequest->status == 'active'){
