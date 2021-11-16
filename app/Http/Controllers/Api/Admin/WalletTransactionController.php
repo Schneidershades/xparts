@@ -210,6 +210,7 @@ class WalletTransactionController extends Controller
         }
 
         if($request['status'] == 'declined'){
+            $transaction->remarks = $request['remarks'] ? $request['remarks'] : null;
             $transaction->status = $request['status'];
             $transaction->save();
             return $this->showMessage('This transaction has been '.$request['status']);
@@ -239,6 +240,7 @@ class WalletTransactionController extends Controller
 
         $transaction->approving_admin_id =  auth()->user()->id;
         // $transaction->payment_method =  '';
+        $transaction->remarks = $request['remarks'] ? $request['remarks'] : null;
         $transaction->status = $request['status'];
         $transaction->balance = $wallet->balance;
         $transaction->save();
