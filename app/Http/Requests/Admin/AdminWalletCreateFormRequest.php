@@ -18,7 +18,7 @@ class AdminWalletCreateFormRequest extends FormRequest
      * @OA\Property(
      *      title="user_id",
      *      description="user_id",
-     *      example="user_id"
+     *      example="1"
      * )
      *
      * @var string
