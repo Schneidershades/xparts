@@ -91,7 +91,7 @@ class WalletTransactionController extends Controller
             return $this->errorResponse('insufficient funds', 409);
         }
 
-        WalletTransaction::create([
+        $wallet = WalletTransaction::create([
             'receipt_number' => 'WT-'.substr(str_shuffle("0123456789"), 0, 6),
             'title' => 'Admin ',
             'user_id' => $user->id,
@@ -106,7 +106,7 @@ class WalletTransactionController extends Controller
             'admin_id' => auth()->user()->id,
         ]);
 
-        return $this->showMessage('Transaction initiated');
+        return $this->showOne($wallet);
     }
 
     /**
