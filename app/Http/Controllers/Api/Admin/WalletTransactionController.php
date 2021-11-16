@@ -85,13 +85,19 @@ class WalletTransactionController extends Controller
     {
         $user = User::find($request['user_id']);
 
+        $amount_to_pay = $request['amount'] + $request['charge'];
+
+        if($user->wallet->balance < $amount_to_pay){
+            return $this->errorResponse('insufficient funds', 409);
+        }
+
         WalletTransaction::create([
             'receipt_number' => 'WT-'.substr(str_shuffle("0123456789"), 0, 6),
             'title' => 'Admin ',
             'user_id' => $user->id,
             'details' => $request['details'],
             'amount' => $request['amount'],
-            'amount_paid' => $request['amount'] + $request['charge'],
+            'amount_paid' => $amount_to_pay,
             'category' => $request['transaction_type'],
             'transaction_type' => 'debit',
             'remarks' => $request['details'],
