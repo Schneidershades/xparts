@@ -97,7 +97,7 @@ class AdminWalletCreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|string|in:approve,decline',
+            'user_id' => 'required|int|exists:users,id',
             'amount' => 'required|numeric|gt:100',
             'charge' => 'required|numeric|gt:1',
             'payment_method_id' => 'required|numeric|exists:payment_methods,id',
