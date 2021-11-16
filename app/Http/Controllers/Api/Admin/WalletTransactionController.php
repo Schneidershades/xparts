@@ -237,7 +237,7 @@ class WalletTransactionController extends Controller
             'subtotal' => $transaction->amount,
             'total' => $transaction->amount,
             'amount_paid' => $transaction->amount_paid,
-            'transaction_type' => 'WalletFund',
+            'transaction_type' => $transaction->transaction_type,
             'margin' => $transaction->amount_paid - $transaction->amount,
             'currency' => 'NGN',
             'payment_method' => $transaction->payment_method,
