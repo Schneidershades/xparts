@@ -142,7 +142,7 @@ class UserPropertyController extends Controller
     */
     public function quotes($user_id)
     {
-        return $this->showAll(Quote::where('user_id', $user_id)->latest()->get());
+        return $this->showAll(Quote::where('vendor_id', $user_id)->latest()->get());
     }
 
      /**
