@@ -202,6 +202,9 @@ class WalletTransactionController extends Controller
     {
         $transaction = WalletTransaction::where('receipt_number', $id)->first();
 
+        $initiatedWallet = false;
+        $margin = 0;
+
         if($request['status'] == $transaction->status){
             return $this->showMessage('This transaction has already been '.$request['status']);
         }
@@ -210,9 +213,6 @@ class WalletTransactionController extends Controller
             $transaction->status = $request['status'];
             return $this->showMessage('This transaction has been '.$request['status']);
         }
-
-        $initiatedWallet = false;
-        $margin = 0;
 
         if($transaction->transaction_type == 'credit'){
             $wallet = Wallet::where('user_id', $transaction->user_id)->first();
@@ -230,7 +230,6 @@ class WalletTransactionController extends Controller
 
             $wallet->balance = $wallet->balance - $transaction->total;
             $wallet->save();
-            
         }
 
         Order::create([
@@ -254,9 +253,9 @@ class WalletTransactionController extends Controller
             'transaction_initiated_date' => Carbon::now(),
             'transaction_initiated_time' => Carbon::now(),
             'date_time_paid' => Carbon::now(),
-            'status' => 'approved',
-            'service_status' => 'approved',
-            'orderable_type' => class_basename($transaction),
+            'status' => $request['status'],
+            'service_status' => $request['status'],
+            'orderable_type' => 'WalletTransaction',
             'orderable_id' => $transaction->id,
         ]);
         
