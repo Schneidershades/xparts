@@ -2,11 +2,11 @@
 # Hello {{ $user['name'] }}
 
 
-@if($xp->part->status == 'active')
+@if($xp->status == 'active')
 A new xpart request for part vehicle part **{{ $xp->part->name }}** - **{{ $xp->vin->vehicle_name }}** has been created.
 @endif
 
-@if($xp->part->status == 'awaiting')
+@if($xp->status == 'awaiting')
 A new xpart request for part vehicle part **{{ $xp->part->name }}** - **{{ $xp->vin->vehicle_name }}** has been created and is awaiting approval.
 @endif
 
