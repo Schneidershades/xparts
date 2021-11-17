@@ -13,6 +13,7 @@ class DeliveryRate extends Model
     use HasFactory, QueryFieldSearchScope;
 
     protected $guarded = [];
+    public $searchables = [];
 
     public $oneItem = DeliveryRateResource::class;
     public $allItems = DeliveryRateCollection::class;

@@ -11,6 +11,8 @@ use App\Traits\Api\QueryFieldSearchScope;
 class PaymentCharge extends Model
 {
     use HasFactory, QueryFieldSearchScope;
+    
+    public $searchables = [];
 
     public $oneItem = PaymentChargeResource::class;
     public $allItems = PaymentChargeCollection::class;

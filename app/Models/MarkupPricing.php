@@ -14,6 +14,7 @@ class MarkupPricing extends Model
     
     public $oneItem = MarkupPricingResource::class;
     public $allItems = MarkupPricingCollection::class;
+    public $searchables = [];
 
     protected $fillable = ['min_value', 'max_value', 'percentage', 'active', 'type'];
 }

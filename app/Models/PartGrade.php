@@ -12,6 +12,8 @@ class PartGrade extends Model
 {
     use HasFactory, QueryFieldSearchScope;
     
+    public $searchables = [];
+    
     public $oneItem = PartGradeResource::class;
     public $allItems = PartGradeCollection::class;
 }

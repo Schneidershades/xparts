@@ -19,6 +19,7 @@ class Order extends Model
 {
     use HasFactory, QueryFieldSearchScope;
 
+    public $searchables = [];
 
     protected $fillable = [
         'address_id',

@@ -16,6 +16,8 @@ class WalletTransaction extends Model
 
     public $oneItem = WalletTransactionResource::class;
     public $allItems = WalletTransactionCollection::class;
+    
+    public $searchables = [];
 
     protected $fillable = [
         'receipt_number',

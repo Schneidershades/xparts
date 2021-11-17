@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\Auth\UserRegistrationFormRequest;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\UserLoginFormRequest;
 use App\Http\Requests\Auth\AuthUpdateFormRequest;
-use App\Models\User;
+use App\Http\Requests\Auth\UserRegistrationFormRequest;
 
 class UserController extends Controller
 {
@@ -51,6 +52,11 @@ class UserController extends Controller
 
         $user->sendEmailVerificationNotification();
 
+        if($request['platform'] == 'mobile'){
+            $myTTL = 9960;
+            JWTAuth::factory()->setTTL($myTTL);
+        }
+
         if(!$token = auth()->attempt($request->only(['email', 'password']))){
             return $this->errorResponse('unauthenticated', 401);
         }
@@ -92,6 +98,11 @@ class UserController extends Controller
     */
     public function login(UserLoginFormRequest $request)
     {
+        if($request['platform'] == 'mobile'){
+            $myTTL = 9960;
+            JWTAuth::factory()->setTTL($myTTL);
+        }
+        
         if(!$token = auth()->attempt($request->only(['email', 'password']))){
             return $this->authErrorResponse('Could not sign you in with those details', 401);
         }

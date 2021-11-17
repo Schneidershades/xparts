@@ -36,10 +36,8 @@ trait QueryFieldSearchScope
         return $builder;
     }
 
-    public function scopeSearchRelatedModels($query, array $relatedModels=[])
+    public function scopeSearchRelatedModels($query, $search_query, array $relatedModels=[])
     {
-        $search_query = request()->get('search');
-
         foreach ($relatedModels as $relatedModel)
         {
             $query->whereHas($relatedModel, function($builder) use ($search_query, $relatedModel)
@@ -47,19 +45,54 @@ trait QueryFieldSearchScope
                 $relatedModelClass = $this->$relatedModel()->getRelated();
 
                 $searchables = (new $relatedModelClass)->searchables;
-                
+
                 foreach ($searchables as $key => $field) 
                 {
+                    
+                    $builder->where($field, 'like', "%{$search_query}%");
                     if ($key === 0) {
                         $builder->where($field, 'like', "%{$search_query}%");
                     } else {
                         $builder->orWhere($field, 'like', "%{$search_query}%");
                     }
                 }
+
                 
                 return $builder;
             });
         }
+        
+        return $query;
+    }
+
+    public function scopeSearchRelatedIdModels($query, $search_query, array $relatedModels=[])
+    {
+        foreach ($relatedModels as $relatedModel)
+        {
+            $query->whereHas($relatedModel, function($builder) use ($search_query, $relatedModel)
+            {
+                $relatedModelClass = $this->$relatedModel()->getRelated();
+
+                $searchables = (new $relatedModelClass)->searchables;
+
+                // $ids = [];
+
+                // foreach ($searchables as $key => $field) 
+                // {
+                //     // if ($key === 0) {
+                //         $builder->where($field, 'like', "%{$search_query}%");
+                //     // } else {
+                //     //     $builder->orWhere($field, 'like', "%{$search_query}%");
+                //     //     dd($builder->get());
+                //     // }
+                // }
+
+                
+                return $builder;
+            });
+        }
+        
+        // dd($query->get());
         return $query;
     }
 

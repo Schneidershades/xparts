@@ -11,6 +11,8 @@ use App\Traits\Api\QueryFieldSearchScope;
 class VehicleSpecialization extends Model
 {
     use HasFactory, QueryFieldSearchScope;
+    
+    public $searchables = [];
 
     public $oneItem = VehicleSpecializationResource::class;
     public $allItems = VehicleSpecializationCollection::class;

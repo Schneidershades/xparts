@@ -13,6 +13,8 @@ use App\Traits\Api\QueryFieldSearchScope;
 class Part extends Model
 {
     use HasFactory, QueryFieldSearchScope;
+    
+    public $searchables = ['name'];
 
     public $oneItem = PartResource::class;
     public $allItems = PartCollection::class;
