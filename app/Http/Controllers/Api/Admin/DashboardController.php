@@ -187,7 +187,7 @@ class DashboardController extends Controller
 
                 'delivered2user' =>[
                     'key' => 'User Delivery',
-                    'value' => Quote::where('status', 'xparts2user')->get()->sum('price')
+                    'value' => Quote::where('status', 'delivered')->get()->sum('price')
                 ],
 
                 'expired' =>[
