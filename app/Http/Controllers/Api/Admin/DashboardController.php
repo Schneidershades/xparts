@@ -96,32 +96,32 @@ class DashboardController extends Controller
             'salesTransaction' => [
                 'all' =>[
                     'key' => 'all requests',
-                    'value' => XpartRequest::all()->count()
+                    'value' => XpartRequest::all()->sum('price')
                 ],
 
                 'active' =>[
                     'key' => 'active requests',
-                    'value' => XpartRequest::where('status', 'active')->get()->count()
+                    'value' => XpartRequest::where('status', 'active')->get()->sum('price')
                 ],
 
                 'paid' =>[
                     'key' => 'paid requests',
-                    'value' => XpartRequest::where('status', 'paid')->get()->count()
+                    'value' => XpartRequest::where('status', 'paid')->get()->sum('price')
                 ],
 
                 'delivered2xparts' =>[
                     'key' => 'Vendor Delivery',
-                    'value' => XpartRequest::where('status', 'vendor2xparts')->get()->count()
+                    'value' => XpartRequest::where('status', 'vendor2xparts')->get()->sum('price')
                 ],
 
                 'delivered2user' =>[
                     'key' => 'User Delivery',
-                    'value' => XpartRequest::where('status', 'xparts2user')->get()->count()
+                    'value' => XpartRequest::where('status', 'xparts2user')->get()->sum('price')
                 ],
 
                 'expired' =>[
                     'key' => 'Expired Request',
-                    'value' => XpartRequest::where('status', 'expired')->get()->count()
+                    'value' => XpartRequest::where('status', 'expired')->get()->sum('price')
                 ],
             ],
 
