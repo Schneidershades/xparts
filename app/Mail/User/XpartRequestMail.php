@@ -41,6 +41,6 @@ class XpartRequestMail extends Mailable
             ->with('xp', $this->xpartRequest)
             ->with('user', $this->user)
             ->with('link', $link)
-            ->subject("New xparts request ");
+            ->subject(ucfirst($this->xpartRequest->status) . " New xparts request created");
     }
 }
