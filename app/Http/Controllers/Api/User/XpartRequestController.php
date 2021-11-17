@@ -139,7 +139,7 @@ class XpartRequestController extends Controller
 
 
         if($xpartRequest->status == 'awaiting'){
-            $emails = ['az@fixit45.com', 'tolani@fixit45.com', 'henry@fixit45.com', /**'jt@fixit45.com'**/];
+            $emails = ['az@fixit45.com', 'tolani@fixit45.com', 'henry@fixit45.com',  'schneider@fixit45.com',/**'jt@fixit45.com'**/];
 
             $admins = User::whereIn('email', $emails)->get(); 
 
