@@ -95,33 +95,33 @@ class DashboardController extends Controller
 
             'salesTransaction' => [
                 'all' =>[
-                    'key' => 'all requests',
-                    'value' => XpartRequest::all()->sum('price')
+                    'key' => 'all total sum',
+                    'value' => Quote::all()->sum('price')
                 ],
 
                 'active' =>[
                     'key' => 'active requests',
-                    'value' => XpartRequest::where('status', 'active')->get()->sum('price')
+                    'value' => Quote::where('status', 'active')->get()->sum('price')
                 ],
 
                 'paid' =>[
                     'key' => 'paid requests',
-                    'value' => XpartRequest::where('status', 'paid')->get()->sum('price')
+                    'value' => Quote::where('status', 'paid')->get()->sum('price')
                 ],
 
                 'delivered2xparts' =>[
                     'key' => 'Vendor Delivery',
-                    'value' => XpartRequest::where('status', 'vendor2xparts')->get()->sum('price')
+                    'value' => Quote::where('status', 'vendor2xparts')->get()->sum('price')
                 ],
 
                 'delivered2user' =>[
                     'key' => 'User Delivery',
-                    'value' => XpartRequest::where('status', 'xparts2user')->get()->sum('price')
+                    'value' => Quote::where('status', 'xparts2user')->get()->sum('price')
                 ],
 
                 'expired' =>[
                     'key' => 'Expired Request',
-                    'value' => XpartRequest::where('status', 'expired')->get()->sum('price')
+                    'value' => Quote::where('status', 'expired')->get()->sum('price')
                 ],
             ],
 
