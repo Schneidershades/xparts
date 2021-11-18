@@ -16,6 +16,8 @@ class BankDetail extends Model
 
     protected $guarded = [];
 
+    public $searchables = [];
+
     public $oneItem = BankDetailResource::class;
     public $allItems = BankDetailCollection::class;
 

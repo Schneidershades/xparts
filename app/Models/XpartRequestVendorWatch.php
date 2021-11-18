@@ -16,6 +16,8 @@ class XpartRequestVendorWatch extends Model
 
     protected $guarded = [];
     
+    public $searchables = [];
+    
     public $oneItem = XpartRequestVendorWatchResource::class;
     public $allItems = XpartRequestVendorWatchCollection::class;
 

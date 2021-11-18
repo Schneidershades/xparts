@@ -18,6 +18,7 @@ class Cart extends Model
         'cartable_id',
         'quantity',
     ];
+    public $searchables = [];
     
     public $oneItem = CartResource::class;
     public $allItems = CartCollection::class;

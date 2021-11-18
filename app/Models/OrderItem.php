@@ -13,6 +13,8 @@ class OrderItem extends Model
 {
     use HasFactory, QueryFieldSearchScope;
     
+    public $searchables = [];
+    
     protected $fillable = [
         'itemable_id',
         'itemable_type',

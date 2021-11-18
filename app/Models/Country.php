@@ -22,6 +22,8 @@ class Country extends Model
     
     public $oneItem = CountryResource::class;
     public $allItems = CountryCollection::class;
+    
+    public $searchables = [];
 
     public $timestamps = true;
 

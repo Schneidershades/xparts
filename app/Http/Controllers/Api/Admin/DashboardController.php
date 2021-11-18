@@ -95,33 +95,33 @@ class DashboardController extends Controller
 
             'salesTransaction' => [
                 'all' =>[
-                    'key' => 'all requests',
-                    'value' => XpartRequest::all()->count()
+                    'key' => 'all total sum',
+                    'value' => Quote::all()->sum('price')
                 ],
 
                 'active' =>[
                     'key' => 'active requests',
-                    'value' => XpartRequest::where('status', 'active')->get()->count()
+                    'value' => Quote::where('status', 'active')->get()->sum('price')
                 ],
 
                 'paid' =>[
                     'key' => 'paid requests',
-                    'value' => XpartRequest::where('status', 'paid')->get()->count()
+                    'value' => Quote::where('status', 'paid')->get()->sum('price')
                 ],
 
                 'delivered2xparts' =>[
                     'key' => 'Vendor Delivery',
-                    'value' => XpartRequest::where('status', 'vendor2xparts')->get()->count()
+                    'value' => Quote::where('status', 'vendor2xparts')->get()->sum('price')
                 ],
 
                 'delivered2user' =>[
                     'key' => 'User Delivery',
-                    'value' => XpartRequest::where('status', 'xparts2user')->get()->count()
+                    'value' => Quote::where('status', 'delivered')->get()->sum('price')
                 ],
 
                 'expired' =>[
                     'key' => 'Expired Request',
-                    'value' => XpartRequest::where('status', 'expired')->get()->count()
+                    'value' => Quote::where('status', 'expired')->get()->sum('price')
                 ],
             ],
 
@@ -187,7 +187,7 @@ class DashboardController extends Controller
 
                 'delivered2user' =>[
                     'key' => 'User Delivery',
-                    'value' => Quote::where('status', 'xparts2user')->get()->sum('price')
+                    'value' => Quote::where('status', 'delivered')->get()->sum('price')
                 ],
 
                 'expired' =>[

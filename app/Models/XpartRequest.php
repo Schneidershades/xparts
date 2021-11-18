@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Api\QueryFieldSearchScope;
 use App\Http\Resources\Xpart\XpartRequestResource;
 use App\Http\Resources\Xpart\XpartRequestCollection;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class XpartRequest extends Model
@@ -87,4 +88,18 @@ class XpartRequest extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    // public function builder()
+    // {
+    //     return XpartRequest::query()
+    //             ->selectRaw('xpart_requests.*')
+    //             ->selectRaw('users.name AS user_name')
+    //             ->selectRaw('parts.name AS part_name')
+    //             ->selectRaw('vins.name AS vin_number')
+    //             ->leftJoin('user', 'users.id', '=', 'xpart_requests.user_id')
+    //             ->leftJoin('parts', 'parts.id', '=', 'xpart_requests.part_id')
+    //             ->leftJoin('addresses', 'addresses.id', '=', 'xpart_requests.address_id')
+    //             ->leftJoin('vins', 'vins.id', '=', 'xpart_requests.vin_id')->get();
+    // }
+
 }

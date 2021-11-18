@@ -12,6 +12,8 @@ use App\Traits\Api\QueryFieldSearchScope;
 class PaymentMethod extends Model
 {
     use HasFactory, QueryFieldSearchScope;
+    
+    public $searchables = [];
 
     protected $guarded = [];
 

@@ -137,8 +137,19 @@ class XpartRequestController extends Controller
             }
         }
 
+
+        if($xpartRequest->status == 'awaiting'){
+            $emails = ['az@fixit45.com', 'tolani@fixit45.com', 'henry@fixit45.com',  'schneider@fixit45.com',/**'jt@fixit45.com'**/];
+
+            $admins = User::whereIn('email', $emails)->get(); 
+
+            foreach($admins as $admin){
+                SendEmail::dispatch($admin['email'], new XpartRequestMail($xpartRequest, $admin))->onQueue('emails')->delay(5);
+            }            
+        } 
+
+
         $users = User::role('Vendor')->get(); 
-        // $users = User::select('email', 'name', 'id')->where('role', 'vendor')->where('id', '!=', auth()->user()->id)->get();
 
         collect($users)->each(function ($user) use ($xpartRequest) {
             if($xpartRequest->status == 'active'){

@@ -12,6 +12,8 @@ class PartSpecialization extends Model
 {
     use HasFactory, QueryFieldSearchScope;
     
+    public $searchables = [];
+    
     public $oneItem = PartSpecializationResource::class;
     public $allItems = PartSpecializationCollection::class;
 }

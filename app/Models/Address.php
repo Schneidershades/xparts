@@ -19,6 +19,8 @@ class Address extends Model
     public $oneItem = AddressResource::class;
     public $allItems = AddressCollection::class;
 
+    public $searchables = ['name'];
+
     protected $fillable = [
         'name',
         'address',

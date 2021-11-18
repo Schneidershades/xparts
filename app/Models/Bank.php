@@ -11,6 +11,8 @@ use App\Traits\Api\QueryFieldSearchScope;
 class Bank extends Model
 {
     use HasFactory, QueryFieldSearchScope;
+    
+    public $searchables = ['name'];
 
     public $oneItem = BankResource::class;
     public $allItems = BankCollection::class;

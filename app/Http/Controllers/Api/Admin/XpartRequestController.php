@@ -41,7 +41,24 @@ class XpartRequestController extends Controller
 
     public function index()
     {
-        return $this->showAll(XpartRequest::latest()->get());
+        // return $this->showAll(XpartRequest::all());
+        return $this->showAll( XpartRequest::searchRelatedIdModels(request()->get('search'),[
+            'part',
+            'user',
+            'vin',
+        ])->get());
+
+        // return XpartRequest::query()
+        //         ->selectRaw('xpart_requests.*')
+        //         ->selectRaw('users.name AS user_name')
+        //         ->selectRaw('parts.name AS part_name')
+        //         ->selectRaw('vins.vin_number AS vin_number')
+        //         ->leftJoin('users', 'users.id', '=', 'xpart_requests.user_id')
+        //         ->leftJoin('parts', 'parts.id', '=', 'xpart_requests.part_id')
+        //         ->leftJoin('addresses', 'addresses.id', '=', 'xpart_requests.address_id')
+        //         ->leftJoin('vins', 'vins.id', '=', 'xpart_requests.vin_id')
+        //         ->where('vin_number', 'LIKE', "%{5}%")
+        //         ->get();
     }
 
 

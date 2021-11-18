@@ -23,6 +23,7 @@ class City extends Model
     
     public $oneItem = CityResource::class;
     public $allItems = CityResource::class;
+    public $searchables = [];
 
     public function state()
     {

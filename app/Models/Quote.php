@@ -15,6 +15,8 @@ use App\Traits\Api\QueryFieldSearchScope;
 class Quote extends Model
 {
     use HasFactory, QueryFieldSearchScope;
+    
+    public $searchables = [];
 
     protected $fillable = [
         "xpart_request_id",
