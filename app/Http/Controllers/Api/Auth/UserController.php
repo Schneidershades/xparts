@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\UserLoginFormRequest;
 use App\Http\Requests\Auth\AuthUpdateFormRequest;
 use App\Http\Requests\Auth\UserRegistrationFormRequest;
+use App\Models\Media;
 
 class UserController extends Controller
 {
@@ -151,11 +152,20 @@ class UserController extends Controller
 
         $model->save();
         
-        if($request->hasFile('image')){
-            $path = $this->uploadImage($request->image, "profile_photos");
-            $model->avatar()->create([
-                'file_path' => $path,
-            ]);
+        if($request->has('image')){
+            $image = $request->image;
+            if (gettype($image) != "integer") {
+                $path = $this->uploadImage($image, "profile_photos");
+                $model->avatar()->create([
+                    'file_path' => $path,
+                ]);
+            } else {
+                $media = Media::where('id', $image)->first();
+                $media->update([
+                    'fileable_id' => $model->id,
+                    'fileable_type' => $model->getMorphClass(),
+                ]);
+            }
         }
 
         return $this->showOne($model);

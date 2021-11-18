@@ -99,15 +99,14 @@ class QuoteController extends Controller
 
         $requestingUser = User::where('id', $xpartRequest->user_id)->first();
 
-        $markupDetails = $this->markupService($request['price']);        
+        $markupDetails = $this->markupService($request['price']);
 
-        if($markupDetails != null)
-        {
-            (float) $calculatedPercentage = (100 + $markupDetails->percentage) / 100;            
+        if ($markupDetails != null) {
+            (float) $calculatedPercentage = (100 + $markupDetails->percentage) / 100;
             (float) $markupPrice = $request['price'] * $calculatedPercentage;
         }
 
-        if($xpartRequest->status != 'active'){
+        if ($xpartRequest->status != 'active') {
             return $this->errorResponse('Sorry this quote is expired', 409);
         }
 
@@ -115,7 +114,7 @@ class QuoteController extends Controller
 
         $model = $this->requestAndDbIntersection($request, $model, [], [
             'vendor_id' => auth()->user()->id,
-            'status' => 'active', 
+            'status' => 'active',
             'markup_pricing_id' => $markupDetails ? $markupDetails->id : null,
             'markup_price' => $markupPrice > 0 ? $markupPrice : $request['price'],
         ]);
@@ -123,7 +122,7 @@ class QuoteController extends Controller
         $model->save();
 
         $quotes_done = XpartRequestVendorWatch::where('vendor_id', $vendor->id)
-                            ->where('xpart_request_id', $xpartRequest->id)->first();
+            ->where('xpart_request_id', $xpartRequest->id)->first();
 
         $quotes_done->views += 1;
         $quotes_done->number_of_bids += 1;
@@ -276,12 +275,20 @@ class QuoteController extends Controller
      * )
      */
 
-    public function othersRecentQuote()
+    public function othersRecentQuote(Request $request)
     {
-        $myLastQuote = auth()->user()->quotes()->latest()->first();
-        if ($myLastQuote) {
+        $reqId = $request->get('xp_request_id');
+        if ($reqId != null) {
+            $xpRequestId = $reqId;
+        } else {
+            $myLastQuote = auth()->user()->quotes()->latest()->first();
+            $xpRequestId = $myLastQuote->xpart_request_id;
+        }
+
+        if ($xpRequestId) {
             $quotes = Quote::with('vendor:name')
-                ->where('xpart_request_id', $myLastQuote->xpart_request_id)->get();
+                ->where('xpart_request_id', $xpRequestId)
+                ->where('vendor_id', '!=', auth()->user()->id)->get();
 
             return $this->showAll($quotes);
         }
@@ -303,8 +310,8 @@ class QuoteController extends Controller
     public function markupService($amount)
     {
         $mark =  MarkupPricing::where('min_value', '<=', $amount)
-                ->where('max_value', '>=', $amount)
-                ->first();
-        return($mark);
+            ->where('max_value', '>=', $amount)
+            ->first();
+        return ($mark);
     }
 }
