@@ -64,6 +64,10 @@ class QuoteResource extends JsonResource
                         'key' => 'expired',
                         'message' => 'expired'
                     ],
+                    [
+                        'key' => 'delivered',
+                        'message' => 'delivered'
+                    ],
                 ],
             ]),
 
