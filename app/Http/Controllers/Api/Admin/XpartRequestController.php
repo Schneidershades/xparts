@@ -41,12 +41,12 @@ class XpartRequestController extends Controller
 
     public function index()
     {
-        // return $this->showAll(XpartRequest::all());
-        return $this->showAll( XpartRequest::searchRelatedIdModels(request()->get('search'),[
-            'part',
-            'user',
-            'vin',
-        ])->get());
+        return $this->showAll(XpartRequest::latest()->get());
+        // return $this->showAll( XpartRequest::searchRelatedIdModels(request()->get('search'),[
+        //     'part',
+        //     'user',
+        //     'vin',
+        // ])->get());
 
         // return XpartRequest::query()
         //         ->selectRaw('xpart_requests.*')
