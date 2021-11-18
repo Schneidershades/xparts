@@ -53,7 +53,7 @@ class QuoteResource extends JsonResource
                 'available_statuses' => [
                     [
                         'key' => 'refunded',
-                        'message' => 'refund user'
+                        'message' => 'Refund user'
                     ],
                 ],
             ]),
@@ -62,11 +62,11 @@ class QuoteResource extends JsonResource
                 'available_statuses' => [
                     [
                         'key' => 'expired',
-                        'message' => 'expired'
+                        'message' => 'Expired'
                     ],
                     [
                         'key' => 'delivered',
-                        'message' => 'delivered'
+                        'message' => 'Delivered'
                     ],
                 ],
             ]),
@@ -84,7 +84,7 @@ class QuoteResource extends JsonResource
                 'available_statuses' => [
                     [
                         'key' => 'delivered',
-                        'message' => 'Refund user',
+                        'message' => 'Delivered',
                         'credit_user_wallet_action' => false,
                         'credit_vendor_wallet_action' => false,
                         'debit_user_wallet_action' => false,
@@ -92,7 +92,7 @@ class QuoteResource extends JsonResource
                     ],
                     [
                         'key' => 'refunded',
-                        'message' => 'refund user',
+                        'message' => 'Refunded',
                         'credit_user_wallet_action' => false,
                         'credit_user_wallet_action' => false,
                         'debit_user_wallet_action' => false,
@@ -100,7 +100,7 @@ class QuoteResource extends JsonResource
                     ],
                     [
                         'key' => 'vendor2xparts',
-                        'message' => 'delivered user',
+                        'message' => 'Vendor2xparts',
                         'credit_user_wallet_action' => false,
                         'credit_user_wallet_action' => false,
                         'debit_user_wallet_action' => false,
@@ -108,7 +108,7 @@ class QuoteResource extends JsonResource
                     ],
                     [
                         'key' => 'expired',
-                        'message' => 'expired',
+                        'message' => 'Expired',
                         'credit_user_wallet_action' => false,
                         'credit_user_wallet_action' => false,
                         'debit_user_wallet_action' => false,
