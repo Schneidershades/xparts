@@ -21,6 +21,7 @@ use App\Models\XpartRequestVendorWatch;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -265,7 +266,7 @@ class OrderController extends Controller
             return $this->errorResponse('This transaction has already been initiated', 409);
         }
 
-        $status = $payment_message = $payment_method = $payment_gateway = $payment_status = null;
+        $status = $payment_message = $payment_method = $payment_gateway = $payment_status = $wallet = null;
 
         if ($paymentMethod->name == "Payment on Delivery") {
             $status = 'ordered';
@@ -390,6 +391,11 @@ class OrderController extends Controller
             $sent->status = 'expired';
             $sent->save();
         }
+
+
+        $user = User::find($order['order_id']);
+
+        // SendEmail::dispatch($user->email, new OrderMail($quote, $quote->vendor))->onQueue('emails')->delay(5);
 
         auth()->user()->cart()->delete();
 
