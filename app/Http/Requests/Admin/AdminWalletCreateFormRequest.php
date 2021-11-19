@@ -100,7 +100,7 @@ class AdminWalletCreateFormRequest extends FormRequest
             'user_id' => 'required|int|exists:users,id',
             'amount' => 'required|numeric|gt:100',
             'charge' => 'numeric|min:1',
-            'payment_method_id' => 'required|numeric|exists:payment_methods,id',
+            'payment_method_id' => 'nullable|numeric|exists:payment_methods,id',
             'details' => 'required|string',
             'transaction_type' => 'required|string|in:debit,credit',
         ];
