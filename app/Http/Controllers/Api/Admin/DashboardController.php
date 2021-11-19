@@ -93,6 +93,38 @@ class DashboardController extends Controller
                 ],
             ],
 
+            'quotesNumbers' => [
+                'all' =>[
+                    'key' => 'all total sum',
+                    'value' => Quote::all()->count()
+                ],
+
+                'active' =>[
+                    'key' => 'active requests',
+                    'value' => Quote::where('status', 'active')->get()->count()
+                ],
+
+                'paid' =>[
+                    'key' => 'paid requests',
+                    'value' => Quote::where('status', 'paid')->get()->count()
+                ],
+
+                'delivered2xparts' =>[
+                    'key' => 'Vendor Delivery',
+                    'value' => Quote::where('status', 'vendor2xparts')->get()->count()
+                ],
+
+                'delivered2user' =>[
+                    'key' => 'User Delivery',
+                    'value' => Quote::where('status', 'delivered')->get()->count()
+                ],
+
+                'expired' =>[
+                    'key' => 'Expired Request',
+                    'value' => Quote::where('status', 'expired')->get()->count()
+                ],
+            ],
+
             'salesTransaction' => [
                 'all' =>[
                     'key' => 'all total sum',
