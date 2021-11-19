@@ -75,24 +75,19 @@ trait QueryFieldSearchScope
 
                 $searchables = (new $relatedModelClass)->searchables;
 
-                // $ids = [];
+                foreach ($searchables as $key => $field) 
+                {
+                    if ($key === 0) {
+                        $builder->where($field, 'like', "%{$search_query}%");
+                    } else {
+                        $builder->orWhere($field, 'like', "%{$search_query}%");
+                    }
+                }
 
-                // foreach ($searchables as $key => $field) 
-                // {
-                //     // if ($key === 0) {
-                //         $builder->where($field, 'like', "%{$search_query}%");
-                //     // } else {
-                //     //     $builder->orWhere($field, 'like', "%{$search_query}%");
-                //     //     dd($builder->get());
-                //     // }
-                // }
-
-                
                 return $builder;
             });
         }
         
-        // dd($query->get());
         return $query;
     }
 
