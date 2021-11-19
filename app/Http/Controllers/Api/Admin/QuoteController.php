@@ -224,14 +224,14 @@ class QuoteController extends Controller
         $vendorBalance->balance = $vendorBalance->balance + $item_total;
         $vendorBalance->save();
 
-        $product =  $orderItemDetails->itemable_type ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
+        $product = $orderItemDetails->itemable_type ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
 
         if($orderItemDetails->itemable_type == 'quotes'){
-            $title = "Refunding users for $product transaction payment";
-            $details = "Refunding users for $product transaction payment";;
+            $title = "Funding users for $product transaction payment";
+            $details = "Funding users for $product transaction payment";
         }
 
-        $newOrder = $this->createOrder($vendorBalance, $title, $details, $order, $transaction_type);
+        $newOrder = $this->createOrder($vendorBalance, $title, $details, $order, $transaction_type, $item_total, $item_total);
 
         $this->createOrderItem($newOrder, $orderItemDetails);
 
@@ -252,18 +252,18 @@ class QuoteController extends Controller
         $vendorBalance->save();
 
         $order->amount_paid = $order->amount_paid - $bid->price;
-        $order->total = $order->total -  $bid->price;
+        $order->total = $order->total - $bid->price;
         $order->subtotal = $order->subtotal -  $bid->price;
         $order->save();
 
         $product =  $orderItemDetails->itemable_type ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
 
         if($orderItemDetails->itemable_type == 'quotes'){
-            $title = "Refunding users for $product transaction payment";
-            $details = "Refunding users for $product transaction payment";;
+            $title = "Refunding user for $product transaction payment";
+            $details = "Refunding user for $product transaction payment";
         }
 
-        $newOrder = $this->createOrder($vendorBalance, $title, $details, $order, $transaction_type);
+        $newOrder = $this->createOrder($vendorBalance, $title, $details, $order, $transaction_type, $item_total, $item_total);
 
         $this->createOrderItem($newOrder, $orderItemDetails);
 
@@ -281,8 +281,8 @@ class QuoteController extends Controller
         $product =  $orderItemDetails->itemable_type ? $orderItemDetails->itemable->title : $orderItemDetails->itemable_type;
 
         if($orderItemDetails->itemable_type == 'quotes'){
-            $title = "Refunding users for $product transaction payment";
-            $details = "Refunding users for $product transaction payment";;
+            $title = "Refunding user for $product transaction payment";
+            $details = "Refunding user for $product transaction payment";;
         }
 
         $newOrder = $this->createOrder($userBalance, $title, $details, $order, $transaction_type);
@@ -323,8 +323,11 @@ class QuoteController extends Controller
         ]);
     }
 
-    public function createOrder($userBalance, $title, $details, $order, $transaction_type)
+    public function createOrder($userBalance, $title, $details, $order, $transaction_type, $amount = null, $amount_paid = null)
     {
+        $amount = $amount ? $amount  : $order->subtotal;
+        $amount_paid = $amount_paid ? $amount : $order->amount_paid;
+
         return $userBalance->user->orders()->create([
             'title' => $title,
             'details' => $details,
@@ -332,9 +335,9 @@ class QuoteController extends Controller
             'address_id' => $order->address_id,
             'payment_method_id' => $order->payment_method_id,
             'payment_charge_id' => $order->payment_charge_id,
-            'subtotal' => $order->subtotal,
-            'total' => $order->total,
-            'amount_paid' => $order->amount_paid,
+            'subtotal' => $amount,
+            'total' => $amount,
+            'amount_paid' => $amount_paid,
             'transaction_type' => $transaction_type,
             'currency' => 'NGN',
             'payment_reference' => $order->receipt_number,
