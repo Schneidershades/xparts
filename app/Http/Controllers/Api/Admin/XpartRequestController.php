@@ -62,7 +62,7 @@ class XpartRequestController extends Controller
                         ->orWhere('users.name', 'LIKE', "%{$search_query}%")
                         ->orWhere('parts.name', 'LIKE', "%{$search_query}%")
                         ;
-                    });
+                    })->get();
 
         return $this->showAll($item);
     }
