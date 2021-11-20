@@ -8,7 +8,7 @@ class StatusController extends Controller
 {
     /**
     * @OA\Get(
-    *      path="/api/v1/admin/status",
+    *      path="/api/v1/admin/statuses",
     *      operationId="allStatuses",
     *      tags={"Admin"},
     *      summary="Get all status",
