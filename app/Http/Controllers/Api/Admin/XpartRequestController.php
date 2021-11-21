@@ -62,6 +62,7 @@ class XpartRequestController extends Controller
                         ->orWhere('users.name', 'LIKE', "%{$search_query}%")
                         ->orWhere('parts.name', 'LIKE', "%{$search_query}%")
                         ->orWhere('xpart_requests.id', 'LIKE', "%{$search_query}%")
+                        ->orWhere('xpart_requests.status', 'LIKE', "%{$search_query}%")
                         ;
                     })->get();
 
