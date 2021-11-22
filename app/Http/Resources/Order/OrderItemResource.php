@@ -32,7 +32,7 @@ class OrderItemResource extends JsonResource
             'cartable_id' => $this->cartable_id,
 
             'category' => $this->cartable_type,
-            'price' => $this->itemable ? $this->itemable->price : 'N/A',
+            'price' => $this->itemable ? $this->itemable->markup_price : 'N/A',
             'quantity' => $this->quantity,
             'total' => $this->itemable ? $this->itemable->price : 0 * $this->quantity,
         ];
