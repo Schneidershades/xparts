@@ -61,8 +61,10 @@ class XpartRequestController extends Controller
                         $builder->where('vin_number', 'LIKE', "%{$search_query}%")
                         ->orWhere('users.name', 'LIKE', "%{$search_query}%")
                         ->orWhere('parts.name', 'LIKE', "%{$search_query}%")
+                        ->orWhere('xpart_requests.id', 'LIKE', "%{$search_query}%")
+                        ->orWhere('xpart_requests.status', 'LIKE', "%{$search_query}%")
                         ;
-                    });
+                    })->get();
 
         return $this->showAll($item);
     }

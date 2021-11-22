@@ -85,6 +85,7 @@ Route::prefix('v1')->group(function () {
 		Route::get('user/{id}/wallet-transactions', 'UserPropertyController@walletTransactions');
 		Route::get('user/{id}/quotes', 'UserPropertyController@quotes');
 		Route::get('user/{id}/xparts-requests', 'UserPropertyController@xpartRequests');
+		Route::Resource('statuses', 'StatusController');
 	});
 
 	Route::get('process-all-orders', 'Api\Test\TestController@quoteProcessing');

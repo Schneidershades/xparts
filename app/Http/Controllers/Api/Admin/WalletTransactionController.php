@@ -202,6 +202,10 @@ class WalletTransactionController extends Controller
     {
         $transaction = WalletTransaction::where('receipt_number', $id)->first();
 
+        if(!$transaction){
+            return $this->showMessage('Transaction receipt number not found');
+        }
+
         $initiatedWallet = $wallet = false;
         $margin = 0;
 
