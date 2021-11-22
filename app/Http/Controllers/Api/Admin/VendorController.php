@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\Admin\UserUpdateFormRequest;
 
 class VendorController extends Controller
@@ -40,7 +41,23 @@ class VendorController extends Controller
     */
     public function index()
     {
-        return $this->showAll(User::where('role', 'vendor')->latest()->get());
+        $search_query = request()->get('search') ? request()->get('search') : null;
+
+        if(!$search_query){
+            return $this->showAll(User::where('role', 'vendor')->latest()->get());
+        }
+
+        $item = User::query()
+                ->selectRaw('users.*')
+                ->where('users.role', 'vendor')
+                ->when($search_query, function (Builder $builder, $search_query) {
+                    $builder->where('users.name', 'LIKE', "%{$search_query}%")
+                    ->orWhere('users.name', 'LIKE', "%{$search_query}%")
+                    ->orWhere('users.phone', 'LIKE', "%{$search_query}%")
+                    ->orWhere('users.email', 'LIKE', "%{$search_query}%");
+                })->latest()->get();
+
+        return $this->showAll($item);
     }
 
     /**
