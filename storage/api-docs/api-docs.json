@@ -1554,6 +1554,38 @@
                 ]
             }
         },
+        "/api/v1/admin/statuses": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get all status",
+                "description": "Get all status",
+                "operationId": "allStatuses",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/admin/users": {
             "get": {
                 "tags": [
@@ -5638,6 +5670,12 @@
                         "description": "status",
                         "type": "string",
                         "example": "approve/decline"
+                    },
+                    "remarks": {
+                        "title": "remarks",
+                        "description": "remarks",
+                        "type": "string",
+                        "example": "this is a description"
                     }
                 },
                 "type": "object"
