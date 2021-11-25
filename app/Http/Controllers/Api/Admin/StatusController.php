@@ -39,28 +39,80 @@ class StatusController extends Controller
     {
         return [
             [
+                'key' => 'active',
+                'message' => 'Active',
+                'type' => 'quotes',
+            ],
+            [
                 'key' => 'expired',
-                'message' => 'Expired'
+                'message' => 'Expired',
+                'type' => 'quotes',
             ],
             [
                 'key' => 'delivered',
-                'message' => 'Delivered'
+                'message' => 'Delivered',
+                'type' => 'quotes',
             ],
             [
                 'key' => 'ordered',
-                'message' => 'Ordered'
+                'message' => 'Ordered',
+                'type' => 'quotes',
             ],
             [
                 'key' => 'vendor2xparts',
-                'message' => 'Vendor2xparts'
+                'message' => 'Vendor2xparts',
+                'type' => 'quotes',
             ],
             [
                 'key' => 'paid',
-                'message' => 'Paid'
+                'message' => 'Paid',
+                'type' => 'quotes',
             ],
             [
                 'key' => 'refunded',
-                'message' => 'Refunded'
+                'message' => 'Refunded',
+                'type' => 'quotes',
+            ],
+            [
+                'key' => 'pending',
+                'message' => 'Pending',
+                'type' => 'wallet_transactions',
+            ],
+            [
+                'key' => 'approved',
+                'message' => 'Approved',
+                'type' => 'wallet_transactions',
+            ],
+            [
+                'key' => 'declined',
+                'message' => 'Declined',
+                'type' => 'wallet_transactions',
+            ],
+
+            [
+                'key' => 'pending',
+                'message' => 'Pending',
+                'type' => 'orders',
+            ],
+            [
+                'key' => 'approved',
+                'message' => 'Approved',
+                'type' => 'orders',
+            ],
+            [
+                'key' => 'declined',
+                'message' => 'Declined',
+                'type' => 'orders',
+            ],
+            [
+                'key' => 'ordered',
+                'message' => 'Ordered',
+                'type' => 'orders',
+            ],
+            [
+                'key' => 'paid',
+                'message' => 'Paid',
+                'type' => 'orders',
             ],
         ];
     }
