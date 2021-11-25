@@ -13,6 +13,8 @@ class Bank extends Model
     use HasFactory, QueryFieldSearchScope;
     
     public $searchables = ['name'];
+    
+    protected $guarded = [];
 
     public $oneItem = BankResource::class;
     public $allItems = BankCollection::class;

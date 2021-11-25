@@ -44,6 +44,6 @@ class FcmPushSubscriptionController extends Controller
 
     public function store(StoreFcmPushSubscriptionRequest $request)
     {
-        return auth()->user()->fcmPushSubscriptions->create($request->all());
+        return $this->showOne(auth()->user()->fcmPushSubscriptions()->create($request->all()));
     }
 }
