@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Order;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
 
 class OrderController extends Controller
 {
@@ -39,7 +40,22 @@ class OrderController extends Controller
 
     public function index()
     {
-        return $this->showAll(Order::latest()->get());
+        $search_query = request()->get('search') ? request()->get('search') : null;
+
+        if(!$search_query){
+            return $this->showAll(Order::latest()->get());
+        }
+
+        $item = Order::query()
+                ->selectRaw('orders.*')
+                ->when($search_query, function (Builder $builder, $search_query) {
+                    $builder->where('orders.id', 'LIKE', "%{$search_query}%")
+                    ->orWhere('orders.receipt_number', 'LIKE', "%{$search_query}%")
+                    ->orWhere('orders.status', 'LIKE', "%{$search_query}%")
+                    ->orWhere('orders.title', 'LIKE', "%{$search_query}%");
+                })->latest()->get();
+
+        return $this->showAll($item);
     }
 
     /**

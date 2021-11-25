@@ -64,7 +64,7 @@ class XpartRequestController extends Controller
                         ->orWhere('xpart_requests.id', 'LIKE', "%{$search_query}%")
                         ->orWhere('xpart_requests.status', 'LIKE', "%{$search_query}%")
                         ;
-                    })->get();
+                    })->latest()->get();
 
         return $this->showAll($item);
     }

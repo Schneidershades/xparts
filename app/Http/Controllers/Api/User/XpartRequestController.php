@@ -9,6 +9,7 @@ use App\Models\Media;
 use App\Jobs\SendEmail;
 use Illuminate\Support\Str;
 use App\Models\XpartRequest;
+use App\Jobs\PushNotification;
 use App\Mail\User\XpartRequestMail;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -159,7 +160,18 @@ class XpartRequestController extends Controller
                     'vendor_id' => $user['id'],
                     'status' => 'active'
                 ]);
+
                 SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
+
+                if($user->has('fcmPushSubscriptions')){
+                    PushNotification::dispatch(
+                        $xpartRequest, 
+                        $xpartRequest->id, 
+                        $user, 
+                        'New Xpart Request', 
+                        'A new xpart request has been created'
+                    )->delay(5);
+                }
             } 
         });
 

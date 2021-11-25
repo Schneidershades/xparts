@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f50ac8fef71915d128f113f228ecce8",
+    "content-hash": "7cf3540087433e79d2d83a238c2273e7",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -400,6 +400,78 @@
                 }
             ],
             "time": "2021-08-15T20:50:18+00:00"
+        },
+        {
+            "name": "code-lts/laravel-fcm",
+            "version": "1.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/code-lts/Laravel-FCM.git",
+                "reference": "bbf3ea313845d7a6544b9cd770d1096304e9b4eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/code-lts/Laravel-FCM/zipball/bbf3ea313845d7a6544b9cd770d1096304e9b4eb",
+                "reference": "bbf3ea313845d7a6544b9cd770d1096304e9b4eb",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6 || ^7",
+                "illuminate/support": "5.* || ^6 || ^7 || ^8",
+                "monolog/monolog": "^1.12|^2.0",
+                "php": "^5.5.9 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "laravel/laravel": "5.* || ^6 || ^7 || ^8",
+                "phpunit/phpunit": "^4 || ^5 || ^6 || ^7 || ^8 || ^9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LaravelFCM\\FCMServiceProvider"
+                    ],
+                    "aliases": {
+                        "FCM": "LaravelFCM\\Facades\\FCM",
+                        "FCMGroup": "LaravelFCM\\Facades\\FCMGroup"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelFCM\\": "src/",
+                    "LaravelFCM\\Mocks\\": "tests/mocks"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Brosy",
+                    "email": "nicolas.brosy@gmail.com"
+                },
+                {
+                    "name": "William Desportes",
+                    "email": "williamdes@wdes.fr"
+                }
+            ],
+            "description": "Laravel / Lumen package for Firebase Cloud Messaging",
+            "keywords": [
+                "FCM",
+                "Firebase Cloud Messaging",
+                "firebase",
+                "laravel",
+                "lumen",
+                "notification",
+                "push"
+            ],
+            "support": {
+                "issues": "https://github.com/code-lts/Laravel-FCM/issues",
+                "source": "https://github.com/code-lts/Laravel-FCM/tree/1.6.2"
+            },
+            "time": "2021-04-03T19:57:43+00:00"
         },
         {
             "name": "darkaonline/l5-swagger",
