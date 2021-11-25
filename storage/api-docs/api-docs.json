@@ -4966,6 +4966,48 @@
                 ]
             }
         },
+        "/api/v1/fcm-token-subcriptions": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "postFcmTokenSubscriptions",
+                "description": "postFcmTokenSubscriptions",
+                "operationId": "postFcmTokenSubscriptions",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreFcmPushSubscriptionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/vendor-quote/{xpart_requests_id}": {
             "get": {
                 "tags": [
@@ -6426,6 +6468,28 @@
                         "description": "VIN number",
                         "type": "string",
                         "example": "5TDZA22C14S086770"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreFcmPushSubscriptionRequest": {
+                "title": "Store Fcm Push Subscription  Form Request Fields",
+                "description": "Store Fcm Push Subscription Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "fcm_token": {
+                        "title": "FCM Token",
+                        "description": "fcm_token",
+                        "type": "string",
+                        "example": "seatbelt holder"
+                    },
+                    "topic": {
+                        "title": "Topic",
+                        "description": "topic",
+                        "type": "string",
+                        "example": ""
                     }
                 },
                 "type": "object"

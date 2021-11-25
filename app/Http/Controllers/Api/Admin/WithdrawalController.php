@@ -64,9 +64,9 @@ class WithdrawalController extends Controller
                 ->orWhere('users.name', 'LIKE', "%{$search_query}%")
                 ->orWhere('users.email', 'LIKE', "%{$search_query}%")
                 ->orWhere('users.phone', 'LIKE', "%{$search_query}%")
+                ->orWhere('wallet_transactions.id', 'LIKE', "%{$search_query}%")
                 ->orWhere('wallet_transactions.title', 'LIKE', "%{$search_query}%")
-                ->orWhere('wallet_transactions.balance', 'LIKE', "%{$search_query}%")
-                ->orWhere('wallet_transactions.email', 'LIKE', "%{$search_query}%");
+                ->orWhere('wallet_transactions.balance', 'LIKE', "%{$search_query}%");
             })->latest()->get();
         return $this->showAll($item);
     }
