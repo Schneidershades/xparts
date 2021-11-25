@@ -162,14 +162,16 @@ class XpartRequestController extends Controller
                 ]);
 
                 SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
-                
-                PushNotification::dispatch(
-                    $xpartRequest, 
-                    $xpartRequest->id, 
-                    $user, 
-                    'New Xpart Request', 
-                    'A new xpart request has been created'
-                )->delay(5);
+
+                if($user->has('fcmPushSubscriptions')){
+                    PushNotification::dispatch(
+                        $xpartRequest, 
+                        $xpartRequest->id, 
+                        $user, 
+                        'New Xpart Request', 
+                        'A new xpart request has been created'
+                    )->delay(5);
+                }
             } 
         });
 
