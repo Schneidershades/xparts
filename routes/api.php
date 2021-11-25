@@ -21,6 +21,7 @@ Route::prefix('v1')->group(function () {
 		Route::get('/email/resend', 'VerificationController@resend')->name('verification.resend');
 		Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
 	});
+	
 
 	Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function(){
 		Route::Resource('cart', 'Cart\CartController');
@@ -28,6 +29,7 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('orders', 'Order\OrderController');
 		Route::Resource('vendor-quote', 'User\VendorQuoteController');
 		Route::Resource('xpart-requests', 'User\XpartRequestController');
+		Route::Resource('fcm-token-subcriptions', 'User\FcmPushSubscriptionController');
 	});
 
 	Route::group(['prefix' => 'shared', 'namespace' => 'Api\Shared'], function(){
