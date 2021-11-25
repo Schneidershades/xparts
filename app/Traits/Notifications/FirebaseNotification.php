@@ -2,43 +2,92 @@
 
 namespace App\Traits\Notifications;
 
+use LaravelFCM\Facades\FCM;
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
+
 class FirebaseNotification
 {
     public function sendPushNotification($notification, $notificationKey, $user, $title, $body)
     {
-        $token = "AAAAPRMsxW8:APA91bEy2IxbBmgsXdPIw_tnf95bOtN8XI4rMU_SOUjbP1EGo2pCNvJ3LE5Yo8rgR5-7kUvnnf7lA3rxSNjvq56PPYuySZA7-oulbynmx7lERVbDOpvZOWcffW-J0P_blNcuEWNAT345";  
-        $from = "AIzaSyBwH2ZJh_-ezlR0aw_Y29wS9TQzMYHMF-I";
-        $msg = array(
+        // $token = "AAAAPRMsxW8:APA91bEy2IxbBmgsXdPIw_tnf95bOtN8XI4rMU_SOUjbP1EGo2pCNvJ3LE5Yo8rgR5-7kUvnnf7lA3rxSNjvq56PPYuySZA7-oulbynmx7lERVbDOpvZOWcffW-J0P_blNcuEWNAT345";  
+        // $from = "AIzaSyBwH2ZJh_-ezlR0aw_Y29wS9TQzMYHMF-I";
+        // // $from = "262314706287";
+        // $msg = array(
+        //     // 'user'  => $user,
+        //     'body'  => $body,
+        //     'title' => $title,
+        //     // 'key' => $notificationKey,
+        //     // 'property' => $notification,
+        //     // 'icon'  => "https://image.flaticon.com/icons/png/512/270/270014.png", /*Default Icon*/
+        //     // 'sound' => 'mySound',/*Default sound*/
+        //     // 'id' => $notification->id,
+        //     // 'type_class' => get_class($notification),
+        // );
+
+        // $fields = array(
+        //     'to'        => $user->fcm_token,
+        //     'notification'  => $msg
+        // );
+
+        // $headers = array(
+        //     'Authorization: key=' . $token,
+        //     'Content-Type: application/json',
+        //     'Accept: application/json',
+        // );
+
+        // $ch = curl_init();
+        // curl_setopt( $ch,CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send' );
+        // curl_setopt( $ch,CURLOPT_POST, true );
+        // curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+        // curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+        // curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+        // curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
+        // $result = curl_exec($ch );
+        // ($result);
+        // curl_close( $ch );
+
+        $data = array(
             'user'  => $user,
-            'body'  => $body,
-            'title' => $title,
             'key' => $notificationKey,
             'property' => $notification,
-            'icon'  => "https://image.flaticon.com/icons/png/512/270/270014.png", /*Default Icon*/
-            'sound' => 'mySound',/*Default sound*/
-            'id' => $notification->id,
-            'type_class' => get_class($notification),
         );
 
-        $fields = array(
-            'to'        => $token,
-            'notification'  => $msg
-        );
+        $optionBuilder = new OptionsBuilder();
+        $optionBuilder->setTimeToLive(60*20);
 
-        $headers = array(
-            'Authorization: key=' . $token,
-            'Content-Type: application/json'
-        );
+        $notificationBuilder = new PayloadNotificationBuilder($title);
+        $notificationBuilder->setBody($body)
+                            ->setSound('default');
 
-        $ch = curl_init();
-        curl_setopt( $ch,CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send' );
-        curl_setopt( $ch,CURLOPT_POST, true );
-        curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
-        curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
-        curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
-        curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
-        $result = curl_exec($ch );
-        ($result);
-        curl_close( $ch );
+        $dataBuilder = new PayloadDataBuilder();
+        $dataBuilder->addData([ 'data' => $data ]);
+
+        $option = $optionBuilder->build();
+        $notification = $notificationBuilder->build();
+        $data = $dataBuilder->build();
+
+        $token = $user->fcm_token;
+
+        $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
+
+        // dd($downstreamResponse);
+
+        // $downstreamResponse->numberSuccess();
+        // $downstreamResponse->numberFailure();
+        // $downstreamResponse->numberModification();
+
+        // return Array - you must remove all this tokens in your database
+        // $downstreamResponse->tokensToDelete();
+
+        // return Array (key : oldToken, value : new token - you must change the token in your database)
+        // $downstreamResponse->tokensToModify();
+
+        // return Array - you should try to resend the message to the tokens in the array
+        // $downstreamResponse->tokensToRetry();
+
+        // return Array (key:token, value:error) - in production you should remove from your database the tokens
+        // $downstreamResponse->tokensWithError();
     }
 }

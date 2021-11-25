@@ -6228,6 +6228,12 @@
                         "description": "User/Vendor",
                         "type": "string",
                         "example": "User"
+                    },
+                    "fcm_token": {
+                        "title": "FCM Token for mobile application push notification",
+                        "description": "FCM Token for mobile application push notification",
+                        "type": "string",
+                        "example": "49032djeiwdjewd9320"
                     }
                 },
                 "type": "object"

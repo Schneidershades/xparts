@@ -70,6 +70,17 @@ class UserRegistrationFormRequest extends FormRequest
      */
     public $role;
 
+    /**
+     * @OA\Property(
+     *      title="FCM Token for mobile application push notification",
+     *      description="FCM Token for mobile application push notification",
+     *      example="49032djeiwdjewd9320"
+     * )
+     *
+     * @var string
+     */
+    public $fcm_token;
+
     
     /**
      * Determine if the user is authorized to make this request.
@@ -93,6 +104,7 @@ class UserRegistrationFormRequest extends FormRequest
             'email' => 'required|string|email|max:255|unique:users,email',
             'phone' => 'required|string|unique:users,phone',
             'password' => 'required|string|min:8',
+            'fcm_token' => 'nullable',
             'role' => 'required|string|max:255|in:User,Vendor',
         ];
     }

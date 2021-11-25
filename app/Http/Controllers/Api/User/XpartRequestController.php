@@ -160,12 +160,12 @@ class XpartRequestController extends Controller
                     'vendor_id' => $user['id'],
                     'status' => 'active'
                 ]);
+
                 SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
                 
                 PushNotification::dispatch(
                     $xpartRequest, 
                     $xpartRequest->id, 
-                    $user, 
                     $user, 
                     'New Xpart Request', 
                     'A new xpart request has been created'

@@ -149,4 +149,9 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return $this->hasMany(WalletTransaction::class)->latest();
     }
+
+    public function fcmPushSubscriptions()
+    {
+        return $this->hasOne(FcmPushSubscription::class)->latest();
+    }
 }

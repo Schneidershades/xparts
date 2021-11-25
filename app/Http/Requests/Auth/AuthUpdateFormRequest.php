@@ -38,6 +38,7 @@ class AuthUpdateFormRequest extends FormRequest
             // 'email' => 'string|email|max:255|unique:users,email',
             // 'phone' => 'string|unique:users,phone',
             'image' => 'nullable|max:2048',
+            'fcm_token' => 'nullable'
         ];
     }
 }

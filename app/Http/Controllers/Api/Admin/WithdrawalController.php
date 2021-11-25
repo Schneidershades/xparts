@@ -10,6 +10,7 @@ use App\Models\BankDetail;
 use App\Traits\Payment\Paystack;
 use App\Models\WalletTransaction;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\Admin\AdminFinalizeTransferFormRequest;
 use App\Http\Requests\Admin\AdminWithdrawalsUpdateFormRequest;
 
@@ -48,7 +49,26 @@ class WithdrawalController extends Controller
 
     public function index()
     {
-        return $this->showAll(WalletTransaction::where('transaction_type', 'debit')->latest()->get());
+        $search_query = request()->get('search') ? request()->get('search') : null;
+
+        if(!$search_query){
+            return $this->showAll(WalletTransaction::where('transaction_type', 'debit')->latest()->get());
+        }
+        
+        $item = WalletTransaction::query()
+            ->selectRaw('wallet_transactions.*')
+            ->where('wallet_transactions.transaction_type', 'debit')
+            ->leftJoin('users', 'users.id', '=', 'wallet_transactions.user_id')
+            ->when($search_query, function (Builder $builder, $search_query) {
+                $builder->where('wallet_transactions.receipt_number', 'LIKE', "%{$search_query}%")
+                ->orWhere('users.name', 'LIKE', "%{$search_query}%")
+                ->orWhere('users.email', 'LIKE', "%{$search_query}%")
+                ->orWhere('users.phone', 'LIKE', "%{$search_query}%")
+                ->orWhere('wallet_transactions.title', 'LIKE', "%{$search_query}%")
+                ->orWhere('wallet_transactions.balance', 'LIKE', "%{$search_query}%")
+                ->orWhere('wallet_transactions.email', 'LIKE', "%{$search_query}%");
+            })->latest()->get();
+        return $this->showAll($item);
     }
 
 
