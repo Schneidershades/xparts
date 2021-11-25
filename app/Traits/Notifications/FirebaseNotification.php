@@ -68,9 +68,9 @@ class FirebaseNotification
         $notification = $notificationBuilder->build();
         $data = $dataBuilder->build();
 
-        $token = $user->fcm_token;
+        $tokens = $user->fcmPushSubscriptions->pluck('fcm_token')->toArray();
 
-        $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
+        $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 
         // dd($downstreamResponse);
 
