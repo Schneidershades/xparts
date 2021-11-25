@@ -87,7 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         $baseUrl = env("WEB_APP_URL");
 
-        $url = "{$baseUrl}/reset-password?token=" . $token;
+        $url = "https://www.xparts.ng/reset-password?token=" . $token;
 
         $this->notify(new PasswordResetNotification($url));
     }
