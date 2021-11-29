@@ -199,32 +199,32 @@ class DashboardController extends Controller
             'quoteTransactions' => [
                 'all' =>[
                     'key' => 'all total sum',
-                    'value' => Quote::all()->sum('price')
+                    'value' => Quote::all()->sum('markup_price')
                 ],
 
                 'active' =>[
                     'key' => 'active requests',
-                    'value' => Quote::where('status', 'active')->get()->sum('price')
+                    'value' => Quote::where('status', 'active')->get()->sum('markup_price')
                 ],
 
                 'paid' =>[
                     'key' => 'paid requests',
-                    'value' => Quote::where('status', 'paid')->get()->sum('price')
+                    'value' => Quote::where('status', 'paid')->get()->sum('markup_price')
                 ],
 
                 'delivered2xparts' =>[
                     'key' => 'Vendor Delivery',
-                    'value' => Quote::where('status', 'vendor2xparts')->get()->sum('price')
+                    'value' => Quote::where('status', 'vendor2xparts')->get()->sum('markup_price')
                 ],
 
                 'delivered2user' =>[
                     'key' => 'User Delivery',
-                    'value' => Quote::where('status', 'delivered')->get()->sum('price')
+                    'value' => Quote::where('status', 'delivered')->get()->sum('markup_price')
                 ],
 
                 'expired' =>[
                     'key' => 'Expired Request',
-                    'value' => Quote::where('status', 'expired')->get()->sum('price')
+                    'value' => Quote::where('status', 'expired')->get()->sum('markup_price')
                 ],
             ],
 

@@ -55,6 +55,7 @@ class VinPartsController extends Controller
         
         if($vin){
             $vin = $this->contentAndDbIntersection($request->all(), $vin, [], [
+                'model_year' => $request['year'] ,
                 'admin_attention' => $request['make_vin_active']
             ]);
             $vin->save();
