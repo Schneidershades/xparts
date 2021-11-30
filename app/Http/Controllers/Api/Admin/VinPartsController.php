@@ -54,18 +54,41 @@ class VinPartsController extends Controller
         $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
         
         if($vin){
-            $vin = $this->contentAndDbIntersection($request->all(), $vin, [], [
-                'model_year' => $request['year'] ,
+            $vin->update([
+                'make' => $request['make'],
+                'model' => $request['model'],
+                'model_year' => $request['year'],
                 'admin_attention' => $request['make_vin_active']
             ]);
-            $vin->save();
         }
+
+// make: "toyota"
+// make_part_active: false
+// make_vin_active: false
+// make_xpart_request_active: false
+// model: "toyota"
+// name: "CARBURETTORS"
+// part_id: 97
+// vin_id: 15
+// xpart_request_id: 375
+// year: "2004"
+
+// make: "toyota"
+// make_part_active: true
+// make_vin_active: true
+// make_xpart_request_active: true
+// model: "toyota"
+// name: "CARBURETTORS"
+// part_id: 97
+// vin_id: 15
+// xpart_request_id: 375
+// year: "2004"
         
         if($part){
-            $part = $this->contentAndDbIntersection($request->all(), $part, [], [
+            $part->update([
+                'name' => $request['name'],
                 'admin_attention' => $request['make_part_active']
             ]);
-            $part->save();
         }
 
         if($request['make_xpart_request_active'] == true){
@@ -75,8 +98,7 @@ class VinPartsController extends Controller
             $users = User::select('email', 'name', 'id')->where('role', 'vendor')->where('id', '!=', auth()->user()->id)->get();
 
             // collect($users)->each(function ($user) use ($xpartRequest) {
-            //     if($xpartRequest->status == 'active'){
-                    
+            //     if($xpartRequest->status == 'active'){   
             //         XpartRequestVendorWatch::create([
             //             'xpart_request_id' => $xpartRequest->id,
             //             'vendor_id' => $user['id'],
