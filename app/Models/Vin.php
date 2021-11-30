@@ -14,6 +14,8 @@ class Vin extends Model
 
     public $oneItem = VinResource::class;
     public $allItems = VinCollection::class;
+
+    public $guarded = [];
     
     public $searchables = ['vin_number'];
 
