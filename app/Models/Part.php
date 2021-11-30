@@ -16,6 +16,8 @@ class Part extends Model
     
     public $searchables = ['name'];
 
+    public $guarded = [];
+
     public $oneItem = PartResource::class;
     public $allItems = PartCollection::class;
 
