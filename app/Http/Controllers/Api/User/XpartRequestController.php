@@ -139,41 +139,41 @@ class XpartRequestController extends Controller
         }
 
 
-        if($xpartRequest->status == 'awaiting'){
-            $emails = ['az@fixit45.com', 'tolani@fixit45.com', 'henry@fixit45.com',  'schneider@fixit45.com',/**'jt@fixit45.com'**/];
+        // if($xpartRequest->status == 'awaiting'){
+        //     $emails = ['az@fixit45.com', 'tolani@fixit45.com', 'henry@fixit45.com',  'schneider@fixit45.com',/**'jt@fixit45.com'**/];
 
-            $admins = User::whereIn('email', $emails)->get(); 
+        //     $admins = User::whereIn('email', $emails)->get(); 
 
-            foreach($admins as $admin){
-                SendEmail::dispatch($admin['email'], new XpartRequestMail($xpartRequest, $admin))->onQueue('emails')->delay(5);
-            }            
-        } 
+        //     foreach($admins as $admin){
+        //         SendEmail::dispatch($admin['email'], new XpartRequestMail($xpartRequest, $admin))->onQueue('emails')->delay(5);
+        //     }            
+        // } 
 
 
-        $users = User::role('Vendor')->get(); 
+        // $users = User::role('Vendor')->get(); 
 
-        collect($users)->each(function ($user) use ($xpartRequest) {
-            if($xpartRequest->status == 'active'){
+        // collect($users)->each(function ($user) use ($xpartRequest) {
+        //     if($xpartRequest->status == 'active'){
                 
-                XpartRequestVendorWatch::create([
-                    'xpart_request_id' => $xpartRequest->id,
-                    'vendor_id' => $user['id'],
-                    'status' => 'active'
-                ]);
+        //         XpartRequestVendorWatch::create([
+        //             'xpart_request_id' => $xpartRequest->id,
+        //             'vendor_id' => $user['id'],
+        //             'status' => 'active'
+        //         ]);
 
-                SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
+        //         SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
 
-                if($user->has('fcmPushSubscriptions')){
-                    PushNotification::dispatch(
-                        $xpartRequest, 
-                        $xpartRequest->id, 
-                        $user, 
-                        'New Xpart Request', 
-                        'A new xpart request has been created'
-                    )->delay(5);
-                }
-            } 
-        });
+        //         if($user->has('fcmPushSubscriptions')){
+        //             PushNotification::dispatch(
+        //                 $xpartRequest, 
+        //                 $xpartRequest->id, 
+        //                 $user, 
+        //                 'New Xpart Request', 
+        //                 'A new xpart request has been created'
+        //             )->delay(5);
+        //         }
+        //     } 
+        // });
 
         return $this->showOne($xpartRequest);
     }
