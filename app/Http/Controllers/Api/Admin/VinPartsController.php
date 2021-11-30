@@ -74,17 +74,17 @@ class VinPartsController extends Controller
 
             $users = User::select('email', 'name', 'id')->where('role', 'vendor')->where('id', '!=', auth()->user()->id)->get();
 
-            collect($users)->each(function ($user) use ($xpartRequest) {
-                if($xpartRequest->status == 'active'){
+            // collect($users)->each(function ($user) use ($xpartRequest) {
+            //     if($xpartRequest->status == 'active'){
                     
-                    XpartRequestVendorWatch::create([
-                        'xpart_request_id' => $xpartRequest->id,
-                        'vendor_id' => $user['id'],
-                        'status' => 'active'
-                    ]);
-                    SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
-                } 
-            });
+            //         XpartRequestVendorWatch::create([
+            //             'xpart_request_id' => $xpartRequest->id,
+            //             'vendor_id' => $user['id'],
+            //             'status' => 'active'
+            //         ]);
+            //         SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
+            //     } 
+            // });
         }
 
         return $this->showOne($xpartRequest);
