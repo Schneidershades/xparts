@@ -56,6 +56,6 @@ class PartsController extends Controller
     */
     public function index()
     {
-        return $this->showAll(Part::search()->get());
+        return $this->showAll(Part::search()->distinct('name')->get());
     }
 }

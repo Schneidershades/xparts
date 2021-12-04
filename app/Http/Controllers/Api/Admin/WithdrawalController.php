@@ -415,22 +415,6 @@ class WithdrawalController extends Controller
         $order->payment_gateway_remarks = $verificationResponse['message']; 
         $order->save();
 
-        // $data = [
-        //     'currency' => 'NGN',
-        //     'payment_method' => 'wallet',
-        //     'payment_reference' => $order->receipt_number,
-        //     'payment_gateway_charge' => 0,
-        //     'payment_message' => 'payment successful',
-        //     'platform_initiated' => 'inapp',
-        //     'transaction_initiated_date' => Carbon::now(),
-        //     'transaction_initiated_time' => Carbon::now(),
-        //     'date_time_paid' => Carbon::now(),
-        //     'status' => 'approved',
-        //     'service_status' => 'approved',
-        // ];
-
-        // $order->update($request->validated());
-
         return $this->showMessage($order->payment_gateway_remarks);
         
     }
