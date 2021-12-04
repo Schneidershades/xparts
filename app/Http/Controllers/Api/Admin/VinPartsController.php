@@ -54,34 +54,40 @@ class VinPartsController extends Controller
         $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
         
         if($vin){
-            $vin->update([
-                'make' => $request['make'],
-                'model' => $request['model'],
-                'model_year' => $request['year'],
-                'admin_attention' => $request['make_vin_active']
-            ]);
+
+            if($request['year']){
+                $vin->model_year = $request['year'];
+            }
+
+            if($request['model']){
+                $vin->model = $request['model'];
+            }
+
+            if($request['make']){
+                $vin->model = $request['make'];
+            }
+
+            if($request['make_vin_active']){
+                $vin->admin_attention = $request['make_vin_active'];
+            }
+
+            $vin->save();
         }
         
         if($part){
-            $part->update([
-                'name' => $request['name'],
-                'admin_attention' => $request['make_part_active']
-            ]);
+
+            if($request['name']){
+                $part->model = $request['name'];
+            }
+
+            if($request['make_vin_active']){
+                $part->admin_attention = $request['make_part_active'];
+            }
+            
+            $part->save();
         }
 
-
-
-//         make_part_active: true
-// make_vin_active: true
-// make_xpart_request_active: true
-// name: "FRONT STABILISER LINKAGE"
-// part_id: 6125
-// vin_id: 69
-// xpart_request_id: 143
-
-
         if($request['make_xpart_request_active'] == true){
-
             $xpartRequest->status = 'active';
             $xpartRequest->save();
 
