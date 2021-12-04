@@ -64,7 +64,7 @@ class VinPartsController extends Controller
             }
 
             if($request['make']){
-                $vin->model = $request['make'];
+                $vin->make = $request['make'];
             }
 
             if($request['make_vin_active']){
@@ -77,13 +77,13 @@ class VinPartsController extends Controller
         if($part){
 
             if($request['name']){
-                $part->model = $request['name'];
+                $part->name = $request['name'];
             }
 
             if($request['make_vin_active']){
                 $part->admin_attention = $request['make_part_active'];
             }
-            
+
             $part->save();
         }
 
