@@ -53,39 +53,42 @@ class VinPartsController extends Controller
         $part = Part::where('id', $request['part_id'])->first();
         $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
         
-        if($vin){
-            $vin->update([
-                'make' => $request['make'],
-                'model' => $request['model'],
-                'model_year' => $request['year'],
-                'admin_attention' => $request['make_vin_active']
-            ]);
-        }
+        // if($vin){
+        //     $vin->update([
+        //         'make' => $request['make'],
+        //         'model' => $request['model'],
+        //         'model_year' => $request['year'],
+        //         'admin_attention' => $request['make_vin_active']
+        //     ]);
+        // }
         
-        if($part){
-            $part->update([
-                'name' => $request['name'],
-                'admin_attention' => $request['make_part_active']
-            ]);
-        }
+        // if($part){
+        //     $part->update([
+        //         'name' => $request['name'],
+        //         'admin_attention' => $request['make_part_active']
+        //     ]);
+        // }
 
-        if($request['make_xpart_request_active'] == true){
-            $xpartRequest->status = 'active';
-            $xpartRequest->save();
+        // if($request['make_xpart_request_active'] == true){
 
-            $users = User::select('email', 'name', 'id')->where('role', 'vendor')->where('id', '!=', auth()->user()->id)->get();
+        //     // $xpartRequest->admin_description = $request['make_vin_active'] ? $request['make_vin_active'] : null;
 
-            collect($users)->each(function ($user) use ($xpartRequest) {
-                if($xpartRequest->status == 'active'){   
-                    XpartRequestVendorWatch::create([
-                        'xpart_request_id' => $xpartRequest->id,
-                        'vendor_id' => $user['id'],
-                        'status' => 'active'
-                    ]);
-                    SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
-                } 
-            });
-        }
+        //     $xpartRequest->status = 'active';
+        //     $xpartRequest->save();
+
+        //     $users = User::select('email', 'name', 'id')->where('role', 'vendor')->where('id', '!=', auth()->user()->id)->get();
+
+        //     collect($users)->each(function ($user) use ($xpartRequest) {
+        //         if($xpartRequest->status == 'active'){   
+        //             XpartRequestVendorWatch::create([
+        //                 'xpart_request_id' => $xpartRequest->id,
+        //                 'vendor_id' => $user['id'],
+        //                 'status' => 'active'
+        //             ]);
+        //             SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
+        //         } 
+        //     });
+        // }
 
         return $this->showOne($xpartRequest);
     }
