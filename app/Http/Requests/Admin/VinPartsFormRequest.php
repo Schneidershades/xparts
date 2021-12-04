@@ -145,6 +145,7 @@ class VinPartsFormRequest extends FormRequest
             'model' => 'string',
             'model_year' => 'string',
             'name' => 'string',
+            'admin_description' => 'string',
             'make_part_active' => 'required|boolean',
             'make_vin_active' => 'required|boolean',
             'make_xpart_request_active' => 'required|boolean',
