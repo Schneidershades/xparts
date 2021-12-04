@@ -108,7 +108,7 @@ class XpartRequestController extends Controller
             $vin->admin_attention = 1;
             $vin->save();
         }
-
+        
         $auth = auth()->user()->id;
 
         $xpartRequest = new XpartRequest;
