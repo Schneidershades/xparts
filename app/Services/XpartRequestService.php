@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
+use App\Services\BaseService;
 
-class XpartRequestService 
+class XpartRequestService extends BaseService
 {
 
 }

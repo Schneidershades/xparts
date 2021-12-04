@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Services\BaseService;
 
-class OrderItemService 
+
+class OrderItemService extends BaseService
 {
 
 }

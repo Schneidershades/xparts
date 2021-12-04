@@ -4,12 +4,19 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\XpartRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\Admin\XpartRequestStoreFormRequest;
 use App\Http\Requests\Admin\AdminXpartRequestUpdateFormRequest;
+use App\Repositories\Models\XpartRequestRepository;
 
 class XpartRequestController extends Controller
 {
+    public $xpartRequestRepo;
+
+    public function __construct(XpartRequestRepository $xpartRequestRepo)
+    {
+        $this->xpartRequestRepo = $xpartRequestRepo;
+    }
+
      /**
     * @OA\Get(
     *      path="/api/v1/admin/xpart-requests",
@@ -42,31 +49,7 @@ class XpartRequestController extends Controller
 
     public function index()
     {
-        $search_query = request()->get('search') ? request()->get('search') : null;
-
-        if(!$search_query){
-            return $this->showAll(XpartRequest::latest()->get());
-        }
-
-        $item =  XpartRequest::query()
-                    ->selectRaw('xpart_requests.*')
-                    ->selectRaw('users.name AS user_name')
-                    ->selectRaw('parts.name AS part_name')
-                    ->selectRaw('vins.vin_number AS vin_number')
-                    ->leftJoin('users', 'users.id', '=', 'xpart_requests.user_id')
-                    ->leftJoin('parts', 'parts.id', '=', 'xpart_requests.part_id')
-                    ->leftJoin('addresses', 'addresses.id', '=', 'xpart_requests.address_id')
-                    ->leftJoin('vins', 'vins.id', '=', 'xpart_requests.vin_id')
-                    ->when($search_query, function (Builder $builder, $search_query) {
-                        $builder->where('vin_number', 'LIKE', "%{$search_query}%")
-                        ->orWhere('users.name', 'LIKE', "%{$search_query}%")
-                        ->orWhere('parts.name', 'LIKE', "%{$search_query}%")
-                        ->orWhere('xpart_requests.id', 'LIKE', "%{$search_query}%")
-                        ->orWhere('xpart_requests.status', 'LIKE', "%{$search_query}%")
-                        ;
-                    })->latest()->get();
-
-        return $this->showAll($item);
+        return $this->showAll($this->xpartRequestRepo->all());
     }
 
 
@@ -207,5 +190,4 @@ class XpartRequestController extends Controller
         
         return $this->showOne($xpartRequest);
     }
-
 }

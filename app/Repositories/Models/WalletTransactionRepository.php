@@ -1,4 +1,4 @@
-<?
+<?php
 
 namespace App\Repositories\Models;
 
@@ -10,7 +10,7 @@ use App\Repositories\Models\WalletRepository;
 use App\Repositories\Models\OrderItemRepository;
 use Illuminate\Database\Eloquent\Builder;
 
-class WalletTransactionRepository implements ApplicationRepository
+class WalletTransactionRepository extends ApplicationRepository
 {
     public function builder(): Builder
     {

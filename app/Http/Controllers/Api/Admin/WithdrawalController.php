@@ -169,7 +169,6 @@ class WithdrawalController extends Controller
         if($order->payment_status == 'approved' || $order->status == 'approved' || $order->status == 'refunded' || $order->status == 'declined'){
             return $this->errorResponse("Transfer already processed as $order->status", 409);
         }
-        
 
         if($request['status'] == 'declined' || $request['status'] == 'refunded'){
 

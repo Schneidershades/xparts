@@ -276,7 +276,6 @@ class OrderController extends Controller
             $payment_status = 'pending';
         }
 
-
         if ($paymentMethod->name == "Card" && $paymentMethod->payment_gateway == "paystack") {
             $paystack = new Paystack;
             [$status, $data] = $paystack->verify($request['payment_reference'], "order");
