@@ -27,32 +27,32 @@ class VinChecker
 
 		$vinResponse = $res['Results'] ? $res['Results'][0] : null;
 
-        if($vinResponse != null){
+        if($vinResponse['ModelYear'] != '' || $vinResponse['Model'] != '' || $vinResponse['Make'] != ''){
             return [
                 'vin_number' => $vin,
                 'make' => $vinResponse['Make'] != "" ? $vinResponse['Make'] : null  ,
-                'manufacturer' => $vinResponse['Manufacturer'] ? $vinResponse['Manufacturer'] : null,
-                'model' => $vinResponse['Model'] ? $vinResponse['Model'] : null,
-                'model_year' => $vinResponse['ModelYear'] ? $vinResponse['ModelYear'] : null,
-                'plant_company_name' => $vinResponse['PlantCompanyName'] ? $vinResponse['PlantCompanyName'] : null,
-                'plant_country' => $vinResponse['PlantCountry'] ? $vinResponse['PlantCountry'] : null,
-                'plant_state' => $vinResponse['PlantState'] ? $vinResponse['PlantState'] : null,
-                'series' => $vinResponse['Series'] ? $vinResponse['Series'] : null,
-                'series_description' => $vinResponse['Series2'] ? $vinResponse['Series2'] : null,
-                'vehicle_type' => $vinResponse['VehicleType'] ? $vinResponse['VehicleType'] : null,
-                'trim' => $vinResponse['Trim'] ? $vinResponse['Trim'] : null,
-                'body_class' => $vinResponse['BodyClass'] ? $vinResponse['BodyClass'] : null,
-                'engine_configuration' => $vinResponse['EngineConfiguration'] ? $vinResponse['EngineConfiguration'] : null,
-                'engine_cylinders' => $vinResponse['EngineCylinders'] ? $vinResponse['EngineCylinders'] : null,
-                'engine_hp' => $vinResponse['EngineHP'] ? $vinResponse['EngineHP'] : null,
-                'engine_kw' => $vinResponse['EngineKW'] ? $vinResponse['EngineKW'] : null,
-                'engine_model' => $vinResponse['EngineModel'] ? $vinResponse['EngineModel'] : null,
-                'fuel_type' => $vinResponse['FuelTypePrimary'] ? $vinResponse['FuelTypePrimary'] : null,
-                'doors' => $vinResponse['Doors'] ? $vinResponse['Doors'] : null,
-                'driver_type' => $vinResponse['DriveType'] ? $vinResponse['DriveType'] : null,
+                'manufacturer' => $vinResponse['Manufacturer'] != "" ? $vinResponse['Manufacturer'] : null,
+                'model' => $vinResponse['Model'] != "" ? $vinResponse['Model'] : null,
+                'model_year' => $vinResponse['ModelYear'] != "" ? $vinResponse['ModelYear'] : null,
+                'plant_company_name' => $vinResponse['PlantCompanyName'] != "" ? $vinResponse['PlantCompanyName'] : null,
+                'plant_country' => $vinResponse['PlantCountry']!= "" ? $vinResponse['PlantCountry'] : null,
+                'plant_state' => $vinResponse['PlantState'] != "" ? $vinResponse['PlantState'] : null,
+                'series' => $vinResponse['Series'] != "" ? $vinResponse['Series'] : null,
+                'series_description' => $vinResponse['Series2'] != "" ? $vinResponse['Series2'] : null,
+                'vehicle_type' => $vinResponse['VehicleType'] != "" ? $vinResponse['VehicleType'] : null,
+                'trim' => $vinResponse['Trim'] != "" ? $vinResponse['Trim'] : null,
+                'body_class' => $vinResponse['BodyClass'] != "" ? $vinResponse['BodyClass'] : null,
+                'engine_configuration' => $vinResponse['EngineConfiguration'] != "" ? $vinResponse['EngineConfiguration'] : null,
+                'engine_cylinders' => $vinResponse['EngineCylinders'] != "" ? $vinResponse['EngineCylinders'] : null,
+                'engine_hp' => $vinResponse['EngineHP'] != "" ? $vinResponse['EngineHP'] : null,
+                'engine_kw' => $vinResponse['EngineKW'] != "" ? $vinResponse['EngineKW'] : null,
+                'engine_model' => $vinResponse['EngineModel'] != "" ? $vinResponse['EngineModel'] : null,
+                'fuel_type' => $vinResponse['FuelTypePrimary'] != "" ? $vinResponse['FuelTypePrimary'] : null,
+                'doors' => $vinResponse['Doors'] != "" ? $vinResponse['Doors'] : null,
+                'driver_type' => $vinResponse['DriveType'] != "" ? $vinResponse['DriveType'] : null,
             ];
         }else{
-            return $vinResponse;
+            return [];
         }
 	}
 }
