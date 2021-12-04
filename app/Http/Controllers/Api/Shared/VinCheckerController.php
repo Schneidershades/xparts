@@ -55,16 +55,19 @@ class VinCheckerController extends Controller
         $checkerApi = new VinChecker();
         $vinResponse =  $checkerApi->sendVin($request->vin_number);
 
-        if($vinResponse == null || $vinResponse['model'] == "" || $vinResponse['model_year']  == "" || $vinResponse['make']  == ""){            
-
+        if($vinResponse == null){
             $vin = new Vin;
             $vin->vin_number = $request['vin_number'];
+            $vin->make = $vinResponse['make'];
+            $vin->model = $vinResponse['model'];
+            $vin->model_year = $vinResponse['model_year'];
             $vin->admin_attention = 1;
             // $vin->remarks = 'The VIN provider is not responding. please contact support';
             // $vin->verified = false;
             $vin->save();
             
             return $this->showOne($vin);
+            
         }else{
             $model = new Vin;
             
@@ -75,7 +78,9 @@ class VinCheckerController extends Controller
             ]);
 
             $model->save();
+
             $vin = Vin::where('vin_number', $request->vin_number)->first();
+
             return $this->showOne($vin);
         }
 

@@ -111,7 +111,7 @@ class DashboardController extends Controller
 
                 'delivered2xparts' =>[
                     'key' => 'Vendor Delivery',
-                    'value' => Quote::where('status', 'vendor2xparts')->get()->count()
+                    'value' => Quote::where('status', 'delivered')->get()->count()
                 ],
 
                 'delivered2user' =>[

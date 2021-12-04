@@ -61,28 +61,6 @@ class VinPartsController extends Controller
                 'admin_attention' => $request['make_vin_active']
             ]);
         }
-
-// make: "toyota"
-// make_part_active: false
-// make_vin_active: false
-// make_xpart_request_active: false
-// model: "toyota"
-// name: "CARBURETTORS"
-// part_id: 97
-// vin_id: 15
-// xpart_request_id: 375
-// year: "2004"
-
-// make: "toyota"
-// make_part_active: true
-// make_vin_active: true
-// make_xpart_request_active: true
-// model: "toyota"
-// name: "CARBURETTORS"
-// part_id: 97
-// vin_id: 15
-// xpart_request_id: 375
-// year: "2004"
         
         if($part){
             $part->update([

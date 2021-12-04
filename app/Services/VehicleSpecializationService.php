@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
+use App\Services\BaseService;
 
-class VehicleSpecializationService 
+class VehicleSpecializationService extends BaseService
 {
 
 }
