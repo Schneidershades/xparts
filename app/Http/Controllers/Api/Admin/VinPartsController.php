@@ -54,19 +54,37 @@ class VinPartsController extends Controller
         $xpartRequest = XpartRequest::where('id', $request['xpart_request_id'])->first();
         
         if($vin){
-            $vin->update([
-                'make' => $request['make'],
-                'model' => $request['model'],
-                'model_year' => $request['year'],
-                'admin_attention' => $request['make_vin_active']
-            ]);
+
+            if($request['year']){
+                $vin->model_year = $request['year'];
+            }
+
+            if($request['model']){
+                $vin->model = $request['model'];
+            }
+
+            if($request['make']){
+                $vin->make = $request['make'];
+            }
+
+            if($request['make_vin_active']){
+                $vin->admin_attention = $request['make_vin_active'];
+            }
+
+            $vin->save();
         }
         
         if($part){
-            $part->update([
-                'name' => $request['name'],
-                'admin_attention' => $request['make_part_active']
-            ]);
+
+            if($request['name']){
+                $part->name = $request['name'];
+            }
+
+            if($request['make_vin_active']){
+                $part->admin_attention = $request['make_part_active'];
+            }
+
+            $part->save();
         }
 
         if($request['make_xpart_request_active'] == true){

@@ -94,7 +94,7 @@ class XpartRequestController extends Controller
 
         if ($part == null) {
             $part = new Part;
-            $part->name = $request['part'];
+            $part->name = strtoupper($request['part']);
             $part->slug = Str::slug($request['part'], '-');
             $part->admin_attention = 1;
             $part->save();
@@ -104,11 +104,11 @@ class XpartRequestController extends Controller
 
         if ($vin == null) {
             $vin = new Vin;
-            $vin->vin_number = $request['vin_number'];
+            $vin->vin_number = strtoupper($request['vin_number']);
             $vin->admin_attention = 1;
             $vin->save();
         }
-
+        
         $auth = auth()->user()->id;
 
         $xpartRequest = new XpartRequest;
