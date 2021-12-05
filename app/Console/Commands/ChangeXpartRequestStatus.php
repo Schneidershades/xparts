@@ -52,6 +52,7 @@ class ChangeXpartRequestStatus extends Command
             ->where('status', '!=', 'delivered')
             ->where('status', '!=', 'awaiting')
             ->where('status', '!=', 'refunded')
+            ->where('status', '!=', 'expired')
             ->whereDate('created_at', '<', now()->subDays(3)->setTime(0, 0, 0)->toDateTimeString())
             ->get();
 
@@ -66,10 +67,7 @@ class ChangeXpartRequestStatus extends Command
 
         $allRequestsSent = $requests->pluck('id')->toArray();
 
-        $notPaidQuotesButStillActive = Quote::whereIn('xpart_request_id', $allRequestsSent)
-                                            ->where('status', 'active')
-                                            ->where('status','!=', 'expired')
-                                            ->get();
+        $notPaidQuotesButStillActive = Quote::whereIn('xpart_request_id', $allRequestsSent)->where('status', 'active')->get();
 
         foreach ($notPaidQuotesButStillActive as $quote) {
             $quote->status = 'expired';
