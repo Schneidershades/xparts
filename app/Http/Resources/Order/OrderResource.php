@@ -71,7 +71,7 @@ class OrderResource extends JsonResource
             'status' => $this->status,
             'transaction_type' => $this->transaction_type,
             'items' => OrderItemResource::collection($this->orderItems),
-            'relatedTransactionReferences' => OrderItemRelatedReferenceResource::collection($this->relatedTransactionReferences),
+            'relatedTransactionReferences' => OrderItemResource::collection($this->relatedTransactionReferences),
             'total_related_items' => $this->relatedTransactionReferences->count(),
             'updated_at' => $this->updated_at,
             'created_at' => $this->created_at,

@@ -27,6 +27,8 @@ class OrderItemResource extends JsonResource
                 
                 'status' => $this->itemable ? $this->itemable->status : 'N/A',
             ]),
+
+            'receipt_number' => $this->receipt_number ? $this->receipt_number : null,
             
             'cartable_type' => $this->cartable_type,
             'cartable_id' => $this->cartable_id,
