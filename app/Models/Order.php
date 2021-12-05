@@ -87,7 +87,7 @@ class Order extends Model
 
     public function relatedTransactionReferences()
     {
-        return $this->hasMany(OrderItem::class, 'payment_reference', 'receipt_number');
+        return $this->hasMany(OrderItem::class,  'receipt_number', 'payment_reference');
     }
 
     protected static function boot()
