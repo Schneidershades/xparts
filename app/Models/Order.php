@@ -85,6 +85,11 @@ class Order extends Model
         return $this->belongsTo(DeliveryRate::class);
     }
 
+    public function relatedTransactionReferences()
+    {
+        return $this->hasMany(OrderItem::class)->where('receipt_number', $this->payment_reference);
+    }
+
     protected static function boot()
     {
         parent::boot();

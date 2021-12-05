@@ -62,6 +62,14 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('statistics', 'DashboardController');
 	});
 
+	Route::group(['prefix' => 'export', /*'middleware' => 'auth:api',*/ 'namespace' => 'Api\Export'], function(){
+		Route::get('users', 'ExportController@users');
+		Route::get('vendors', 'ExportController@vendors');
+		Route::get('xpart-requests', 'ExportController@xpartRequests');
+		Route::get('orders', 'ExportController@orders');
+		Route::get('quotes', 'ExportController@quotes');
+	});
+
 	Route::group(['prefix' => 'admin', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function(){
 		Route::Resource('orders', 'OrderController', array("as"=>"userOrders"));
 		Route::Resource('quotes', 'QuoteController', array("as"=>"userQuotes"));
