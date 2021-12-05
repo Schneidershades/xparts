@@ -2,11 +2,13 @@
 
 namespace App\Http\Resources\Order;
 
+use App\Models\PaymentMethod;
 use App\Http\Resources\Address\AddressResource;
+use App\Http\Resources\Order\OrderItemResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Payment\PaymentChargeResource;
 use App\Http\Resources\Payment\PaymentMethodResource;
-use App\Models\PaymentMethod;
+use App\Http\Resources\Order\OrderItemRelatedReferenceResource;
 
 class OrderResource extends JsonResource
 {
@@ -69,6 +71,8 @@ class OrderResource extends JsonResource
             'status' => $this->status,
             'transaction_type' => $this->transaction_type,
             'items' => OrderItemResource::collection($this->orderItems),
+            'relatedTransactionReferences' => OrderItemRelatedReferenceResource::collection($this->relatedTransactionReferences),
+            'total_related_items' => $this->relatedTransactionReferences->count(),
             'updated_at' => $this->updated_at,
             'created_at' => $this->created_at,
         ];

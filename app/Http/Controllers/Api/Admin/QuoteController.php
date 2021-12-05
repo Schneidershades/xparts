@@ -282,7 +282,7 @@ class QuoteController extends Controller
 
         if($orderItemDetails->itemable_type == 'quotes'){
             $title = "Refunding user for $product transaction payment";
-            $details = "Refunding user for $product transaction payment";;
+            $details = "Refunding user for $product transaction payment";
         }
 
         $newOrder = $this->createOrder($userBalance, $title, $details, $order, $transaction_type);

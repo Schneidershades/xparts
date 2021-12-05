@@ -66,7 +66,10 @@ class ChangeXpartRequestStatus extends Command
 
         $allRequestsSent = $requests->pluck('id')->toArray();
 
-        $notPaidQuotesButStillActive = Quote::whereIn('xpart_request_id', $allRequestsSent)->where('status', 'active')->get();
+        $notPaidQuotesButStillActive = Quote::whereIn('xpart_request_id', $allRequestsSent)
+                                            ->where('status', 'active')
+                                            ->where('status','!=', 'expired')
+                                            ->get();
 
         foreach ($notPaidQuotesButStillActive as $quote) {
             $quote->status = 'expired';
