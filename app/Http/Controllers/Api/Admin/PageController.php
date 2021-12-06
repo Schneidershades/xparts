@@ -13,7 +13,7 @@ class PageController extends Controller
     /**
     * @OA\Get(
     *      path="/api/v1/admin/pages",
-    *      operationId="allPage",
+    *      operationId="allPages",
     *      tags={"Admin"},
     *      summary="Get all pages",
     *      description="Get all pages",
@@ -47,7 +47,7 @@ class PageController extends Controller
     /**
     * @OA\Post(
     *      path="/api/v1/admin/pages",
-    *      operationId="postUser",
+    *      operationId="postPage",
     *      tags={"Admin"},
     *      summary="Post pages",
     *      description="Post pages",
@@ -137,7 +137,7 @@ class PageController extends Controller
     /**
     * @OA\Put(
     *      path="/api/v1/admin/pages/{id}",
-    *      operationId="UserPage",
+    *      operationId="UpdatePage",
     *      tags={"Admin"},
     *      summary="Update pages",
     *      description="Update pages",
