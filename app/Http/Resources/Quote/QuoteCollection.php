@@ -16,6 +16,11 @@ class QuoteCollection extends ResourceCollection
     {
         return [
             'data' => QuoteResource::collection($this->collection),
+
+            'processThrough' => [
+                'model' => 'Quote',
+                'export' => 'QuoteExport',
+            ],
         ];
     }
 

@@ -43,7 +43,6 @@ class OrderResource extends JsonResource
             'action' => $this->action,
             'currency_id' => $this->currency_id,
 
-
             'payment_transfer_status' => $this->payment_transfer_status,
             'payment_recipient_code' => $this->payment_recipient_code,
             'payment_transfer_code' => $this->payment_transfer_code,
