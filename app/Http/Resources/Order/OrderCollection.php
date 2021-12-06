@@ -16,6 +16,11 @@ class OrderCollection extends ResourceCollection
     {
         return [
             'data' => OrderResource::collection($this->collection),
+            
+            'processThrough' => [
+                'model' => 'Order',
+                'export' => 'OrderExport',
+            ],
         ];
     }
 

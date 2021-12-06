@@ -16,6 +16,11 @@ class UserCollection extends ResourceCollection
     {
         return [
             'data' => UserResource::collection($this->collection),
+
+            'processThrough' => [
+                'model' => 'User',
+                'export' => 'UsersExport',
+            ],
         ];
     }
 

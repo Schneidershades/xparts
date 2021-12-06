@@ -62,12 +62,8 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('statistics', 'DashboardController');
 	});
 
-	Route::group(['prefix' => 'export', /*'middleware' => 'auth:api',*/ 'namespace' => 'Api\Export'], function(){
-		Route::get('users', 'ExportController@users');
-		Route::get('vendors', 'ExportController@vendors');
-		Route::get('xpart-requests', 'ExportController@xpartRequests');
-		Route::get('orders', 'ExportController@orders');
-		Route::get('quotes', 'ExportController@quotes');
+	Route::group(['prefix' => 'export', /*'middleware' => 'auth:api',*/ 'namespace' => 'Api\ExportImport'], function(){
+		Route::get('model', 'ModelImportExportController@export');
 	});
 
 	Route::group(['prefix' => 'admin', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function(){
@@ -96,6 +92,7 @@ Route::prefix('v1')->group(function () {
 		Route::get('user/{id}/quotes', 'UserPropertyController@quotes');
 		Route::get('user/{id}/xparts-requests', 'UserPropertyController@xpartRequests');
 		Route::Resource('statuses', 'StatusController');
+		Route::Resource('pages', 'PageController');
 	});
 
 	Route::get('process-all-orders', 'Api\Test\TestController@quoteProcessing');

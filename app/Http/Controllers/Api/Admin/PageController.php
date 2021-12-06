@@ -2,29 +2,21 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Page;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\Builder;
-use App\Repositories\Models\UserRepository;
-use App\Http\Requests\Admin\UserUpdateFormRequest;
+use App\Http\Requests\Admin\PageCreateFormRequest;
+use App\Http\Requests\Admin\PageUpdateFormRequest;
 
-class UserController extends Controller
+class PageController extends Controller
 {
-    public $userRepo;
-
-    public function __construct(UserRepository $userRepo)
-    {
-        $this->userRepo = $userRepo;
-    }
-
     /**
     * @OA\Get(
-    *      path="/api/v1/admin/users",
-    *      operationId="allUsers",
+    *      path="/api/v1/admin/pages",
+    *      operationId="allPage",
     *      tags={"Admin"},
-    *      summary="Get all users",
-    *      description="Get all users",
+    *      summary="Get all pages",
+    *      description="Get all pages",
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -49,19 +41,19 @@ class UserController extends Controller
     */
     public function index()
     {
-        return $this->showAll($this->userRepo->all());
+        return $this->showAll(Page::all());
     }
 
     /**
     * @OA\Post(
-    *      path="/api/v1/admin/users",
+    *      path="/api/v1/admin/pages",
     *      operationId="postUser",
     *      tags={"Admin"},
-    *      summary="Post users",
-    *      description="Post users",
+    *      summary="Post pages",
+    *      description="Post pages",
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/UserCreateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/PageCreateFormRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -85,22 +77,29 @@ class UserController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    public function store(Request $request)
+    public function store(PageCreateFormRequest $request)
     {
-        return $this->showOne(auth()->user()->users->create($request->validated()));
+        $part = Page::create([
+            "name" => $request['name'],
+            "slug" => Str::slug($request['name'], '-'),
+            "excerpt" => $request['excerpt'],
+            "description" => $request['description'],
+        ]);
+
+        return $this->showOne($part);
     }
 
     /**
     * @OA\Get(
-    *      path="/api/v1/admin/users/{id}",
-    *      operationId="showUser",
+    *      path="/api/v1/admin/pages/{id}",
+    *      operationId="showPage",
     *      tags={"Admin"},
-    *      summary="Show user",
-    *      description="Show user",
+    *      summary="Show pages",
+    *      description="Show pages",
     *      
      *      @OA\Parameter(
      *          name="id",
-     *          description="User ID",
+     *          description="pages ID",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -132,20 +131,20 @@ class UserController extends Controller
     */
     public function show($id)
     {
-        return $this->showOne(User::findOrFail($id));
+        return $this->showOne(Page::findOrFail($id));
     }
 
     /**
     * @OA\Put(
-    *      path="/api/v1/admin/users/{id}",
-    *      operationId="UserUpdate",
+    *      path="/api/v1/admin/pages/{id}",
+    *      operationId="UserPage",
     *      tags={"Admin"},
-    *      summary="Update user",
-    *      description="Update user",
+    *      summary="Update pages",
+    *      description="Update pages",
     *      
      *      @OA\Parameter(
      *          name="id",
-     *          description="user ID",
+     *          description="pages ID",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -154,7 +153,7 @@ class UserController extends Controller
      *     ),
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/UserCreateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/PageUpdateFormRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -179,23 +178,28 @@ class UserController extends Controller
     * )
     */
     
-    public function update(UserUpdateFormRequest $request, User $user)
+    public function update(PageUpdateFormRequest $request, Page $page)
     {
-        ($user->update($request->validated()));
-        return $this->showOne($user);
+        $page->update([
+            "name" => $request['name'],
+            "slug" => Str::slug($request['name'], '-'),
+            "excerpt" => $request['excerpt'],
+            "description" => $request['description'],
+        ]);
+        return $this->showOne($page);
     }
 
      /**
     * @OA\Delete(
-    *      path="/api/v1/admin/users/{id}",
-    *      operationId="deleteUser",
+    *      path="/api/v1/admin/pages/{id}",
+    *      operationId="deletePage",
     *      tags={"Admin"},
-    *      summary="Delete user",
-    *      description="Delete user",
+    *      summary="Delete pages",
+    *      description="Delete pages",
     *      
      *      @OA\Parameter(
      *          name="id",
-     *          description="User ID",
+     *          description="pages ID",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -224,9 +228,9 @@ class UserController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    public function destroy(User $user)
+    public function destroy(Page $page)
     {
-        $user->delete();
+        $page->delete();
         return $this->showMessage('deleted');
     }
 }
