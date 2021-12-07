@@ -15,7 +15,7 @@ class PageController extends Controller
     *      summary="Show PublicPage",
     *      description="Show PublicPage",
      *      @OA\Parameter(
-     *          name="id",
+     *          name="slug",
      *          description="showPublicPage Slug",
      *          required=true,
      *          in="path",
@@ -47,6 +47,10 @@ class PageController extends Controller
     */
     public function __invoke($slug)
     {
-        return $this->showOne(Page::where('slug', $slug)->first());
+        $page = Page::where('slug', $slug)->first();
+        if(!$page){
+            return $this->errorResponse('page not found', 401);
+        }
+        return $this->showOne($page);
     }
 }

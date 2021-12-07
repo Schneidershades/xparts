@@ -541,7 +541,7 @@
                 ],
                 "summary": "Get all pages",
                 "description": "Get all pages",
-                "operationId": "allPage",
+                "operationId": "allPages",
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -571,7 +571,7 @@
                 ],
                 "summary": "Post pages",
                 "description": "Post pages",
-                "operationId": "postUser",
+                "operationId": "postPage",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -654,7 +654,7 @@
                 ],
                 "summary": "Update pages",
                 "description": "Update pages",
-                "operationId": "UserPage",
+                "operationId": "UpdatePage",
                 "parameters": [
                     {
                         "name": "id",
@@ -4006,6 +4006,58 @@
                 ]
             }
         },
+        "/api/v1/export/excel/model?search={name}&per_page={per_page}": {
+            "get": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "searchParts",
+                "description": "searchParts",
+                "operationId": "searchParts",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Search Items",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "path",
+                        "description": "Number per page",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/orders": {
             "get": {
                 "tags": [
@@ -4663,6 +4715,49 @@
                         }
                     }
                 }
+            }
+        },
+        "/api/v1/shared/pages/{slug}": {
+            "get": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "Show PublicPage",
+                "description": "Show PublicPage",
+                "operationId": "showPublicPage",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "showPublicPage Slug",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/v1/shared/part-grade": {
