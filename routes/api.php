@@ -34,6 +34,7 @@ Route::prefix('v1')->group(function () {
 
 	Route::group(['prefix' => 'shared', 'namespace' => 'Api\Shared'], function(){
 		Route::post('check-vin', 'VinCheckerController');
+		Route::get('pages/{slug}', 'PageController');
 		Route::Resource('banks', 'BankController');
 		Route::Resource('bank-details', 'BankDetailController')->middleware('auth:api');
 		Route::Resource('addresses', 'AddressController')->middleware('auth:api');
@@ -63,7 +64,7 @@ Route::prefix('v1')->group(function () {
 	});
 
 	Route::group(['prefix' => 'export', /*'middleware' => 'auth:api',*/ 'namespace' => 'Api\ExportImport'], function(){
-		Route::get('model', 'ModelImportExportController@export');
+		Route::get('/excel/model', 'ModelImportExportController@export');
 	});
 
 	Route::group(['prefix' => 'admin', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function(){

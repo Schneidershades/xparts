@@ -45,7 +45,7 @@ class PageController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    public function show($slug)
+    public function __invoke($slug)
     {
         return $this->showOne(Page::where('slug', $slug)->first());
     }
