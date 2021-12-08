@@ -38,7 +38,7 @@ class ModelImportExportController extends Controller
     *          @OA\MediaType(
     *             mediaType="application/json",
     *         ),
-    *       ),
+    *      ),
     *      @OA\Response(
     *          response=400,
     *          description="Bad Request"
