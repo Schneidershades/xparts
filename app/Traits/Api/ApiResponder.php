@@ -90,10 +90,16 @@ trait ApiResponder
 
     protected function sortData(Collection $collection, $transformer)
     {
-        if (request()->has('sort_by')) {
-            $attribute = $transformer::originalAttribute(request()->sort_by);
+        if (request()->has('sort_by_asc')) {
+            $attribute = $transformer::originalAttribute(request()->sort_by_asc);
 
             $collection = $collection->sortBy->{$attribute};
+        }
+
+        if (request()->has('sort_by_desc')) {
+            $attribute = $transformer::originalAttribute(request()->sort_by_desc);
+
+            $collection = $collection->sortByDesc->{$attribute};
         }
         return $collection;
     }

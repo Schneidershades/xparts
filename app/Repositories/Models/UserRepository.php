@@ -11,14 +11,19 @@ class UserRepository extends ApplicationRepository
     public function builder(): Builder
     {
         $search_query = request()->get('search') ? request()->get('search') : null;
+
+        $sort = request()->get('sort_by') ? request()->get('sort_by') : null;
         
         return User::query()
                 ->selectRaw('users.*')
-                ->where('users.role', 'user')
+                ->selectRaw('wallets.balance AS balance')
+                ->where('users.role', '!=', 'Admin')
+                ->join('wallets', 'wallets.user_id', '=', 'users.id')
                 ->when($search_query, function (Builder $builder, $search_query) {
                     $builder->where('users.name', 'LIKE', "%{$search_query}%")
                     ->orWhere('users.name', 'LIKE', "%{$search_query}%")
                     ->orWhere('users.phone', 'LIKE', "%{$search_query}%")
+                    ->orWhere('users.role', "%{$search_query}%")
                     ->orWhere('users.email', 'LIKE', "%{$search_query}%");
                 })->latest();
     }
