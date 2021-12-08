@@ -9,14 +9,14 @@ class ModelImportExportController extends Controller
 {
      /**
     * @OA\Get(
-    *      path="/api/v1/export/excel/model?search={name}&per_page={per_page}",
+    *      path="/api/v1/export/excel/model?model={model}&export={export_model}",
     *      operationId="searchParts",
     *      tags={"Shared"},
     *      summary="searchParts",
     *      description="searchParts",
     *      @OA\Parameter(
-    *          name="name",
-    *          description="Search Items",
+    *          name="model",
+    *          description="The defined model",
     *          required=false,
     *          in="path",
     *          @OA\Schema(
@@ -24,8 +24,8 @@ class ModelImportExportController extends Controller
     *          )
     *      ),
     *      @OA\Parameter(
-    *          name="per_page",
-    *          description="Number per page",
+    *          name="export_model",
+    *          description="Export model",
     *          required=true,
     *          in="path",
     *          @OA\Schema(
