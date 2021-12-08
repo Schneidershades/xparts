@@ -13,8 +13,6 @@ class UserRepository extends ApplicationRepository
         $search_query = request()->get('search') ? request()->get('search') : null;
         
         return User::query()
-                ->selectRaw('users.*')
-                ->where('users.role', 'user')
                 ->when($search_query, function (Builder $builder, $search_query) {
                     $builder->where('users.name', 'LIKE', "%{$search_query}%")
                     ->orWhere('users.name', 'LIKE', "%{$search_query}%")
