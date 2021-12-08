@@ -11,6 +11,8 @@ class UserRepository extends ApplicationRepository
     public function builder(): Builder
     {
         $search_query = request()->get('search') ? request()->get('search') : null;
+
+        $sort = request()->get('sort_by') ? request()->get('sort_by') : null;
         
         return User::query()
                 ->selectRaw('users.*')

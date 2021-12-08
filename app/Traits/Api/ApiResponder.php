@@ -93,7 +93,7 @@ trait ApiResponder
         if (request()->has('sort_by')) {
             $attribute = $transformer::originalAttribute(request()->sort_by);
 
-            $collection = $collection->sortBy->{$attribute};
+            $collection = $collection->sortByDesc->{$attribute};
         }
         return $collection;
     }
