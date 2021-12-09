@@ -17,8 +17,11 @@ class UserRepository extends ApplicationRepository
         return User::query()
                 ->selectRaw('users.*')
                 ->selectRaw('wallets.balance AS balance')
+                ->selectRaw('COUNT(quotes.vendor_id) as number_of_quotes')
                 ->where('users.role', '!=', 'Admin')
                 ->join('wallets', 'wallets.user_id', '=', 'users.id')
+                ->leftJoin('quotes', 'quotes.vendor_id', '=', 'users.id')
+                ->groupBy('users.id')
                 ->when($search_query, function (Builder $builder, $search_query) {
                     $builder->where('users.name', 'LIKE', "%{$search_query}%")
                     ->orWhere('users.name', 'LIKE', "%{$search_query}%")

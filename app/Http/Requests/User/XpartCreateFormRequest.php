@@ -36,6 +36,17 @@ class XpartCreateFormRequest extends FormRequest
      * @var string
      */
     public $vin_number;
+
+    /**
+     * @OA\Property(
+     *      title="user_description",
+     *      description="user_description",
+     *      example="this is a description"
+     * )
+     *
+     * @var string
+     */
+    public $user_description;
     
 
     /**
