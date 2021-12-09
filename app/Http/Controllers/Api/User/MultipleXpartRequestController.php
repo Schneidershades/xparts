@@ -101,10 +101,14 @@ class MultipleXpartRequestController extends Controller
                         ]);
                     } else {
                         $media = Media::where('id', $image['images'])->first();
-                        $media->update([
-                            'fileable_id' => $xpartRequest->id,
-                            'fileable_type' => $xpartRequest->getMorphClass(),
-                        ]);
+
+                        if($media){
+                            $media->update([
+                                'fileable_id' => $xpartRequest->id,
+                                'fileable_type' => $xpartRequest->getMorphClass(),
+                            ]);
+                        }
+                        
                     }
                 }
             }
