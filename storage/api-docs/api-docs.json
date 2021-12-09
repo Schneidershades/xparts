@@ -4006,7 +4006,7 @@
                 ]
             }
         },
-        "/api/v1/export/excel/model?search={name}&per_page={per_page}": {
+        "/api/v1/export/excel/model?model={model}&export={export_model}": {
             "get": {
                 "tags": [
                     "Shared"
@@ -4016,18 +4016,18 @@
                 "operationId": "searchParts",
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "model",
                         "in": "path",
-                        "description": "Search Items",
+                        "description": "The defined model",
                         "required": false,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "per_page",
+                        "name": "export_model",
                         "in": "path",
-                        "description": "Number per page",
+                        "description": "Export model",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -5282,6 +5282,48 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/StoreFcmPushSubscriptionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/multiple-xpart-requests": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "postXpartRequests",
+                "description": "postXpartRequests",
+                "operationId": "postXpartRequests",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreMultipleXpartRequest"
                             }
                         }
                     }
@@ -6852,6 +6894,48 @@
                 },
                 "type": "object"
             },
+            "StoreMultipleXpartRequest": {
+                "title": "Multiple Xpart Request Create Form Request Fields",
+                "description": "Multiple Xpart Request Create Form request body data",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "xpart_requests": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "part": {
+                                    "type": "string",
+                                    "example": "seatbelt holder"
+                                },
+                                "vin_number": {
+                                    "type": "string",
+                                    "example": "Vin Number ID"
+                                },
+                                "user_description": {
+                                    "type": "string",
+                                    "example": "This is a description"
+                                },
+                                "images": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "images": {
+                                                "type": "int",
+                                                "example": "1"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "XpartCreateFormRequest": {
                 "title": "Xpart Request Create Form Request Fields",
                 "description": "Xpart Request Create Form request body data",
@@ -6870,6 +6954,12 @@
                         "description": "Vin Number ID",
                         "type": "string",
                         "example": "48938484803390"
+                    },
+                    "user_description": {
+                        "title": "user_description",
+                        "description": "user_description",
+                        "type": "string",
+                        "example": "this is a description"
                     }
                 },
                 "type": "object"

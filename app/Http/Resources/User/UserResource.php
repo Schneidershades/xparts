@@ -31,6 +31,8 @@ class UserResource extends JsonResource
 
             'balance' => $this->balance,
 
+            'number_of_quotes' => $this->number_of_quotes,
+
             'role' => $this->getRoleNames(),
             
             'verified' => $this->email_verified_at ? true : false,

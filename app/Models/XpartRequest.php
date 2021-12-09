@@ -88,5 +88,6 @@ class XpartRequest extends Model
     {
         return $this->belongsTo(Order::class);
     }
+    
 
 }

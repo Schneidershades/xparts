@@ -29,6 +29,7 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('orders', 'Order\OrderController');
 		Route::Resource('vendor-quote', 'User\VendorQuoteController');
 		Route::Resource('xpart-requests', 'User\XpartRequestController');
+		Route::Resource('multiple-xpart-requests', 'User\MultipleXpartRequestController');
 		Route::Resource('fcm-token-subcriptions', 'User\FcmPushSubscriptionController');
 	});
 

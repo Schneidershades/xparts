@@ -37,6 +37,7 @@ class UserCollection extends ResourceCollection
             'status' => 'status',
             'referral_code' => 'referral_code',
             'balance' => 'balance',
+            'number_of_quotes' => 'number_of_quotes',
         ];
 
         return isset($attribute[$index]) ? $attribute[$index] : null;
@@ -55,6 +56,7 @@ class UserCollection extends ResourceCollection
             'status' => 'status',
             'referral_code' => 'referral_code',
             'balance' => 'balance',
+            'number_of_quotes' => 'number_of_quotes',
         ];
 
         return isset($attribute[$index]) ? $attribute[$index] : null;
