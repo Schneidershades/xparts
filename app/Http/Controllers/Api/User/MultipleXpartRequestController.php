@@ -93,16 +93,13 @@ class MultipleXpartRequestController extends Controller
             if (count($item['images']) > 0) {
                 foreach ($item['images'] as $image) {
                     
-
-                    return $image;
-                    return (gettype($image));
-                    if (gettype($image) != "integer") {
-                        $path = $this->uploadImage($image, "xpart_requests");
+                    if (gettype($image['images']) != "integer") {
+                        $path = $this->uploadImage($image['images'], "xpart_requests");
                         $xpartRequest->images()->create([
                             'file_path' => $path,
                         ]);
                     } else {
-                        $media = Media::where('id', $image)->first();
+                        $media = Media::where('id', $image['images'])->first();
                         $media->update([
                             'fileable_id' => $xpartRequest->id,
                             'fileable_type' => $xpartRequest->getMorphClass(),
