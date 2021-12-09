@@ -53,7 +53,8 @@ class MultipleXpartRequestController extends Controller
 
     public function store(StoreMultipleXpartRequest $request)
     {
-
+        $ids = [];
+        
         foreach($request['xpart_requests'] as $item){
             $status = null;
             
@@ -88,7 +89,7 @@ class MultipleXpartRequestController extends Controller
             $xpartRequest->status = ($vin->admin_attention == true || $part->admin_attention == true) ? 'awaiting' : 'active';
             $xpartRequest->save();
 
-
+            $ids[] = $xpartRequest->id;
 
             if (count($item['images']) > 0) {
                 foreach ($item['images'] as $image) {
@@ -144,8 +145,8 @@ class MultipleXpartRequestController extends Controller
                     }
                 } 
             });
-
-            return $this->showOne($xpartRequest);
         }
+
+        return $this->showAll(XpartRequest::whereIn('id', $ids)->get());
     }
 }
