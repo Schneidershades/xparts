@@ -103,7 +103,7 @@ class WithdrawalController extends Controller
     *      ),
     *      @OA\Response(
     *          response=401,
-    *          description="unauthenticated",
+    *          description="uOrdernauthenticated",
     *      ),
     *      @OA\Response(
     *          response=403,
