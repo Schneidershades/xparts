@@ -7007,16 +7007,7 @@
                                     "example": "This is a description"
                                 },
                                 "images": {
-                                    "type": "array",
-                                    "items": {
-                                        "properties": {
-                                            "images": {
-                                                "type": "int",
-                                                "example": "1"
-                                            }
-                                        },
-                                        "type": "object"
-                                    }
+                                    "type": "[1,2,3]"
                                 }
                             },
                             "type": "object"
