@@ -91,7 +91,7 @@ class WalletTransactionController extends Controller
             return $this->errorResponse('insufficient funds', 409);
         }
 
-        $order = auth()->user()->orders()->create([
+        $order = Order::create([
             'payment_method_id' => 1,
             'title' => 'Fund Withdrawals',
             'action' => 'transfer',
