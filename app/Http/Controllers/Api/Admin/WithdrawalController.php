@@ -115,7 +115,7 @@ class WithdrawalController extends Controller
 
     public function show($id)
     {
-        return $this->showOne(Order::where('payment_reference', $id)->first());
+        return $this->showOne(Order::where('receipt_number', $id)->first());
     }
 
      /**
