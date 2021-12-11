@@ -91,20 +91,43 @@ class WalletTransactionController extends Controller
             return $this->errorResponse('insufficient funds', 409);
         }
 
-        $wallet = WalletTransaction::create([
-            'receipt_number' => 'WT-'.substr(str_shuffle("0123456789"), 0, 6),
-            'title' => 'Admin ',
-            'user_id' => $user->id,
+        $order = auth()->user()->orders()->create([
+            'payment_method_id' => 1,
+            'title' => 'Fund Withdrawals',
+            'action' => 'transfer',
             'details' => $request['details'],
-            'amount' => $request['amount'],
+            'user_id' => $user->id,
+            'subtotal' => $request['amount'],
+            'total' => $request['amount'] ,
+            'currency' => 'NGN',
+            'margin' => $amount_to_pay - $request['amount'],
             'amount_paid' => $amount_to_pay,
-            'category' => $request['transaction_type'],
-            'transaction_type' => $request['transaction_type'],
-            'remarks' => $request['details'],
-            'balance' => $user->wallet->balance,
-            'payment_method' => $request['payment_method'],
-            'admin_id' => auth()->user()->id,
+            'transaction_type' => 'debit',
+
+            'payment_method' => 'wallet',
+            'payment_gateway' => 'wallet',
+            'payment_gateway_charge' => 0,
+            'payment_message' => 'pending',
+            'payment_status' => 'pending',
+            'platform_initiated' => 'inapp',
+            'transaction_initiated_date' => Carbon::now(),
+            'transaction_initiated_time' => Carbon::now(),
+            'date_time_paid' => Carbon::now(),
+            'status' => 'pending',
+            'service_status' => 'pending',
+            'orderable_type' => 'WalletTransaction',
         ]);
+
+        $debit = $this->debitUserWallet($order, auth()->user()->id);
+
+        $wallet = $this->walletTransaction(
+            $order, 
+            $debit, 
+            'debit', 
+            'orders', 
+            'pending approval from admin',
+            'pending'
+        );
 
         return $this->showOne($wallet);
     }
@@ -202,6 +225,8 @@ class WalletTransactionController extends Controller
     {
         $transaction = WalletTransaction::where('receipt_number', $id)->first();
 
+        $order = Order::where('receipt_number', $id)->first();
+
         if(!$transaction){
             return $this->showMessage('Transaction receipt number not found');
         }
@@ -241,27 +266,13 @@ class WalletTransactionController extends Controller
             $wallet->save();
         }
 
-
         $transaction->approving_admin_id =  auth()->user()->id;
-        // $transaction->payment_method =  '';
         $transaction->remarks = $request['remarks'] ? $request['remarks'] : null;
         $transaction->status = $request['status'];
         $transaction->balance = $wallet->balance;
         $transaction->save();
 
-        Order::create([
-            'title' => 'Admin Fund Transaction Payment',
-            'receipt_number' => $transaction->receipt_number,
-            'details' => $transaction->details,
-            'payment_method_id' => $request['payment_method_id'],
-            'subtotal' => $transaction->amount,
-            'total' => $transaction->amount,
-            'amount_paid' => $transaction->amount_paid,
-            'transaction_type' => $transaction->transaction_type,
-            'margin' => $transaction->amount_paid - $transaction->amount,
-            'currency' => 'NGN',
-            'payment_method' => $transaction->payment_method,
-            'payment_gateway' => 'admin',
+        $order::update([
             'payment_reference' => $transaction->receipt_number,
             'payment_gateway_charge' => 0,
             'payment_message' => 'payment successful',
@@ -270,35 +281,59 @@ class WalletTransactionController extends Controller
             'transaction_initiated_date' => Carbon::now(),
             'transaction_initiated_time' => Carbon::now(),
             'date_time_paid' => Carbon::now(),
-            'status' => $request['status'],
-            'service_status' => $request['status'],
+            'status' => 'approved',
+            'service_status' => 'approved',
             'orderable_type' => 'WalletTransaction',
             'orderable_id' => $transaction->id,
-            
         ]);
         
         return $this->showMessage('This transaction has been '.$request['status']);
     }
 
-    public function debitUserWallet($order, $wallet)
+    // public function debitUserWallet($order, $wallet)
+    // {
+    //     $transaction = WalletTransaction::where('receipt_number', $order->receipt_number)->first();
+
+    //     $transaction->update([
+    //         'receipt_number' => $order->receipt_number,
+    //         'title' => $order->title,
+    //         'user_id' => $wallet->user->id,
+    //         'details' => $order->details,
+    //         'amount' => $order->subtotal,
+    //         'amount_paid' => $order->total,
+    //         'category' => $order->transaction_type,
+    //         'transaction_type' => 'debit',
+    //         'status' => $order->status,
+    //         'remarks' => $order->status,
+    //         'balance' => $wallet->balance,
+    //         'walletable_id' => $order->id,
+    //         'walletable_type' => 'orders',
+    //     ]);
+
+    // }
+
+    public function walletTransaction($order, $wallet, $transaction_type, $polymorphic_type, $remarks, $status)
     {
         $transaction = WalletTransaction::where('receipt_number', $order->receipt_number)->first();
 
-        $transaction->update([
-            'receipt_number' => $order->receipt_number,
-            'title' => $order->title,
-            'user_id' => $wallet->user->id,
-            'details' => $order->details,
-            'amount' => $order->subtotal,
-            'amount_paid' => $order->total,
-            'category' => $order->transaction_type,
-            'transaction_type' => 'debit',
-            'status' => $order->status,
-            'remarks' => $order->status,
-            'balance' => $wallet->balance,
-            'walletable_id' => $order->id,
-            'walletable_type' => 'orders',
-        ]);
+        if($transaction == null){
+            $transaction =  new WalletTransaction;
+        }
+        $transaction->receipt_number = $order->receipt_number;
+        $transaction->title = $order->title;
+        $transaction->user_id = $wallet->user->id;
+        $transaction->details = $order->details;
+        $transaction->amount = $order->subtotal;
+        $transaction->amount_paid = $order->amount_paid;
+        $transaction->category = $order->transaction_type;
+        $transaction->transaction_type = $transaction_type;
+        $transaction->status = $status;
+        $transaction->remarks = $remarks;
+        $transaction->balance = $wallet->balance;
+        $transaction->walletable_id = $order->id;
+        $transaction->walletable_type = $polymorphic_type;
+        $transaction->save();
 
+        return $transaction;
     }
 }
