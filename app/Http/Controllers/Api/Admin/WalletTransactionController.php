@@ -118,11 +118,9 @@ class WalletTransactionController extends Controller
             'orderable_type' => 'WalletTransaction',
         ]);
 
-        $debit = $this->debitUserWallet($order, auth()->user()->id);
-
         $wallet = $this->walletTransaction(
             $order, 
-            $debit, 
+            $user->wallet, 
             'debit', 
             'orders', 
             'pending approval from admin',
