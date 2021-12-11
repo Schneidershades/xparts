@@ -2000,6 +2000,59 @@
                 ]
             }
         },
+        "/api/v1/admin/users/password/{id}": {
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Update user",
+                "description": "Update user",
+                "operationId": "UserUpdatePassword",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpateChangePasswordRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/admin/user/{id}/orders": {
             "get": {
                 "tags": [
@@ -3065,7 +3118,7 @@
                         "description": "Bad Request"
                     },
                     "401": {
-                        "description": "unauthenticated"
+                        "description": "uOrdernauthenticated"
                     },
                     "403": {
                         "description": "Forbidden"
@@ -6412,6 +6465,22 @@
                 ],
                 "type": "object"
             },
+            "UpateChangePasswordRequest": {
+                "title": "Sign Up Form Request Fields",
+                "description": "sign up request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "password": {
+                        "title": "User password",
+                        "description": "Password of the user",
+                        "type": "string",
+                        "example": "password"
+                    }
+                },
+                "type": "object"
+            },
             "UserCreateFormRequest": {
                 "title": "User Create Form Request Fields",
                 "description": "User Create request body data",
@@ -6426,6 +6495,26 @@
                 "required": [
                     "name"
                 ],
+                "properties": {
+                    "name": {
+                        "title": "User Name",
+                        "description": "name of the user",
+                        "type": "string",
+                        "example": "Schneider"
+                    },
+                    "email": {
+                        "title": "User email",
+                        "description": "email of the user",
+                        "type": "string",
+                        "example": "Schneider@fixit45.com"
+                    },
+                    "phone": {
+                        "title": "User phone",
+                        "description": "phone of the user",
+                        "type": "string",
+                        "example": "07037495705"
+                    }
+                },
                 "type": "object"
             },
             "VehicleSpecializationCreateFormRequest": {
@@ -6918,16 +7007,7 @@
                                     "example": "This is a description"
                                 },
                                 "images": {
-                                    "type": "array",
-                                    "items": {
-                                        "properties": {
-                                            "images": {
-                                                "type": "int",
-                                                "example": "1"
-                                            }
-                                        },
-                                        "type": "object"
-                                    }
+                                    "type": "[1,2,3]"
                                 }
                             },
                             "type": "object"

@@ -15,7 +15,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreMultipleXpartRequest extends FormRequest
 {
-
     /**
     *       @OA\Property(property="xpart_requests", type="object", type="array",
     *            @OA\Items(
@@ -36,15 +35,8 @@ class StoreMultipleXpartRequest extends FormRequest
     *               ),
     *                @OA\Property(
     *                   property="images", 
-    *                   type="object", 
-    *                   type="array",
-    *                   @OA\Items(
-    *                       @OA\Property(
-    *                           property="images", 
-    *                           type="int", 
-    *                           example="1"
-    *                       ),
-    *                   )
+    *                   type="string", 
+    *                   type="[1,2,3]",
     *               ),
     *            ),
     *        ),
@@ -74,8 +66,8 @@ class StoreMultipleXpartRequest extends FormRequest
             'xpart_requests' => 'array',
             'xpart_requests.*.part' => 'required|string',
             'xpart_requests.*.vin_number' => 'required|string',
-            'xpart_requests.*.images' => 'nullable|array',
-            'xpart_requests.*.image.*' => 'nullable|max:2048',  
+            'xpart_requests.images' => 'nullable|array',
+            'xpart_requests.images.*' => 'nullable|max:2048',  
             'xpart_requests.*.user_description' => 'nullable',  
             'xpart_requests.*.admin_description' => 'nullable',  
         ];

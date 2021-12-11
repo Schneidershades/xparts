@@ -77,6 +77,7 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('payment-methods', 'PaymentMethodController', array("as"=>"paymentMethods"));
 		Route::Resource('roles', 'RoleController', array("as"=>"userRoles"));
 		Route::Resource('users', 'UserController', array("as"=>"regUsers"));
+		Route::put('users/password/{id}', 'UserController@changePassword');
 		Route::Resource('vendors', 'VendorController', array("as"=>"regVendors"));
 		Route::Resource('vehicle-specialization', 'VehicleSpecializationController', array("as"=>"vehicleSpecItems"));
 		Route::Resource('vins', 'VinController', array("as"=>"regVin"));

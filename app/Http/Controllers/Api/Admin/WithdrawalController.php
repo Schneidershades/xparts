@@ -16,7 +16,6 @@ use App\Http\Requests\Admin\AdminWithdrawalsUpdateFormRequest;
 
 class WithdrawalController extends Controller
 {
-    
      /**
     * @OA\Get(
     *      path="/api/v1/admin/withdrawals",
@@ -103,7 +102,7 @@ class WithdrawalController extends Controller
     *      ),
     *      @OA\Response(
     *          response=401,
-    *          description="unauthenticated",
+    *          description="uOrdernauthenticated",
     *      ),
     *      @OA\Response(
     *          response=403,
