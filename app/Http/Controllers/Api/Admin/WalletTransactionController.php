@@ -118,16 +118,18 @@ class WalletTransactionController extends Controller
             'orderable_type' => 'WalletTransaction',
         ]);
 
-        $wallet = $this->walletTransaction(
+        $wallet = $this->debitUserWallet($order, auth()->user()->id);
+
+        $transaction = $this->walletTransaction(
             $order, 
-            $user->wallet, 
+            $wallet, 
             'debit', 
             'orders', 
             'pending approval from admin',
             'pending'
         );
 
-        return $this->showOne($wallet);
+        return $this->showOne($transaction);
     }
 
     /**
@@ -288,27 +290,13 @@ class WalletTransactionController extends Controller
         return $this->showMessage('This transaction has been '.$request['status']);
     }
 
-    // public function debitUserWallet($order, $wallet)
-    // {
-    //     $transaction = WalletTransaction::where('receipt_number', $order->receipt_number)->first();
-
-    //     $transaction->update([
-    //         'receipt_number' => $order->receipt_number,
-    //         'title' => $order->title,
-    //         'user_id' => $wallet->user->id,
-    //         'details' => $order->details,
-    //         'amount' => $order->subtotal,
-    //         'amount_paid' => $order->total,
-    //         'category' => $order->transaction_type,
-    //         'transaction_type' => 'debit',
-    //         'status' => $order->status,
-    //         'remarks' => $order->status,
-    //         'balance' => $wallet->balance,
-    //         'walletable_id' => $order->id,
-    //         'walletable_type' => 'orders',
-    //     ]);
-
-    // }
+    public function debitUserWallet($order, $userId)
+    {
+        $wallet = Wallet::where('user_id', $userId)->first();
+        $wallet->balance = $wallet->balance - $order->amount_paid;
+        $wallet->save();
+        return $wallet;
+    }
 
     public function walletTransaction($order, $wallet, $transaction_type, $polymorphic_type, $remarks, $status)
     {
