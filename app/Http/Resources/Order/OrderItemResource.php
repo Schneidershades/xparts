@@ -26,6 +26,8 @@ class OrderItemResource extends JsonResource
                 // 'year' => $this->itemable_id ?  $this->itemable->xpartRequest->vin->model_year : null,
                 
                 // 'status' => $this->itemable_id ? $this->itemable->status : 'N/A',
+                // 'price' => $this->itemable_id ? $this->itemable->markup_price : 'N/A',
+                // 'total' => $this->itemable_id ? $this->itemable->markup_price : 0 * $this->quantity,
             ]),
 
             'receipt_number' => $this->receipt_number ? $this->receipt_number : null,
@@ -34,9 +36,7 @@ class OrderItemResource extends JsonResource
             'cartable_id' => $this->cartable_id,
 
             'category' => $this->cartable_type,
-            'price' => $this->itemable_id ? $this->itemable->markup_price : 'N/A',
             'quantity' => $this->quantity,
-            'total' => $this->itemable_id ? $this->itemable->markup_price : 0 * $this->quantity,
         ];
     }
     
