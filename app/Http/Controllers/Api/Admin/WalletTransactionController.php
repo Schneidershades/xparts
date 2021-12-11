@@ -313,7 +313,7 @@ class WalletTransactionController extends Controller
         $transaction->amount_paid = $order->amount_paid;
         $transaction->category = $order->transaction_type;
         $transaction->transaction_type = $transaction_type;
-        $transaction->status = $status;
+        $transaction->status = $order->status;
         $transaction->remarks = $remarks;
         $transaction->balance = $wallet->balance;
         $transaction->walletable_id = $order->id;
