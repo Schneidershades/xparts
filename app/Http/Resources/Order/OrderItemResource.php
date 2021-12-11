@@ -13,19 +13,19 @@ class OrderItemResource extends JsonResource
 
             $this->mergeWhen($this->itemable_type == 'quotes' && $this->itemable_id, [
 
-                'title' => $this->itemable ? $this->itemable->xpartRequest->part->name : 'N/A',
-                'grade' => $this->itemable ?  $this->itemable->partGrade->name : 'N/A',
-                'brand' => $this->itemable ? $this->itemable->brand : 'N/A',
-                'part_number' => $this->itemable ? $this->itemable->part_number : 'N/A',
-                'vendor_id' => $this->itemable ? $this->itemable->vendor_id : 'N/A',
+                'title' => $this->itemable_id ? $this->itemable->xpartRequest->part->name : 'N/A',
+                'grade' => $this->itemable_id ?  $this->itemable->partGrade->name : 'N/A',
+                'brand' => $this->itemable_id ? $this->itemable->brand : 'N/A',
+                'part_number' => $this->itemable_id ? $this->itemable->part_number : 'N/A',
+                'vendor_id' => $this->itemable_id ? $this->itemable->vendor_id : 'N/A',
 
-                'measurement' => $this->itemable ? $this->itemable->measurement : null,
-                'available_stock' => $this->itemable ? $this->itemable->quantity : null,
-                'make' => $this->itemable ? $this->itemable->xpartRequest->vin->make : null,
-                'model' => $this->itemable ?  $this->itemable->xpartRequest->vin->model : null,
-                'year' => $this->itemable ?  $this->itemable->xpartRequest->vin->model_year : null,
+                'measurement' => $this->itemable_id ? $this->itemable->measurement : null,
+                'available_stock' => $this->itemable_id ? $this->itemable->quantity : null,
+                'make' => $this->itemable_id ? $this->itemable->xpartRequest->vin->make : null,
+                'model' => $this->itemable_id ?  $this->itemable->xpartRequest->vin->model : null,
+                'year' => $this->itemable_id ?  $this->itemable->xpartRequest->vin->model_year : null,
                 
-                'status' => $this->itemable ? $this->itemable->status : 'N/A',
+                'status' => $this->itemable_id ? $this->itemable->status : 'N/A',
             ]),
 
             'receipt_number' => $this->receipt_number ? $this->receipt_number : null,
@@ -34,9 +34,9 @@ class OrderItemResource extends JsonResource
             'cartable_id' => $this->cartable_id,
 
             'category' => $this->cartable_type,
-            'price' => $this->itemable ? $this->itemable->markup_price : 'N/A',
+            'price' => $this->itemable_id ? $this->itemable->markup_price : 'N/A',
             'quantity' => $this->quantity,
-            'total' => $this->itemable ? $this->itemable->markup_price : 0 * $this->quantity,
+            'total' => $this->itemable_id ? $this->itemable->markup_price : 0 * $this->quantity,
         ];
     }
     

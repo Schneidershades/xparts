@@ -17,4 +17,20 @@ class WalletRepository extends ApplicationRepository
     {
         return Wallet::where('user_id', $userId)->first();
     }
+
+    public function creditUser($user_id, $amount)
+    {  
+        $wallet = Wallet::find($user_id);
+        $wallet->balance = $wallet->balance + $amount;
+        $wallet->save();
+        return $wallet;
+    }
+
+    public function debitUser($user_id, $amount)
+    {  
+        $wallet = Wallet::find($user_id);
+        $wallet->balance = $wallet->balance - $amount;
+        $wallet->save();
+        return $wallet;
+    }
 }
