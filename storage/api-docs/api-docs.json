@@ -3118,7 +3118,7 @@
                         "description": "Bad Request"
                     },
                     "401": {
-                        "description": "unauthenticated"
+                        "description": "uOrdernauthenticated"
                     },
                     "403": {
                         "description": "Forbidden"
