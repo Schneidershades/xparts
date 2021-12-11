@@ -115,7 +115,7 @@ class MultipleXpartRequestController extends Controller
                 $admins = User::whereIn('email', $emails)->get(); 
 
                 foreach($admins as $admin){
-                    SendEmail::dispatch($admin['email'], new XpartRequestMail($xpartRequest, $admin))->onQueue('emails')->delay(5);
+                    SendEmail::dispatch($admin['email'], new XpartRequestMail($xpartRequest, $admin))->onQueue('emails')->delay(10);
                 }            
             } 
 
@@ -130,7 +130,7 @@ class MultipleXpartRequestController extends Controller
                         'status' => 'active'
                     ]);
 
-                    SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
+                    SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(15);
 
                     if($user->has('fcmPushSubscriptions')){
                         PushNotification::dispatch(
