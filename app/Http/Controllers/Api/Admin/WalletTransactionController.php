@@ -273,7 +273,7 @@ class WalletTransactionController extends Controller
 
 
         $wallet = Wallet::where('user_id', $transaction->user_id)->first();
-        
+
         if($transaction->transaction_type == 'credit'){
             $wallet->balance = $wallet->balance + $transaction->amount_paid;
             $wallet->save();
@@ -281,11 +281,9 @@ class WalletTransactionController extends Controller
 
         // if($transaction->transaction_type == 'debit'){
         //     $wallet = Wallet::where('user_id', $transaction->user_id)->first();
-
         //     if($wallet->balance < $transaction->amount_paid){
         //         return $this->errorResponse('Insufficient funds', 409);
         //     }
-
         //     $wallet->balance = $wallet->balance - $transaction->amount_paid;
         //     $wallet->save();
         // }
