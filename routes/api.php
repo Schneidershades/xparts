@@ -96,6 +96,7 @@ Route::prefix('v1')->group(function () {
 		Route::get('user/{id}/xparts-requests', 'UserPropertyController@xpartRequests');
 		Route::Resource('statuses', 'StatusController');
 		Route::Resource('pages', 'PageController');
+		Route::Resource('operators', 'AdminOperatorController');
 	});
 
 	Route::get('process-all-orders', 'Api\Test\TestController@quoteProcessing');

@@ -11,7 +11,7 @@ use App\Mail\User\PasswordUpdatedMail;
 use App\Http\Requests\Admin\UserUpdateFormRequest;
 use App\Http\Requests\Admin\UpateChangePasswordRequest;
 
-class AdminUserController extends Controller
+class AdminOperatorController extends Controller
 {
     /**
     * @OA\Get(
@@ -83,7 +83,9 @@ class AdminUserController extends Controller
     */
     public function store(Request $request)
     {
-        return $this->showOne(auth()->user()->users->create($request->validated()));
+        $user = User::create($request->validated());
+        
+        return $this->showOne($user);
     }
 
     /**
