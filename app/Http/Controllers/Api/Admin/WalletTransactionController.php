@@ -90,7 +90,7 @@ class WalletTransactionController extends Controller
         $amount_to_pay = $request['amount'] + $request['charge'];
 
         if($request['transaction_type'] == 'debit' && $user->wallet->balance < $amount_to_pay){
-            return $this->errorResponse('insufficient funds', 409);
+            return $this->errorResponse('Insufficient funds', 409);
         }
 
         $order = Order::create([
@@ -104,8 +104,7 @@ class WalletTransactionController extends Controller
             'currency' => 'NGN',
             'margin' => $amount_to_pay - $request['amount'],
             'amount_paid' => $amount_to_pay,
-            'transaction_type' => 'debit',
-
+            'transaction_type' => $request['transaction_type'],
             'payment_method' => 'wallet',
             'payment_gateway' => 'wallet',
             'payment_gateway_charge' => 0,
@@ -121,7 +120,7 @@ class WalletTransactionController extends Controller
         ]);
 
         if($request['transaction_type'] == 'debit'){
-            $wallet = $this->debitUserWallet($order, $user->id);
+            $this->debitUserWallet($order, $user->id);
         }
 
         $transaction = $this->walletTransaction(
@@ -263,7 +262,7 @@ class WalletTransactionController extends Controller
             $wallet = Wallet::where('user_id', $transaction->user_id)->first();
 
             if($wallet->balance < $transaction->amount_paid){
-                return $this->errorResponse('insufficient funds', 409);
+                return $this->errorResponse('Insufficient funds', 409);
             }
 
             $wallet->balance = $wallet->balance - $transaction->amount_paid;
