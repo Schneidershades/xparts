@@ -294,7 +294,7 @@ class WalletTransactionController extends Controller
         $transaction->balance = $wallet->balance;
         $transaction->save();
 
-        $order::update([
+        $order->update([
             'payment_reference' => $transaction->receipt_number,
             'payment_gateway_charge' => 0,
             'payment_message' => 'payment successful',
