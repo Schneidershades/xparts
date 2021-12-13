@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Wallet;
 use App\Models\WalletTransaction;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\Admin\AdminWalletCreateFormRequest;
 use App\Http\Requests\Admin\AdminWalletUpdateFormRequest;
 
@@ -45,7 +46,25 @@ class WalletTransactionController extends Controller
 
     public function index()
     {
-        return $this->showAll(WalletTransaction::latest()->get());
+        $search_query = request()->get('search') ? request()->get('search') : null;
+
+        if(!$search_query){
+            return $this->showAll(WalletTransaction::where('transaction_type', 'debit')->latest()->get());
+        }
+        
+        $item = WalletTransaction::query()
+            ->selectRaw('wallet_transactions.*')
+            ->leftJoin('users', 'users.id', '=', 'wallet_transactions.user_id')
+            ->when($search_query, function (Builder $builder, $search_query) {
+                $builder->where('wallet_transactions.receipt_number', 'LIKE', "%{$search_query}%")
+                ->orWhere('users.name', 'LIKE', "%{$search_query}%")
+                ->orWhere('users.email', 'LIKE', "%{$search_query}%")
+                ->orWhere('users.phone', 'LIKE', "%{$search_query}%")
+                ->orWhere('wallet_transactions.id', 'LIKE', "%{$search_query}%")
+                ->orWhere('wallet_transactions.title', 'LIKE', "%{$search_query}%")
+                ->orWhere('wallet_transactions.balance', 'LIKE', "%{$search_query}%");
+            })->latest()->get();
+        return $this->showAll($item);
     }
 
     /**
@@ -85,10 +104,12 @@ class WalletTransactionController extends Controller
     {
         $user = User::find($request['user_id']);
 
+        $wallet = null;
+
         $amount_to_pay = $request['amount'] + $request['charge'];
 
         if($request['transaction_type'] == 'debit' && $user->wallet->balance < $amount_to_pay){
-            return $this->errorResponse('insufficient funds', 409);
+            return $this->errorResponse('Insufficient funds', 409);
         }
 
         $order = Order::create([
@@ -102,8 +123,7 @@ class WalletTransactionController extends Controller
             'currency' => 'NGN',
             'margin' => $amount_to_pay - $request['amount'],
             'amount_paid' => $amount_to_pay,
-            'transaction_type' => 'debit',
-
+            'transaction_type' => $request['transaction_type'],
             'payment_method' => 'wallet',
             'payment_gateway' => 'wallet',
             'payment_gateway_charge' => 0,
@@ -118,12 +138,14 @@ class WalletTransactionController extends Controller
             'orderable_type' => 'WalletTransaction',
         ]);
 
-        $wallet = $this->debitUserWallet($order, $user->id);
+        if($request['transaction_type'] == 'debit'){
+            $this->debitUserWallet($order, $user->id);
+        }
 
         $transaction = $this->walletTransaction(
             $order, 
-            $wallet, 
-            'debit', 
+            $user->wallet, 
+            $request['transaction_type'], 
             'orders', 
             'pending approval from admin',
             'pending'
@@ -259,7 +281,7 @@ class WalletTransactionController extends Controller
             $wallet = Wallet::where('user_id', $transaction->user_id)->first();
 
             if($wallet->balance < $transaction->amount_paid){
-                return $this->errorResponse('insufficient funds', 409);
+                return $this->errorResponse('Insufficient funds', 409);
             }
 
             $wallet->balance = $wallet->balance - $transaction->amount_paid;

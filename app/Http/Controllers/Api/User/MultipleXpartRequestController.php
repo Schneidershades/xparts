@@ -56,6 +56,7 @@ class MultipleXpartRequestController extends Controller
         $ids = [];
         
         foreach($request['xpart_requests'] as $item){
+
             $status = null;
             
             $part = Part::where('name', $item['part'])->first();
@@ -83,17 +84,12 @@ class MultipleXpartRequestController extends Controller
             $xpartRequest->part_id = $part->id;
             $xpartRequest->vin_id = $vin->id;
             $xpartRequest->user_id = $auth;
-            
             $xpartRequest->user_description = $item['user_description'] ? $item['user_description'] : null;
-
             $xpartRequest->status = ($vin->admin_attention == true || $part->admin_attention == true) ? 'awaiting' : 'active';
             $xpartRequest->save();
 
-            $ids[] = $xpartRequest->id;
-
-            if (count($item['images']) > 0) {
+            if (array_key_exists('images', $item) && count($item['images']) > 0) {
                 foreach ($item['images'] as $image) {
-                    
                     if (gettype($image) != "integer") {
                         $path = $this->uploadImage($image, "xpart_requests");
                         $xpartRequest->images()->create([
@@ -108,26 +104,24 @@ class MultipleXpartRequestController extends Controller
                                 'fileable_type' => $xpartRequest->getMorphClass(),
                             ]);
                         }
-                        
                     }
                 }
             }
 
 
             if($xpartRequest->status == 'awaiting'){
-                $emails = ['az@fixit45.com', 'tolani@fixit45.com', 'henry@fixit45.com',  'schneider@fixit45.com',/**'jt@fixit45.com'**/];
+                $emails = ['az@fixit45.com', 'tolani@fixit45.com', 'henry@fixit45.com', 'schneider@fixit45.com',/**'jt@fixit45.com'**/];
 
                 $admins = User::whereIn('email', $emails)->get(); 
 
                 foreach($admins as $admin){
-                    SendEmail::dispatch($admin['email'], new XpartRequestMail($xpartRequest, $admin))->onQueue('emails')->delay(5);
+                    SendEmail::dispatch($admin['email'], new XpartRequestMail($xpartRequest, $admin))->onQueue('emails')->delay(10);
                 }            
             } 
 
-
             $users = User::role('Vendor')->get(); 
 
-            collect($users)->each(function ($user) use ($xpartRequest) {
+            foreach($users as $user){
                 if($xpartRequest->status == 'active'){
                     
                     XpartRequestVendorWatch::create([
@@ -136,7 +130,7 @@ class MultipleXpartRequestController extends Controller
                         'status' => 'active'
                     ]);
 
-                    SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
+                    SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(15);
 
                     if($user->has('fcmPushSubscriptions')){
                         PushNotification::dispatch(
@@ -148,7 +142,9 @@ class MultipleXpartRequestController extends Controller
                         )->delay(5);
                     }
                 } 
-            });
+            }
+
+            $ids[] = $xpartRequest->id;
         }
 
         return $this->showAll(XpartRequest::whereIn('id', $ids)->get());
