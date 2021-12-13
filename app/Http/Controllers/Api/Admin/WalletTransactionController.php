@@ -271,8 +271,10 @@ class WalletTransactionController extends Controller
             return $this->showMessage('This transaction has already been '.$request['status']);
         }
 
+
+        $wallet = Wallet::where('user_id', $transaction->user_id)->first();
+        
         if($transaction->transaction_type == 'credit'){
-            $wallet = Wallet::where('user_id', $transaction->user_id)->first();
             $wallet->balance = $wallet->balance + $transaction->amount_paid;
             $wallet->save();
         }
