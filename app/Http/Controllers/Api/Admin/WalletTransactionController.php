@@ -277,16 +277,16 @@ class WalletTransactionController extends Controller
             $wallet->save();
         }
 
-        if($transaction->transaction_type == 'debit'){
-            $wallet = Wallet::where('user_id', $transaction->user_id)->first();
+        // if($transaction->transaction_type == 'debit'){
+        //     $wallet = Wallet::where('user_id', $transaction->user_id)->first();
 
-            if($wallet->balance < $transaction->amount_paid){
-                return $this->errorResponse('Insufficient funds', 409);
-            }
+        //     if($wallet->balance < $transaction->amount_paid){
+        //         return $this->errorResponse('Insufficient funds', 409);
+        //     }
 
-            $wallet->balance = $wallet->balance - $transaction->amount_paid;
-            $wallet->save();
-        }
+        //     $wallet->balance = $wallet->balance - $transaction->amount_paid;
+        //     $wallet->save();
+        // }
 
         $transaction->approving_admin_id =  auth()->user()->id;
         $transaction->remarks = $request['remarks'] ? $request['remarks'] : null;
