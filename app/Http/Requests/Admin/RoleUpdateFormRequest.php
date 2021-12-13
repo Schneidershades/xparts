@@ -16,6 +16,18 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RoleUpdateFormRequest extends FormRequest
 {
+
+    /**
+     * @OA\Property(
+     *      title="Role Name",
+     *      description="name of the role",
+     *      example="Super Admin"
+     * )
+     *
+     * @var string
+     */
+    public $name;
+    
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -34,7 +46,7 @@ class RoleUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            'name' => 'required|string|max:255',
         ];
     }
 }

@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\User\PasswordUpdatedMail;
 use App\Http\Requests\Admin\UserUpdateFormRequest;
+use App\Http\Requests\Admin\StoreAdminOperatorRequest;
 use App\Http\Requests\Admin\UpateChangePasswordRequest;
+use App\Http\Requests\Admin\UpdateAdminOperatorRequest;
 
 class AdminOperatorController extends Controller
 {
@@ -57,7 +59,7 @@ class AdminOperatorController extends Controller
     *      description="Post users Operator",
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/UserCreateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/StoreAdminOperatorRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -81,10 +83,14 @@ class AdminOperatorController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    public function store(Request $request)
+    public function store(StoreAdminOperatorRequest $request)
     {
         $user = User::create($request->validated());
-        
+
+        if($request['role']){
+            $user->assignRole($request['role']);
+        }
+
         return $this->showOne($user);
     }
 
@@ -152,7 +158,7 @@ class AdminOperatorController extends Controller
      *     ),
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/UserCreateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/UpdateAdminOperatorRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -177,9 +183,14 @@ class AdminOperatorController extends Controller
     * )
     */
     
-    public function update(UserUpdateFormRequest $request, User $user)
+    public function update(UpdateAdminOperatorRequest $request, User $user)
     {
         ($user->update($request->validated()));
+
+        if($request['role']){
+            $user->assignRole($request['role']);
+        }
+        
         return $this->showOne($user);
     }
 
