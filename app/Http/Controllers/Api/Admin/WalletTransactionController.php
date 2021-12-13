@@ -85,6 +85,8 @@ class WalletTransactionController extends Controller
     {
         $user = User::find($request['user_id']);
 
+        $wallet = null;
+
         $amount_to_pay = $request['amount'] + $request['charge'];
 
         if($request['transaction_type'] == 'debit' && $user->wallet->balance < $amount_to_pay){
@@ -118,12 +120,14 @@ class WalletTransactionController extends Controller
             'orderable_type' => 'WalletTransaction',
         ]);
 
-        $wallet = $this->debitUserWallet($order, $user->id);
+        if($request['transaction_type'] == 'debit'){
+            $wallet = $this->debitUserWallet($order, $user->id);
+        }
 
         $transaction = $this->walletTransaction(
             $order, 
-            $wallet, 
-            'debit', 
+            $user->wallet, 
+            $request['transaction_type'], 
             'orders', 
             'pending approval from admin',
             'pending'
