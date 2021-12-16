@@ -13,21 +13,21 @@ class OrderItemResource extends JsonResource
 
             $this->mergeWhen($this->itemable_type == 'quotes', [
 
-                'title' => $this->itemable_type ? $this->itemable->xpartRequest->part->name : 'N/A',
-                'grade' => $this->itemable_type ?  $this->itemable->partGrade->name : 'N/A',
-                'brand' => $this->itemable_type ? $this->itemable->brand : 'N/A',
-                'part_number' => $this->itemable_type ? $this->itemable->part_number : 'N/A',
-                'vendor_id' => $this->itemable_type ? $this->itemable->vendor_id : 'N/A',
+                // 'title' => $this->itemable_type ? $this->itemable->xpartRequest->part->name : 'N/A',
+                // 'grade' => $this->itemable_type ?  $this->itemable->partGrade->name : 'N/A',
+                // 'brand' => $this->itemable_type ? $this->itemable->brand : 'N/A',
+                // 'part_number' => $this->itemable_type ? $this->itemable->part_number : 'N/A',
+                // 'vendor_id' => $this->itemable_type ? $this->itemable->vendor_id : 'N/A',
 
-                'measurement' => $this->itemable_type ? $this->itemable->measurement : null,
-                'available_stock' => $this->itemable_type ? $this->itemable->quantity : null,
-                'make' => $this->itemable_type ? $this->itemable->xpartRequest->vin->make : null,
-                'model' => $this->itemable_type ?  $this->itemable->xpartRequest->vin->model : null,
-                'year' => $this->itemable_type ?  $this->itemable->xpartRequest->vin->model_year : null,
+                // 'measurement' => $this->itemable_type ? $this->itemable->measurement : null,
+                // 'available_stock' => $this->itemable_type ? $this->itemable->quantity : null,
+                // 'make' => $this->itemable_type ? $this->itemable->xpartRequest->vin->make : null,
+                // 'model' => $this->itemable_type ?  $this->itemable->xpartRequest->vin->model : null,
+                // 'year' => $this->itemable_type ?  $this->itemable->xpartRequest->vin->model_year : null,
                 
-                'status' => $this->itemable_type ? $this->itemable->status : 'N/A',
-                'price' => $this->itemable_type ? $this->itemable->markup_price : 'N/A',
-                'total' => $this->itemable_type ? $this->itemable->markup_price : 0 * $this->quantity,
+                // 'status' => $this->itemable_type ? $this->itemable->status : 'N/A',
+                // 'price' => $this->itemable_type ? $this->itemable->markup_price : 'N/A',
+                // 'total' => $this->itemable_type ? $this->itemable->markup_price : 0 * $this->quantity,
             ]),
 
             'receipt_number' => $this->receipt_number ? $this->receipt_number : null,
