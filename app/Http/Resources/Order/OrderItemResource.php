@@ -13,7 +13,7 @@ class OrderItemResource extends JsonResource
 
             $this->mergeWhen($this->itemable_type == 'quotes' && $this->itemable_type != null && $this->itemable_id != null, [
 
-                'title' => $this->itemable_type ? optional($this->itemable->xpartRequest->part)->name : 'N/A',
+                // 'title' => $this->itemable_type ? optional($this->itemable->xpartRequest->part)->name : 'N/A',
                 'grade' => $this->itemable_type ?  $this->itemable->partGrade->name : 'N/A',
                 'brand' => $this->itemable_type ? $this->itemable->brand : 'N/A',
                 'part_number' => $this->itemable_type ? $this->itemable->part_number : 'N/A',
