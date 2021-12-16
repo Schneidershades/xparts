@@ -9,9 +9,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\User\PasswordUpdatedMail;
 use App\Http\Requests\Admin\UserUpdateFormRequest;
+use App\Http\Requests\Admin\StoreAdminOperatorRequest;
 use App\Http\Requests\Admin\UpateChangePasswordRequest;
+use App\Http\Requests\Admin\UpdateAdminOperatorRequest;
 
-class AdminUserController extends Controller
+class AdminOperatorController extends Controller
 {
     /**
     * @OA\Get(
@@ -57,7 +59,7 @@ class AdminUserController extends Controller
     *      description="Post users Operator",
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/UserCreateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/StoreAdminOperatorRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -81,9 +83,15 @@ class AdminUserController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    public function store(Request $request)
+    public function store(StoreAdminOperatorRequest $request)
     {
-        return $this->showOne(auth()->user()->users->create($request->validated()));
+        $user = User::create($request->validated());
+
+        if($request['role']){
+            $user->assignRole($request['role']);
+        }
+
+        return $this->showOne($user);
     }
 
     /**
@@ -150,7 +158,7 @@ class AdminUserController extends Controller
      *     ),
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/UserCreateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/UpdateAdminOperatorRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -175,9 +183,14 @@ class AdminUserController extends Controller
     * )
     */
     
-    public function update(UserUpdateFormRequest $request, User $user)
+    public function update(UpdateAdminOperatorRequest $request, User $user)
     {
         ($user->update($request->validated()));
+
+        if($request['role']){
+            $user->assignRole($request['role']);
+        }
+        
         return $this->showOne($user);
     }
 

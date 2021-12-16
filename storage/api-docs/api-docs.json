@@ -13,6 +13,266 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/admin/operators": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get all users Operator",
+                "description": "Get all users Operator",
+                "operationId": "allUsersOperator",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Post users Operator",
+                "description": "Post users Operator",
+                "operationId": "postUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreAdminOperatorRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/operators/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Show user Operator",
+                "description": "Show user Operator",
+                "operationId": "showUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Update user Operator",
+                "description": "Update user Operator",
+                "operationId": "UserUpdateOperator",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user Operator ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateAdminOperatorRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Delete user Operator",
+                "description": "Delete user Operator",
+                "operationId": "deleteUserOperator",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/operators/password/{id}": {
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Update user",
+                "description": "Update user",
+                "operationId": "UserUpdatePassword",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpateChangePasswordRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/admin/statistics": {
             "get": {
                 "tags": [
@@ -1691,7 +1951,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RoleCreateFormRequest"
+                                "$ref": "#/components/schemas/RoleUpdateFormRequest"
                             }
                         }
                     }
@@ -6455,6 +6715,14 @@
                 "required": [
                     "name"
                 ],
+                "properties": {
+                    "name": {
+                        "title": "Role Name",
+                        "description": "name of the role",
+                        "type": "string",
+                        "example": "Super Admin"
+                    }
+                },
                 "type": "object"
             },
             "RoleUpdateFormRequest": {
@@ -6463,6 +6731,54 @@
                 "required": [
                     "name"
                 ],
+                "properties": {
+                    "name": {
+                        "title": "Role Name",
+                        "description": "name of the role",
+                        "type": "string",
+                        "example": "Super Admin"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreAdminOperatorRequest": {
+                "title": "Store Admin Form Request Fields",
+                "description": "Store Admin request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "User Name",
+                        "description": "name of the user",
+                        "type": "string",
+                        "example": "Schneider"
+                    },
+                    "email": {
+                        "title": "User email",
+                        "description": "Email of the user",
+                        "type": "string",
+                        "example": "user@xparts.com"
+                    },
+                    "phone": {
+                        "title": "User phone",
+                        "description": "phone of the user",
+                        "type": "string",
+                        "example": "234"
+                    },
+                    "password": {
+                        "title": "User password",
+                        "description": "Password of the user",
+                        "type": "string",
+                        "example": "password"
+                    },
+                    "role": {
+                        "title": "User Role",
+                        "description": "User/Vendor",
+                        "type": "string",
+                        "example": "User"
+                    }
+                },
                 "type": "object"
             },
             "UpateChangePasswordRequest": {
@@ -6477,6 +6793,40 @@
                         "description": "Password of the user",
                         "type": "string",
                         "example": "password"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateAdminOperatorRequest": {
+                "title": "Update Admin Form Request Fields",
+                "description": "Update Admin request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "User Name",
+                        "description": "name of the user",
+                        "type": "string",
+                        "example": "Schneider"
+                    },
+                    "email": {
+                        "title": "User email",
+                        "description": "Email of the user",
+                        "type": "string",
+                        "example": "user@xparts.com"
+                    },
+                    "phone": {
+                        "title": "User phone",
+                        "description": "phone of the user",
+                        "type": "string",
+                        "example": "234"
+                    },
+                    "role": {
+                        "title": "User Role",
+                        "description": "User/Vendor",
+                        "type": "string",
+                        "example": "User"
                     }
                 },
                 "type": "object"

@@ -271,22 +271,22 @@ class WalletTransactionController extends Controller
             return $this->showMessage('This transaction has already been '.$request['status']);
         }
 
+
+        $wallet = Wallet::where('user_id', $transaction->user_id)->first();
+
         if($transaction->transaction_type == 'credit'){
-            $wallet = Wallet::where('user_id', $transaction->user_id)->first();
             $wallet->balance = $wallet->balance + $transaction->amount_paid;
             $wallet->save();
         }
 
-        if($transaction->transaction_type == 'debit'){
-            $wallet = Wallet::where('user_id', $transaction->user_id)->first();
-
-            if($wallet->balance < $transaction->amount_paid){
-                return $this->errorResponse('Insufficient funds', 409);
-            }
-
-            $wallet->balance = $wallet->balance - $transaction->amount_paid;
-            $wallet->save();
-        }
+        // if($transaction->transaction_type == 'debit'){
+        //     $wallet = Wallet::where('user_id', $transaction->user_id)->first();
+        //     if($wallet->balance < $transaction->amount_paid){
+        //         return $this->errorResponse('Insufficient funds', 409);
+        //     }
+        //     $wallet->balance = $wallet->balance - $transaction->amount_paid;
+        //     $wallet->save();
+        // }
 
         $transaction->approving_admin_id =  auth()->user()->id;
         $transaction->remarks = $request['remarks'] ? $request['remarks'] : null;
@@ -294,7 +294,7 @@ class WalletTransactionController extends Controller
         $transaction->balance = $wallet->balance;
         $transaction->save();
 
-        $order::update([
+        $order->update([
             'payment_reference' => $transaction->receipt_number,
             'payment_gateway_charge' => 0,
             'payment_message' => 'payment successful',
