@@ -11,9 +11,9 @@ class OrderItemResource extends JsonResource
         return [
             'id' => $this->id,
 
-            $this->mergeWhen($this->itemable_type == 'quotes', [
+            $this->mergeWhen($this->itemable_type == 'quotes' && $this->itemable_type != null && $this->itemable_id != null, [
 
-                // 'title' => $this->itemable_type ? $this->itemable->xpartRequest->part->name : 'N/A',
+                'title' => $this->itemable_type ? $this->itemable->xpartRequest->part->name : 'N/A',
                 // 'grade' => $this->itemable_type ?  $this->itemable->partGrade->name : 'N/A',
                 // 'brand' => $this->itemable_type ? $this->itemable->brand : 'N/A',
                 // 'part_number' => $this->itemable_type ? $this->itemable->part_number : 'N/A',
@@ -28,6 +28,7 @@ class OrderItemResource extends JsonResource
                 // 'status' => $this->itemable_type ? $this->itemable->status : 'N/A',
                 // 'price' => $this->itemable_type ? $this->itemable->markup_price : 'N/A',
                 // 'total' => $this->itemable_type ? $this->itemable->markup_price : 0 * $this->quantity,
+                
             ]),
 
             'receipt_number' => $this->receipt_number ? $this->receipt_number : null,
