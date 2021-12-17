@@ -12,6 +12,12 @@ use App\Http\Resources\Order\OrderItemRelatedReferenceResource;
 
 class OrderResource extends JsonResource
 {
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     */
     public function toArray($request)
     {
         return [
@@ -63,12 +69,7 @@ class OrderResource extends JsonResource
             'service_status' => $this->service_status,
             'status' => $this->status,
             'transaction_type' => $this->transaction_type,
-            'items' => [],
-
-            $this->mergeWhen($this->orderItems, [
-                'items' => OrderItemResource::collection($this->orderItems),
-            ]),
-
+            'items' => OrderItemResource::collection($this->orderItems),
             'relatedTransactionReferences' => OrderItemResource::collection($this->relatedTransactionReferences),
             'total_related_items' => $this->relatedTransactionReferences->count(),
             'updated_at' => $this->updated_at,
