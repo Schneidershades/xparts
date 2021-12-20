@@ -46,29 +46,13 @@ class VinCheckerController extends Controller
     {
         $vin = Vin::where('vin_number', $request->vin_number)->first();
 
-        if(!empty($vin)){
-            $vin->search_count += 1;
-            $vin->save();
-            return $this->showOne($vin);
-        }
-
-
         $checkerApi = new VinChecker();
-        $vinResponse =  $checkerApi->sendVin($request->vin_number);
 
-        if($vinResponse == null || $vinResponse == []){
-            $vin = new Vin;
-            $vin->vin_number = $request['vin_number'];
-            $vin->admin_attention = 1;
-            $vin->search_count = 1;
-            $vin->save();
-            
-            return $this->showOne($vin);
-            
-        }else{
-            $model = new Vin;
-            
-            $model = $this->contentAndDbIntersection($vinResponse, $model, [], [
+        if(!empty($vin) && $vin->admin_attention == true){
+
+            $vinResponse = $checkerApi->sendVin($request->vin_number);
+
+            $model = $this->contentAndDbIntersection($vinResponse, $vin, [], [
                 'admin_attention' => 0, 
                 'remarks' => 'Found',
                 'verified' => true,
@@ -76,10 +60,46 @@ class VinCheckerController extends Controller
 
             $model->save();
 
-            $vin = Vin::where('vin_number', $request->vin_number)->first();
-
+            $vin = Vin::where('vin_number', $request->vin_number)->first();            
+            $vin->search_count += 1;
+            $vin->save();
             return $this->showOne($vin);
-        }
+        }elseif(!empty($vin) && $vin->admin_attention == false){           
+            $vin->search_count += 1;
+            $vin->save();
+            return $this->showOne($vin);
+        }else{
+            
+            $vinResponse = $checkerApi->sendVin($request->vin_number);
 
+            if($vinResponse == null || $vinResponse == []){
+
+                $vin = new Vin;
+                $vin->vin_number = $request['vin_number'];
+                $vin->admin_attention = 1;
+                $vin->search_count = 1;
+                $vin->save();
+                return $this->showOne($vin);
+                
+            }else{
+                if($vin == null){
+                    $model = new Vin;
+                }else{
+                    $model = Vin::where('vin_number', $request->vin_number)->first();
+                }
+
+                $model = $this->contentAndDbIntersection($vinResponse, $model, [], [
+                    'admin_attention' => 0, 
+                    'remarks' => 'Found',
+                    'verified' => true,
+                ]);
+
+                $model->save();
+
+                $vin = Vin::where('vin_number', $request->vin_number)->first();
+
+                return $this->showOne($vin);
+            }
+        }        
     }
 }

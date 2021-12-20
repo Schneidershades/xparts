@@ -5073,6 +5073,48 @@
                 ]
             }
         },
+        "/api/v1/shared/check-part-vin-price-estimates": {
+            "post": {
+                "tags": [
+                    "Shared"
+                ],
+                "summary": "checkVin",
+                "description": "checkVin",
+                "operationId": "checkVin",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePartVinPriceEstimateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/shared/part-grade": {
             "get": {
                 "tags": [
@@ -7309,6 +7351,14 @@
                         "example": "5TDZA22C14S086770"
                     }
                 },
+                "type": "object"
+            },
+            "StorePartVinPriceEstimateRequest": {
+                "title": "VIN Checker Form Request Fields",
+                "description": "VIN Checker Form request body data",
+                "required": [
+                    "email"
+                ],
                 "type": "object"
             },
             "StoreFcmPushSubscriptionRequest": {
