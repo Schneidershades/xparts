@@ -102,5 +102,6 @@ Route::prefix('v1')->group(function () {
 
 	Route::get('process-all-orders', 'Api\Test\TestController@quoteProcessing');
 	// Route::get('process-all-vins', 'Api\Test\TestController@processVins');
+	Route::get('capitalize', 'Api\Test\TestController@capitalizeAllPartsAndVins');
 });
 

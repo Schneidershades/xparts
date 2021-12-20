@@ -9,6 +9,8 @@ use Illuminate\Support\Arr;
 use App\Models\XpartRequest;
 use App\Events\VendorQuoteSent;
 use App\Http\Controllers\Controller;
+use App\Models\Part;
+use App\Models\Vin;
 
 class TestController extends Controller
 {
@@ -55,5 +57,22 @@ class TestController extends Controller
             }
         }
         
+    }
+
+    public function capitalizeAllPartsAndVins()
+    {
+        $vins =  Vin::all();
+
+        foreach($vins as $vin){
+            $vin->vin_number =  strtoupper($vin->vin_number);
+            $vin->save(); 
+        }
+
+        $parts =  Part::all();
+
+        foreach($parts as $part){
+            $part->name =  strtoupper($part->name);
+            $part->save(); 
+        }
     }
 }

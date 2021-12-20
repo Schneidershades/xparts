@@ -4,6 +4,16 @@ namespace App\Http\Requests\Shared;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *      title="VIN Checker Form Request Fields",
+ *      description="VIN Checker Form request body data",
+ *      type="object",
+ *      required={"email"}
+ * )
+ */
+
+
 class StorePartVinPriceEstimateRequest extends FormRequest
 {
     /**
