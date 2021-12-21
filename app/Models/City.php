@@ -37,6 +37,6 @@ class City extends Model
 
     public function cityDeliveryRate()
     {
-        return $this->morphMany(DeliveryRate::class, 'destinatable');
+        return $this->morphOne(DeliveryRate::class, 'destinatable');
     }
 }
