@@ -13,9 +13,30 @@ use Illuminate\Foundation\Http\FormRequest;
  * )
  */
 
-
 class StorePartVinPriceEstimateRequest extends FormRequest
 {
+    /**
+     * @OA\Property(
+     *      title="part_name",
+     *      description="part_name",
+     *      example="seatbelt holder"
+     * )
+     *
+     * @var string
+     */
+    public $part_name;
+
+    /**
+     * @OA\Property(
+     *      title="vin_number",
+     *      description="vin_number",
+     *      example="489333398493333XXX"
+     * )
+     *
+     * @var string
+     */
+    public $vin_number;
+
     /**
      * Determine if the user is authorized to make this request.
      *

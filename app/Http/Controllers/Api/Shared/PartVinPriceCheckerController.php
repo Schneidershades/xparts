@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api\Shared;
 
 use App\Models\Part;
-use App\Http\Controllers\Controller;
 use App\Models\Quote;
 use App\Models\XpartRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Shared\StorePartVinPriceEstimateRequest;
 
 class PartVinPriceCheckerController extends Controller
 {
