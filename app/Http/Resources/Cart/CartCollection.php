@@ -34,7 +34,7 @@ class CartCollection extends ResourceCollection
 
                 'discount' => 0,
 
-                'delivery_fee' => 'Select you delivery address',
+                'delivery_fee' => 'Select your delivery address',
                 
                 'cartCount' => CartResource::collection(auth()->user()->cart)->count(),
             ],
