@@ -71,6 +71,7 @@ class TestController extends Controller
 
         foreach($parts as $part){
             $part->name =  strtoupper($part->name);
+            $part->admin_attention = false;
             $part->save(); 
         }
     }
