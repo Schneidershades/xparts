@@ -80,7 +80,7 @@ class DeliveryRateCreateFormRequest extends FormRequest
         return [
             'type' => 'required',
             'destinatable_id' => 'nullable|int',
-            'destinatable_tyoe' => 'nullable|string|max:255|in:states,cites,countries',
+            'destinatable_type' => 'nullable|string|max:255|in:states,cites,countries',
             'amount' => 'required|numeric|min:1',
         ];
     }
