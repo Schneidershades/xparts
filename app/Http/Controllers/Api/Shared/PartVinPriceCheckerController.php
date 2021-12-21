@@ -47,7 +47,7 @@ class PartVinPriceCheckerController extends Controller
     {
         $part_name = $request['part_name'];
 
-        $part = Part::where('part_name', $part_name)->first();  
+        $part = Part::where('name', $part_name)->first();  
         
         $xpartRequests = XpartRequest::where('part_id', $part->id)->pluck('id')->toArray();
 
