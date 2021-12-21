@@ -51,6 +51,8 @@ class PartVinPriceCheckerController extends Controller
         
         $xpartRequests = XpartRequest::where('part_id', $part->id)->pluck('id')->toArray();
 
+        return count($xpartRequests);
+
         if(count($xpartRequests) < 1){
             return $this->showMessage('we have no estimated price range for this part at the moment');
         }
