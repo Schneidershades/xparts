@@ -120,7 +120,6 @@ class OrderController extends Controller
             ->where('gateway', $request['payment_gateway'])
             ->first();
 
-        // address id
         $address =  Address::where('id', $request['address_id'])->first();
 
         if($address->city_id){
@@ -139,7 +138,6 @@ class OrderController extends Controller
             $deliverySetting = DeliveryRate::where('type', 'flat')->first();
         }
 
-        
         if ($deliverySetting) {
             $fee = $fee + $deliverySetting->amount;
             $deliveryFee = $deliverySetting->amount;
