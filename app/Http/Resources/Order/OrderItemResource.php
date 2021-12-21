@@ -25,18 +25,6 @@ class OrderItemResource extends JsonResource
                 'status' => $this->itemable?->status,
                 'price' => $this->itemable?->markup_price,
                 'total' => $this->itemable ? $this->itemable?->markup_price : 0 * $this->quantity,
-                
-                // 'brand' => $this->itemable ? $this->itemable->brand : 'N/A',
-                // 'part_number' => $this->itemable ? $this->itemable->part_number : 'N/A',
-                // 'vendor_id' => $this->itemable ? $this->itemable->vendor_id : 'N/A',
-                // 'measurement' => $this->itemable ? $this->itemable->measurement : null,
-                // 'available_stock' => $this->itemable ? $this->itemable->quantity : null,
-                // 'make' => $this->itemable ? $this->itemable->xpartRequest->vin->make : null,
-                // 'model' => $this->itemable ?  $this->itemable->xpartRequest->vin->model : null,
-                // 'year' => $this->itemable ?  $this->itemable->xpartRequest->vin->model_year : null, 
-                // 'status' => $this->itemable ? $this->itemable->status : 'N/A',
-                // 'price' => $this->itemable ? $this->itemable->markup_price : 'N/A',
-                // 'total' => $this->itemable ? $this->itemable->markup_price : 0 * $this->quantity,
             // ]),
 
             'receipt_number' => $this->receipt_number ? $this->receipt_number : null,
