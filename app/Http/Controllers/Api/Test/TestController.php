@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Test;
 
+use Carbon\Carbon;
 use App\Models\Vin;
 use App\Models\Part;
 use App\Models\User;
@@ -83,11 +84,12 @@ class TestController extends Controller
     public function giveVendorsBidRequest()
     {
         $xpartRequests = XpartRequest::where('status', 'active')
-            ->whereDate('created_at', '<', now()->subDays(2)->setTime(0, 0, 0)->toDateTimeString())
+            ->whereDate('created_at', '<', Carbon::now()->subDays(1))
             ->get();
 
+        $users = User::role('Vendor')->get(); 
+
         foreach($xpartRequests as $xpartRequest){
-            $users = User::role('Vendor')->get(); 
 
             collect($users)->each(function ($user) use ($xpartRequest) {
                 if($xpartRequest->status == 'active'){
