@@ -97,11 +97,17 @@ class TestController extends Controller
                     $watch = XpartRequestVendorWatch::where('xpart_request_id', $xpartRequest->id)
                         ->where('vendor_id', $user['id'])->first();
 
+                    $watch->created_at = $xpartRequest->created_at;
+                    $watch->updated_at = $xpartRequest->updated_at;
+                    $watch->save();
+
                     if($watch == null){
                         XpartRequestVendorWatch::create([
                             'xpart_request_id' => $xpartRequest->id,
                             'vendor_id' => $user['id'],
-                            'status' => 'active'
+                            'status' => 'active',
+                            'created_at' => $xpartRequest->created_at,
+                            'updated_at' => $xpartRequest->updated_at
                         ]);
 
                         // SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
