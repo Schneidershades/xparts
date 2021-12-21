@@ -137,9 +137,8 @@ class XpartRequestController extends Controller
                 }
             }
         }
-        
 
-        if (auth()->user()->email === 'schneider@fixit45.com'){
+        if (auth()->user()->email === 'schneider@fixit45.com' || auth()->user()->email === 'az@fixit45.com'){
             return $this->showOne($xpartRequest);
         }
 
