@@ -68,7 +68,7 @@ class PartVinPriceCheckerController extends Controller
         if(count($quote_prices) > 1){
             $minPrice = min($quote_prices);
             $maxPrice = max($quote_prices);
-            return $this->showMessage('Price estimated starts from ' . $minPrice . ' - ' . $maxPrice);
+            return $this->showMessage('Price range starts from ₦' . $minPrice . ' - ₦' . $maxPrice);
         }        
     }
 }
