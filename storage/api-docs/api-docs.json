@@ -7383,6 +7383,20 @@
                 "required": [
                     "email"
                 ],
+                "properties": {
+                    "part_name": {
+                        "title": "part_name",
+                        "description": "part_name",
+                        "type": "string",
+                        "example": "seatbelt holder"
+                    },
+                    "vin_number": {
+                        "title": "vin_number",
+                        "description": "vin_number",
+                        "type": "string",
+                        "example": "489333398493333XXX"
+                    }
+                },
                 "type": "object"
             },
             "StoreFcmPushSubscriptionRequest": {
