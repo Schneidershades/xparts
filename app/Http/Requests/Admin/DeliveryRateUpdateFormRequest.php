@@ -28,6 +28,28 @@ class DeliveryRateUpdateFormRequest extends FormRequest
 
     /**
      * @OA\Property(
+     *      title="destinatable_id",
+     *      description="destinatable_id of deliveryRates",
+     *      example="flat"
+     * )
+     *
+     * @var int
+     */
+    private $destinatable_id;
+
+    /**
+     * @OA\Property(
+     *      title="destinatable_type",
+     *      description="destinatable_type of deliveryRates",
+     *      example="flat"
+     * )
+     *
+     * @var string
+     */
+    private $destinatable_type;
+
+    /**
+     * @OA\Property(
      *      title="Min Value",
      *      description="Minimum Value of the Price",
      *      example="100000.00"
@@ -56,6 +78,8 @@ class DeliveryRateUpdateFormRequest extends FormRequest
     {
         return [
             'type' => 'required',
+            'destinatable_id' => 'nullable|int',
+            'destinatable_tyoe' => 'nullable|string|max:255|in:states,cites,countries',
             'amount' => 'required|numeric|min:1',
         ];
     }
