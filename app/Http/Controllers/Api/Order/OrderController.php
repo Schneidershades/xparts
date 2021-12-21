@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Controllers\Api\Order;
 
 use Carbon\Carbon;
 use App\Models\Order;
@@ -21,7 +21,6 @@ use App\Models\XpartRequestVendorWatch;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
-use App\Models\Address;
 use App\Models\User;
 
 class OrderController extends Controller
@@ -119,26 +118,9 @@ class OrderController extends Controller
         $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])
             ->where('gateway', $request['payment_gateway'])
             ->first();
+            
 
-        // address id
-        $address =  Address::where('id', $request['address_id'])->first();
-
-        if($address->city_id){
-            $deliverySetting = DeliveryRate::where('destinatable_id', $address->city_id)
-                                ->where('destinatable_id', 'cities')
-                                ->first();
-        }elseif($address->state_id){
-            $deliverySetting = DeliveryRate::where('destinatable_id', $address->state_id)
-                                ->where('destinatable_type', 'states')
-                                ->first();
-        }elseif($address->country_id){
-            $deliverySetting = DeliveryRate::where('destinatable_id', $address->country_id)
-                                ->where('destinatable_type', 'countries')
-                                ->first();
-        }else{
-            $deliverySetting = DeliveryRate::where('type', 'flat')->first();
-        }
-
+        $deliverySetting = DeliveryRate::where('type', 'flat')->first();
         
         if ($deliverySetting) {
             $fee = $fee + $deliverySetting->amount;
