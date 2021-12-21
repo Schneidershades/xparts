@@ -55,7 +55,7 @@ class StorePartVinPriceEstimateRequest extends FormRequest
     public function rules()
     {
         return [
-            'part_name' => 'required|integer',
+            'part_name' => 'required|string',
             'vin_number' => 'nullable|string',
         ];
     }
