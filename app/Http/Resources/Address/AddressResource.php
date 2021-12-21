@@ -25,7 +25,7 @@ class AddressResource extends JsonResource
             'country' => $this->country ? $this->country->name : 'N/A',
             'postal_code' => $this->postal_code,
             'default' => $this->primary_address ? true : false,
-            'delivery_rate' => $this->city->cityDeliveryRate,
+            'delivery_rate' => $this->city,
 
             // $this->mergeWhen($this->state->stateDeliveryRate != null && $this->city->cityDeliveryRate != null, [
             //     'delivery_rate' => $this->city->cityDeliveryRate?->amount,
