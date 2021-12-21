@@ -35,7 +35,7 @@ class City extends Model
         return $this->belongsto(Country::class);
     }
 
-    public function cityDeliveryRate()
+    public function rate()
     {
         return $this->morphOne(DeliveryRate::class, 'destinatable');
     }
