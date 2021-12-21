@@ -17,6 +17,8 @@ class DeliveryRateResource extends JsonResource
         return [
             'id' => $this->id,
             'type' => $this->type,
+            'destinatable_id' => $this->destinatable_id,
+            'destinatable_type' => $this->destinatable_type,
             'amount' => $this->amount,
         ];
     }
