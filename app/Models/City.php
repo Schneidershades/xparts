@@ -34,4 +34,9 @@ class City extends Model
     {
         return $this->belongsto(Country::class);
     }
+
+    public function cityDeliveryRate()
+    {
+        return $this->hasOne(DeliveryRate::class, 'destinatable');
+    }
 }

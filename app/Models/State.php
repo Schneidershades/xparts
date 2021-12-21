@@ -26,4 +26,9 @@ class State extends Model
     {
         return $this->hasMany(City::class);
     }
+
+    public function stateDeliveryRate()
+    {
+        return $this->hasOne(DeliveryRate::class, 'destinatable');
+    }
 }

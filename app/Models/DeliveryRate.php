@@ -15,4 +15,9 @@ class DeliveryRate extends Model
 
     public $oneItem = DeliveryRateResource::class;
     public $allItems = DeliveryRateCollection::class;
+
+    public function destinatable()
+    {
+        return $this->morphTo();
+    }
 }

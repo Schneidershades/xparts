@@ -51,4 +51,11 @@ class Address extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function flatDeliveryRate()
+    {
+        return $this->hasOne(DeliveryRate::class)
+                ->where('destinatable_id', $this->city_id)
+                ->where('destinatable_type', 'cities');
+    }
 }
