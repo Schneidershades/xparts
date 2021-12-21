@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api\Order;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Quote;
 use App\Models\Wallet;
 use App\Jobs\SendEmail;
+use App\Models\Address;
 use App\Models\OrderItem;
+use App\Mail\User\OrderMail;
 use App\Models\DeliveryRate;
 use App\Models\XpartRequest;
 use App\Models\PaymentCharge;
@@ -21,7 +24,6 @@ use App\Models\XpartRequestVendorWatch;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
-use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -118,10 +120,25 @@ class OrderController extends Controller
         $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])
             ->where('gateway', $request['payment_gateway'])
             ->first();
-            
-
-        $deliverySetting = DeliveryRate::where('type', 'flat')->first();
         
+        $address =  Address::where('id', $request['address_id'])->first();
+
+        if($address->city_id){
+            $deliverySetting = DeliveryRate::where('destinatable_id', $address->city_id)
+                                ->where('destinatable_id', 'cities')
+                                ->first();
+        }elseif($address->state_id){
+            $deliverySetting = DeliveryRate::where('destinatable_id', $address->state_id)
+                                ->where('destinatable_type', 'states')
+                                ->first();
+        }elseif($address->country_id){
+            $deliverySetting = DeliveryRate::where('destinatable_id', $address->country_id)
+                                ->where('destinatable_type', 'countries')
+                                ->first();
+        }else{
+            $deliverySetting = DeliveryRate::where('type', 'flat')->first();
+        }
+
         if ($deliverySetting) {
             $fee = $fee + $deliverySetting->amount;
             $deliveryFee = $deliverySetting->amount;
