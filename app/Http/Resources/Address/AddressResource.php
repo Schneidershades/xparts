@@ -27,20 +27,20 @@ class AddressResource extends JsonResource
             'default' => $this->primary_address ? true : false,
 
             $this->mergeWhen($this->stateDeliveryRate && $this->cityDeliveryRate, [
-                'delivery_rate' => $this->cityDeliveryRate->amount,
+                'delivery_rate' => $this->city->cityDeliveryRate->amount,
             ]),
 
             $this->mergeWhen($this->stateDeliveryRate != null && $this->cityDeliveryRate == null, [
-                'delivery_rate' => $this->stateDeliveryRate->amount,
+                'delivery_rate' => $this->state->stateDeliveryRate->amount,
             ]),
 
             $this->mergeWhen($this->stateDeliveryRate == null && $this->cityDeliveryRate != null, [
-                'delivery_rate' => $this->cityDeliveryRate->amount,
+                'delivery_rate' => $this->city->cityDeliveryRate->amount,
             ]),
 
-            $this->mergeWhen($this->stateDeliveryRate == null && $this->cityDeliveryRate == null, [
-                'delivery_rate' => $this->cityDeliveryRate->amount,
-            ]),
+            // $this->mergeWhen($this->stateDeliveryRate == null && $this->cityDeliveryRate == null, [
+            //     'delivery_rate' => $this->city->cityDeliveryRate->amount,
+            // ]),
 
         ];
     }
