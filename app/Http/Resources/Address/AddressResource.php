@@ -20,21 +20,21 @@ class AddressResource extends JsonResource
             'postal_code' => $this->postal_code,
             'default' => $this->primary_address ? true : false,
 
-            $this->mergeWhen($this->state->rate != null && $this->city->rate != null, [
-                'delivery_rate' => $this->city->rate?->amount,
-            ]),
+            // $this->mergeWhen($this->state->rate != null && $this->city->rate != null, [
+            //     'delivery_rate' => $this->city->rate?->amount,
+            // ]),
 
-            $this->mergeWhen($this->state->rate != null || $this->city->rate == null, [
-                'delivery_rate' => $this->state->rate?->amount,
-            ]),
+            // $this->mergeWhen($this->state->rate != null || $this->city->rate == null, [
+            //     'delivery_rate' => $this->state->rate?->amount,
+            // ]),
 
             $this->mergeWhen($this->state->rate == null || $this->city->rate != null, [
                 'delivery_rate' => $this->city->rate?->amount,
             ]),
 
-            $this->mergeWhen($this->state->rate == null && $this->city->rate == null, [
-                'delivery_rate' => $this->city->flatRate()?->amount,
-            ]),
+            // $this->mergeWhen($this->state->rate == null && $this->city->rate == null, [
+            //     'delivery_rate' => $this->city->flatRate()?->amount,
+            // ]),
 
         ];
     }
