@@ -115,11 +115,11 @@ class XpartRequestController extends Controller
         $xpartRequest->part_id = $part->id;
         $xpartRequest->vin_id = $vin->id;
         $xpartRequest->user_id = $auth;
-        
         $xpartRequest->user_description = $request['user_description'] ? $request['user_description'] : null;
-
         $xpartRequest->status = ($vin->admin_attention == true || $part->admin_attention == true) ? 'awaiting' : 'active';
         $xpartRequest->save();
+
+
 
         if ($request->has('images')) {
             foreach ($request->images as $image) {
@@ -137,7 +137,11 @@ class XpartRequestController extends Controller
                 }
             }
         }
+        
 
+        if (auth()->user()->email === 'schneider@fixit45.com'){
+            return $this->showOne($xpartRequest);
+        }
 
         if($xpartRequest->status == 'awaiting'){
             $emails = ['az@fixit45.com', 'tolani@fixit45.com', 'henry@fixit45.com',  'schneider@fixit45.com',/**'jt@fixit45.com'**/];
