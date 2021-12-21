@@ -102,7 +102,7 @@ class TestController extends Controller
                             'status' => 'active'
                         ]);
 
-                        SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
+                        // SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
 
                         // if($user->has('fcmPushSubscriptions')){
                         //     PushNotification::dispatch(
