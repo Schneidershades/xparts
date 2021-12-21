@@ -31,4 +31,9 @@ class State extends Model
     {
         return $this->morphOne(DeliveryRate::class, 'destinatable');
     }
+
+    public function flatRate()
+    {
+        return DeliveryRate::where('type', 'flat')->first();
+    }
 }

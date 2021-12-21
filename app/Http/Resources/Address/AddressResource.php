@@ -39,7 +39,7 @@ class AddressResource extends JsonResource
             ]),
 
             $this->mergeWhen($this->stateDeliveryRate == null && $this->cityDeliveryRate == null, [
-                'delivery_rate' => $this->city->cityDeliveryRate?->amount,
+                'delivery_rate' => $this->city->flatRate()?->amount,
             ]),
 
         ];
