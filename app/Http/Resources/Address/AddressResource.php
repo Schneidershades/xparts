@@ -30,17 +30,17 @@ class AddressResource extends JsonResource
                 'delivery_rate' => $this->city->cityDeliveryRate?->amount,
             ]),
 
-            $this->mergeWhen($this->stateDeliveryRate != null && $this->cityDeliveryRate == null, [
-                'delivery_rate' => $this->state->stateDeliveryRate?->amount,
-            ]),
+            // $this->mergeWhen($this->stateDeliveryRate != null && $this->cityDeliveryRate == null, [
+            //     'delivery_rate' => $this->state->stateDeliveryRate?->amount,
+            // ]),
 
-            $this->mergeWhen($this->stateDeliveryRate == null && $this->cityDeliveryRate != null, [
-                'delivery_rate' => $this->city->cityDeliveryRate?->amount,
-            ]),
+            // $this->mergeWhen($this->stateDeliveryRate == null && $this->cityDeliveryRate != null, [
+            //     'delivery_rate' => $this->city->cityDeliveryRate?->amount,
+            // ]),
 
-            $this->mergeWhen($this->stateDeliveryRate == null && $this->cityDeliveryRate == null, [
-                'delivery_rate' => $this->city->flatRate()?->amount,
-            ]),
+            // $this->mergeWhen($this->stateDeliveryRate == null && $this->cityDeliveryRate == null, [
+            //     'delivery_rate' => $this->city->flatRate()?->amount,
+            // ]),
 
         ];
     }
