@@ -84,7 +84,7 @@ class TestController extends Controller
     public function giveVendorsBidRequest()
     {
         $xpartRequests = XpartRequest::where('status', 'active')
-            ->whereDate('created_at', '<', Carbon::now()->subDays(1))
+            ->where('created_at', '>', Carbon::now()->subDays(1))
             ->get();
 
         $users = User::role('Vendor')->get(); 
