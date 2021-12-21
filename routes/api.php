@@ -30,7 +30,7 @@ Route::prefix('v1')->group(function () {
 
 	Route::group(['prefix' => 'shared', 'namespace' => 'Api\Shared'], function(){
 		Route::post('check-vin', 'VinCheckerController');
-		Route::post('check-part-vin-price-estimates', 'VinCheckerController');
+		Route::post('check-part-vin-price-estimates', 'PartVinPriceCheckerController');
 		Route::get('pages/{slug}', 'PageController');
 		Route::Resource('banks', 'BankController');
 		Route::Resource('bank-details', 'BankDetailController')->middleware('auth:api');
