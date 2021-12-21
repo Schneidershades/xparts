@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Controllers\Api\Order;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Quote;
 use App\Models\Wallet;
 use App\Jobs\SendEmail;
+use App\Models\Address;
 use App\Models\OrderItem;
+use App\Mail\User\OrderMail;
 use App\Models\DeliveryRate;
 use App\Models\XpartRequest;
 use App\Models\PaymentCharge;
@@ -21,8 +24,6 @@ use App\Models\XpartRequestVendorWatch;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
-use App\Models\Address;
-use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -119,7 +120,7 @@ class OrderController extends Controller
         $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])
             ->where('gateway', $request['payment_gateway'])
             ->first();
-
+        
         $address =  Address::where('id', $request['address_id'])->first();
 
         if($address->city_id){
