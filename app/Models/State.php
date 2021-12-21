@@ -29,6 +29,6 @@ class State extends Model
 
     public function stateDeliveryRate()
     {
-        return $this->hasOne(DeliveryRate::class, 'destinatable');
+        return $this->morphMany(DeliveryRate::class, 'destinatable');
     }
 }
