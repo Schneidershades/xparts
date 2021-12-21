@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Api\Test;
 
+use App\Models\Vin;
+use App\Models\Part;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Quote;
+use App\Jobs\SendEmail;
 use App\Models\XpartRequest;
+use App\Jobs\PushNotification;
 use App\Events\VendorQuoteSent;
+use App\Mail\User\XpartRequestMail;
 use App\Http\Controllers\Controller;
-use App\Models\Part;
-use App\Models\Vin;
+use App\Models\XpartRequestVendorWatch;
 
 class TestController extends Controller
 {
@@ -74,5 +78,42 @@ class TestController extends Controller
             $part->admin_attention = false;
             $part->save(); 
         }
+    }
+
+    public function giveVendorsBidRequest()
+    {
+        $xpartRequest = XpartRequest::where('status', 'active')
+            ->whereDate('created_at', '<', now()->subDays(2)->setTime(0, 0, 0)->toDateTimeString())
+            ->get();
+
+        $users = User::role('Vendor')->get(); 
+
+        collect($users)->each(function ($user) use ($xpartRequest) {
+            if($xpartRequest->status == 'active'){
+
+                $watch = XpartRequestVendorWatch::where('xpart_request_id', $xpartRequest->id)
+                    ->where('vendor_id', $user['id'])->first();
+
+                if($watch == null){
+                    XpartRequestVendorWatch::create([
+                        'xpart_request_id' => $xpartRequest->id,
+                        'vendor_id' => $user['id'],
+                        'status' => 'active'
+                    ]);
+
+                    SendEmail::dispatch($user['email'], new XpartRequestMail($xpartRequest, $user))->onQueue('emails')->delay(5);
+
+                    // if($user->has('fcmPushSubscriptions')){
+                    //     PushNotification::dispatch(
+                    //         $xpartRequest, 
+                    //         $xpartRequest->id, 
+                    //         $user, 
+                    //         'New Xpart Request', 
+                    //         'A new xpart request has been created'
+                    //     )->delay(5);
+                    // }
+                }                
+            } 
+        });
     }
 }
