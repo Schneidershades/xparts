@@ -78,10 +78,10 @@ class DeliveryRateController extends Controller
     */
     public function store(DeliveryRateCreateFormRequest $request)
     {
-        $count = DeliveryRate::all()->count();
-        if($count > 1){
-            return $this->errorResponse('You cannot create any further. Kindly edit the one available', 409);
-        }
+        // $count = DeliveryRate::all()->count();
+        // if($count > 1){
+        //     return $this->errorResponse('You cannot create any further. Kindly edit the one available', 409);
+        // }
         return $this->showOne(DeliveryRate::create($request->validated()));
     }
 
