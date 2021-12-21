@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::group(['prefix' => 'auth', 'namespace' => 'Api\Auth'], function(){
-
 		Route::post('register', 'UserController@register');
     	Route::post('login', 'UserController@login');
     	Route::post('logout', 'UserController@logout');
@@ -12,12 +11,8 @@ Route::prefix('v1')->group(function () {
         Route::post('update', 'UserController@updateUser')->middleware('auth:api');
         Route::post('refresh/token', 'UserController@refresh');
         Route::post('change/password', 'ChangePasswordController')->middleware('auth:api');
-
-        // Route::post('update', 'ForgotPasswordController@updateUser')->middleware('auth:api');
-
 		Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
 		Route::post('/password/reset', 'ResetPasswordController@reset');
-		
 		Route::get('/email/resend', 'VerificationController@resend')->name('verification.resend');
 		Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
 	});

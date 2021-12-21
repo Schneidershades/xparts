@@ -6466,6 +6466,18 @@
                         "type": "string",
                         "example": "flat"
                     },
+                    "destinatable_id": {
+                        "title": "destinatable_id",
+                        "description": "destinatable_id of deliveryRates",
+                        "type": "integer",
+                        "example": "flat"
+                    },
+                    "destinatable_type": {
+                        "title": "destinatable_type",
+                        "description": "destinatable_type of deliveryRates",
+                        "type": "string",
+                        "example": "flat"
+                    },
                     "amount": {
                         "title": "Min Value",
                         "description": "Minimum Value of the Price",
@@ -6485,6 +6497,18 @@
                     "type": {
                         "title": "type",
                         "description": "Type of deliveryRates",
+                        "type": "string",
+                        "example": "flat"
+                    },
+                    "destinatable_id": {
+                        "title": "destinatable_id",
+                        "description": "destinatable_id of deliveryRates",
+                        "type": "integer",
+                        "example": "flat"
+                    },
+                    "destinatable_type": {
+                        "title": "destinatable_type",
+                        "description": "destinatable_type of deliveryRates",
                         "type": "string",
                         "example": "flat"
                     },

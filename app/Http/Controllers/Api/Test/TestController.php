@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\Test;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Quote;
-use Illuminate\Support\Arr;
 use App\Models\XpartRequest;
 use App\Events\VendorQuoteSent;
 use App\Http\Controllers\Controller;
@@ -72,6 +71,7 @@ class TestController extends Controller
 
         foreach($parts as $part){
             $part->name =  strtoupper($part->name);
+            $part->admin_attention = false;
             $part->save(); 
         }
     }

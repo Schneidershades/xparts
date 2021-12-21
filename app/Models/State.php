@@ -26,4 +26,14 @@ class State extends Model
     {
         return $this->hasMany(City::class);
     }
+
+    public function rate()
+    {
+        return $this->morphOne(DeliveryRate::class, 'destinatable');
+    }
+
+    public function flatRate()
+    {
+        return DeliveryRate::where('type', 'flat')->first();
+    }
 }
