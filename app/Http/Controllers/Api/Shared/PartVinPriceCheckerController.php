@@ -57,7 +57,7 @@ class PartVinPriceCheckerController extends Controller
             return $this->showMessage('we have no estimated price range for this part at the moment');
         }
 
-        $getRelatedCarMakeIds = Vin::where('make', $vinDetails->make)->pluck('id')->get();
+        $getRelatedCarMakeIds = Vin::where('make', $vinDetails->make)->pluck('id')->toArray();
         
         $xpartRequests = XpartRequest::where('part_id', $part->id)->whereIn('vin_id', $getRelatedCarMakeIds)->pluck('id')->toArray();
 
