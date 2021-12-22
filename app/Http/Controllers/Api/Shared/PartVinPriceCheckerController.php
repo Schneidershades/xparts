@@ -51,18 +51,20 @@ class PartVinPriceCheckerController extends Controller
 
         $part = Part::where('name', $part_name)->first();  
 
-        $vin = Vin::where('vin_number', $vin_number)->first();
+        $vinDetails = Vin::where('vin_number', $vin_number)->first();
 
-        if(!$part){
+        if(!$part && !$vinDetails){
             return $this->showMessage('we have no estimated price range for this part at the moment');
         }
+
+        $getRelatedCarMakeIds = Vin::where('make', $vinDetails->make)->pluck('id')->get();
         
-        $xpartRequests = XpartRequest::where('part_id', $part->id)->pluck('id')->toArray();
+        $xpartRequests = XpartRequest::where('part_id', $part->id)->whereIn('vin_id', $getRelatedCarMakeIds)->pluck('id')->toArray();
 
         $quote_prices = Quote::whereIn('xpart_request_id', $xpartRequests)->pluck('markup_price')->toArray();
 
         if(count($quote_prices) == 1){
-            return $this->showMessage('Price ranges from ₦' . number_format($quote_prices[0], 2, '.', ','));
+            return $this->showMessage('Price starts from ₦' . number_format($quote_prices[0], 2, '.', ','));
         }
 
         if(count($quote_prices) > 1){
