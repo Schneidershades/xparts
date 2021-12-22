@@ -11,66 +11,67 @@ class FirebaseNotification
 {
     public function sendPushNotification($notification, $notificationKey, $user, $title, $body)
     {
-        // $token = "AAAAPRMsxW8:APA91bEy2IxbBmgsXdPIw_tnf95bOtN8XI4rMU_SOUjbP1EGo2pCNvJ3LE5Yo8rgR5-7kUvnnf7lA3rxSNjvq56PPYuySZA7-oulbynmx7lERVbDOpvZOWcffW-J0P_blNcuEWNAT345";  
+        $token = "AAAAPRMsxW8:APA91bEy2IxbBmgsXdPIw_tnf95bOtN8XI4rMU_SOUjbP1EGo2pCNvJ3LE5Yo8rgR5-7kUvnnf7lA3rxSNjvq56PPYuySZA7-oulbynmx7lERVbDOpvZOWcffW-J0P_blNcuEWNAT345";  
         // $from = "AIzaSyBwH2ZJh_-ezlR0aw_Y29wS9TQzMYHMF-I";
-        // // $from = "262314706287";
-        // $msg = array(
-        //     // 'user'  => $user,
-        //     'body'  => $body,
-        //     'title' => $title,
-        //     // 'key' => $notificationKey,
-        //     // 'property' => $notification,
-        //     // 'icon'  => "https://image.flaticon.com/icons/png/512/270/270014.png", /*Default Icon*/
-        //     // 'sound' => 'mySound',/*Default sound*/
-        //     // 'id' => $notification->id,
-        //     // 'type_class' => get_class($notification),
-        // );
-
-        // $fields = array(
-        //     'to'        => $user->fcm_token,
-        //     'notification'  => $msg
-        // );
-
-        // $headers = array(
-        //     'Authorization: key=' . $token,
-        //     'Content-Type: application/json',
-        //     'Accept: application/json',
-        // );
-
-        // $ch = curl_init();
-        // curl_setopt( $ch,CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send' );
-        // curl_setopt( $ch,CURLOPT_POST, true );
-        // curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
-        // curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
-        // curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
-        // curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
-        // $result = curl_exec($ch );
-        // ($result);
-        // curl_close( $ch );
-
-        $data = array(
-            'user'  => $user,
-            'key' => $notificationKey,
-            'property' => $notification,
+        // $from = "262314706287";
+        $msg = array(
+            // 'user'  => $user,
+            'body'  => $body,
+            'title' => $title,
+            // 'key' => $notificationKey,
+            // 'property' => $notification,
+            // 'icon'  => "https://image.flaticon.com/icons/png/512/270/270014.png", /*Default Icon*/
+            // 'sound' => 'mySound',/*Default sound*/
+            // 'id' => $notification->id,
+            // 'type_class' => get_class($notification),
         );
 
-        $optionBuilder = new OptionsBuilder();
-        $optionBuilder->setTimeToLive(60*20);
+        $fields = array(
+            'registration_ids'  => $user->fcmPushSubscriptions->pluck('fcm_token')->toArray(),
+            // 'to'                => $user->fcm_token,
+            'notification'      => $msg
+        );
 
-        $notificationBuilder = new PayloadNotificationBuilder($title);
-        $notificationBuilder->setBody($body)
-                            ->setSound('default');
+        $headers = array(
+            'Authorization: key=' . $token,
+            'Content-Type: application/json',
+            'Accept: application/json',
+        );
 
-        $dataBuilder = new PayloadDataBuilder();
-        $dataBuilder->addData([ 'data' => $data ]);
+        $ch = curl_init();
+        curl_setopt( $ch,CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send' );
+        curl_setopt( $ch,CURLOPT_POST, true );
+        curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+        curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode( $fields ) );
+        $result = curl_exec($ch );
+        ($result);
+        curl_close( $ch );
 
-        $option = $optionBuilder->build();
-        $notification = $notificationBuilder->build();
-        $data = $dataBuilder->build();
+        // $data = array(
+        //     'user'  => $user,
+        //     'key' => $notificationKey,
+        //     'property' => $notification,
+        // );
 
-        $tokens = $user->fcmPushSubscriptions->pluck('fcm_token')->toArray();
+        // $optionBuilder = new OptionsBuilder();
+        // $optionBuilder->setTimeToLive(60*20);
 
-        $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
+        // $notificationBuilder = new PayloadNotificationBuilder($title);
+        // $notificationBuilder->setBody($body)
+        //                     ->setSound('default');
+
+        // $dataBuilder = new PayloadDataBuilder();
+        // $dataBuilder->addData([ 'data' => $data ]);
+
+        // $option = $optionBuilder->build();
+        // $notification = $notificationBuilder->build();
+        // $data = $dataBuilder->build();
+
+        // $tokens = $user->fcmPushSubscriptions->pluck('fcm_token')->toArray();
+
+        // $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 
         // dd($downstreamResponse);
 
