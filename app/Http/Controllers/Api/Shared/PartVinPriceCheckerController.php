@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Shared;
 
+use App\Models\Vin;
 use App\Models\Part;
 use App\Models\Quote;
 use App\Models\XpartRequest;
@@ -46,6 +47,7 @@ class PartVinPriceCheckerController extends Controller
     public function __invoke(StorePartVinPriceEstimateRequest $request)
     {
         $part_name = $request['part_name'];
+        $vin_number = $request['vin_number'];
 
         $part = Part::where('name', $part_name)->first();  
 
