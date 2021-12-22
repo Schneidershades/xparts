@@ -127,4 +127,28 @@ class TestController extends Controller
 
         
     }
+
+    public function giveVendorsBidRequestUpdateWithCreatedAt()
+    {
+        $xpartRequests = XpartRequest::where('status', 'active')
+            ->where('created_at', '>', Carbon::now()->subDays(1))
+            ->get();
+
+        $users = User::role('Vendor')->get(); 
+
+        foreach($xpartRequests as $xpartRequest){
+
+            collect($users)->each(function ($user) use ($xpartRequest) {
+                if($xpartRequest->status == 'active'){
+
+                    $watch = XpartRequestVendorWatch::where('xpart_request_id', $xpartRequest->id)
+                        ->where('vendor_id', $user['id'])->first();
+                    $watch->created_at = $xpartRequest->created_at;
+                    $watch->updated_at = $xpartRequest->updated_at;
+                    $watch->save();
+    
+                } 
+            });
+        }
+    }
 }
