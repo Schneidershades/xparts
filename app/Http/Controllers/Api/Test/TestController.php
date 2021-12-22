@@ -96,7 +96,6 @@ class TestController extends Controller
 
                     $watch = XpartRequestVendorWatch::where('xpart_request_id', $xpartRequest->id)
                         ->where('vendor_id', $user['id'])->first();
-
                     $watch->created_at = $xpartRequest->created_at;
                     $watch->updated_at = $xpartRequest->updated_at;
                     $watch->save();

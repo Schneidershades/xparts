@@ -57,18 +57,18 @@ class PartVinPriceCheckerController extends Controller
 
         $quote_prices = Quote::whereIn('xpart_request_id', $xpartRequests)->pluck('markup_price')->toArray();
 
-        if(count($quote_prices) == 0){
-            return $this->showMessage('we have no estimated price range for this part');
-        }
+        // if(count($quote_prices) == 0){
+        //     return $this->showMessage('we have no estimated price range for this part');
+        // }
 
         if(count($quote_prices) == 1){
-            return $this->showMessage('Price estimated starts from' . $quote_prices[0]);
+            return $this->showMessage('Price ranges from' . $quote_prices[0]);
         }
 
         if(count($quote_prices) > 1){
             $minPrice = min($quote_prices);
             $maxPrice = max($quote_prices);
-            return $this->showMessage('Price estimated starts from ' . $minPrice . ' - ' . $maxPrice);
+            return $this->showMessage('Price ranges from ₦' . $minPrice . ' - ₦' . $maxPrice);
         }        
     }
 }
