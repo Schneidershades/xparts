@@ -75,7 +75,7 @@ class FirebaseNotification
                  
         // $response = curl_exec($ch);
 
-        Log::info('push notification sent successfully');
+        Log::debug('push notification sent successfully');
 
         // $data = array(
         //     'user'  => $user,
