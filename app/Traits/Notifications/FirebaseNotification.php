@@ -58,6 +58,7 @@ class FirebaseNotification
                 "body" => $body,  
             ]
         ];
+        
         $dataString = json_encode($data);
       
         $headers = [
