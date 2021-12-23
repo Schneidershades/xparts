@@ -50,8 +50,6 @@ class FirebaseNotification
         // ($result);
         // curl_close( $ch );
 
-        // Log::debug($user->fcmPushSubscriptions->pluck('fcm_token')->toArray());
-
         $data = [
             "registration_ids" => $user->fcmPushSubscriptions->pluck('fcm_token')->toArray(),
             "notification" => [
