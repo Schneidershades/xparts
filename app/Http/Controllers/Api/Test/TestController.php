@@ -164,6 +164,6 @@ class TestController extends Controller
             $user, 
             'New Xpart Request', 
             'A new xpart request has been created'
-        )->delay(5);
+        )->onQueue('emails')->delay(5);
     }
 }
