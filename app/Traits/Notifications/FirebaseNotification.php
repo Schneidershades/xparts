@@ -15,7 +15,6 @@ class FirebaseNotification
         $token = "AAAAPRMsxW8:APA91bEy2IxbBmgsXdPIw_tnf95bOtN8XI4rMU_SOUjbP1EGo2pCNvJ3LE5Yo8rgR5-7kUvnnf7lA3rxSNjvq56PPYuySZA7-oulbynmx7lERVbDOpvZOWcffW-J0P_blNcuEWNAT345";  
         
         $data = [
-            // "to"=> "f_2yYzCTRYSUAurIMEDe_m:APA91bG9kJwPwhNkcnytFymEvUbpML3IaquQW64sMfz3-qpLyVyWu1QPe5km6Z0n348o8sMYe268YVr3cPs9h0YEzz_-rnF9atM9_ldByw9GT5vqw3Dy11FsPdCw9XSs_T9_izsIMsQ1",
             "registration_ids" => $user->fcmPushSubscriptions->pluck('fcm_token')->toArray(),
             "notification" => [
                 "title" => $title,
