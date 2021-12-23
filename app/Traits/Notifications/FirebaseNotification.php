@@ -50,30 +50,30 @@ class FirebaseNotification
         // ($result);
         // curl_close( $ch );
 
-        $data = [
-            "registration_ids" => $user->fcmPushSubscriptions->pluck('fcm_token')->toArray(),
-            "notification" => [
-                "title" => $title,
-                "body" => $body,  
-            ]
-        ];
-        $dataString = json_encode($data);
+        // $data = [
+        //     "registration_ids" => $user->fcmPushSubscriptions->pluck('fcm_token')->toArray(),
+        //     "notification" => [
+        //         "title" => $title,
+        //         "body" => $body,  
+        //     ]
+        // ];
+        // $dataString = json_encode($data);
       
-        $headers = [
-            'Authorization: key=' . $token,
-            'Content-Type: application/json',
-        ];
+        // $headers = [
+        //     'Authorization: key=' . $token,
+        //     'Content-Type: application/json',
+        // ];
       
-        $ch = curl_init();
+        // $ch = curl_init();
         
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+        // curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        // curl_setopt($ch, CURLOPT_POST, true);
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
                  
-        $response = curl_exec($ch);
+        // $response = curl_exec($ch);
 
         Log::info('push notification sent successfully');
 
