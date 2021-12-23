@@ -51,14 +51,14 @@ class FirebaseNotification
         // curl_close( $ch );
 
         $data = [
-            "to"=> "f_2yYzCTRYSUAurIMEDe_m:APA91bG9kJwPwhNkcnytFymEvUbpML3IaquQW64sMfz3-qpLyVyWu1QPe5km6Z0n348o8sMYe268YVr3cPs9h0YEzz_-rnF9atM9_ldByw9GT5vqw3Dy11FsPdCw9XSs_T9_izsIMsQ1",
-            // "registration_ids" => $user->fcmPushSubscriptions->pluck('fcm_token')->toArray(),
+            // "to"=> "f_2yYzCTRYSUAurIMEDe_m:APA91bG9kJwPwhNkcnytFymEvUbpML3IaquQW64sMfz3-qpLyVyWu1QPe5km6Z0n348o8sMYe268YVr3cPs9h0YEzz_-rnF9atM9_ldByw9GT5vqw3Dy11FsPdCw9XSs_T9_izsIMsQ1",
+            "registration_ids" => $user->fcmPushSubscriptions->pluck('fcm_token')->toArray(),
             "notification" => [
                 "title" => $title,
                 "body" => $body,  
             ]
         ];
-        
+
         $dataString = json_encode($data);
       
         $headers = [
