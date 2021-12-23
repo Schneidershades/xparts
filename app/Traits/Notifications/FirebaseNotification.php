@@ -2,6 +2,7 @@
 
 namespace App\Traits\Notifications;
 
+use Illuminate\Support\Facades\Log;
 use LaravelFCM\Facades\FCM;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;

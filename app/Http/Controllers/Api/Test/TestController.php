@@ -156,7 +156,7 @@ class TestController extends Controller
     {
         $xpartRequest = XpartRequest::first();
 
-        $user = User::where('email', 'vendor@xpart.com')->first();
+        $user = User::where('email', 'vendor@xparts.com')->first();
 
         PushNotification::dispatch(
             $xpartRequest, 
