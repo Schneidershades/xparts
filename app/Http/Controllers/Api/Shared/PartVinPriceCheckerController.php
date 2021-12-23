@@ -8,6 +8,7 @@ use App\Models\Quote;
 use App\Models\XpartRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Shared\StorePartVinPriceEstimateRequest;
+use App\Models\PartGrade;
 
 class PartVinPriceCheckerController extends Controller
 {
@@ -62,16 +63,30 @@ class PartVinPriceCheckerController extends Controller
         
         $xpartRequests = XpartRequest::where('part_id', $part->id)->whereIn('vin_id', $getRelatedCarMakeIds)->pluck('id')->toArray();
 
-        $quote_prices = Quote::whereIn('xpart_request_id', $xpartRequests)->pluck('markup_price')->toArray();
+        $partGrades = PartGrade::all();
 
-        if(count($quote_prices) == 1){
-            return $this->showMessage('Price starts from ₦' . number_format($quote_prices[0], 2, '.', ','));
+        $message = "";
+
+        foreach($partGrades as $grade){
+
+            $quote_prices = Quote::where('part_grade_id', $grade->id)
+                                ->whereIn('xpart_request_id', $xpartRequests)
+                                ->pluck('markup_price')
+                                ->toArray();
+
+            if(count($quote_prices) == 1){
+
+                $message .= 'Price range for '. $grade->name .' (₦' . number_format($quote_prices[0], 2, '.', ',') .') \n';
+            }
+
+            if(count($quote_prices) > 1){
+                $minPrice = min($quote_prices);
+                $maxPrice = max($quote_prices);
+
+                $message .= 'Price ranges from '. $grade->name .' (₦' . number_format($minPrice, 2, '.', ',') . ' - ₦' . number_format($maxPrice, 2, '.', ',') .') \n';
+            }    
         }
 
-        if(count($quote_prices) > 1){
-            $minPrice = min($quote_prices);
-            $maxPrice = max($quote_prices);
-            return $this->showMessage('Price ranges from ₦' . number_format($minPrice, 2, '.', ',') . ' - ₦' . number_format($maxPrice, 2, '.', ','));
-        }        
+        return $this->showMessage($message);            
     }
 }
