@@ -151,4 +151,19 @@ class TestController extends Controller
             });
         }
     }
+
+    public function sendPushNotification()
+    {
+        $xpartRequest = XpartRequest::first();
+
+        $user = User::where('email', 'vendor@xpart.com')->first();
+
+        PushNotification::dispatch(
+            $xpartRequest, 
+            $xpartRequest->id, 
+            $user, 
+            'New Xpart Request', 
+            'A new xpart request has been created'
+        )->delay(5);
+    }
 }

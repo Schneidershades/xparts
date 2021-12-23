@@ -47,6 +47,7 @@ class PartVinPriceCheckerController extends Controller
     public function __invoke(StorePartVinPriceEstimateRequest $request)
     {
         $part_name = $request['part_name'];
+        
         $vin_number = $request['vin_number'];
 
         $part = Part::where('name', $part_name)->first();  
