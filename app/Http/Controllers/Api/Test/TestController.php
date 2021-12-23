@@ -154,7 +154,7 @@ class TestController extends Controller
 
     public function sendPushNotification()
     {
-        $xpartRequest = XpartRequest::first();
+        $xpartRequest = XpartRequest::where('id', 1)->first();
 
         $user = User::where('email', 'vendor@xparts.com')->first();
 
