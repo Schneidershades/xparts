@@ -50,30 +50,31 @@ class FirebaseNotification
         // ($result);
         // curl_close( $ch );
 
-        // $data = [
-        //     "registration_ids" => $user->fcmPushSubscriptions->pluck('fcm_token')->toArray(),
-        //     "notification" => [
-        //         "title" => $title,
-        //         "body" => $body,  
-        //     ]
-        // ];
-        // $dataString = json_encode($data);
+        $data = [
+            "to"=> "f_2yYzCTRYSUAurIMEDe_m:APA91bG9kJwPwhNkcnytFymEvUbpML3IaquQW64sMfz3-qpLyVyWu1QPe5km6Z0n348o8sMYe268YVr3cPs9h0YEzz_-rnF9atM9_ldByw9GT5vqw3Dy11FsPdCw9XSs_T9_izsIMsQ1",
+            // "registration_ids" => $user->fcmPushSubscriptions->pluck('fcm_token')->toArray(),
+            "notification" => [
+                "title" => $title,
+                "body" => $body,  
+            ]
+        ];
+        $dataString = json_encode($data);
       
-        // $headers = [
-        //     'Authorization: key=' . $token,
-        //     'Content-Type: application/json',
-        // ];
+        $headers = [
+            'Authorization: key=' . $token,
+            'Content-Type: application/json',
+        ];
       
-        // $ch = curl_init();
+        $ch = curl_init();
         
-        // curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-        // curl_setopt($ch, CURLOPT_POST, true);
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
                  
-        // $response = curl_exec($ch);
+        $response = curl_exec($ch);
 
         Log::debug('push notification sent successfully');
 
