@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Shared;
 
+use App\Models\Vin;
 use App\Models\Part;
 use App\Models\Quote;
 use App\Models\XpartRequest;
@@ -46,29 +47,31 @@ class PartVinPriceCheckerController extends Controller
     public function __invoke(StorePartVinPriceEstimateRequest $request)
     {
         $part_name = $request['part_name'];
+        
+        $vin_number = $request['vin_number'];
 
         $part = Part::where('name', $part_name)->first();  
 
-        if(!$part){
+        $vinDetails = Vin::where('vin_number', $vin_number)->first();
+
+        if(!$part && !$vinDetails){
             return $this->showMessage('we have no estimated price range for this part at the moment');
         }
+
+        $getRelatedCarMakeIds = Vin::where('make', $vinDetails->make)->pluck('id')->toArray();
         
-        $xpartRequests = XpartRequest::where('part_id', $part->id)->pluck('id')->toArray();
+        $xpartRequests = XpartRequest::where('part_id', $part->id)->whereIn('vin_id', $getRelatedCarMakeIds)->pluck('id')->toArray();
 
         $quote_prices = Quote::whereIn('xpart_request_id', $xpartRequests)->pluck('markup_price')->toArray();
 
-        // if(count($quote_prices) == 0){
-        //     return $this->showMessage('we have no estimated price range for this part');
-        // }
-
         if(count($quote_prices) == 1){
-            return $this->showMessage('Price ranges from' . $quote_prices[0]);
+            return $this->showMessage('Price starts from ₦' . number_format($quote_prices[0], 2, '.', ','));
         }
 
         if(count($quote_prices) > 1){
             $minPrice = min($quote_prices);
             $maxPrice = max($quote_prices);
-            return $this->showMessage('Price ranges from ₦' . $minPrice . ' - ₦' . $maxPrice);
+            return $this->showMessage('Price ranges from ₦' . number_format($minPrice, 2, '.', ',') . ' - ₦' . number_format($maxPrice, 2, '.', ','));
         }        
     }
 }
