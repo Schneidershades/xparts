@@ -76,8 +76,11 @@ class PartVinPriceCheckerController extends Controller
 
             if(count($quote_prices) == 1){
 
-                // $message .= 'Price range for '. $grade->name .' (₦' . number_format($quote_prices[0], 2, '.', ',') .')';
-                $message .= 'Price ranges from '. $grade->name .' (₦' . number_format($quote_prices[0], 2, '.', ',') . ' - ₦' . 500 + number_format($quote_prices[0], 2, '.', ',') .') \n';
+                $minPrice = $quote_prices[0];
+                $maxPrice = $quote_prices[0] + 500;
+
+                // $message .= 'Price range for '. $grade->name .' (₦' . number_format($quote_prices[0], 2, '.', ',') .') \n';
+                $message .= 'Price ranges from '. $grade->name .' (₦' . number_format($minPrice, 2, '.', ',') . ' - ₦' . number_format($maxPrice, 2, '.', ',') .') \n';
             }
 
             if(count($quote_prices) > 1){
