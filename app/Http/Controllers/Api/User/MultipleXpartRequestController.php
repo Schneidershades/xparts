@@ -119,7 +119,7 @@ class MultipleXpartRequestController extends Controller
                 }            
             } 
 
-            $users = User::role('Vendor')->get(); 
+            $users = User::role('Vendor')->where('id', '!=', $xpartRequest->user_id)->get(); 
 
             foreach($users as $user){
                 if($xpartRequest->status == 'active'){

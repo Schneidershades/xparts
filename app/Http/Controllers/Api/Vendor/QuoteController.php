@@ -9,6 +9,7 @@ use App\Jobs\SendEmail;
 use App\Models\XpartRequest;
 use Illuminate\Http\Request;
 use App\Models\MarkupPricing;
+use App\Jobs\PushNotification;
 use App\Events\VendorQuoteSent;
 use App\Mail\User\XpartRequestMail;
 use Illuminate\Support\Facades\Log;
@@ -148,6 +149,16 @@ class QuoteController extends Controller
         }
 
         SendEmail::dispatch($requestingUser->email, new VendorQuoteSentMail($xpartRequest, $requestingUser, $model))->onQueue('emails')->delay(5);
+
+        if($requestingUser->has('fcmPushSubscriptions')){
+            PushNotification::dispatch(
+                $xpartRequest, 
+                $xpartRequest->id, 
+                $requestingUser, 
+                'New quote ', 
+                'A new vendor quote has been created to your request'
+            )->delay(5);
+        }
 
         Log::debug('sent mails');
 
