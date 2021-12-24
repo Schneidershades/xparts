@@ -153,7 +153,7 @@ class XpartRequestController extends Controller
         } 
 
 
-        $users = User::role('Vendor')->get(); 
+        $users = User::role('Vendor')->where('id', '!=', $xpartRequest->user_id)->get(); 
 
         collect($users)->each(function ($user) use ($xpartRequest) {
             if($xpartRequest->status == 'active'){

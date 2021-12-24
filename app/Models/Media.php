@@ -10,7 +10,7 @@ use App\Traits\Api\QueryFieldSearchScope;
 
 class Media extends Model
 {
-    use HasFactory, QueryFieldSearchScope;
+    use HasFactory;
 
     protected $fillable = ['uuid', 'file_path', 'fileable_id', 'fileable_type'];
 
