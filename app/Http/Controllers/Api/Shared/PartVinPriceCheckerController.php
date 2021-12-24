@@ -75,19 +75,18 @@ class PartVinPriceCheckerController extends Controller
                                 ->toArray();
 
             if(count($quote_prices) == 1){
-
+                
                 $minPrice = $quote_prices[0];
                 $maxPrice = $quote_prices[0] + 500;
 
-                // $message .= 'Price range for '. $grade->name .' (₦' . number_format($quote_prices[0], 2, '.', ',') .') \n';
-                $message .= 'Price ranges from '. $grade->name .' (₦' . number_format($minPrice, 2, '.', ',') . ' - ₦' . number_format($maxPrice, 2, '.', ',') .') \n';
+                $message .= 'Price ranges for '. $grade->name .' (₦' . number_format($minPrice, 2, '.', ',') . ' - ₦' . number_format($maxPrice, 2, '.', ',') .') \n';
             }
 
             if(count($quote_prices) > 1){
                 $minPrice = min($quote_prices);
                 $maxPrice = max($quote_prices);
 
-                $message .= 'Price ranges from '. $grade->name .' (₦' . number_format($minPrice, 2, '.', ',') . ' - ₦' . number_format($maxPrice, 2, '.', ',') .') \n';
+                $message .= 'Price ranges for '. $grade->name .' (₦' . number_format($minPrice, 2, '.', ',') . ' - ₦' . number_format($maxPrice, 2, '.', ',') .') \n';
             }    
         }
 
