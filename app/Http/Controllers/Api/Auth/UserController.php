@@ -100,7 +100,7 @@ class UserController extends Controller
     public function login(UserLoginFormRequest $request)
     {
         if($request['platform'] == 'mobile'){
-            $myTTL = 9960;
+            $myTTL = 99960;
             JWTAuth::factory()->setTTL($myTTL);
         }
         
