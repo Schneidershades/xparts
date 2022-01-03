@@ -19,11 +19,20 @@ class PartController extends Controller
 
     /**
     * @OA\Get(
-    *      path="/api/v1/admin/parts",
+    *      path="/api/v1/admin/parts?per_page={per_page}",
     *      operationId="allParts",
     *      tags={"Admin"},
     *      summary="getParts",
     *      description="getParts",
+    *      @OA\Parameter(
+    *          name="per_page",
+    *          description="Number per page",
+    *          required=true,
+    *          in="path",
+    *          @OA\Schema(
+    *              type="string"
+    *          )
+    *      ),
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
