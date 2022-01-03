@@ -100,5 +100,6 @@ Route::prefix('v1')->group(function () {
 	Route::get('capitalize', 'Api\Test\TestController@capitalizeAllPartsAndVins');
 	Route::get('send-requests', 'Api\Test\TestController@giveVendorsBidRequest');
 	Route::get('send-push', 'Api\Test\TestController@sendPushNotification');
+	Route::get('fill-quote-parts', 'Api\Test\TestController@partFill');
 });
 

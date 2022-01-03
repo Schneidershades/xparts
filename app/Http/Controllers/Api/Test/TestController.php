@@ -166,4 +166,14 @@ class TestController extends Controller
             'A new xpart request has been created'
         )->onQueue('emails')->delay(5);
     }
+
+    public function partFill()
+    {
+        $quotes = Quote::where('part_id', null)->get;
+
+        foreach($quotes as $quote){
+            $quote->part_id = $quote?->xpartRequest?->part?->id;
+            $quote->save();
+        }        
+    }
 }

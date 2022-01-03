@@ -4,11 +4,19 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Part;
 use App\Http\Controllers\Controller;
+use App\Repositories\Models\PartRepository;
 use App\Http\Requests\Admin\PartCreateFormRequest;
 use App\Http\Requests\Admin\PartUpdateFormRequest;
 
 class PartController extends Controller
 {
+    public $partRepo;
+
+    public function __construct(PartRepository $partRepo)
+    {
+        $this->partRepo = $partRepo;
+    }
+
     /**
     * @OA\Get(
     *      path="/api/v1/admin/parts",
@@ -40,7 +48,7 @@ class PartController extends Controller
     */
     public function index()
     {
-        return $this->showAll(Part::all());
+        return $this->showAll($this->partRepo->all());
     }
 
     /**
