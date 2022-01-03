@@ -67,6 +67,7 @@ Route::prefix('v1')->group(function () {
 	Route::group(['prefix' => 'admin', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function(){
 		Route::Resource('orders', 'OrderController', array("as"=>"userOrders"));
 		Route::Resource('quotes', 'QuoteController', array("as"=>"userQuotes"));
+		Route::Resource('parts', 'PartController', array("as"=>"partList"));
 		Route::Resource('part-specialization', 'PartSpecializationController', array("as"=>"partSpecItems"));
 		Route::Resource('part-grades', 'PartGradeController', array("as"=>"partGradesItems"));
 		Route::Resource('payment-charges', 'PaymentChargeContoller', array("as"=>"paymentCharges"));
@@ -100,5 +101,6 @@ Route::prefix('v1')->group(function () {
 	Route::get('capitalize', 'Api\Test\TestController@capitalizeAllPartsAndVins');
 	Route::get('send-requests', 'Api\Test\TestController@giveVendorsBidRequest');
 	Route::get('send-push', 'Api\Test\TestController@sendPushNotification');
+	Route::get('fill-quote-parts', 'Api\Test\TestController@partFill');
 });
 

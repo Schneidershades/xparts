@@ -18,6 +18,7 @@ class PartResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            'number_of_delivered_quotes' => $this->number_of_delivered_quotes
         ];
     }
 }

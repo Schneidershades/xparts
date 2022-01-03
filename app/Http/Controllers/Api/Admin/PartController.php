@@ -4,18 +4,35 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Part;
 use App\Http\Controllers\Controller;
+use App\Repositories\Models\PartRepository;
 use App\Http\Requests\Admin\PartCreateFormRequest;
 use App\Http\Requests\Admin\PartUpdateFormRequest;
 
 class PartController extends Controller
 {
+    public $partRepo;
+
+    public function __construct(PartRepository $partRepo)
+    {
+        $this->partRepo = $partRepo;
+    }
+
     /**
     * @OA\Get(
-    *      path="/api/v1/admin/parts",
+    *      path="/api/v1/admin/parts?per_page={per_page}",
     *      operationId="allParts",
     *      tags={"Admin"},
     *      summary="getParts",
     *      description="getParts",
+    *      @OA\Parameter(
+    *          name="per_page",
+    *          description="Number per page",
+    *          required=true,
+    *          in="path",
+    *          @OA\Schema(
+    *              type="string"
+    *          )
+    *      ),
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -40,7 +57,7 @@ class PartController extends Controller
     */
     public function index()
     {
-        return $this->showAll(Part::all());
+        return $this->showAll($this->partRepo->all());
     }
 
     /**
