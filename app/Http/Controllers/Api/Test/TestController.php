@@ -169,7 +169,7 @@ class TestController extends Controller
 
     public function partFill()
     {
-        $quotes = Quote::where('part_id', null)->get;
+        $quotes = Quote::where('part_id', null)->get();
 
         foreach($quotes as $quote){
             $quote->part_id = $quote?->xpartRequest?->part?->id;
