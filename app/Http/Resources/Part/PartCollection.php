@@ -7,12 +7,6 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PartCollection extends ResourceCollection
 {
-    /**
-     * Transform the resource collection into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-     */
     public function toArray($request)
     {
         return [
@@ -26,6 +20,8 @@ class PartCollection extends ResourceCollection
             'id' => 'id',
             'name' => 'name',
             'slug' => 'slug',
+            'number_of_delivered_quotes' => 'number_of_delivered_quotes',
+            
         ];
 
         return isset($attribute[$index]) ? $attribute[$index] : null;
@@ -37,6 +33,7 @@ class PartCollection extends ResourceCollection
             'id' => 'id',
             'name' => 'name',
             'slug' => 'slug',
+            'number_of_delivered_quotes' => 'number_of_delivered_quotes',
         ];
 
         return isset($attribute[$index]) ? $attribute[$index] : null;
