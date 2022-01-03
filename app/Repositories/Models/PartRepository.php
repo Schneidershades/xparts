@@ -15,8 +15,8 @@ class PartRepository extends ApplicationRepository
         return Part::query()
                 ->selectRaw('parts.*')
                 ->selectRaw('COUNT(quotes.part_id) as number_of_delivered_quotes')
-                // ->where('quotes.status', '==', 'delivered')
                 ->leftJoin('quotes', 'quotes.part_id', '=', 'parts.id')
+                ->where('quotes.status', '==', 'delivered')
                 ->groupBy('parts.id')
                 ->when($search_query, function (Builder $builder, $search_query) {
                     $builder->where('part.name', 'LIKE', "%{$search_query}%")
