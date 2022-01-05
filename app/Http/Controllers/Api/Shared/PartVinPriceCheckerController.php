@@ -95,11 +95,11 @@ class PartVinPriceCheckerController extends Controller
                 $minPrice = min($quote_prices);
                 $maxPrice = max($quote_prices);
 
-                $message = [
-                    'grade' => $grade->name,
-                    'min_price' => '(₦' . number_format($minPrice, 2, '.', ',') ,
-                    'max_price' => '(₦' . number_format($maxPrice, 2, '.', ',') ,
-                ];
+                // $message = [
+                //     'grade' => $grade->name,
+                //     'min_price' => '(₦' . number_format($minPrice, 2, '.', ',') ,
+                //     'max_price' => '(₦' . number_format($maxPrice, 2, '.', ',') ,
+                // ];
 
                 $message .= 'Price ranges for '. $grade->name .' (₦' . number_format($minPrice, 2, '.', ',') . ' - ₦' . number_format($maxPrice, 2, '.', ',') .') \n';
 
