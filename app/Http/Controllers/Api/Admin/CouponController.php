@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Models\Role;
+use App\Models\Coupon;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\RoleCreateFormRequest;
-use App\Http\Requests\Admin\RoleUpdateFormRequest;
+use App\Http\Requests\Admin\StoreAdminCouponFormRequest;
+use App\Http\Requests\Admin\UpdateAdminCouponFormRequest;
 
-class RoleController extends Controller
+class CouponController extends Controller
 {
     /**
     * @OA\Get(
-    *      path="/api/v1/admin/roles",
-    *      operationId="allRoles",
+    *      path="/api/v1/admin/coupons",
+    *      operationId="allCoupons",
     *      tags={"Admin"},
-    *      summary="Get all roles",
-    *      description="Get all roles",
+    *      summary="Get all coupons",
+    *      description="Get all coupons",
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -40,19 +40,19 @@ class RoleController extends Controller
     */
     public function index()
     {
-        return $this->showAll(Role::all());
+        return $this->showAll(Coupon::all());
     }
 
     /**
     * @OA\Post(
-    *      path="/api/v1/admin/roles",
-    *      operationId="postRole",
+    *      path="/api/v1/admin/coupons",
+    *      operationId="postCoupons",
     *      tags={"Admin"},
-    *      summary="Post roles",
-    *      description="Post roles",
+    *      summary="Post coupons",
+    *      description="Post coupons",
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/RoleCreateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/StoreAdminCouponFormRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -76,22 +76,22 @@ class RoleController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    public function store(RoleCreateFormRequest $request)
+    public function store(StoreAdminCouponFormRequest $request)
     {
-        return $this->showOne(Role::create($request->validated()));
+        return $this->showOne(Coupon::create($request->validated()));
     }
 
     /**
     * @OA\Get(
-    *      path="/api/v1/admin/roles/{id}",
-    *      operationId="showRole",
+    *      path="/api/v1/admin/coupons/{id}",
+    *      operationId="showCoupons",
     *      tags={"Admin"},
-    *      summary="Show role",
-    *      description="Show role",
+    *      summary="Show coupons",
+    *      description="Show coupons",
     *      
      *      @OA\Parameter(
      *          name="id",
-     *          description="Role ID",
+     *          description="coupons ID",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -121,22 +121,22 @@ class RoleController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    public function show(Role $role)
+    public function show($id)
     {
-        return $this->showOne(Role::findOrFail($role->id));
+        return $this->showOne(Coupon::findOrFail($id));
     }
 
     /**
     * @OA\Put(
-    *      path="/api/v1/admin/roles/{id}",
-    *      operationId="RoleUpdate",
+    *      path="/api/v1/admin/coupons/{id}",
+    *      operationId="updateCoupons",
     *      tags={"Admin"},
-    *      summary="Update role",
-    *      description="Update role",
+    *      summary="Update coupons",
+    *      description="Update coupons",
     *      
      *      @OA\Parameter(
      *          name="id",
-     *          description="role ID",
+     *          description="coupons ID",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -145,7 +145,7 @@ class RoleController extends Controller
      *     ),
     *      @OA\RequestBody(
     *          required=true,
-    *          @OA\JsonContent(ref="#/components/schemas/RoleUpdateFormRequest")
+    *          @OA\JsonContent(ref="#/components/schemas/UpdateAdminCouponFormRequest")
     *      ),
     *      @OA\Response(
     *          response=200,
@@ -170,23 +170,23 @@ class RoleController extends Controller
     * )
     */
     
-    public function update(RoleUpdateFormRequest $request, Role $role)
+    public function update(UpdateAdminCouponFormRequest $request, Coupon $coupon)
     {
-        ($role->update($request->validated()));
-        return $this->showOne($role);
+        ($coupon->update($request->validated()));
+        return $this->showOne($coupon);
     }
 
      /**
     * @OA\Delete(
-    *      path="/api/v1/admin/roles/{id}",
-    *      operationId="deleteRole",
+    *      path="/api/v1/admin/coupons/{id}",
+    *      operationId="deleteCoupon",
     *      tags={"Admin"},
-    *      summary="Delete role",
-    *      description="Delete role",
+    *      summary="Delete coupons",
+    *      description="Delete coupons",
     *      
-     *      @OA\Parameter(
+    *      @OA\Parameter(
      *          name="id",
-     *          description="Role ID",
+     *          description="coupons ID",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -215,9 +215,9 @@ class RoleController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    public function destroy(Role $role)
+    public function destroy(Coupon $coupon)
     {
-        $role->delete();
+        $coupon->delete();
         return $this->showMessage('deleted');
     }
 }

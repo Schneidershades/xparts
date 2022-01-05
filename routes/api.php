@@ -66,6 +66,7 @@ Route::prefix('v1')->group(function () {
 
 	Route::group(['prefix' => 'admin', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function(){
 		Route::Resource('orders', 'OrderController', array("as"=>"userOrders"));
+		Route::Resource('coupons', 'CouponController', array("as"=>"adminCoupons"));
 		Route::Resource('quotes', 'QuoteController', array("as"=>"userQuotes"));
 		Route::Resource('parts', 'PartController', array("as"=>"partList"));
 		Route::Resource('part-specialization', 'PartSpecializationController', array("as"=>"partSpecItems"));
