@@ -6,7 +6,7 @@ use App\Models\DeliveryRate;
 use Illuminate\Database\Eloquent\Builder;
 use App\Repositories\ApplicationRepository;
 
-class OrderItemRepository extends ApplicationRepository
+class DeliveryRateRepository extends ApplicationRepository
 {
     public function builder(): Builder
     {

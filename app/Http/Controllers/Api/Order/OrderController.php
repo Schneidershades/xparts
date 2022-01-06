@@ -25,14 +25,21 @@ use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
 use App\Repositories\Models\CartRepository;
+use App\Repositories\Models\DeliveryRateRepository;
 
 class OrderController extends Controller
 {
     public $cartRepository;
+    public $deliveryRateRepository;
 
-    public function __construct(CartRepository $cartRepository)
+    public function __construct(
+        CartRepository $cartRepository,
+        DeliveryRateRepository $deliveryRateRepository,
+
+    )
     {
         $this->cartRepository = $cartRepository;
+        $this->deliveryRateRepository = $deliveryRateRepository;
     }
     /**
      * @OA\Get(
@@ -114,32 +121,11 @@ class OrderController extends Controller
             return $this->errorResponse('An error occoured while processing your cart totals', 400);
         }
 
-        $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])->where('gateway', $request['payment_gateway'])->first();
+        $paymentCharge = ;
         
         $address =  Address::where('id', $request['address_id'])->first();
 
-        // $deliverySetting = match($address) {
-        //     'c' => DeliveryRate::where('destinatable_id', $address->country_id)->where('destinatable_type', 'countries')->first(),
-        //     'b' => DeliveryRate::where('destinatable_id', $address->state_id)->where('destinatable_type', 'states')->first(),
-        //     'a' => DeliveryRate::where('destinatable_id', $address->city_id)->where('destinatable_id', 'cities')->first(),
-        //     default => DeliveryRate::where('type', 'flat')->first(),
-        // };
-
-        if($address->city_id){
-            $deliverySetting = DeliveryRate::where('destinatable_id', $address->city_id)
-                                ->where('destinatable_id', 'cities')
-                                ->first();
-        }elseif($address->state_id){
-            $deliverySetting = DeliveryRate::where('destinatable_id', $address->state_id)
-                                ->where('destinatable_type', 'states')
-                                ->first();
-        }elseif($address->country_id){
-            $deliverySetting = DeliveryRate::where('destinatable_id', $address->country_id)
-                                ->where('destinatable_type', 'countries')
-                                ->first();
-        }else{
-            $deliverySetting = DeliveryRate::where('type', 'flat')->first();
-        }
+        $deliverySetting = $this->deliveryRateRepository->deliveryRateSettings($address);
 
         if ($deliverySetting) {
             $fee = $fee + $deliverySetting->amount;
