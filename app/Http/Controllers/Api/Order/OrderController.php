@@ -121,7 +121,7 @@ class OrderController extends Controller
             return $this->errorResponse('An error occoured while processing your cart totals', 400);
         }
 
-        $paymentCharge = ;
+        $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])->where('gateway', $request['payment_gateway'])->first();
         
         $address =  Address::where('id', $request['address_id'])->first();
 
