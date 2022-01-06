@@ -28,7 +28,7 @@ class OrderItemRepository extends ApplicationRepository
 
     public function deliveryRateSettings($address)
     {
-        $deliverySetting = match($address) {
+        return match($address) {
             'c' => DeliveryRate::where('destinatable_id', $address->country_id)->where('destinatable_type', 'countries')->first(),
             'b' => DeliveryRate::where('destinatable_id', $address->state_id)->where('destinatable_type', 'states')->first(),
             'a' => DeliveryRate::where('destinatable_id', $address->city_id)->where('destinatable_id', 'cities')->first(),
