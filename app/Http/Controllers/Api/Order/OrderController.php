@@ -120,28 +120,12 @@ class OrderController extends Controller
         
         $address =  Address::where('id', $request['address_id'])->first();
 
-        // $deliverySetting = match($address) {
-        //     'a' => DeliveryRate::where('destinatable_id', $address->city_id)->where('destinatable_id', 'cities')->first(),
-        //     'b' => DeliveryRate::where('destinatable_id', $address->state_id)->where('destinatable_type', 'states')->first(),
-        //     'c' => DeliveryRate::where('destinatable_id', $address->country_id)->where('destinatable_type', 'countries')->first(),
-        //     default => DeliveryRate::where('type', 'flat')->first(),
-        // };
-
-        if($address->city_id){
-            $deliverySetting = DeliveryRate::where('destinatable_id', $address->city_id)
-                                ->where('destinatable_id', 'cities')
-                                ->first();
-        }elseif($address->state_id){
-            $deliverySetting = DeliveryRate::where('destinatable_id', $address->state_id)
-                                ->where('destinatable_type', 'states')
-                                ->first();
-        }elseif($address->country_id){
-            $deliverySetting = DeliveryRate::where('destinatable_id', $address->country_id)
-                                ->where('destinatable_type', 'countries')
-                                ->first();
-        }else{
-            $deliverySetting = DeliveryRate::where('type', 'flat')->first();
-        }
+        $deliverySetting = match($address) {
+            'a' => DeliveryRate::where('destinatable_id', $address->city_id)->where('destinatable_id', 'cities')->first(),
+            'b' => DeliveryRate::where('destinatable_id', $address->state_id)->where('destinatable_type', 'states')->first(),
+            'c' => DeliveryRate::where('destinatable_id', $address->country_id)->where('destinatable_type', 'countries')->first(),
+            default => DeliveryRate::where('type', 'flat')->first(),
+        };
 
         if ($deliverySetting) {
             $fee = $fee + $deliverySetting->amount;
