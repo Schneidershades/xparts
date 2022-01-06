@@ -99,9 +99,7 @@ class OrderController extends Controller
     {
         $fee = $margin = $deliveryFee = 0;
 
-        $userCart = (auth()->user()->cart);
-
-        $cartList = CartResource::collection(auth()->user()->cart);
+        $cartList = auth()->user()->cart;
 
         $total = $cartList->sum(function ($cart) {
             return ($cart->cartable->markup_price ?  $cart->cartable->markup_price : $cart->cartable->price) * $cart->quantity;
@@ -122,6 +120,13 @@ class OrderController extends Controller
             ->first();
         
         $address =  Address::where('id', $request['address_id'])->first();
+
+        // $deliverySetting = match($address) {
+        //     'a' => DeliveryRate::where('destinatable_id', $address->city_id)->where('destinatable_id', 'cities')->first(),
+        //     'b' => DeliveryRate::where('destinatable_id', $address->state_id)->where('destinatable_type', 'states')->first(),
+        //     'c' => DeliveryRate::where('destinatable_id', $address->country_id)->where('destinatable_type', 'countries')->first(),
+        //     default => DeliveryRate::where('type', 'flat')->first(),
+        // };
 
         if($address->city_id){
             $deliverySetting = DeliveryRate::where('destinatable_id', $address->city_id)
@@ -166,7 +171,7 @@ class OrderController extends Controller
             'delivery_fee' => $deliveryFee,
         ]);
 
-        collect($userCart)->each(function ($cart) use ($order) {
+        collect(auth()->user()->cart)->each(function ($cart) use ($order) {
             OrderItem::create([
                 'itemable_id' => $cart->cartable_id,
                 'itemable_type' => $cart->cartable_type,
@@ -539,4 +544,6 @@ class OrderController extends Controller
             'walletable_type' => 'orders',
         ]);
     }
+
+    
 }

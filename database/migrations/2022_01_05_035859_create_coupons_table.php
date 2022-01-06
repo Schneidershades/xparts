@@ -20,7 +20,7 @@ class CreateCouponsTable extends Migration
             $table->float('amount')->nullable();
             $table->date('start_date')->nullable();
             $table->date('expiry_date')->nullable();
-            $table->integer('no_of_users')->nullable();
+            $table->integer('no_of_users')->default(0);
             $table->timestamps();
         });
     }
