@@ -25,4 +25,32 @@ class OrderItemRepository extends ApplicationRepository
     {
         return $this->builder->where('delivery_rates.id', '=', $id)->first();
     }
+
+    public function deliveryRateSettings($address)
+    {
+        $deliverySetting = match($address) {
+            'c' => DeliveryRate::where('destinatable_id', $address->country_id)->where('destinatable_type', 'countries')->first(),
+            'b' => DeliveryRate::where('destinatable_id', $address->state_id)->where('destinatable_type', 'states')->first(),
+            'a' => DeliveryRate::where('destinatable_id', $address->city_id)->where('destinatable_id', 'cities')->first(),
+            default => DeliveryRate::where('type', 'flat')->first(),
+        };
+
+        // if($address->city_id){
+        //     $deliverySetting = DeliveryRate::where('destinatable_id', $address->city_id)
+        //                         ->where('destinatable_id', 'cities')
+        //                         ->first();
+        // }elseif($address->state_id){
+        //     $deliverySetting = DeliveryRate::where('destinatable_id', $address->state_id)
+        //                         ->where('destinatable_type', 'states')
+        //                         ->first();
+        // }elseif($address->country_id){
+        //     $deliverySetting = DeliveryRate::where('destinatable_id', $address->country_id)
+        //                         ->where('destinatable_type', 'countries')
+        //                         ->first();
+        // }else{
+        //     $deliverySetting = DeliveryRate::where('type', 'flat')->first();
+        // }
+
+        // return $deliverySetting;
+    }
 }
