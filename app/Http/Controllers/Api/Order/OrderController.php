@@ -24,9 +24,16 @@ use App\Models\XpartRequestVendorWatch;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
+use App\Repositories\Models\CartRepository;
 
 class OrderController extends Controller
 {
+    public $cartRepository;
+
+    public function __construct(CartRepository $cartRepository)
+    {
+        $this->cartRepository = $cartRepository;
+    }
     /**
      * @OA\Get(
      *      path="/api/v1/orders",
@@ -99,17 +106,9 @@ class OrderController extends Controller
     {
         $fee = $margin = $deliveryFee = 0;
 
-        $cartList = auth()->user()->cart;
+        $total = $this->cartRepository->totalCartMarkup(auth()->user()->cart);
 
-        $total = $cartList->sum(function ($cart) {
-            return ($cart->cartable->markup_price ?  $cart->cartable->markup_price : $cart->cartable->price) * $cart->quantity;
-        });
-
-        $actual_price = $cartList->sum(function ($cart) {
-            return ($cart->cartable->price) * $cart->quantity;
-        });
-
-        $margin = $total - $actual_price;
+        $margin = $this->cartRepository->totalCartMargin(auth()->user()->cart);
 
         if($total <= 0){
             return $this->errorResponse('An error occoured while processing your cart totals', 400);
