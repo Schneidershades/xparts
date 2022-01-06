@@ -121,9 +121,9 @@ class OrderController extends Controller
         $address =  Address::where('id', $request['address_id'])->first();
 
         $deliverySetting = match($address) {
-            'a' => DeliveryRate::where('destinatable_id', $address->city_id)->where('destinatable_id', 'cities')->first(),
-            'b' => DeliveryRate::where('destinatable_id', $address->state_id)->where('destinatable_type', 'states')->first(),
             'c' => DeliveryRate::where('destinatable_id', $address->country_id)->where('destinatable_type', 'countries')->first(),
+            'b' => DeliveryRate::where('destinatable_id', $address->state_id)->where('destinatable_type', 'states')->first(),
+            'a' => DeliveryRate::where('destinatable_id', $address->city_id)->where('destinatable_id', 'cities')->first(),
             default => DeliveryRate::where('type', 'flat')->first(),
         };
 
