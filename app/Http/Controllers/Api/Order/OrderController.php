@@ -24,22 +24,15 @@ use App\Models\XpartRequestVendorWatch;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
-use App\Http\Resources\Delivery\DeliveryRateResource;
 use App\Repositories\Models\CartRepository;
 
 class OrderController extends Controller
 {
     public $cartRepository;
-    public $deliveryRateRepository;
 
-    public function __construct(
-        CartRepository $cartRepository,
-        DeliveryRateResource $deliveryRateRepository,
-
-    )
+    public function __construct(CartRepository $cartRepository)
     {
         $this->cartRepository = $cartRepository;
-        $this->deliveryRateRepository = $deliveryRateRepository;
     }
     /**
      * @OA\Get(
@@ -125,7 +118,28 @@ class OrderController extends Controller
         
         $address =  Address::where('id', $request['address_id'])->first();
 
-        $deliverySetting = $this->deliveryRateRepository->deliveryRateSettings($address);
+        // $deliverySetting = match($address) {
+        //     'c' => DeliveryRate::where('destinatable_id', $address->country_id)->where('destinatable_type', 'countries')->first(),
+        //     'b' => DeliveryRate::where('destinatable_id', $address->state_id)->where('destinatable_type', 'states')->first(),
+        //     'a' => DeliveryRate::where('destinatable_id', $address->city_id)->where('destinatable_id', 'cities')->first(),
+        //     default => DeliveryRate::where('type', 'flat')->first(),
+        // };
+
+        if($address->city_id){
+            $deliverySetting = DeliveryRate::where('destinatable_id', $address->city_id)
+                                ->where('destinatable_id', 'cities')
+                                ->first();
+        }elseif($address->state_id){
+            $deliverySetting = DeliveryRate::where('destinatable_id', $address->state_id)
+                                ->where('destinatable_type', 'states')
+                                ->first();
+        }elseif($address->country_id){
+            $deliverySetting = DeliveryRate::where('destinatable_id', $address->country_id)
+                                ->where('destinatable_type', 'countries')
+                                ->first();
+        }else{
+            $deliverySetting = DeliveryRate::where('type', 'flat')->first();
+        }
 
         if ($deliverySetting) {
             $fee = $fee + $deliverySetting->amount;
