@@ -19,7 +19,7 @@ class AddressResource extends JsonResource
             'country' => $this->country ? $this->country->name : 'N/A',
             'postal_code' => $this->postal_code,
             'default' => $this->primary_address ? true : false,
-            'delivery_rate' => $this->city->flatRate()?->amount,
+            // 'delivery_rate' => $this->city->flatRate()?->amount,
 
             // if address has any delivery rate on city leave country & state
 
