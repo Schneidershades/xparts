@@ -19,6 +19,7 @@ class AddressResource extends JsonResource
             'country' => $this->country ? $this->country->name : 'N/A',
             'postal_code' => $this->postal_code,
             'default' => $this->primary_address ? true : false,
+            'delivery_rate' => $this->city->flatRate()?->amount,
 
             // if address has any delivery rate on city leave country & state
 
@@ -27,23 +28,21 @@ class AddressResource extends JsonResource
             // if address has any delivery rate no city has state leave country
 
 
+            // $this->mergeWhen($this->state->rate != null && $this->city->rate != null, [
+            //     'delivery_rate' => $this->city->rate?->amount,
+            // ]),
 
+            // $this->mergeWhen($this->state->rate != null || $this->city->rate == null, [
+            //     'delivery_rate' => $this->state->rate?->amount,
+            // ]),
 
-            $this->mergeWhen($this->state->rate != null && $this->city->rate != null, [
-                'delivery_rate' => $this->city->rate?->amount,
-            ]),
+            // $this->mergeWhen($this->state->rate == null || $this->city->rate != null, [
+            //     'delivery_rate' => $this->city->rate?->amount,
+            // ]),
 
-            $this->mergeWhen($this->state->rate != null || $this->city->rate == null, [
-                'delivery_rate' => $this->state->rate?->amount,
-            ]),
-
-            $this->mergeWhen($this->state->rate == null || $this->city->rate != null, [
-                'delivery_rate' => $this->city->rate?->amount,
-            ]),
-
-            $this->mergeWhen($this->state->rate == null && $this->city->rate == null && $this->country->rate == null , [
-                'delivery_rate' => $this->city->flatRate()?->amount,
-            ]),
+            // $this->mergeWhen($this->state->rate == null && $this->city->rate == null && $this->country->rate == null , [
+            //     'delivery_rate' => $this->city->flatRate()?->amount,
+            // ]),
 
         ];
     }
