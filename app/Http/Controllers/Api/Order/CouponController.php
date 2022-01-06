@@ -10,7 +10,7 @@ class CouponController extends Controller
 {
     public function store(Request $request)
     {
-        $cartList = CartResource::collection(auth()->user()->cart);
+        $cartList = auth()->user()->cart;
 
         $coupon = Coupon::where('code', $request['code'])->first();
 
