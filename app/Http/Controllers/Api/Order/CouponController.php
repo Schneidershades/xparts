@@ -2,17 +2,32 @@
 
 namespace App\Http\Controllers\Api\Order;
 
-use App\Http\Controllers\Controller;
-use App\Models\Coupon;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\Models\CartRepository;
+use App\Repositories\Models\CouponRepository;
+use App\Repositories\Models\CouponTransactionRepository;
 
 class CouponController extends Controller
 {
+    public $cartRepository;
+    public $couponRepository;
+    public $couponTransactionRepository;
+
+    public function __construct(
+        CartRepository $cartRepository, 
+        CouponRepository $couponRepository, 
+        CouponTransactionRepository $couponTransactionRepository
+    )
+    {
+        $this->cartRepository = $cartRepository;
+        $this->couponRepository = $couponRepository;
+        $this->couponTransactionRepository = $couponTransactionRepository;
+    }
+
     public function store(Request $request)
     {
-        $cartList = auth()->user()->cart;
-
-        $coupon = Coupon::where('code', $request['code'])->first();
+        $coupon = $this->couponRepository->findCouponCode($request['code']);
 
         if($coupon == null){
     		return $this->errorResponse('coupon is not available', 400);
@@ -24,17 +39,18 @@ class CouponController extends Controller
             }
         }
 
-        // if($coupon->amount != null){
-        //     $couponAmount = $coupon->amount;
-        //     $total = $request[''] - $coupon->amount;
-        // }
+        $total = $this->cartRepository->totalCartMarkup(auth()->user()->cart);
 
-        // if($coupon->percentage != null){
-        //     $coupon = $coupon->percentage / 100;
+        if($coupon->amount != null){
+            $couponAmount = $coupon->amount;
+        }
 
-        //     $couponAmount = $this->cart->subtotal() * $coupon;
-        //     $total = $this->cart->subtotal() - $couponAmount;
-        // }
+        if($coupon->percentage != null){
+            $coupon = $coupon->percentage / 100;
+            $couponAmount = $total * $coupon;
+        }
+
+        return $this->showMessage($couponAmount);
 
     }
 }

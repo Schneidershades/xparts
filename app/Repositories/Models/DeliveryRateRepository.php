@@ -28,29 +28,16 @@ class DeliveryRateRepository extends ApplicationRepository
 
     public function deliveryRateSettings($address)
     {
-        return match($address) {
-            'c' => DeliveryRate::where('destinatable_id', $address->country_id)->where('destinatable_type', 'countries')->first(),
-            'b' => DeliveryRate::where('destinatable_id', $address->state_id)->where('destinatable_type', 'states')->first(),
-            'a' => DeliveryRate::where('destinatable_id', $address->city_id)->where('destinatable_id', 'cities')->first(),
-            default => DeliveryRate::where('type', 'flat')->first(),
-        };
+        if($address->city_id != null){
+            $deliverySetting = DeliveryRate::where('destinatable_id', $address->city_id)->where('destinatable_id', 'cities')->first();
+        }elseif($address->city_id == null && $address->state_id != null){
+            $deliverySetting = DeliveryRate::where('destinatable_id', $address->state_id)->where('destinatable_type', 'states')->first();
+        }elseif($address->city_id == null && $address->state_id  == null && $address->country_id != null){
+            $deliverySetting = DeliveryRate::where('destinatable_id', $address->country_id)->where('destinatable_type', 'countries')->first();
+        }else{
+            $deliverySetting = DeliveryRate::where('type', 'flat')->first();
+        }
 
-        // if($address->city_id){
-        //     $deliverySetting = DeliveryRate::where('destinatable_id', $address->city_id)
-        //                         ->where('destinatable_id', 'cities')
-        //                         ->first();
-        // }elseif($address->state_id){
-        //     $deliverySetting = DeliveryRate::where('destinatable_id', $address->state_id)
-        //                         ->where('destinatable_type', 'states')
-        //                         ->first();
-        // }elseif($address->country_id){
-        //     $deliverySetting = DeliveryRate::where('destinatable_id', $address->country_id)
-        //                         ->where('destinatable_type', 'countries')
-        //                         ->first();
-        // }else{
-        //     $deliverySetting = DeliveryRate::where('type', 'flat')->first();
-        // }
-
-        // return $deliverySetting;
+        return $deliverySetting;
     }
 }

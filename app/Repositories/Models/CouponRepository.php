@@ -12,4 +12,10 @@ class CouponRepository extends ApplicationRepository
     {
         return Coupon::query();
     }
+
+    public function findCouponCode($code)
+    {
+        return $this->builder()->where('code', $code)->first();
+    }
+
 }

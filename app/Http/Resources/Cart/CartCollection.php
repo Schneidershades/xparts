@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources\Cart;
 
-use App\Http\Resources\Cart\CartResource;
 use App\Models\DeliveryRate;
+use App\Http\Resources\Cart\CartResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CartCollection extends ResourceCollection
