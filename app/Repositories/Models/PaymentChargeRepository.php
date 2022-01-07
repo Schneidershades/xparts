@@ -22,12 +22,12 @@ class PaymentChargeRepository extends ApplicationRepository
     {
         $charge = $this->findPaymentCharges($payment_method, $payment_gateway);
 
-        if($charge == $convertPercentage)
+        // if($charge->tyoe)
 
-        $paymentChargeAmount = $paymentCharge->amount_gateway_charge +  $paymentCharge->amount_company_charge;
-            $paymentChargePercentage = $paymentCharge->percentage_gateway_charge +  $paymentCharge->percentage_company_charge;
-            $convertPercentage = $paymentChargePercentage / 100;
-            $fee = $total * $convertPercentage;
+        // $paymentChargeAmount = $paymentCharge->amount_gateway_charge +  $paymentCharge->amount_company_charge;
+        //     $paymentChargePercentage = $paymentCharge->percentage_gateway_charge +  $paymentCharge->percentage_company_charge;
+        //     $convertPercentage = $paymentChargePercentage / 100;
+        //     $fee = $total * $convertPercentage;
     }
 
 }
