@@ -22,6 +22,7 @@ Route::prefix('v1')->group(function () {
 		Route::Resource('cart', 'Cart\CartController');
 		Route::Resource('empty-cart', 'Cart\EmptyCartController');
 		Route::Resource('orders', 'Order\OrderController');
+		Route::Resource('coupons', 'Order\CouponController');
 		Route::Resource('vendor-quote', 'User\VendorQuoteController');
 		Route::Resource('xpart-requests', 'User\XpartRequestController');
 		Route::Resource('multiple-xpart-requests', 'User\MultipleXpartRequestController');

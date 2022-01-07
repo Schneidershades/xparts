@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\Order;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Models\CartRepository;
 use App\Repositories\Models\CouponRepository;
 use App\Repositories\Models\CouponTransactionRepository;
+use App\Http\Requests\Coupon\StoreCouponApplyFormRequest;
 
 class CouponController extends Controller
 {
@@ -25,7 +25,41 @@ class CouponController extends Controller
         $this->couponTransactionRepository = $couponTransactionRepository;
     }
 
-    public function store(Request $request)
+    /**
+     * @OA\Post(
+     *      path="/api/v1/coupons",
+     *      operationId="postCoupons",
+     *      tags={"User"},
+     *      summary="postCoupons",
+     *      description="postCoupons",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/StoreCouponApplyFormRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful signin",
+     *          @OA\MediaType(
+     *             mediaType="application/json",
+     *         ),
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      security={ {"bearerAuth": {}} },
+     * )
+     */
+
+    public function store(StoreCouponApplyFormRequest $request)
     {
         $coupon = $this->couponRepository->findCouponCode($request['code']);
 
