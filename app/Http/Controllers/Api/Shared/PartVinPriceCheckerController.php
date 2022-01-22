@@ -65,7 +65,7 @@ class PartVinPriceCheckerController extends Controller
 
         $partGrades = PartGrade::all();
 
-        $message = "";
+        $message = null;
 
         foreach($partGrades as $grade){
 
@@ -79,15 +79,41 @@ class PartVinPriceCheckerController extends Controller
                 $minPrice = $quote_prices[0];
                 $maxPrice = $quote_prices[0] + 500;
 
+                // $message = [
+                //     'grade' => $grade->name,
+                //     'min_price' => '(₦' . number_format($minPrice, 2, '.', ',') ,
+                //     'max_price' => '(₦' . number_format($maxPrice, 2, '.', ',') ,
+
+                // ];
+
                 $message .= 'Price ranges for '. $grade->name .' (₦' . number_format($minPrice, 2, '.', ',') . ' - ₦' . number_format($maxPrice, 2, '.', ',') .') \n';
+
             }
 
             if(count($quote_prices) > 1){
+                
                 $minPrice = min($quote_prices);
                 $maxPrice = max($quote_prices);
 
+                // $message = [
+                //     'grade' => $grade->name,
+                //     'min_price' => '(₦' . number_format($minPrice, 2, '.', ',') ,
+                //     'max_price' => '(₦' . number_format($maxPrice, 2, '.', ',') ,
+                // ];
+
                 $message .= 'Price ranges for '. $grade->name .' (₦' . number_format($minPrice, 2, '.', ',') . ' - ₦' . number_format($maxPrice, 2, '.', ',') .') \n';
+
             }    
+
+            // if(count($quote_prices) == 0){
+                
+            //     $message = [
+            //         'grade' => null,
+            //         'min_price' => null ,
+            //         'max_price' => null,
+            //     ];
+                
+            // }    
         }
 
         return $this->showMessage($message);            

@@ -24,9 +24,23 @@ use App\Models\XpartRequestVendorWatch;
 use App\Http\Resources\Cart\CartResource;
 use App\Http\Requests\Order\OrderCreateFormRequest;
 use App\Http\Requests\Order\OrderUpdateFormRequest;
+use App\Repositories\Models\CartRepository;
+use App\Repositories\Models\DeliveryRateRepository;
 
 class OrderController extends Controller
 {
+    public $cartRepository;
+    public $deliveryRateRepository;
+
+    public function __construct(
+        CartRepository $cartRepository,
+        DeliveryRateRepository $deliveryRateRepository,
+
+    )
+    {
+        $this->cartRepository = $cartRepository;
+        $this->deliveryRateRepository = $deliveryRateRepository;
+    }
     /**
      * @OA\Get(
      *      path="/api/v1/orders",
@@ -99,45 +113,19 @@ class OrderController extends Controller
     {
         $fee = $margin = $deliveryFee = 0;
 
-        $userCart = (auth()->user()->cart);
+        $total = $this->cartRepository->totalCartMarkup(auth()->user()->cart);
 
-        $cartList = CartResource::collection(auth()->user()->cart);
-
-        $total = $cartList->sum(function ($cart) {
-            return ($cart->cartable->markup_price ?  $cart->cartable->markup_price : $cart->cartable->price) * $cart->quantity;
-        });
-
-        $actual_price = $cartList->sum(function ($cart) {
-            return ($cart->cartable->price) * $cart->quantity;
-        });
-
-        $margin = $total - $actual_price;
+        $margin = $this->cartRepository->totalCartMargin(auth()->user()->cart);
 
         if($total <= 0){
             return $this->errorResponse('An error occoured while processing your cart totals', 400);
         }
 
-        $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])
-            ->where('gateway', $request['payment_gateway'])
-            ->first();
+        $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])->where('gateway', $request['payment_gateway'])->first();
         
         $address =  Address::where('id', $request['address_id'])->first();
 
-        if($address->city_id){
-            $deliverySetting = DeliveryRate::where('destinatable_id', $address->city_id)
-                                ->where('destinatable_id', 'cities')
-                                ->first();
-        }elseif($address->state_id){
-            $deliverySetting = DeliveryRate::where('destinatable_id', $address->state_id)
-                                ->where('destinatable_type', 'states')
-                                ->first();
-        }elseif($address->country_id){
-            $deliverySetting = DeliveryRate::where('destinatable_id', $address->country_id)
-                                ->where('destinatable_type', 'countries')
-                                ->first();
-        }else{
-            $deliverySetting = DeliveryRate::where('type', 'flat')->first();
-        }
+        $deliverySetting = $this->deliveryRateRepository->deliveryRateSettings($address);
 
         if ($deliverySetting) {
             $fee = $fee + $deliverySetting->amount;
@@ -166,7 +154,7 @@ class OrderController extends Controller
             'delivery_fee' => $deliveryFee,
         ]);
 
-        collect($userCart)->each(function ($cart) use ($order) {
+        collect(auth()->user()->cart)->each(function ($cart) use ($order) {
             OrderItem::create([
                 'itemable_id' => $cart->cartable_id,
                 'itemable_type' => $cart->cartable_type,
@@ -539,4 +527,5 @@ class OrderController extends Controller
             'walletable_type' => 'orders',
         ]);
     }
+    
 }
