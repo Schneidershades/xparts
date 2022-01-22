@@ -1,56 +1,85 @@
 
 ## About Xparts Backend API
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Deployment Instructions
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- clone the project by running https://github.com/Fixit45/xparts-backend-api.git on your command line.
+- copy the .env by typing cp .env.example .env
+- php artisan key:generate
+- Fill in all the required credentials on the .env file
+- run composer install
+- run php artisan migrate:fresh --seed to migrate and all so seed the migrations. Press the enter key where required
+- run php artisan serve
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# List of external services used (e.g email, queue processor,etc)
 
-## Learning Laravel
+We are using job queues for emails. we use php artisan queue:worker to execute the job queues 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# List of external APIs used and how to connect to them
 
-## Laravel Sponsors
+# Information on architecture and design
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+# Code structure
+The structure carries the regular Laravel design with a few folders added which are as follows:
+- Traits
+- Repositories
 
-### Premium Partners
+# Where to find tests & how to test the code
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+[Localhost URL](http://localhost:8000/api/docs)
+[Staging URL](https://staging.xparts.ng/api/docs)
+[Live URL](https://staging.xparts.ng/api/docs)
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Information on how to deploy to production (and any other environments if applicable)
+- Use the URL server IP
+- cd api.xparts.ng or staging.xparts.ng and git pull to update the repository on the server
 
-## Code of Conduct
+    
+# cloud service provider
+Digital Ocean
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# login credentials
 
-## Security Vulnerabilities
+[CAR MD](http://api.carmd.com/v3.0/decode) this is an external service for checking of vins (A substitute service for VIN decoder)
+Credentials
+[CAR MD](https://api.carmd.com/member/dashboard)
+Email: software@fixit45.com
+Password: company@2020
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+[VIN Decoder](https://vindecodervehicle.com/) This is the main service that helps us decode users VIN
+Credentials
+$id = 'azfixit45com';
+$key = 'k2c7jap3bq8cv2xjqz5c9s1zl5vm';
 
-## License
+[Paystack](https://api.paystack.co/) This service is used for payment gateways in the application. This is responsible for both deposits and withdrawals when needed.
+Credentials:
+The credentials can be accessed in the Paystack dashboard
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[Firebase](https://firebase.google.com/) This is used for push notifications
+Credentials:
+Email: software@fixit45.com
+Password: company@2020
+
+[Laravel Forge](https://forge.laravel.com/) This is used for auto deployment
+Credentials:
+Email: software@fixit45.com
+Password: company@2020
+
+
+# steps involved in the deployment
+- Use the URL server IP
+- cd api.xparts.ng or staging.xparts.ng and git pull to update the repository on the server
+
+# tasks manually, automated
+
+It can be automated using Laravel forge when the subscription is active
+
+
+# url to the project
+
+[Staging URL](https://staging.xparts.ng/api/docs)
+[Live URL](https://staging.xparts.ng/api/docs)
+
+
