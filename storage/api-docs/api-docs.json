@@ -4589,6 +4589,48 @@
                 ]
             }
         },
+        "/api/v1/coupons": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "postCoupons",
+                "description": "postCoupons",
+                "operationId": "postCoupons",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreCouponApplyFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/orders": {
             "get": {
                 "tags": [
@@ -7054,13 +7096,13 @@
                         "title": "Coupon code",
                         "description": "start_date",
                         "type": "string",
-                        "example": "12-21-2022"
+                        "example": "12/11/2022"
                     },
                     "expiry_date": {
                         "title": "Coupon code",
                         "description": "start_date",
                         "type": "string",
-                        "example": "12-21-2022"
+                        "example": "12/11/2022"
                     },
                     "no_of_users": {
                         "title": "Coupon usage",
@@ -7582,6 +7624,14 @@
                         "example": "1"
                     }
                 },
+                "type": "object"
+            },
+            "StoreCouponApplyFormRequest": {
+                "title": "Store Coupon ApplyFormRequest Fields",
+                "description": "Store Coupon ApplyFormRequest Fields",
+                "required": [
+                    "email"
+                ],
                 "type": "object"
             },
             "OrderCreateFormRequest": {
