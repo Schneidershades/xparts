@@ -21,7 +21,7 @@ class CartCollection extends ResourceCollection
             
             'cart' => [
 
-                'total' => $total + $deliveryFee,
+                'total' => $total ,
 
                 'subtotal' => $total + $deliveryFee,
 
