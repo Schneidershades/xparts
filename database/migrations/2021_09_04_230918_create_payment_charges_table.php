@@ -17,7 +17,7 @@ class CreatePaymentChargesTable extends Migration
             $table->id();
             $table->integer('payment_method_id')->nullable()->constrained();
             $table->string('gateway')->nullable();
-            $table->string('type')->defaule('percentage');
+            $table->string('type')->default('percentage');
             $table->integer('percentage_gateway_charge')->nullable();
             $table->integer('percentage_company_charge')->nullable();
             $table->integer('amount_gateway_charge')->nullable();

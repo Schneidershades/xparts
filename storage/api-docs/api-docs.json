@@ -273,6 +273,213 @@
                 ]
             }
         },
+        "/api/v1/admin/coupons": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get all coupons",
+                "description": "Get all coupons",
+                "operationId": "allCoupons",
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Post coupons",
+                "description": "Post coupons",
+                "operationId": "postCoupons",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreAdminCouponFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/coupons/{id}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Show coupons",
+                "description": "Show coupons",
+                "operationId": "showCoupons",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "coupons ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Update coupons",
+                "description": "Update coupons",
+                "operationId": "updateCoupons",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "coupons ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateAdminCouponFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Delete coupons",
+                "description": "Delete coupons",
+                "operationId": "deleteCoupon",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "coupons ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/admin/statistics": {
             "get": {
                 "tags": [
@@ -1001,7 +1208,7 @@
                 ]
             }
         },
-        "/api/v1/admin/parts": {
+        "/api/v1/admin/parts?per_page={per_page}": {
             "get": {
                 "tags": [
                     "Admin"
@@ -1009,6 +1216,17 @@
                 "summary": "getParts",
                 "description": "getParts",
                 "operationId": "allParts",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "path",
+                        "description": "Number per page",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -4371,6 +4589,48 @@
                 ]
             }
         },
+        "/api/v1/coupons": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "postCoupons",
+                "description": "postCoupons",
+                "operationId": "postCoupons",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreCouponApplyFormRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/orders": {
             "get": {
                 "tags": [
@@ -6807,6 +7067,52 @@
                 },
                 "type": "object"
             },
+            "StoreAdminCouponFormRequest": {
+                "title": "Admin Store Coupon Form Request Fields",
+                "description": "Admin Store Coupon Update request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "code": {
+                        "title": "Coupon code",
+                        "description": "Coupon Code ",
+                        "type": "string",
+                        "example": "Xparts3902"
+                    },
+                    "percentage": {
+                        "title": "Coupon code",
+                        "description": "Coupon use percentage instead of amount",
+                        "type": "string",
+                        "example": "10"
+                    },
+                    "amount": {
+                        "title": "Coupon amount",
+                        "description": "Coupon use amount instead of percentage",
+                        "type": "string",
+                        "example": "0"
+                    },
+                    "start_date": {
+                        "title": "Coupon code",
+                        "description": "start_date",
+                        "type": "string",
+                        "example": "12/11/2022"
+                    },
+                    "expiry_date": {
+                        "title": "Coupon code",
+                        "description": "start_date",
+                        "type": "string",
+                        "example": "12/11/2022"
+                    },
+                    "no_of_users": {
+                        "title": "Coupon usage",
+                        "description": "Coupon number of users ",
+                        "type": "string",
+                        "example": "5"
+                    }
+                },
+                "type": "object"
+            },
             "StoreAdminOperatorRequest": {
                 "title": "Store Admin Form Request Fields",
                 "description": "Store Admin request body data",
@@ -6859,6 +7165,53 @@
                         "description": "Password of the user",
                         "type": "string",
                         "example": "password"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateAdminCouponFormRequest": {
+                "title": "Admin Update Coupon Form Request Fields",
+                "description": "Admin Update Coupon Update request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "code": {
+                        "title": "Coupon code",
+                        "description": "Coupon Code ",
+                        "type": "string",
+                        "example": "Xparts3902"
+                    },
+                    "percentage": {
+                        "title": "Coupon code",
+                        "description": "Coupon use percentage instead of amount",
+                        "type": "integer",
+                        "example": "Xparts3902"
+                    },
+                    "amount": {
+                        "title": "Coupon amount",
+                        "description": "Coupon use amount instead of percentage",
+                        "type": "number",
+                        "format": "float",
+                        "example": "Xparts3902"
+                    },
+                    "start_date": {
+                        "title": "Coupon code",
+                        "description": "start_date",
+                        "type": "string",
+                        "example": "12-21-2022"
+                    },
+                    "expiry_date": {
+                        "title": "Coupon code",
+                        "description": "start_date",
+                        "type": "string",
+                        "example": "12-21-2022"
+                    },
+                    "no_of_users": {
+                        "title": "Coupon usage",
+                        "description": "Coupon number of users ",
+                        "type": "string",
+                        "example": "5"
                     }
                 },
                 "type": "object"
@@ -7271,6 +7624,14 @@
                         "example": "1"
                     }
                 },
+                "type": "object"
+            },
+            "StoreCouponApplyFormRequest": {
+                "title": "Store Coupon ApplyFormRequest Fields",
+                "description": "Store Coupon ApplyFormRequest Fields",
+                "required": [
+                    "email"
+                ],
                 "type": "object"
             },
             "OrderCreateFormRequest": {

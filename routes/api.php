@@ -16,12 +16,12 @@ Route::prefix('v1')->group(function () {
 		Route::get('/email/resend', 'VerificationController@resend')->name('verification.resend');
 		Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
 	});
-	
 
 	Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function(){
 		Route::Resource('cart', 'Cart\CartController');
 		Route::Resource('empty-cart', 'Cart\EmptyCartController');
 		Route::Resource('orders', 'Order\OrderController');
+		Route::Resource('coupons', 'Order\CouponController');
 		Route::Resource('vendor-quote', 'User\VendorQuoteController');
 		Route::Resource('xpart-requests', 'User\XpartRequestController');
 		Route::Resource('multiple-xpart-requests', 'User\MultipleXpartRequestController');
@@ -66,6 +66,7 @@ Route::prefix('v1')->group(function () {
 
 	Route::group(['prefix' => 'admin', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function(){
 		Route::Resource('orders', 'OrderController', array("as"=>"userOrders"));
+		Route::Resource('coupons', 'CouponController', array("as"=>"adminCoupons"));
 		Route::Resource('quotes', 'QuoteController', array("as"=>"userQuotes"));
 		Route::Resource('parts', 'PartController', array("as"=>"partList"));
 		Route::Resource('part-specialization', 'PartSpecializationController', array("as"=>"partSpecItems"));

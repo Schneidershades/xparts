@@ -6,8 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @OA\Schema(
- *      title="Sign Up Form Request Fields",
- *      description="sign up request body data",
+ *      title="Change password Up Form Request Fields",
+ *      description="Change password request body data",
  *      type="object",
  *      required={"name"}
  * )

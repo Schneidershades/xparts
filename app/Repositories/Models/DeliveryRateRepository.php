@@ -6,7 +6,7 @@ use App\Models\DeliveryRate;
 use Illuminate\Database\Eloquent\Builder;
 use App\Repositories\ApplicationRepository;
 
-class OrderItemRepository extends ApplicationRepository
+class DeliveryRateRepository extends ApplicationRepository
 {
     public function builder(): Builder
     {
@@ -24,5 +24,20 @@ class OrderItemRepository extends ApplicationRepository
     public function fetchDeliveryRate($id)
     {
         return $this->builder->where('delivery_rates.id', '=', $id)->first();
+    }
+
+    public function deliveryRateSettings($address)
+    {
+        if($address->city_id != null){
+            $deliverySetting = DeliveryRate::where('destinatable_id', $address->city_id)->where('destinatable_id', 'cities')->first();
+        }elseif($address->city_id == null && $address->state_id != null){
+            $deliverySetting = DeliveryRate::where('destinatable_id', $address->state_id)->where('destinatable_type', 'states')->first();
+        }elseif($address->city_id == null && $address->state_id  == null && $address->country_id != null){
+            $deliverySetting = DeliveryRate::where('destinatable_id', $address->country_id)->where('destinatable_type', 'countries')->first();
+        }else{
+            $deliverySetting = DeliveryRate::where('type', 'flat')->first();
+        }
+
+        return $deliverySetting;
     }
 }
