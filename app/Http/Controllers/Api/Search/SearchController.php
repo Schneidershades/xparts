@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Search;
 
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use ProtoneMedia\LaravelCrossEloquentSearch\Search;
