@@ -125,7 +125,7 @@ class OrderController extends Controller
         
         $address =  Address::where('id', $request['address_id'])->first();
 
-        $deliverySetting = $this->deliveryRateRepository->deliveryRateSettings($address);
+        $deliverySetting = DeliveryRate::where('type', 'flat')->first(); //$this->deliveryRateRepository->deliveryRateSettings($address);
 
         if ($deliverySetting) {
             $fee = $fee + $deliverySetting->amount;
