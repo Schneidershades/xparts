@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Order;
 
 use App\Http\Controllers\Controller;
+use App\Models\Coupon;
 use App\Repositories\Models\CartRepository;
 use App\Repositories\Models\CouponRepository;
 use App\Repositories\Models\CouponTransactionRepository;
@@ -15,8 +16,8 @@ class CouponController extends Controller
     public $couponTransactionRepository;
 
     public function __construct(
-        CartRepository $cartRepository, 
-        CouponRepository $couponRepository, 
+        CartRepository $cartRepository,
+        CouponRepository $couponRepository,
         CouponTransactionRepository $couponTransactionRepository
     )
     {
@@ -73,6 +74,7 @@ class CouponController extends Controller
             }
         }
 
+
         $total = $this->cartRepository->totalCartMarkup(auth()->user()->cart);
 
         if($coupon->amount != null){
@@ -86,5 +88,50 @@ class CouponController extends Controller
 
         return $this->showMessage($couponAmount);
 
+    }
+
+    /**
+     * @OA\Get(
+     *      path="/api/v1/coupons/{id}",
+     *      operationId="showCoupons",
+     *      tags={"User"},
+     *      summary="Show coupons",
+     *      description="Show coupons",
+     *
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="coupons ID",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful signin",
+     *          @OA\MediaType(
+     *             mediaType="application/json",
+     *         ),
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      security={ {"bearerAuth": {}} },
+     * )
+     */
+    public function show($id)
+    {
+        return $this->showOne(Coupon::where('code',$id)->first());
     }
 }

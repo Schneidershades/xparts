@@ -88,7 +88,7 @@ class CouponController extends Controller
     *      tags={"Admin"},
     *      summary="Show coupons",
     *      description="Show coupons",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="coupons ID",
@@ -98,7 +98,7 @@ class CouponController extends Controller
      *              type="integer"
      *          )
      *      ),
-     *      
+     *
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -133,7 +133,7 @@ class CouponController extends Controller
     *      tags={"Admin"},
     *      summary="Update coupons",
     *      description="Update coupons",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="coupons ID",
@@ -169,7 +169,7 @@ class CouponController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    
+
     public function update(UpdateAdminCouponFormRequest $request, Coupon $coupon)
     {
         ($coupon->update($request->validated()));
@@ -183,7 +183,7 @@ class CouponController extends Controller
     *      tags={"Admin"},
     *      summary="Delete coupons",
     *      description="Delete coupons",
-    *      
+    *
     *      @OA\Parameter(
      *          name="id",
      *          description="coupons ID",

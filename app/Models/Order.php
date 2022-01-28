@@ -90,6 +90,11 @@ class Order extends Model
         return $this->hasMany(OrderItem::class,  'receipt_number', 'payment_reference');
     }
 
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

@@ -122,7 +122,7 @@ class OrderController extends Controller
         }
 
         $paymentCharge = PaymentCharge::where('payment_method_id', $request['payment_method_id'])->where('gateway', $request['payment_gateway'])->first();
-        
+
         $address =  Address::where('id', $request['address_id'])->first();
 
         $deliverySetting = DeliveryRate::where('type', 'flat')->first(); //$this->deliveryRateRepository->deliveryRateSettings($address);
@@ -143,6 +143,7 @@ class OrderController extends Controller
             'title' => 'Bid Transaction Payment',
             'details' => 'Bid Transaction Payment',
             'address_id' => $request['address_id'],
+            'coupon_id' => $request['coupon_id'] ?? null,
             'payment_method_id' => $request['payment_method_id'],
             'payment_charge_id' => $paymentCharge ? $paymentCharge->id : null,
             'delivery_setting_id' => $deliverySetting ? $deliverySetting->id : null,
@@ -361,7 +362,7 @@ class OrderController extends Controller
                 $orderItem = $this->findOrderItemsForQuotesSelected($order, $bid, $status);
             }
         }
-       
+
         foreach ($findQuotes as $quote) {
             $quote->status = $status;
             $quote->save();
@@ -372,7 +373,7 @@ class OrderController extends Controller
         $allRequestsSent = $findQuotes->pluck('xpart_request_id')->toArray();
 
         $userRequests = XpartRequest::whereIn('id', $allRequestsSent)->get();
-        
+
         foreach ($userRequests as $userRequest) {
             $userRequest->receipt_number = $order->receipt_number;
             $userRequest->order_id = $order->id;
@@ -527,5 +528,5 @@ class OrderController extends Controller
             'walletable_type' => 'orders',
         ]);
     }
-    
+
 }

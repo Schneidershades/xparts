@@ -16,9 +16,14 @@ class Coupon extends Model
 
 	public $oneItem = CouponResource::class;
 	public $allItems = CouponCollection::class;
-    
+
     public function couponTransactions()
     {
     	return $this->hasMany(CouponTransaction::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
