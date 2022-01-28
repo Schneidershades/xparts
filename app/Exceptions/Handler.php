@@ -2,12 +2,7 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -41,26 +36,6 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
-        });
-
-        $this->renderable(function (ValidationException $e) {
-            return response()->json(['message' =>$e->getMessage(),'code'=>422], 422);
-        });
-
-        $this->renderable(function (QueryException $e) {
-            return response()->json(['message' =>$e->getMessage(),'code'=>500], 500);
-        });
-
-        $this->renderable(function (MethodNotAllowedHttpException $e) {
-            return response()->json(['message' =>$e->getMessage(),'code'=>405], 405);
-        });
-
-        $this->renderable(function (AuthenticationException $e) {
-            return response()->json(['message' => 'unauthenticated','code'=>401], 401);
-        });
-
-        $this->renderable(function (RouteNotFoundException $e) {
-            return response()->json(['message' =>$e->getMessage(),'code'=>404], 404);
         });
     }
 }
