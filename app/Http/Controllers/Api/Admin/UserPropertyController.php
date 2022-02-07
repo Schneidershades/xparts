@@ -17,7 +17,7 @@ class UserPropertyController extends Controller
     *      tags={"Admin"},
     *      summary="showUserOrder",
     *      description="showUserOrder",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="User ID",
@@ -27,7 +27,7 @@ class UserPropertyController extends Controller
      *              type="integer"
      *          )
      *      ),
-     *      
+     *
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -52,7 +52,7 @@ class UserPropertyController extends Controller
     */
     public function orders($user_id)
     {
-        return $this->showAll(Order::where('user_id', $user_id)->latest()->get());
+        return $this->showAll(Order::where('user_id', $user_id)->dateFilter(request()->get('date'))->latest()->get());
     }
 
      /**
@@ -62,7 +62,7 @@ class UserPropertyController extends Controller
     *      tags={"Admin"},
     *      summary="showUserWalletTransactions",
     *      description="showUserWalletTransactions",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="User ID",
@@ -72,7 +72,7 @@ class UserPropertyController extends Controller
      *              type="integer"
      *          )
      *      ),
-     *      
+     *
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -107,7 +107,7 @@ class UserPropertyController extends Controller
     *      tags={"Admin"},
     *      summary="showUserQuotes",
     *      description="showUserQuotes",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="User ID",
@@ -117,7 +117,7 @@ class UserPropertyController extends Controller
      *              type="integer"
      *          )
      *      ),
-     *      
+     *
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -152,7 +152,7 @@ class UserPropertyController extends Controller
     *      tags={"Admin"},
     *      summary="showUserXpartRequests",
     *      description="showUserXpartRequests",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="User ID",
@@ -162,7 +162,7 @@ class UserPropertyController extends Controller
      *              type="integer"
      *          )
      *      ),
-     *      
+     *
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",

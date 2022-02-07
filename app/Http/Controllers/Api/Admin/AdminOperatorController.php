@@ -47,7 +47,7 @@ class AdminOperatorController extends Controller
     public function index()
     {
         $roles = Role::whereNotIn('name', ['User', 'Vendor'])->pluck('name')->toArray();
-        return $this->showAll(User::role($roles)->get());
+        return $this->showAll(User::role($roles)->dateFilter(\request()->date)->get());
     }
 
     /**
@@ -101,7 +101,7 @@ class AdminOperatorController extends Controller
     *      tags={"Admin"},
     *      summary="Show user Operator",
     *      description="Show user Operator",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="User ID",
@@ -111,7 +111,7 @@ class AdminOperatorController extends Controller
      *              type="integer"
      *          )
      *      ),
-     *      
+     *
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -146,7 +146,7 @@ class AdminOperatorController extends Controller
     *      tags={"Admin"},
     *      summary="Update user Operator",
     *      description="Update user Operator",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="user Operator ID",
@@ -182,7 +182,7 @@ class AdminOperatorController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    
+
     public function update(UpdateAdminOperatorRequest $request, User $user)
     {
         ($user->update($request->validated()));
@@ -190,7 +190,7 @@ class AdminOperatorController extends Controller
         if($request['role']){
             $user->assignRole($request['role']);
         }
-        
+
         return $this->showOne($user);
     }
 
@@ -201,7 +201,7 @@ class AdminOperatorController extends Controller
     *      tags={"Admin"},
     *      summary="Delete user Operator",
     *      description="Delete user Operator",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="User ID",
@@ -246,7 +246,7 @@ class AdminOperatorController extends Controller
     *      tags={"Admin"},
     *      summary="Update user",
     *      description="Update user",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="user ID",
@@ -282,7 +282,7 @@ class AdminOperatorController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    
+
     public function changePassword(UpateChangePasswordRequest $request, $id)
     {
         $user = User::find($id);

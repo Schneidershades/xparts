@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\CouponTransaction;
+use App\Traits\Api\QueryFieldSearchScope;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\Coupon\CouponResource;
 use App\Http\Resources\Coupon\CouponCollection;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Coupon extends Model
 {
-    use HasFactory;
+    use HasFactory,QueryFieldSearchScope;
 
     public $guarded = [];
 

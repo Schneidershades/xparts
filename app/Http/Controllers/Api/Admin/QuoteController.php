@@ -45,7 +45,7 @@ class QuoteController extends Controller
 
     public function index()
     {
-        return $this->showAll(Quote::latest()->get());
+        return $this->showAll(Quote::dateFilter(request()->get('date'))->latest()->get());
     }
 
 
@@ -58,7 +58,7 @@ class QuoteController extends Controller
     *      tags={"Admin"},
     *      summary="Show quotes",
     *      description="Show quotes",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="quotes ID",
@@ -68,7 +68,7 @@ class QuoteController extends Controller
      *              type="integer"
      *          )
      *      ),
-     *      
+     *
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -103,7 +103,7 @@ class QuoteController extends Controller
     *      tags={"Admin"},
     *      summary="updateQuotes",
     *      description="updateQuotes",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="updateQuotes ID",
@@ -139,7 +139,7 @@ class QuoteController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    
+
     public function update(AdminQuoteUpdateFormRequest $request, $id)
     {
         $orderItem = null;
@@ -352,5 +352,5 @@ class QuoteController extends Controller
             'service_status' => 'paid',
         ]);
     }
-    
+
 }

@@ -11,7 +11,7 @@ class OrderRepository extends ApplicationRepository
     public function builder(): Builder
     {
         $search_query = request()->get('search') ? request()->get('search') : null;
-        
+
         return Order::query()
                     ->selectRaw('orders.*')
                     ->when($search_query, function (Builder $builder, $search_query) {
@@ -19,6 +19,6 @@ class OrderRepository extends ApplicationRepository
                         ->orWhere('orders.receipt_number', 'LIKE', "%{$search_query}%")
                         ->orWhere('orders.status', 'LIKE', "%{$search_query}%")
                         ->orWhere('orders.title', 'LIKE', "%{$search_query}%");
-                    })->latest();
+                    })->dateFilter(request()->get('date'))->latest();
     }
 }

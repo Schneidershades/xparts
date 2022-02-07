@@ -44,7 +44,7 @@ class VendorController extends Controller
         $search_query = request()->get('search') ? request()->get('search') : null;
 
         if(!$search_query){
-            return $this->showAll(User::where('role', 'vendor')->latest()->get());
+            return $this->showAll(User::where('role', 'vendor')->dateFilter(request()->get('date'))->latest()->get());
         }
 
         $item = User::query()
@@ -55,7 +55,7 @@ class VendorController extends Controller
                     ->orWhere('users.name', 'LIKE', "%{$search_query}%")
                     ->orWhere('users.phone', 'LIKE', "%{$search_query}%")
                     ->orWhere('users.email', 'LIKE', "%{$search_query}%");
-                })->latest()->get();
+                })->dateFilter(request()->get('date'))->latest()->get();
 
         return $this->showAll($item);
     }
@@ -105,7 +105,7 @@ class VendorController extends Controller
     *      tags={"Admin"},
     *      summary="Show vendor",
     *      description="Show vendor",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="Vendor ID",
@@ -115,7 +115,7 @@ class VendorController extends Controller
      *              type="integer"
      *          )
      *      ),
-     *      
+     *
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -150,7 +150,7 @@ class VendorController extends Controller
     *      tags={"Admin"},
     *      summary="Update Vendor",
     *      description="Update Vendor",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="Vendor ID",
@@ -186,7 +186,7 @@ class VendorController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    
+
     public function update(UserUpdateFormRequest $request, User $user)
     {
         ($user->update($request->validated()));
@@ -200,7 +200,7 @@ class VendorController extends Controller
     *      tags={"Admin"},
     *      summary="Delete Vendor",
     *      description="Delete Vendor",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="Vendor ID",

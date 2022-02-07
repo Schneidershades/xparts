@@ -105,7 +105,7 @@ class PartController extends Controller
     *      tags={"Admin"},
     *      summary="showPart",
     *      description="showPart",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="showPart ID",
@@ -115,7 +115,7 @@ class PartController extends Controller
      *              type="integer"
      *          )
      *      ),
-     *      
+     *
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -150,7 +150,7 @@ class PartController extends Controller
     *      tags={"Admin"},
     *      summary="updatePart",
     *      description="updatePart",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="updatePart ID",
@@ -186,7 +186,7 @@ class PartController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    
+
     public function update(PartUpdateFormRequest $request, Part $part)
     {
         Part::find($part)->update($request->validated());
@@ -200,7 +200,7 @@ class PartController extends Controller
     *      tags={"Admin"},
     *      summary="deletePart",
     *      description="deletePart",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="deletePart ID",

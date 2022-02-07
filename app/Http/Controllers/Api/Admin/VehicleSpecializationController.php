@@ -38,7 +38,7 @@ class VehicleSpecializationController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    
+
     public function index()
     {
         return $this->showAll(VehicleSpecialization::all());
@@ -89,7 +89,7 @@ class VehicleSpecializationController extends Controller
     *      tags={"Admin"},
     *      summary="showVehicleSpecialization",
     *      description="showVehicleSpecialization",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="showVehicleSpecialization ID",
@@ -99,7 +99,7 @@ class VehicleSpecializationController extends Controller
      *              type="integer"
      *          )
      *      ),
-     *      
+     *
     *      @OA\Response(
     *          response=200,
     *          description="Successful signin",
@@ -134,7 +134,7 @@ class VehicleSpecializationController extends Controller
     *      tags={"Admin"},
     *      summary="updateVehicleSpecialization",
     *      description="updateVehicleSpecialization",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="updateVehicleSpecialization ID",
@@ -170,7 +170,7 @@ class VehicleSpecializationController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    
+
     public function update(VehicleSpecializationUpdateFormRequest $request, VehicleSpecialization $vehicleSpecialization)
     {
         return $this->showOne(VehicleSpecialization::find($vehicleSpecialization)->update($request->validated()));
@@ -183,7 +183,7 @@ class VehicleSpecializationController extends Controller
     *      tags={"Admin"},
     *      summary="deleteVehicleSpecialization",
     *      description="deleteVehicleSpecialization",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="deleteVehicleSpecialization ID",

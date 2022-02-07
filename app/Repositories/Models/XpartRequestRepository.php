@@ -27,7 +27,7 @@ class XpartRequestRepository extends ApplicationRepository
                         ->orWhere('parts.name', 'LIKE', "%{$search_query}%")
                         ->orWhere('xpart_requests.id', 'LIKE', "%{$search_query}%")
                         ->orWhere('xpart_requests.status', 'LIKE', "%{$search_query}%");
-                    })->latest();
+                    })->dateFilter(request()->get('date'))->latest();
     }
 
     public function findWallet($userId)
