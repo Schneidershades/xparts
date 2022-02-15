@@ -57,6 +57,7 @@ class PartController extends Controller
     */
     public function index()
     {
+//        return "hello";
         return $this->showAll($this->partRepo->all());
     }
 

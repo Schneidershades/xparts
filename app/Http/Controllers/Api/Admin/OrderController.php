@@ -18,7 +18,7 @@ class OrderController extends Controller
 
      /**
     * @OA\Get(
-    *      path="/api/v1/admin/orders",
+    *      path="/api/v1/admin/orders?date[1]=2022-03-12&date[0]=2022-01-23",
     *      operationId="allOrders",
     *      tags={"Admin"},
     *      summary="allOrders",
@@ -58,7 +58,7 @@ class OrderController extends Controller
     *      tags={"Admin"},
     *      summary="showOrders",
     *      description="showOrders",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="Order Receipt number",

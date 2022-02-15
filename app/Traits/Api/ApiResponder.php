@@ -31,7 +31,7 @@ trait ApiResponder
         $collection = $this->sortData($collection, $transformer);
 
         if(request()->per_page > 0){
-            $collection = $this->paginate($collection);                     
+            $collection = $this->paginate($collection);
         }
 
         $collection = $this->transformData($collection, $transformer);

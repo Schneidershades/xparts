@@ -21,6 +21,6 @@ class PartRepository extends ApplicationRepository
                 ->when($search_query, function (Builder $builder, $search_query) {
                     $builder->where('parts.name', 'LIKE', "%{$search_query}%")
                     ->orWhere('parts.slug', 'LIKE', "%{$search_query}%");
-                })->latest();
+                })->dateFilter(request()->get('date'))->latest();
     }
 }
