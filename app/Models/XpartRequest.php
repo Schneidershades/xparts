@@ -28,11 +28,11 @@ class XpartRequest extends Model
         'part_id',
         'status',
     ];
-    
+
     public $oneItem = XpartRequestResource::class;
     public $allItems = XpartRequestCollection::class;
-    
-    public $searchables = ['status'];
+
+    public $searchables = [];
 
     public function user()
     {
@@ -88,6 +88,6 @@ class XpartRequest extends Model
     {
         return $this->belongsTo(Order::class);
     }
-    
+
 
 }
