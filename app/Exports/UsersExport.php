@@ -28,7 +28,7 @@ class UsersExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
             $user->role,
             $user->xpartRequests->count() > 0 ? $user->xpartRequests->count() : 0,
             $user->quotes->count() > 0 ? $user->quotes->count() : 0,
-            $user->wallet->balance,
+            $user->wallet->balance ?? '',
         ];
     }
 
