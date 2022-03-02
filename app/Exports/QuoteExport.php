@@ -23,28 +23,28 @@ class QuoteExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
     public function map($user) : array
     {
         return [
-            // $user->id,
-            // $user->name,
-            // $user->email,
-            // $user->phone,
-            // $user->role,
-            // $user->xpartRequests->count() > 0 ? $user->xpartRequests->count() : 0,
-            // $user->quotes->count() > 0 ? $user->quotes->count() : 0,
-            // $user->wallet->balance,
+             $user->id,
+             $user->name,
+             $user->email,
+             $user->phone,
+             $user->role,
+             $user->xpartRequests->count() > 0 ? $user->xpartRequests->count() : 0,
+             $user->quotes->count() > 0 ? $user->quotes->count() : 0,
+             $user->wallet->balance,
         ];
     }
 
     public function headings(): array
     {
         return [
-            // '#',
-            // 'Name',
-            // 'Email',
-            // 'Phone',
-            // 'Role',
-            // 'Xpart Requests',
-            // 'Quotes',
-            // 'Balance (N)',
+             '#',
+             'Name',
+             'Email',
+             'Phone',
+             'Role',
+             'Xpart Requests',
+             'Quotes',
+             'Balance (N)',
         ];
     }
 }

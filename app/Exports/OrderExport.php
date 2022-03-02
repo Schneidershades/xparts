@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Order;
+use App\Repositories\Models\OrderRepository;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -17,34 +18,35 @@ class OrderExport implements FromCollection, ShouldAutoSize, WithMapping, WithHe
     */
     public function collection()
     {
-        return Order::all();
+//        return Order::all();
+        return (new OrderRepository())->all();
     }
 
-    public function map($user) : array
+    public function map($order) : array
     {
         return [
-            // $user->id,
-            // $user->name,
-            // $user->email,
-            // $user->phone,
-            // $user->role,
-            // $user->xpartRequests->count() > 0 ? $user->xpartRequests->count() : 0,
-            // $user->quotes->count() > 0 ? $user->quotes->count() : 0,
-            // $user->wallet->balance,
+             $order->id,
+             $order->name,
+             $order->email,
+             $order->phone,
+             $order->role,
+             $order->xpartRequests->count() > 0 ? $order->xpartRequests->count() : 0,
+             $order->quotes->count() > 0 ? $order->quotes->count() : 0,
+             $order->wallet->balance,
         ];
     }
 
     public function headings(): array
     {
         return [
-            // '#',
-            // 'Name',
-            // 'Email',
-            // 'Phone',
-            // 'Role',
-            // 'Xpart Requests',
-            // 'Quotes',
-            // 'Balance (N)',
+             '#',
+             'Name',
+             'Email',
+             'Phone',
+             'Role',
+             'Xpart Requests',
+             'Quotes',
+             'Balance (N)',
         ];
     }
 }

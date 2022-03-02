@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\XpartRequest;
+use App\Repositories\Models\XpartRequestRepository;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -17,34 +18,35 @@ class XpartRequestExport implements FromCollection, ShouldAutoSize, WithMapping,
     */
     public function collection()
     {
-        return XpartRequest::all();
+//        return XpartRequest::all();
+        return (new XpartRequestRepository())->all();
     }
 
-    public function map($user) : array
+    public function map($xpartRequest) : array
     {
         return [
-            // $user->id,
-            // $user->name,
-            // $user->email,
-            // $user->phone,
-            // $user->role,
-            // $user->xpartRequests->count() > 0 ? $user->xpartRequests->count() : 0,
-            // $user->quotes->count() > 0 ? $user->quotes->count() : 0,
-            // $user->wallet->balance,
+             $xpartRequest->id,
+             $xpartRequest->user->name,
+             $xpartRequest->user->email,
+             $xpartRequest->user->phone,
+             $xpartRequest->vin->vin_number,
+             $xpartRequest->status,
+             $xpartRequest->receipt_number,
+             $xpartRequest->user_description,
         ];
     }
 
     public function headings(): array
     {
         return [
-            // '#',
-            // 'Name',
-            // 'Email',
-            // 'Phone',
-            // 'Role',
-            // 'Xpart Requests',
-            // 'Quotes',
-            // 'Balance (N)',
+             '#',
+             'Name',
+             'Email',
+             'Phone',
+             'Vin',
+             'Status',
+             'Receipt number',
+             'User description',
         ];
     }
 }
