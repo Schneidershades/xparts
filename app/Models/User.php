@@ -28,7 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     use HasFactory, Notifiable, HasRoles, QueryFieldSearchScope;
 
     protected $guard_name = 'api';
-    
+
     public $searchables = ['name', 'email'];
 
     public $oneItem = UserResource::class;

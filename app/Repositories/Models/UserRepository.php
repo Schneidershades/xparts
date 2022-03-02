@@ -13,7 +13,7 @@ class UserRepository extends ApplicationRepository
         $search_query = request()->get('search') ? request()->get('search') : null;
 
         $sort = request()->get('sort_by') ? request()->get('sort_by') : null;
-        
+
         return User::query()
                 ->selectRaw('users.*')
                 ->selectRaw('wallets.balance AS balance')
@@ -28,6 +28,6 @@ class UserRepository extends ApplicationRepository
                     ->orWhere('users.phone', 'LIKE', "%{$search_query}%")
                     ->orWhere('users.role', "%{$search_query}%")
                     ->orWhere('users.email', 'LIKE', "%{$search_query}%");
-                })->latest();
+                })->dateFilter(request()->get('date'))->latest();
     }
 }

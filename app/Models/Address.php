@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Address extends Model
 {
     use HasFactory;
-    
+
     public $oneItem = AddressResource::class;
     public $allItems = AddressCollection::class;
 

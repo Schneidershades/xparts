@@ -51,9 +51,9 @@ class WithdrawalController extends Controller
         $search_query = request()->get('search') ? request()->get('search') : null;
 
         if(!$search_query){
-            return $this->showAll(WalletTransaction::where('transaction_type', 'debit')->latest()->get());
+            return $this->showAll(WalletTransaction::where('transaction_type', 'debit')->dateFilter(request()->get('date'))->latest()->get());
         }
-        
+
         $item = WalletTransaction::query()
             ->selectRaw('wallet_transactions.*')
             ->where('wallet_transactions.transaction_type', 'debit')
@@ -66,7 +66,7 @@ class WithdrawalController extends Controller
                 ->orWhere('wallet_transactions.id', 'LIKE', "%{$search_query}%")
                 ->orWhere('wallet_transactions.title', 'LIKE', "%{$search_query}%")
                 ->orWhere('wallet_transactions.balance', 'LIKE', "%{$search_query}%");
-            })->latest()->get();
+            })->dateFilter(request()->get('date'))->latest()->get();
         return $this->showAll($item);
     }
 
@@ -79,7 +79,7 @@ class WithdrawalController extends Controller
     *      tags={"Admin"},
     *      summary="showWithdrawals",
     *      description="showWithdrawals",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="showWithdrawals Receipt number",
@@ -124,7 +124,7 @@ class WithdrawalController extends Controller
     *      tags={"Admin"},
     *      summary="updateWithdrawals",
     *      description="updateWithdrawals",
-    *      
+    *
      *      @OA\Parameter(
      *          name="id",
      *          description="updateWithdrawals Receipt Number ID",
@@ -160,7 +160,7 @@ class WithdrawalController extends Controller
     *      security={ {"bearerAuth": {}} },
     * )
     */
-    
+
     public function update(AdminWithdrawalsUpdateFormRequest $request, $id)
     {
         $order = Order::where('receipt_number', $id)->first();
@@ -171,23 +171,23 @@ class WithdrawalController extends Controller
 
         if($request['status'] == 'declined' || $request['status'] == 'refunded'){
 
-            $order->status = $request['status']; 
-            $order->payment_status = $request['status']; 
-            $order->service_status = $request['status']; 
+            $order->status = $request['status'];
+            $order->payment_status = $request['status'];
+            $order->service_status = $request['status'];
             $order->save();
-            
+
             $wallet = $this->creditUserWallet($order,  $order->user_id);
 
             $this->walletTransaction(
-                $order, 
-                $wallet, 
-                'credit', 
-                'orders', 
+                $order,
+                $wallet,
+                'credit',
+                'orders',
                 'transaction reversal from withdrawal action',
                 'refunded'
             );
 
-            return $this->showMessage('Transaction has been declined and reversed');  
+            return $this->showMessage('Transaction has been declined and reversed');
         }
 
         $user = User::where('id', $order->user_id)->first();
@@ -237,42 +237,42 @@ class WithdrawalController extends Controller
     }
 
     public function intiateMoneyToBankAccount($user, $order)
-    {        
+    {
         $bankDetail = BankDetail::where('user_id', $user->id)->first();
         $paystack = new Paystack;
 
         if($bankDetail == null){
-            return $this->errorResponse('Bank account details not found. Please contact customer', 409);            
+            return $this->errorResponse('Bank account details not found. Please contact customer', 409);
         }
 
         $responseDetails = $paystack->createTransferReceipient($bankDetail);
 
         if($responseDetails['status'] == false){
-            $order->payment_status = "failed"; 
-            $order->payment_gateway_remarks = $responseDetails['message']; 
+            $order->payment_status = "failed";
+            $order->payment_gateway_remarks = $responseDetails['message'];
             $order->save();
 
-            return $this->errorResponse($responseDetails['message'], 409);  
+            return $this->errorResponse($responseDetails['message'], 409);
         }
 
         $createdResponse = $paystack->initiateTransfer($bankDetail, $order->total, $responseDetails['paystack_recipient_code']);
 
         if($createdResponse['status'] == false){
-            $order->payment_status = "failed"; 
-            $order->payment_gateway_remarks = $createdResponse['message']; 
+            $order->payment_status = "failed";
+            $order->payment_gateway_remarks = $createdResponse['message'];
             $order->save();
 
-            return $this->errorResponse($createdResponse['message'], 409);  
+            return $this->errorResponse($createdResponse['message'], 409);
         }
 
-        $order->payment_gateway_remarks = $createdResponse['message']; 
-        $order->payment_recipient_code = $createdResponse['payment_recipient_code']; 
-        $order->payment_transfer_code = $createdResponse['payment_transfer_code']; 
-        $order->payment_transfer_status = $createdResponse['payment_transfer_status']; 
+        $order->payment_gateway_remarks = $createdResponse['message'];
+        $order->payment_recipient_code = $createdResponse['payment_recipient_code'];
+        $order->payment_transfer_code = $createdResponse['payment_transfer_code'];
+        $order->payment_transfer_status = $createdResponse['payment_transfer_status'];
         $order->payment_gateway = "paystack";
         $order->save();
 
-        return $this->showOne($order);  
+        return $this->showOne($order);
     }
 
 
@@ -321,14 +321,14 @@ class WithdrawalController extends Controller
         $verificationResponse = $paystack->finalizeTransfer($order, $request['otp']);
 
         if($verificationResponse['status'] == false){
-            $order->payment_gateway_remarks = $verificationResponse['message']; 
+            $order->payment_gateway_remarks = $verificationResponse['message'];
             $order->save();
 
             return $this->errorResponse($order->payment_gateway_remarks, 409);
         }
 
-        $order->payment_gateway_remarks = $verificationResponse['message']; 
-        $order->payment_reference = $verificationResponse['payment_reference']; 
+        $order->payment_gateway_remarks = $verificationResponse['message'];
+        $order->payment_reference = $verificationResponse['payment_reference'];
         $order->save();
 
         $data = [
@@ -349,7 +349,7 @@ class WithdrawalController extends Controller
         $order->update($data);
 
         return $this->showMessage($order);
-        
+
     }
 
 
@@ -360,7 +360,7 @@ class WithdrawalController extends Controller
     *      tags={"Admin"},
     *      summary="verifyWithdrawals",
     *      description="verifyWithdrawals",
-    *      
+    *
      *      @OA\Parameter(
      *          name="receipt_number",
      *          description="verifyWithdrawals Receipt Number ID",
@@ -405,16 +405,16 @@ class WithdrawalController extends Controller
         return $verificationResponse = $paystack->verifyTransfer($order->payment_reference);
 
         if($verificationResponse['status'] == false){
-            $order->payment_gateway_remarks = $verificationResponse['message']; 
+            $order->payment_gateway_remarks = $verificationResponse['message'];
             $order->save();
 
             return $this->errorResponse($order->payment_gateway_remarks, 409);
         }
 
-        $order->payment_gateway_remarks = $verificationResponse['message']; 
+        $order->payment_gateway_remarks = $verificationResponse['message'];
         $order->save();
 
         return $this->showMessage($order->payment_gateway_remarks);
-        
+
     }
 }
