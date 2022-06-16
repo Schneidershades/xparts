@@ -12,7 +12,7 @@ class FirebaseNotification
 {
     public function sendPushNotification($notification, $notificationKey, $user, $title, $body)
     {
-        $token = "AAAAPRMsxW8:APA91bEy2IxbBmgsXdPIw_tnf95bOtN8XI4rMU_SOUjbP1EGo2pCNvJ3LE5Yo8rgR5-7kUvnnf7lA3rxSNjvq56PPYuySZA7-oulbynmx7lERVbDOpvZOWcffW-J0P_blNcuEWNAT345";  
+        // $token = "";  
         
         $data = [
             "registration_ids" => $user->fcmPushSubscriptions->pluck('fcm_token')->toArray(),

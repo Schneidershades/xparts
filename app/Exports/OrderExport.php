@@ -13,12 +13,9 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 class OrderExport implements FromCollection, ShouldAutoSize, WithMapping, WithHeadings
 {
     use Exportable;
-    /**
-    * @return \Illuminate\Support\Collection
-    */
+    
     public function collection()
     {
-//        return Order::all();
         return (new OrderRepository())->all();
     }
 

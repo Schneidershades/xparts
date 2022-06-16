@@ -9,11 +9,29 @@ class ModelImportExportController extends Controller
 {
      /**
     * @OA\Get(
-    *      path="/api/v1/export/excel/model?model={model}&export={export_model}",
+    *      path="/api/v1/export/excel/model?model={model}&id={model_id}&type={user_type}&export={export_model}",
     *      operationId="searchParts",
     *      tags={"Shared"},
     *      summary="searchParts",
     *      description="searchParts",
+    *      @OA\Parameter(
+    *          name="model",
+    *          description="The defined model",
+    *          required=false,
+    *          in="path",
+    *          @OA\Schema(
+    *              type="string"
+    *          )
+    *      ),
+    *      @OA\Parameter(
+    *          name="model_id",
+    *          description="The defined model id",
+    *          required=false,
+    *          in="path",
+    *          @OA\Schema(
+    *              type="integer"
+    *          )
+    *      ),
     *      @OA\Parameter(
     *          name="model",
     *          description="The defined model",

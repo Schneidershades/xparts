@@ -49,20 +49,20 @@ class UserController extends Controller
     {
         $user = User::create($request->validated());
 
-        $user->assignRole($request['role']);
+        // $user->assignRole($request['role']);
 
-        $user->sendEmailVerificationNotification();
+        // $user->sendEmailVerificationNotification();
 
-        if($request['platform'] == 'mobile'){
-            $myTTL = 9960;
-            JWTAuth::factory()->setTTL($myTTL);
-        }
+        // if($request['platform'] == 'mobile'){
+        //     $myTTL = 9960;
+        //     JWTAuth::factory()->setTTL($myTTL);
+        // }
 
-        if(!$token = auth()->attempt($request->only(['email', 'password']))){
-            return $this->errorResponse('unauthenticated', 401);
-        }
+        // if(!$token = auth()->attempt($request->only(['email', 'password']))){
+        //     return $this->errorResponse('unauthenticated', 401);
+        // }
 
-        return $this->respondWithToken($token);
+        // return $this->respondWithToken($token);
     }
 
      /**

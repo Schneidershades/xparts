@@ -926,7 +926,7 @@
                 ]
             }
         },
-        "/api/v1/admin/orders": {
+        "/api/v1/admin/orders?date[1]=2022-03-12&date[0]=2022-01-23": {
             "get": {
                 "tags": [
                     "Admin"
@@ -4537,7 +4537,7 @@
                 ]
             }
         },
-        "/api/v1/export/excel/model?model={model}&export={export_model}": {
+        "/api/v1/export/excel/model?model={model}&id={model_id}&type={user_type}&export={export_model}": {
             "get": {
                 "tags": [
                     "Shared"
@@ -4546,6 +4546,24 @@
                 "description": "searchParts",
                 "operationId": "searchParts",
                 "parameters": [
+                    {
+                        "name": "model",
+                        "in": "path",
+                        "description": "The defined model",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "model_id",
+                        "in": "path",
+                        "description": "The defined model id",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
                     {
                         "name": "model",
                         "in": "path",
@@ -4607,6 +4625,49 @@
                         }
                     }
                 },
+                "responses": {
+                    "200": {
+                        "description": "Successful signin",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/coupons/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Show coupons",
+                "description": "Show coupons",
+                "operationId": "showCoupons",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "coupons ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful signin",
@@ -7154,8 +7215,8 @@
                 "type": "object"
             },
             "UpateChangePasswordRequest": {
-                "title": "Sign Up Form Request Fields",
-                "description": "sign up request body data",
+                "title": "Change password Up Form Request Fields",
+                "description": "Change password request body data",
                 "required": [
                     "name"
                 ],
@@ -8086,8 +8147,5 @@
             "name": "Xpart Application",
             "description": "API Endpoints of Projects"
         }
-    ],
-    "security": [
-        []
     ]
 }
